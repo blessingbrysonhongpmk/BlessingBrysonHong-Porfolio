@@ -1,7 +1,7 @@
 import { Suspense, Component, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useDeviceCapability } from '../../hooks/useDeviceCapability';
-import { IntelligenceCore } from './IntelligenceCore';
+import { UnfinishedSystem } from './UnfinishedSystem';
 import './Scene.css';
 
 /**
@@ -62,7 +62,7 @@ export function Scene() {
         >
           <WebGLContextHandler />
           <Suspense fallback={null}>
-            <IntelligenceCore tier={tier} isMobile={isMobile} />
+            <UnfinishedSystem tier={tier} isMobile={isMobile} />
           </Suspense>
         </Canvas>
       </ThreeErrorBoundary>

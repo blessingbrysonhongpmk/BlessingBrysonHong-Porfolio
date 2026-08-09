@@ -1,15 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
-import { GithubIcon } from '../ui/SocialIcons';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import './Hero.css';
 
 export function Hero() {
-  const { profile, github } = PORTFOLIO_DATA;
   const [isRevealed, setIsRevealed] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    // Non-blocking 800-1200ms sequential reveal
     const timer = setTimeout(() => setIsRevealed(true), 150);
     return () => clearTimeout(timer);
   }, []);
@@ -21,44 +19,46 @@ export function Hero() {
 
   return (
     <section id="home" className="hero" ref={sectionRef} aria-label="Introduction">
-      {/* Background System Depth */}
+      {/* Background Technical Grid System */}
       <div className="hero__environment" aria-hidden="true">
         <div className="hero__grid" />
         <div className="hero__noise" />
       </div>
 
-      {/* Integrated Content */}
-      <div className="container hero__content">
+      {/* Asymmetric 40/60 Split Content Layout */}
+      <div className="container hero__container">
         <div className={`hero__interface ${isRevealed ? 'hero__interface--visible' : ''}`}>
           
-          {/* Identity System Mark */}
-          <div className="hero__brand-system">
-            <div className="hero__sys-label">
-              <span className="hero__sys-dot" />
-              AI ENGINEER
-            </div>
-            <div className="hero__brand-mark">
-              BB<span className="hero__brand-accent">H</span>
-            </div>
+          {/* Technical System Index */}
+          <div className="hero__sys-index">
+            <span className="sys-dot" />
+            <span className="sys-label">BBH / 01</span>
           </div>
 
-          {/* Core Typography */}
+          {/* Editorial Headline Name */}
           <h1 className="hero__name">
             Blessing Bryson Hong
           </h1>
 
-          <p className="hero__role">
-            AI & DATA SCIENCE · <span className="text-accent">BUILDING TOWARDS AI ENGINEERING</span>
-          </p>
-
-          <div className="hero__statement-box">
-            <p className="hero__statement">
-              I explore how machines learn and turn ideas into meaningful real-world projects.<br />
-              Not there yet — but every build takes me closer.
-            </p>
+          {/* Role & Descriptor */}
+          <div className="hero__role-badge">
+            <span className="role-main">AI & DATA SCIENCE</span>
+            <span className="role-sep">·</span>
+            <span className="role-sub">ENGINEERING STUDENT</span>
           </div>
 
-          {/* Interactions */}
+          {/* Personal Controlled Statement */}
+          <p className="hero__statement">
+            "I learn by building — moving from data and software into intelligent systems."
+          </p>
+
+          {/* Technical Direction Tag */}
+          <div className="hero__direction-tag">
+            <span className="direction-label">DIRECTION:</span>
+            <span className="direction-value">BUILDING TOWARDS AI ENGINEERING</span>
+          </div>
+
+          {/* Precision CTA Controls */}
           <div className="hero__actions">
             <a
               href="#work"
@@ -68,9 +68,11 @@ export function Hero() {
                 document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              View Work
-              <ArrowRight size={16} />
+              <span>VIEW WORK</span>
+              <ArrowRight size={14} className="cta-icon" />
+              <div className="cta-sweep" />
             </a>
+
             <a
               href="#contact"
               className="hero__cta hero__cta--outline"
@@ -79,22 +81,26 @@ export function Hero() {
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Get in Touch
+              <span>GET IN TOUCH</span>
             </a>
           </div>
+
+          {/* Technical Status Indicator */}
+          <div className="hero__status-line">
+            <span className="status-indicator">CURRENTLY / BUILDING</span>
+            <span className="status-year">2026</span>
+          </div>
+
         </div>
       </div>
 
-      {/* Subtle Scroll Indicator */}
+      {/* Subtle Scroll Hint */}
       <button
         className={`hero__scroll-hint ${isRevealed ? 'hero__scroll-hint--visible' : ''}`}
         onClick={handleScrollDown}
-        aria-label="Scroll to about section"
+        aria-label="Scroll to About section"
       >
-        <div className="hero__mouse-icon">
-          <div className="hero__mouse-wheel" />
-        </div>
-        <span className="hero__scroll-text">SCROLL TO EXPLORE</span>
+        <ChevronDown size={18} />
       </button>
     </section>
   );
