@@ -44,11 +44,11 @@ export function Hero() {
 
           {/* Core Typography */}
           <h1 className="hero__name">
-            {profile.name}
+            Blessing Bryson Hong
           </h1>
 
           <p className="hero__role">
-            Engineering student building intelligent solutions for a <span className="text-accent">better tomorrow.</span>
+            AI & DATA SCIENCE · <span className="text-accent">BUILDING TOWARDS AI ENGINEERING</span>
           </p>
 
           <div className="hero__statement-box">
@@ -68,17 +68,18 @@ export function Hero() {
                 document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Explore My Work
+              View Work
               <ArrowRight size={16} />
             </a>
             <a
-              href={github.profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="hero__cta hero__cta--outline"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
-              View on GitHub
-              <GithubIcon size={16} />
+              Get in Touch
             </a>
           </div>
         </div>
