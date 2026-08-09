@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { PORTFOLIO_DATA } from '../../data/portfolio';
-import { Scene } from '../3d/Scene';
 import { GithubIcon } from '../ui/SocialIcons';
 import { ArrowRight } from 'lucide-react';
 import './Hero.css';
@@ -26,11 +25,6 @@ export function Hero() {
       <div className="hero__environment" aria-hidden="true">
         <div className="hero__grid" />
         <div className="hero__noise" />
-      </div>
-
-      {/* Background 3D Engine */}
-      <div className="hero__canvas" aria-hidden="true">
-        <Scene />
       </div>
 
       {/* Integrated Content */}

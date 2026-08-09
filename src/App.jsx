@@ -3,6 +3,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Loader } from './components/layout/Loader';
 import { Hero } from './components/sections/Hero';
+import { Scene } from './components/3d/Scene';
 import { CustomCursor } from './components/ui/CustomCursor';
 import './styles/global.css';
 import './App.css';
@@ -43,6 +44,9 @@ function App() {
       {!isLoaded && <Loader onComplete={() => setIsLoaded(true)} />}
 
       <div className={`app ${isLoaded ? 'app--loaded' : ''}`}>
+        {/* Global 3D Interactive Background Matrix */}
+        <Scene />
+
         <a href="#main-content" className="sr-only">Skip to main content</a>
         <Navbar />
 

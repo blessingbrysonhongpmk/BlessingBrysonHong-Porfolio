@@ -102,16 +102,46 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
       mouseRef.current.y += mouseRef.current.vy;
     }
 
-    // ── Scroll-Linked 3D Morph & Position Interpolation ──
-    const targetX = isMobile 
-      ? 0 
-      : THREE.MathUtils.lerp(1.4, -1.2, Math.sin(scrollProgress * Math.PI));
-    const targetY = THREE.MathUtils.lerp(0, -0.4, scrollProgress);
-    const targetZ = THREE.MathUtils.lerp(0, -1.5, scrollProgress);
+    // ── Multi-Waypoint Scroll Morphing Across All Sections ──
+    let targetX = 1.4;
+    let targetY = 0;
+    let targetZ = 0;
 
-    groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05;
-    groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05;
-    groupRef.current.position.z += (targetZ - groupRef.current.position.z) * 0.05;
+    if (isMobile) {
+      targetX = 0;
+      targetY = -scrollProgress * 0.5;
+      targetZ = -1.2;
+    } else {
+      if (scrollProgress < 0.2) {
+        // Hero section → About
+        const t = scrollProgress / 0.2;
+        targetX = THREE.MathUtils.lerp(1.4, -1.6, t);
+        targetY = THREE.MathUtils.lerp(0, 0.4, t);
+        targetZ = THREE.MathUtils.lerp(0, -0.5, t);
+      } else if (scrollProgress < 0.45) {
+        // About → Work / Projects
+        const t = (scrollProgress - 0.2) / 0.25;
+        targetX = THREE.MathUtils.lerp(-1.6, 0, t);
+        targetY = THREE.MathUtils.lerp(0.4, 1.2, t);
+        targetZ = THREE.MathUtils.lerp(-0.5, -1.2, t);
+      } else if (scrollProgress < 0.7) {
+        // Work → Skills / Journey
+        const t = (scrollProgress - 0.45) / 0.25;
+        targetX = THREE.MathUtils.lerp(0, 1.5, t);
+        targetY = THREE.MathUtils.lerp(1.2, -0.2, t);
+        targetZ = THREE.MathUtils.lerp(-1.2, -0.6, t);
+      } else {
+        // Journey → Interests & Contact
+        const t = (scrollProgress - 0.7) / 0.3;
+        targetX = THREE.MathUtils.lerp(1.5, 0, t);
+        targetY = THREE.MathUtils.lerp(-0.2, -0.1, t);
+        targetZ = THREE.MathUtils.lerp(-0.6, 0, t);
+      }
+    }
+
+    groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.04;
+    groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.04;
+    groupRef.current.position.z += (targetZ - groupRef.current.position.z) * 0.04;
 
     // Main group rotation driven by time + scroll + mouse
     const rotSpeed = 0.08 + scrollProgress * 0.12;
