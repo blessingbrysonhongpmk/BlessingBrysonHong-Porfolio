@@ -55,7 +55,7 @@ export function About() {
   const { socials } = PORTFOLIO_DATA;
   
   // Specific name for the About section as requested
-  const aboutName = "Blessing Bryson Hong";
+  const aboutName = "P M K Blessing Bryson Hong";
 
   return (
     <section id="about" className="about-section" aria-label="About Me">

@@ -16,7 +16,7 @@ export function Footer() {
   const year = new Date().getFullYear();
   
   // Custom name for the footer as requested
-  const footerName = "Blessing Bryson Hong";
+  const footerName = "P M K Blessing Bryson Hong";
 
   return (
     <footer className="footer" role="contentinfo">

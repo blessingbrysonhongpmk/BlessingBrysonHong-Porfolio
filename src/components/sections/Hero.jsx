@@ -37,7 +37,7 @@ export function Hero() {
 
           {/* Editorial Headline Name */}
           <h1 className="hero__name">
-            Blessing Bryson Hong
+            P M K Blessing Bryson Hong
           </h1>
 
           {/* Role & Descriptor */}

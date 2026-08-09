@@ -7,7 +7,7 @@
 export const PORTFOLIO_DATA = {
   // ── Identity ──────────────────────────────────────
   profile: {
-    name: 'Blessing Bryson Hong P M K',
+    name: 'P M K Blessing Bryson Hong',
     brand: 'BBH',
     role: 'Engineering Student · Building towards AI',
     avatar: '/profile.jpeg',
