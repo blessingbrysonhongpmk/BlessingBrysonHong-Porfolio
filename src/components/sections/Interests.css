@@ -1,0 +1,364 @@
+/* ─────────────────────────────────────────────────────
+   Outside the Code — Cinematic Interest Dashboard
+   ───────────────────────────────────────────────────── */
+
+.interests-section {
+  position: relative;
+  padding: var(--space-section) 0;
+  background: var(--color-base);
+  overflow: hidden;
+}
+
+.interests-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header & Orbit Constellation Area ─────────── */
+.interests-header-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 180px;
+}
+
+@media (min-width: 992px) {
+  .interests-header-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.interests-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 54ch;
+  z-index: 2;
+}
+
+.interests-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-1);
+}
+
+.interests-main-title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.interests-subtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-top: var(--space-2);
+}
+
+/* ── Background SVG Orbit System ───────────────── */
+.interests-orbit-wrapper {
+  position: absolute;
+  top: -40px;
+  right: -20px;
+  width: 440px;
+  height: 240px;
+  pointer-events: none;
+  opacity: 0.7;
+  z-index: 1;
+  transition: opacity var(--transition-normal);
+}
+
+@media (max-width: 991px) {
+  .interests-orbit-wrapper {
+    display: none; /* Hide top orbit graphic on mobile to avoid overcrowding */
+  }
+}
+
+.interests-orbit-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.orbit-path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.orbit-path--outer {
+  stroke: rgba(220, 20, 60, 0.15);
+}
+
+.orbit-line {
+  stroke: rgba(255, 255, 255, 0.04);
+  stroke-width: 1;
+}
+
+.orbit-node {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.node-aura {
+  fill: rgba(220, 20, 60, 0.1);
+  transition: all 0.3s ease;
+}
+
+.node-base {
+  fill: var(--color-surface);
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+
+.node-icon-wrapper {
+  overflow: visible;
+}
+
+.node-icon-svg {
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
+}
+
+/* Node Active/Hover State */
+.orbit-node.is-active .node-aura {
+  fill: rgba(220, 20, 60, 0.4);
+  r: 22;
+  filter: drop-shadow(0 0 12px var(--color-primary));
+}
+
+.orbit-node.is-active .node-base {
+  fill: var(--color-base);
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+
+.orbit-node.is-active .node-icon-svg {
+  color: var(--color-primary);
+}
+
+/* ── Interest Cards Grid ───────────────────────── */
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .interests-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  /* Editorial 5 top / 4 bottom layout */
+  .interests-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+
+  /* Top Row (5 cards, 2 columns each) */
+  .interests-grid > *:nth-child(1),
+  .interests-grid > *:nth-child(2),
+  .interests-grid > *:nth-child(3),
+  .interests-grid > *:nth-child(4),
+  .interests-grid > *:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  /* Bottom Row (4 cards, 2.5 columns each) */
+  .interests-grid > *:nth-child(6),
+  .interests-grid > *:nth-child(7),
+  .interests-grid > *:nth-child(8),
+  .interests-grid > *:nth-child(9) {
+    grid-column: span 2;
+  }
+
+  /* Slight balance adjustment for 4 cards across 10 cols */
+  .interests-grid > *:nth-child(6) { grid-column: span 3; }
+  .interests-grid > *:nth-child(7) { grid-column: span 2; }
+  .interests-grid > *:nth-child(8) { grid-column: span 2; }
+  .interests-grid > *:nth-child(9) { grid-column: span 3; }
+}
+
+/* Individual Interest Card */
+.interest-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 210px;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+
+.interest-card:hover,
+.interest-card.is-hovered {
+  transform: translateY(-4px);
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-raised);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(220, 20, 60, 0.08);
+}
+
+/* Card Ambient Background */
+.card-ambient-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background: radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.interest-card:hover .card-ambient-bg {
+  opacity: 0.35;
+  background: radial-gradient(circle at 90% 10%, rgba(220, 20, 60, 0.25) 0%, transparent 70%);
+}
+
+/* Card Icon Ring */
+.card-icon-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-text-secondary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.interest-card:hover .card-icon-ring {
+  background: rgba(220, 20, 60, 0.1);
+  border-color: rgba(220, 20, 60, 0.4);
+  color: var(--color-primary);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(220, 20, 60, 0.3);
+}
+
+/* Card Body */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  z-index: 1;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.card-description {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.interest-card:hover .card-description {
+  color: var(--color-text-secondary);
+}
+
+/* Crimson Accent Bar */
+.card-accent-bar {
+  width: 24px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: var(--space-4);
+  transition: all 0.35s ease;
+}
+
+.interest-card:hover .card-accent-bar {
+  width: 48px;
+  background: var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary-glow);
+}
+
+/* ── Bottom Quote Card ─────────────────────────── */
+.interests-quote-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  .interests-quote-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-5);
+  }
+}
+
+.quote-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(220, 20, 60, 0.08);
+  flex-shrink: 0;
+}
+
+.quote-text {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.quote-author {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  .interest-card,
+  .card-icon-ring,
+  .card-accent-bar,
+  .orbit-node {
+    transition: none !important;
+    transform: none !important;
+  }
+}

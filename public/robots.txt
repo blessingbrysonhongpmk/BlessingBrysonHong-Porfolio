@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blessingbrysonhong.vercel.app/sitemap.xml

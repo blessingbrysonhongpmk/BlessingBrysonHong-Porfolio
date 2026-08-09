@@ -1,0 +1,78 @@
+/* ─────────────────────────────────────────────────────
+   Section — reusable content section with reveal
+   ───────────────────────────────────────────────────── */
+
+.section {
+  padding: var(--space-section) 0;
+  position: relative;
+}
+
+.section__full {
+  width: 100%;
+}
+
+/* ── Header ──────────────────────────────────────── */
+.section__header {
+  margin-bottom: var(--space-12);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out);
+}
+
+.section__header--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section__subtitle {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-3);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.03em;
+}
+
+.section__rule {
+  width: 48px;
+  height: 2px;
+  background: var(--color-border);
+  position: relative;
+  border-radius: var(--radius-full);
+}
+
+.section__rule::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+/* ── Body ────────────────────────────────────────── */
+.section__body {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out);
+  transition-delay: 150ms;
+}
+
+.section__body--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
