@@ -5,7 +5,7 @@ import { useScrollProgress } from '../../hooks/useScrollProgress';
 
 /**
  * "THE UNFINISHED SYSTEM" —
- * A bespoke 3D geometric structure representing intelligent engineering in progress:
+ * A bespoke, high-visibility 3D geometric structure occupying the right Hero area:
  * DATA → STRUCTURE → INTELLIGENCE
  */
 export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
@@ -22,22 +22,21 @@ export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
   const [signalActive, setSignalActive] = useState(false);
 
   // Particle constellation node count based on device tier
-  const nodeCount = tier === 'high' ? 350 : tier === 'medium' ? 180 : 80;
+  const nodeCount = tier === 'high' ? 400 : tier === 'medium' ? 220 : 100;
 
   // Generate node positions and color attributes
-  const { positions, colors, initialPositions } = useMemo(() => {
+  const { positions, colors } = useMemo(() => {
     const pos = new Float32Array(nodeCount * 3);
-    const initialPos = new Float32Array(nodeCount * 3);
     const col = new Float32Array(nodeCount * 3);
 
     const crimson = new THREE.Color('#DC143C');
-    const slate = new THREE.Color('#94A3B8');
-    const white = new THREE.Color('#F8FAFC');
+    const slate = new THREE.Color('#CBD5E1');
+    const white = new THREE.Color('#FFFFFF');
 
     for (let i = 0; i < nodeCount; i++) {
       const i3 = i * 3;
       const band = i % 3;
-      const radius = 1.3 + band * 0.5 + (Math.random() * 0.3 - 0.15);
+      const radius = 1.8 + band * 0.6 + (Math.random() * 0.4 - 0.2);
 
       const u = Math.random();
       const v = Math.random();
@@ -52,26 +51,22 @@ export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
       pos[i3 + 1] = y;
       pos[i3 + 2] = z;
 
-      initialPos[i3] = x;
-      initialPos[i3 + 1] = y;
-      initialPos[i3 + 2] = z;
-
       const color = band === 0 ? crimson : band === 1 ? slate : white;
-      color.multiplyScalar(band === 2 ? 0.6 : 0.85);
+      color.multiplyScalar(band === 2 ? 0.8 : 0.95);
 
       col[i3] = color.r;
       col[i3 + 1] = color.g;
       col[i3 + 2] = color.b;
     }
 
-    return { positions: pos, colors: col, initialPositions: initialPos };
+    return { positions: pos, colors: col };
   }, [nodeCount]);
 
   // Construct structural wireframe line segments
   const lineGeometry = useMemo(() => {
     const points = [];
-    const radius = 1.4;
-    const count = 16;
+    const radius = 2.0;
+    const count = 18;
 
     for (let i = 0; i < count; i++) {
       const theta1 = (i / count) * Math.PI * 2;
@@ -86,7 +81,7 @@ export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
       if (i % 3 === 0) {
         points.push(
           new THREE.Vector3(radius * Math.cos(theta1), radius * Math.sin(theta1), 0),
-          new THREE.Vector3(0, 0, (i % 2 === 0 ? 1 : -1) * 0.8)
+          new THREE.Vector3(0, 0, (i % 2 === 0 ? 1.2 : -1.2))
         );
       }
     }
@@ -110,54 +105,53 @@ export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
       const dx = mouseRef.current.targetX - mouseRef.current.x;
       const dy = mouseRef.current.targetY - mouseRef.current.y;
 
-      // Trigger transient crimson signal pulse on cursor movement
-      if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
+      if (Math.abs(dx) > 0.008 || Math.abs(dy) > 0.008) {
         setSignalActive(true);
       }
 
-      mouseRef.current.vx += dx * 0.06;
-      mouseRef.current.vy += dy * 0.06;
-      mouseRef.current.vx *= 0.84;
-      mouseRef.current.vy *= 0.84;
+      mouseRef.current.vx += dx * 0.05;
+      mouseRef.current.vy += dy * 0.05;
+      mouseRef.current.vx *= 0.85;
+      mouseRef.current.vy *= 0.85;
 
       mouseRef.current.x += mouseRef.current.vx;
       mouseRef.current.y += mouseRef.current.vy;
     }
 
-    // Position interpolation across sections (Hero to About)
-    const targetX = isMobile ? 0 : THREE.MathUtils.lerp(1.4, -1.6, scrollProgress * 2.5);
-    const targetY = THREE.MathUtils.lerp(0, 0.4, scrollProgress);
-    const targetZ = THREE.MathUtils.lerp(0, -1.2, scrollProgress);
+    // Position interpolation: Hero target position is x = 2.0 (right 50% screen visual)
+    const targetX = isMobile ? 0 : THREE.MathUtils.lerp(2.0, -1.8, scrollProgress * 2.2);
+    const targetY = THREE.MathUtils.lerp(0, 0.5, scrollProgress);
+    const targetZ = THREE.MathUtils.lerp(0, -1.5, scrollProgress);
 
     groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05;
     groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05;
     groupRef.current.position.z += (targetZ - groupRef.current.position.z) * 0.05;
 
     // Main structural rotations
-    groupRef.current.rotation.y = time * 0.07 + mouseRef.current.x * 0.25;
-    groupRef.current.rotation.x = Math.sin(time * 0.03) * 0.1 - mouseRef.current.y * 0.25;
+    groupRef.current.rotation.y = time * 0.09 + mouseRef.current.x * 0.3;
+    groupRef.current.rotation.x = Math.sin(time * 0.04) * 0.12 - mouseRef.current.y * 0.3;
 
-    // Inner unfinished frame rotation & deconstruction on scroll
+    // Inner unfinished frame rotation
     if (innerFrameRef.current) {
-      innerFrameRef.current.rotation.x = time * 0.15;
-      innerFrameRef.current.rotation.z = time * 0.12;
-      const scaleSep = 1 + scrollProgress * 0.4;
+      innerFrameRef.current.rotation.x = time * 0.18;
+      innerFrameRef.current.rotation.z = time * 0.14;
+      const scaleSep = 1 + scrollProgress * 0.5;
       innerFrameRef.current.scale.setScalar(scaleSep);
     }
 
     if (outerFrameRef.current) {
-      outerFrameRef.current.rotation.y = -time * 0.1;
-      outerFrameRef.current.rotation.x = time * 0.06;
+      outerFrameRef.current.rotation.y = -time * 0.12;
+      outerFrameRef.current.rotation.x = time * 0.08;
     }
 
     // Traveling Crimson Signal Logic
     if (signalRef.current && signalActive) {
-      signalProgressRef.current += delta * 1.5;
+      signalProgressRef.current += delta * 1.8;
       const t = signalProgressRef.current;
-      const r = 1.4;
+      const r = 2.0;
       signalRef.current.position.x = r * Math.cos(t * 2);
       signalRef.current.position.y = r * Math.sin(t * 2);
-      signalRef.current.position.z = Math.sin(t * 4) * 0.5;
+      signalRef.current.position.z = Math.sin(t * 4) * 0.6;
 
       if (t > Math.PI * 2) {
         signalProgressRef.current = 0;
@@ -167,64 +161,64 @@ export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
   });
 
   return (
-    <group ref={groupRef} position={isMobile ? [0, 0, -1] : [1.4, 0, 0]}>
-      {/* Precision Multi-point Lights */}
-      <ambientLight intensity={0.2} />
-      <directionalLight position={[4, 5, 3]} intensity={1.3} color="#ffffff" />
-      <pointLight position={[0, 0, 0]} intensity={2.6} color="#DC143C" distance={4} />
-      <pointLight position={[-3, -3, 2]} intensity={1.4} color="#3B82F6" distance={5} />
+    <group ref={groupRef} position={isMobile ? [0, 0, -1] : [2.0, 0, 0]}>
+      {/* High-Contrast Multi-point Lights */}
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 5, 4]} intensity={2.2} color="#ffffff" />
+      <pointLight position={[0, 0, 0]} intensity={4.5} color="#DC143C" distance={6} />
+      <pointLight position={[-3, -3, 2]} intensity={2.5} color="#3B82F6" distance={7} />
 
       {/* ── Midground: Central Unfinished Structural Geometry ── */}
       <group>
         {/* Core Nucleus Form */}
         <mesh>
-          <octahedronGeometry args={[0.3, 0]} />
+          <octahedronGeometry args={[0.45, 0]} />
           <meshStandardMaterial
             color="#DC143C"
             emissive="#DC143C"
-            emissiveIntensity={0.65}
+            emissiveIntensity={1.2}
             roughness={0.1}
             metalness={0.9}
           />
         </mesh>
 
-        {/* Inner Unfinished Wireframe Shell */}
+        {/* Inner Unfinished Wireframe Shell (Primary Crimson) */}
         <mesh ref={innerFrameRef}>
-          <icosahedronGeometry args={[0.6, 1]} />
+          <icosahedronGeometry args={[1.1, 1]} />
           <meshStandardMaterial
             color="#DC143C"
             wireframe
             transparent
-            opacity={0.45}
+            opacity={0.65}
             roughness={0.2}
           />
         </mesh>
 
-        {/* Outer Incomplete Structural Lattice */}
+        {/* Outer Incomplete Structural Lattice (Slate/White Secondary) */}
         <mesh ref={outerFrameRef}>
-          <dodecahedronGeometry args={[0.95, 0]} />
+          <dodecahedronGeometry args={[1.75, 0]} />
           <meshStandardMaterial
-            color="#94A3B8"
+            color="#CBD5E1"
             wireframe
             transparent
-            opacity={0.22}
+            opacity={0.35}
             roughness={0.4}
           />
         </mesh>
 
         {/* Intersecting Technical Line Segments */}
         <lineSegments geometry={lineGeometry}>
-          <lineBasicMaterial color="#DC143C" transparent opacity={0.3} />
+          <lineBasicMaterial color="#DC143C" transparent opacity={0.55} />
         </lineSegments>
       </group>
 
       {/* ── Foreground: Traveling Crimson Signal Node ── */}
-      <mesh ref={signalRef} position={[1.4, 0, 0]}>
-        <sphereGeometry args={[0.045, 16, 16]} />
+      <mesh ref={signalRef} position={[2.0, 0, 0]}>
+        <sphereGeometry args={[0.07, 16, 16]} />
         <meshBasicMaterial color="#DC143C" />
       </mesh>
 
-      {/* ── Background: Subtle Node Constellation ── */}
+      {/* ── Background: High-Visibility Node Constellation ── */}
       <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute
@@ -241,10 +235,10 @@ export function UnfinishedSystem({ tier = 'high', isMobile = false }) {
           />
         </bufferGeometry>
         <pointsMaterial
-          size={isMobile ? 0.042 : 0.035}
+          size={isMobile ? 0.05 : 0.045}
           vertexColors
           transparent
-          opacity={0.88}
+          opacity={0.7}
           sizeAttenuation
           depthWrite={false}
           blending={THREE.AdditiveBlending}
