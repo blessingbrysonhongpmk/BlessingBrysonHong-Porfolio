@@ -1,11 +1,11 @@
 /* ─────────────────────────────────────────────────────
-   About Section — Digital Dashboard Redesign
+   About Section — Refined Identity & Philosophy
    ───────────────────────────────────────────────────── */
 
 .about-section {
+  position: relative;
   padding: var(--space-section) 0;
   background: var(--color-base);
-  position: relative;
   overflow: hidden;
 }
 
@@ -18,19 +18,19 @@
 @media (min-width: 992px) {
   .about-dashboard {
     grid-template-columns: 320px 1fr;
-    gap: var(--space-20);
+    gap: var(--space-16);
     align-items: flex-start;
   }
 }
 
-/* ── Left Column: Identity & Connect ──────────────── */
+/* ── Left Column: Identity Card & Find Me ─────────── */
 .about-left {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
 }
 
-/* Portrait */
+/* Portrait Frame */
 .about-portrait-wrapper {
   position: relative;
 }
@@ -42,7 +42,6 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-surface);
-  /* The red glowing left border effect from the inspiration */
   border-left: 2px solid var(--color-primary);
   box-shadow: -4px 0 24px -8px var(--color-primary-glow),
               0 8px 32px rgba(0, 0, 0, 0.6);
@@ -65,38 +64,6 @@
   inset: 0;
   background: linear-gradient(to top, rgba(5, 5, 8, 0.5) 0%, transparent 25%);
   pointer-events: none;
-}
-
-/* Vertical BBH Overlay */
-.about-portrait-brand {
-  position: absolute;
-  top: var(--space-6);
-  left: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: transparent;
-  /* Hollow red text effect */
-  -webkit-text-stroke: 1px var(--color-primary);
-  opacity: 0.8;
-  filter: drop-shadow(0 0 8px var(--color-primary-glow));
-}
-
-/* Signature Overlay */
-.about-portrait-signature {
-  position: absolute;
-  bottom: var(--space-4);
-  left: var(--space-4);
-  font-family: "Brush Script MT", cursive, sans-serif;
-  font-size: 1.5rem;
-  color: var(--color-primary);
-  opacity: 0.7;
-  transform: rotate(-5deg);
 }
 
 /* Identity Details */
@@ -161,10 +128,11 @@
 }
 
 .about-connect-label {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .about-socials {
@@ -194,11 +162,11 @@
 }
 
 
-/* ── Right Column: Narrative & Philosophy ─────────── */
+/* ── Right Column: Narrative & Principles ─────────── */
 .about-right {
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-10);
 }
 
 .about-block {
@@ -220,7 +188,7 @@
 .about-main-title {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
   margin: 0;
   letter-spacing: -0.03em;
@@ -228,141 +196,189 @@
 
 .about-bio {
   font-size: var(--text-base);
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   line-height: 1.7;
   max-width: 65ch;
   margin: 0;
 }
 
-.about-direction-block {
-  margin-top: var(--space-2);
-  padding: var(--space-3) 0 var(--space-3) var(--space-4);
-  border-left: 2px solid var(--color-primary);
-  background: linear-gradient(90deg, var(--color-primary-soft) 0%, transparent 100%);
-}
-
-.about-direction-block p {
+.about-bio-sub {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   line-height: 1.6;
+  max-width: 65ch;
   margin: 0;
-  max-width: 60ch;
 }
 
-
-/* ── Philosophy & Values ──────────────────────────── */
-.about-block--philosophy {
-  margin-top: var(--space-4);
-}
-
-.about-philosophy-intro {
+/* Signature Line Callout */
+.about-signature-line {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid var(--color-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin: 0;
-  max-width: 60ch;
+  color: var(--color-text-secondary);
 }
 
-.about-values-grid {
+
+/* ── Principles Grid (How I Think) ──────────────── */
+.about-block--philosophy {
+  margin-top: var(--space-2);
+  width: 100%;
+}
+
+.about-principles-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
-  margin-top: var(--space-4);
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-3);
 }
 
-@media (min-width: 768px) {
-  .about-values-grid {
+@media (min-width: 640px) {
+  .about-principles-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
   }
 }
 
-.about-value-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
+@media (min-width: 1024px) {
+  .about-principles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.about-value-card:hover {
+.about-principle-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  min-height: 160px;
+}
+
+.about-principle-card:hover {
+  transform: translateY(-3px);
   border-color: var(--color-border-hover);
   background: var(--color-surface-raised);
 }
 
-.about-value-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(220, 20, 60, 0.08);
-  flex-shrink: 0;
+/* Subtle Crimson Emphasis on Leadership (Card 04) */
+.about-principle-card.is-featured {
+  border-color: rgba(220, 20, 60, 0.35);
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.04) 0%, var(--color-surface) 100%);
+  box-shadow: 0 0 16px -4px rgba(220, 20, 60, 0.15);
 }
 
-.about-value-icon {
+.about-principle-card.is-featured:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px -2px rgba(220, 20, 60, 0.25);
+}
+
+.principle-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.principle-index {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  transition: transform 0.3s ease;
+}
+
+.about-principle-card:hover .principle-index {
+  transform: translateX(2px);
+}
+
+.principle-icon {
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
+}
+
+.about-principle-card:hover .principle-icon,
+.about-principle-card.is-featured .principle-icon {
   color: var(--color-primary);
 }
 
-.about-value-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.about-value-name {
+.principle-title {
   font-family: var(--font-display);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--color-text);
-  margin: 0;
+  margin: 0 0 var(--space-2) 0;
 }
 
-.about-value-desc {
+.principle-desc {
   font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  line-height: 1.5;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
   margin: 0;
+  flex: 1;
 }
 
-/* ── Wisdom Footer ────────────────────────────────── */
-.about-wisdom-footer {
+.principle-accent-bar {
+  width: 16px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: var(--space-4);
+  transition: all 0.3s ease;
+}
+
+.about-principle-card:hover .principle-accent-bar {
+  width: 32px;
+  background: var(--color-primary);
+}
+
+
+/* ── Foundational Statement Footer ───────────────── */
+.about-statement-footer {
   width: 100%;
-  margin-top: var(--space-2);
+  margin-top: var(--space-6);
   display: flex;
   align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-4) var(--space-6);
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-6);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
 }
 
-.about-wisdom-icon {
+@media (max-width: 767px) {
+  .about-statement-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+}
+
+.about-statement-icon {
   flex-shrink: 0;
 }
 
-.about-wisdom-text {
+.about-statement-text {
   flex: 1;
   font-size: var(--text-xs);
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
 }
 
-.about-wisdom-text strong {
-  color: var(--color-text);
-}
-
-.about-wisdom-icons {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  color: var(--color-text-muted);
+.about-statement-author {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
   flex-shrink: 0;
 }

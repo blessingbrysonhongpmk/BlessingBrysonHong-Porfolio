@@ -1,16 +1,47 @@
 import { PORTFOLIO_DATA } from '../../data/portfolio';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, DiscordIcon } from '../ui/SocialIcons';
-import { Calendar, MapPin, Briefcase, Shield, Target, Scale, BookOpen, Code, Users, Quote, Book, Leaf } from 'lucide-react';
+import { Calendar, MapPin, Briefcase, CheckCircle2, Zap, Search, Users, BookOpen, Star, Quote } from 'lucide-react';
 import './About.css';
 
-const VALUE_ICONS = {
-  'Wisdom': Shield,
-  'Discipline': Target,
-  'Integrity': Scale,
-  'Learning': BookOpen,
-  'Purposeful Creation': Code,
-  'Responsibility': Users,
-};
+const PRINCIPLES = [
+  {
+    index: '01',
+    name: 'Ownership',
+    icon: CheckCircle2,
+    description: 'If I start something, I want to understand it, improve it and take responsibility for the result.',
+  },
+  {
+    index: '02',
+    name: 'Initiative',
+    icon: Zap,
+    description: "I don't want to wait until I know everything before trying something.",
+  },
+  {
+    index: '03',
+    name: 'Curiosity',
+    icon: Search,
+    description: "If I don't understand something, that's usually where I want to look closer.",
+  },
+  {
+    index: '04',
+    name: 'Leadership',
+    icon: Users,
+    isFeatured: true, // Gives subtle crimson emphasis
+    description: 'Leadership starts with taking responsibility, communicating clearly and helping the people around me grow.',
+  },
+  {
+    index: '05',
+    name: 'Learning',
+    icon: BookOpen,
+    description: 'Every project should leave me knowing something I didn\'t know before.',
+  },
+  {
+    index: '06',
+    name: 'Originality',
+    icon: Star,
+    description: 'I naturally look for a different approach instead of building something just because everyone else does.',
+  },
+];
 
 const SOCIAL_ICONS = {
   'github': GithubIcon,
@@ -21,20 +52,23 @@ const SOCIAL_ICONS = {
 };
 
 export function About() {
-  const { profile, values, careerDirection, socials } = PORTFOLIO_DATA;
+  const { socials } = PORTFOLIO_DATA;
+  
+  // Specific name for the About section as requested
+  const aboutName = "Blessing Bryson Hong";
 
   return (
     <section id="about" className="about-section" aria-label="About Me">
       <div className="container about-dashboard">
         
-        {/* ── Left Column: Identity & Connect ── */}
+        {/* ── Left Column: Identity Card & Find Me ── */}
         <div className="about-left">
           
           <div className="about-portrait-wrapper">
             <div className="about-portrait-frame">
               <img
-                src={profile.avatar}
-                alt={profile.name}
+                src="/profile.jpeg"
+                alt={aboutName}
                 className="about-portrait-img"
                 loading="lazy"
               />
@@ -43,13 +77,17 @@ export function About() {
           </div>
 
           <div className="about-details">
-            <h2 className="about-name">{profile.name}</h2>
-            <p className="about-direction-sub">{careerDirection.currentPhase} towards {careerDirection.longTerm}</p>
+            <h2 className="about-name">{aboutName}</h2>
+            <p className="about-direction-sub">Building towards AI Engineering</p>
             
             <div className="about-meta-card">
               <div className="about-meta-item">
                 <Calendar size={14} className="about-meta-icon" />
-                <span>B.Tech AI & Data Science<br/><span className="about-meta-sub">2024 - 2028</span></span>
+                <span>
+                  B.Tech — Artificial Intelligence & Data Science
+                  <br />
+                  <span className="about-meta-sub">2024 — 2028</span>
+                </span>
               </div>
               <div className="about-meta-item">
                 <MapPin size={14} className="about-meta-icon" />
@@ -62,7 +100,7 @@ export function About() {
             </div>
 
             <div className="about-connect">
-              <span className="about-connect-label">Connect with me</span>
+              <span className="about-connect-label">FIND ME</span>
               <div className="about-socials">
                 {socials.map((social) => {
                   const Icon = SOCIAL_ICONS[social.icon] || GithubIcon;
@@ -84,57 +122,59 @@ export function About() {
           </div>
         </div>
 
-        {/* ── Right Column: Narrative & Philosophy ── */}
+        {/* ── Right Column: Narrative & Principles ── */}
         <div className="about-right">
           
-          {/* Who I Am */}
+          {/* Main Introduction */}
           <div className="about-block">
-            <span className="about-section-label">WHO I AM</span>
+            <span className="about-section-label">ABOUT ME</span>
             <h2 className="about-main-title">
               Engineer<span className="text-accent">.</span> Learner<span className="text-accent">.</span> Builder<span className="text-accent">.</span>
             </h2>
-            <p className="about-bio">{profile.shortBio}</p>
+            <p className="about-bio">
+              An AI & Data Science engineering student who learns best by building. I would rather turn an imperfect idea into a working prototype, test it, break it, and improve it than wait for the perfect plan.
+            </p>
+
+            <p className="about-bio-sub">
+              Right now, I'm moving across Data Science, Full Stack Development and AI — learning where each one connects and building projects along the way.
+            </p>
             
-            <div className="about-direction-block">
-              <p>Long-term direction: <strong className="text-accent">{careerDirection.longTerm}</strong>. {careerDirection.statement}</p>
+            <div className="about-signature-line">
+              <span>Still figuring things out.</span> <span className="text-accent">Still building anyway.</span>
             </div>
           </div>
 
-          {/* How I Think */}
+          {/* How I Think (Principles Grid) */}
           <div className="about-block about-block--philosophy">
             <span className="about-section-label">HOW I THINK</span>
-            <h2 className="about-main-title">Principles & Philosophy</h2>
-            <p className="about-philosophy-intro">
-              Grounded by my values and Tamil wisdom — frameworks for thinking, every decision, solution, and approach I work.
-            </p>
-
-            <div className="about-values-grid">
-              {values.map((value, i) => {
-                const Icon = VALUE_ICONS[value.name] || Shield;
+            
+            <div className="about-principles-grid">
+              {PRINCIPLES.map((principle) => {
+                const IconComponent = principle.icon;
                 return (
-                  <div key={value.name} className="about-value-card" style={{ '--delay': `${i * 100}ms` }}>
-                    <div className="about-value-icon-wrapper">
-                      <Icon size={20} className="about-value-icon" strokeWidth={1.5} />
+                  <div
+                    key={principle.index}
+                    className={`about-principle-card ${principle.isFeatured ? 'is-featured' : ''}`}
+                  >
+                    <div className="principle-card-header">
+                      <span className="principle-index">{principle.index}</span>
+                      <IconComponent size={16} className="principle-icon" />
                     </div>
-                    <div className="about-value-content">
-                      <h4 className="about-value-name">{value.name}</h4>
-                      <p className="about-value-desc">{value.description}</p>
-                    </div>
+                    <h3 className="principle-title">{principle.name}</h3>
+                    <p className="principle-desc">{principle.description}</p>
+                    <div className="principle-accent-bar" />
                   </div>
                 );
               })}
             </div>
             
-            {/* Wisdom Footer */}
-            <div className="about-wisdom-footer">
-              <Quote size={20} className="about-wisdom-icon text-accent" />
-              <p className="about-wisdom-text">
-                Inspired by the <strong>Bible</strong> and <strong>Thirukkural</strong> — wisdom that shapes how I think, how I build, and how I live.
+            {/* Foundational Statement Footer */}
+            <div className="about-statement-footer">
+              <Quote size={20} className="about-statement-icon text-accent" />
+              <p className="about-statement-text">
+                I don't want to build another version of what already exists. Even when the idea is simple, I look for a way to make the experience feel like mine.
               </p>
-              <div className="about-wisdom-icons">
-                <Book size={16} strokeWidth={1.5} />
-                <Leaf size={16} strokeWidth={1.5} />
-              </div>
+              <span className="about-statement-author">— BBH.</span>
             </div>
           </div>
 
