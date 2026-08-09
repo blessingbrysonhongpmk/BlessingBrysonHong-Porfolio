@@ -1,11 +1,12 @@
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useScrollProgress } from '../../hooks/useScrollProgress';
 
 /**
- * Powerful 3D Intelligence Core Matrix —
- * A multi-layered, interactive 3D centerpiece representing:
- * Data → Learning → AI → Creation
+ * Advanced Scroll-Interactive 3D Intelligence Core Matrix —
+ * A multi-layered, interactive 3D centerpiece that dynamically morphs,
+ * rotates, and shifts position in 3D space as the user scrolls across the portfolio.
  */
 export function IntelligenceCore({ tier = 'high', isMobile = false }) {
   const groupRef = useRef();
@@ -13,54 +14,67 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
   const innerShellRef = useRef();
   const outerShellRef = useRef();
   const satellitesGroupRef = useRef();
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const pointsRef = useRef();
+
+  const scrollProgress = useScrollProgress();
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, vx: 0, vy: 0 });
   const timeRef = useRef(0);
 
   // Particle constellation configuration based on device capabilities
-  const nodeCount = tier === 'high' ? 450 : tier === 'medium' ? 220 : 80;
+  const nodeCount = tier === 'high' ? 500 : tier === 'medium' ? 250 : 100;
 
-  // Generate constellation nodes
-  const { positions, colors } = useMemo(() => {
+  // Generate constellation nodes with color spectrum
+  const { positions, colors, initialPositions } = useMemo(() => {
     const pos = new Float32Array(nodeCount * 3);
+    const initialPos = new Float32Array(nodeCount * 3);
     const col = new Float32Array(nodeCount * 3);
 
     const crimson = new THREE.Color('#DC143C');
     const blue = new THREE.Color('#3B82F6');
+    const cyan = new THREE.Color('#00F0FF');
     const white = new THREE.Color('#F8FAFC');
 
     for (let i = 0; i < nodeCount; i++) {
       const i3 = i * 3;
       
-      const band = i % 3;
-      const radius = 1.2 + band * 0.7 + (Math.random() * 0.3 - 0.15);
+      const band = i % 4;
+      const radius = 1.2 + band * 0.6 + (Math.random() * 0.4 - 0.2);
       
       const u = Math.random();
       const v = Math.random();
       const theta = 2 * Math.PI * u;
       const phi = Math.acos(2 * v - 1);
 
-      pos[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      pos[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      pos[i3 + 2] = radius * Math.cos(phi);
+      const x = radius * Math.sin(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi) * Math.sin(theta);
+      const z = radius * Math.cos(phi);
 
-      const color = band === 0 ? crimson : band === 1 ? blue : white;
-      color.multiplyScalar(band === 2 ? 0.6 : 0.9);
+      pos[i3] = x;
+      pos[i3 + 1] = y;
+      pos[i3 + 2] = z;
+
+      initialPos[i3] = x;
+      initialPos[i3 + 1] = y;
+      initialPos[i3 + 2] = z;
+
+      const color = band === 0 ? crimson : band === 1 ? blue : band === 2 ? cyan : white;
+      color.multiplyScalar(band === 3 ? 0.7 : 0.95);
       
       col[i3] = color.r;
       col[i3 + 1] = color.g;
       col[i3 + 2] = color.b;
     }
 
-    return { positions: pos, colors: col };
+    return { positions: pos, colors: col, initialPositions: initialPos };
   }, [nodeCount]);
 
-  // Orbiting satellite nodes data
+  // Orbiting satellite micro-nodes
   const satellites = useMemo(() => {
     return [
-      { radius: 1.5, speed: 0.8, color: '#DC143C', size: 0.05, tilt: [0.4, 0.2, 0] },
-      { radius: 2.1, speed: -0.6, color: '#3B82F6', size: 0.04, tilt: [-0.3, 0.5, 0.2] },
-      { radius: 2.7, speed: 0.4, color: '#F8FAFC', size: 0.035, tilt: [0.6, -0.4, 0.3] },
-      { radius: 1.8, speed: -0.9, color: '#DC143C', size: 0.045, tilt: [-0.5, -0.2, 0.4] },
+      { radius: 1.55, speed: 0.9, color: '#DC143C', size: 0.05, tilt: [0.4, 0.2, 0] },
+      { radius: 2.15, speed: -0.65, color: '#3B82F6', size: 0.04, tilt: [-0.3, 0.5, 0.2] },
+      { radius: 2.75, speed: 0.45, color: '#00F0FF', size: 0.035, tilt: [0.6, -0.4, 0.3] },
+      { radius: 1.85, speed: -0.95, color: '#DC143C', size: 0.045, tilt: [-0.5, -0.2, 0.4] },
     ];
   }, []);
 
@@ -70,61 +84,97 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
     timeRef.current += delta;
     const time = timeRef.current;
 
-    // Smooth magnetic mouse tracking (desktop only)
+    // Smooth magnetic mouse tracking with spring physics (desktop only)
     if (!isMobile) {
       const pointer = state.pointer;
       mouseRef.current.targetX = pointer.x;
       mouseRef.current.targetY = pointer.y;
 
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
+      const dx = mouseRef.current.targetX - mouseRef.current.x;
+      const dy = mouseRef.current.targetY - mouseRef.current.y;
+
+      mouseRef.current.vx += dx * 0.08;
+      mouseRef.current.vy += dy * 0.08;
+      mouseRef.current.vx *= 0.82;
+      mouseRef.current.vy *= 0.82;
+
+      mouseRef.current.x += mouseRef.current.vx;
+      mouseRef.current.y += mouseRef.current.vy;
     }
 
-    // Main group rotation & parallax tilt
-    groupRef.current.rotation.y = time * 0.08 + mouseRef.current.x * 0.25;
-    groupRef.current.rotation.x = Math.sin(time * 0.04) * 0.12 - mouseRef.current.y * 0.25;
+    // ── Scroll-Linked 3D Morph & Position Interpolation ──
+    const targetX = isMobile 
+      ? 0 
+      : THREE.MathUtils.lerp(1.4, -1.2, Math.sin(scrollProgress * Math.PI));
+    const targetY = THREE.MathUtils.lerp(0, -0.4, scrollProgress);
+    const targetZ = THREE.MathUtils.lerp(0, -1.5, scrollProgress);
 
-    // Core pulsing scale
+    groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05;
+    groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05;
+    groupRef.current.position.z += (targetZ - groupRef.current.position.z) * 0.05;
+
+    // Main group rotation driven by time + scroll + mouse
+    const rotSpeed = 0.08 + scrollProgress * 0.12;
+    groupRef.current.rotation.y = time * rotSpeed + mouseRef.current.x * 0.3;
+    groupRef.current.rotation.x = Math.sin(time * 0.04) * 0.12 - mouseRef.current.y * 0.3;
+
+    // Core pulse
     if (innerCoreRef.current) {
-      const pulse = 1 + Math.sin(time * 2.2) * 0.08;
+      const pulse = 1 + Math.sin(time * 2.5 + scrollProgress * 5) * 0.1;
       innerCoreRef.current.scale.setScalar(pulse);
     }
 
     // Inner wireframe shell rotation
     if (innerShellRef.current) {
-      innerShellRef.current.rotation.x = time * 0.2;
-      innerShellRef.current.rotation.z = time * 0.15;
+      innerShellRef.current.rotation.x = time * 0.22;
+      innerShellRef.current.rotation.z = time * 0.18;
     }
 
     // Outer wireframe shell reverse rotation
     if (outerShellRef.current) {
-      outerShellRef.current.rotation.y = -time * 0.12;
-      outerShellRef.current.rotation.x = time * 0.08;
+      outerShellRef.current.rotation.y = -time * 0.14;
+      outerShellRef.current.rotation.x = time * 0.09;
     }
 
     // Satellites rotation
     if (satellitesGroupRef.current) {
-      satellitesGroupRef.current.rotation.y = time * 0.3;
+      satellitesGroupRef.current.rotation.y = time * 0.35;
+    }
+
+    // Dynamic particle dispersal based on scroll depth
+    if (pointsRef.current) {
+      const geom = pointsRef.current.geometry;
+      const posAttr = geom.attributes.position;
+      const expandFactor = 1 + scrollProgress * 0.35;
+
+      for (let i = 0; i < nodeCount; i++) {
+        const i3 = i * 3;
+        posAttr.array[i3] = initialPositions[i3] * expandFactor;
+        posAttr.array[i3 + 1] = initialPositions[i3 + 1] * expandFactor;
+        posAttr.array[i3 + 2] = initialPositions[i3 + 2] * expandFactor;
+      }
+      posAttr.needsUpdate = true;
     }
   });
 
   return (
     <group ref={groupRef} position={isMobile ? [0, 0, -1] : [1.4, 0, 0]}>
       {/* Dynamic Multi-point Lighting */}
-      <ambientLight intensity={0.2} />
-      <directionalLight position={[5, 5, 3]} intensity={1.2} color="#ffffff" />
-      <pointLight position={[0, 0, 0]} intensity={2.5} color="#DC143C" distance={4} />
-      <pointLight position={[-3, -3, 2]} intensity={1.5} color="#3B82F6" distance={5} />
+      <ambientLight intensity={0.25} />
+      <directionalLight position={[5, 5, 4]} intensity={1.4} color="#ffffff" />
+      <pointLight position={[0, 0, 0]} intensity={2.8} color="#DC143C" distance={4.5} />
+      <pointLight position={[-3, -3, 2]} intensity={1.8} color="#3B82F6" distance={5} />
+      <pointLight position={[2, -2, -2]} intensity={1.2} color="#00F0FF" distance={4} />
 
       {/* ── Central Core Assembly ── */}
       <group>
         {/* Nucleus Energy Core */}
         <mesh ref={innerCoreRef}>
-          <octahedronGeometry args={[0.32, 0]} />
+          <octahedronGeometry args={[0.34, 0]} />
           <meshStandardMaterial
             color="#DC143C"
             emissive="#DC143C"
-            emissiveIntensity={0.6}
+            emissiveIntensity={0.7}
             roughness={0.1}
             metalness={0.9}
           />
@@ -132,24 +182,24 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
 
         {/* Inner Wireframe Shell */}
         <mesh ref={innerShellRef}>
-          <icosahedronGeometry args={[0.55, 1]} />
+          <icosahedronGeometry args={[0.58, 1]} />
           <meshStandardMaterial
             color="#DC143C"
             wireframe
             transparent
-            opacity={0.45}
+            opacity={0.5}
             roughness={0.2}
           />
         </mesh>
 
         {/* Outer Geometrical Lattice Shell */}
         <mesh ref={outerShellRef}>
-          <dodecahedronGeometry args={[0.9, 0]} />
+          <dodecahedronGeometry args={[0.95, 0]} />
           <meshStandardMaterial
             color="#3B82F6"
             wireframe
             transparent
-            opacity={0.18}
+            opacity={0.2}
             roughness={0.3}
           />
         </mesh>
@@ -158,10 +208,10 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
       {/* ── Technical Orbital Rings ── */}
       {tier !== 'low' && (
         <>
-          <TechRing radius={1.35} color="#DC143C" opacity={0.35} speed={0.12} tilt={[0.5, 0.2, 0]} />
-          <TechRing radius={1.9} color="#3B82F6" opacity={0.25} speed={-0.08} tilt={[-0.4, 0.6, 0.3]} dash />
+          <TechRing radius={1.4} color="#DC143C" opacity={0.4} speed={0.14} tilt={[0.5, 0.2, 0]} />
+          <TechRing radius={1.95} color="#3B82F6" opacity={0.3} speed={-0.09} tilt={[-0.4, 0.6, 0.3]} dash />
           {tier === 'high' && (
-            <TechRing radius={2.6} color="#F8FAFC" opacity={0.12} speed={0.05} tilt={[0.7, -0.3, -0.2]} />
+            <TechRing radius={2.65} color="#00F0FF" opacity={0.18} speed={0.06} tilt={[0.7, -0.3, -0.2]} />
           )}
         </>
       )}
@@ -179,7 +229,7 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
       </group>
 
       {/* ── Constellation Particle Field ── */}
-      <points>
+      <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
@@ -195,10 +245,10 @@ export function IntelligenceCore({ tier = 'high', isMobile = false }) {
           />
         </bufferGeometry>
         <pointsMaterial
-          size={isMobile ? 0.045 : 0.035}
+          size={isMobile ? 0.045 : 0.038}
           vertexColors
           transparent
-          opacity={0.9}
+          opacity={0.92}
           sizeAttenuation
           depthWrite={false}
           blending={THREE.AdditiveBlending}

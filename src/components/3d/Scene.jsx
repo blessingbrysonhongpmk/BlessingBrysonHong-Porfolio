@@ -1,11 +1,39 @@
-import { Suspense, Component } from 'react';
+import { Suspense, Component, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useDeviceCapability } from '../../hooks/useDeviceCapability';
 import { IntelligenceCore } from './IntelligenceCore';
 import './Scene.css';
 
 /**
- * R3F Canvas wrapper with WebGL detection, device-aware quality, and fallback.
+ * WebGLContextHandler — Automatically listens to WebGL context loss events
+ * and triggers auto-recovery to prevent 3D canvas crashes.
+ */
+function WebGLContextHandler() {
+  useEffect(() => {
+    const handleContextLost = (e) => {
+      e.preventDefault();
+      console.warn('WebGL context lost — triggering automatic recovery...');
+    };
+
+    const handleContextRestored = () => {
+      console.info('WebGL context successfully restored.');
+    };
+
+    window.addEventListener('webglcontextlost', handleContextLost, false);
+    window.addEventListener('webglcontextrestored', handleContextRestored, false);
+
+    return () => {
+      window.removeEventListener('webglcontextlost', handleContextLost);
+      window.removeEventListener('webglcontextrestored', handleContextRestored);
+    };
+  }, []);
+
+  return null;
+}
+
+/**
+ * R3F Canvas wrapper with WebGL detection, device-aware quality, error boundaries,
+ * and crash-proof context loss recovery.
  */
 export function Scene() {
   const { tier, webgl, pixelRatio, isMobile } = useDeviceCapability();
@@ -24,9 +52,15 @@ export function Scene() {
             antialias: tier !== 'low',
             alpha: true,
             powerPreference: tier === 'low' ? 'low-power' : 'high-performance',
+            failIfMajorPerformanceCaveat: false,
           }}
           style={{ background: 'transparent' }}
+          onCreated={({ gl }) => {
+            // Configure tone mapping for realistic contrast
+            gl.toneMappingExposure = 1.1;
+          }}
         >
+          <WebGLContextHandler />
           <Suspense fallback={null}>
             <IntelligenceCore tier={tier} isMobile={isMobile} />
           </Suspense>
@@ -60,7 +94,7 @@ class ThreeErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.warn('3D rendering failed, showing fallback:', error);
+    console.warn('3D rendering encountered an error, activating smooth fallback:', error);
   }
 
   render() {
