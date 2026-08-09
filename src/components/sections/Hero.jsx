@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
 import './Hero.css';
+
+const TECHNICAL_AXIS_STEPS = ['DATA', 'LEARN', 'BUILD', 'DEPLOY', 'IMPACT'];
 
 export function Hero() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -25,7 +27,17 @@ export function Hero() {
         <div className="hero__noise" />
       </div>
 
-      {/* Asymmetric 40/60 Split Content Layout */}
+      {/* Far-Right Technical Axis Navigation Rail */}
+      <div className="hero__far-right-axis" aria-hidden="true">
+        {TECHNICAL_AXIS_STEPS.map((step) => (
+          <div key={step} className="axis-step">
+            <span className="axis-dot" />
+            <span className="axis-text">{step}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Asymmetric Split Content Layout */}
       <div className="container hero__container">
         <div className={`hero__interface ${isRevealed ? 'hero__interface--visible' : ''}`}>
           
@@ -43,7 +55,7 @@ export function Hero() {
           {/* Role & Descriptor */}
           <div className="hero__role-badge">
             <span className="role-main">AI & DATA SCIENCE</span>
-            <span className="role-sep">·</span>
+            <span className="role-sep">—</span>
             <span className="role-sub">ENGINEERING STUDENT</span>
           </div>
 
@@ -85,23 +97,31 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Technical Status Indicator */}
-          <div className="hero__status-line">
-            <span className="status-indicator">CURRENTLY / BUILDING</span>
-            <span className="status-year">2026</span>
+          {/* Technical Status Line with Progress Accent */}
+          <div className="hero__status-block">
+            <div className="hero__status-line">
+              <span className="status-indicator">CURRENTLY / BUILDING</span>
+              <span className="status-year">2026</span>
+            </div>
+            <div className="status-progress-bar">
+              <div className="status-progress-fill" />
+            </div>
           </div>
+
+          {/* Reference Signature Scroll Hint */}
+          <button
+            className={`hero__scroll-explore ${isRevealed ? 'hero__scroll-explore--visible' : ''}`}
+            onClick={handleScrollDown}
+            aria-label="Scroll to explore About section"
+          >
+            <span className="scroll-icon-wrap">
+              <ArrowDown size={12} />
+            </span>
+            <span className="scroll-text">SCROLL TO EXPLORE</span>
+          </button>
 
         </div>
       </div>
-
-      {/* Subtle Scroll Hint */}
-      <button
-        className={`hero__scroll-hint ${isRevealed ? 'hero__scroll-hint--visible' : ''}`}
-        onClick={handleScrollDown}
-        aria-label="Scroll to About section"
-      >
-        <ChevronDown size={18} />
-      </button>
     </section>
   );
 }

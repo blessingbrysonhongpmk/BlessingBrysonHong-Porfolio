@@ -4,46 +4,51 @@ import * as THREE from 'three';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
 
 /**
- * "BBH FULL-BODY 3D AI ENGINEER ROBOT" —
- * Complete procedural 3D humanoid robotic character designed as an original AI engineering prototype:
- * Head, Neck, Torso, Chest Processor, Open Computational Spine, Arms, 5-Finger Hands, Legs, Feet & Shadow.
+ * "BBH MASTER 3D AI ENGINEER ROBOT CHAMBER" —
+ * Recreating the exact visual direction from the reference UI:
+ * Full-body humanoid robot, raised palm observing an orbiting micro-data core,
+ * glowing chest AI processor, concentric crimson computational platform,
+ * open computational spine, and ambient data node field.
  */
 export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
   const robotGroupRef = useRef();
   const headRef = useRef();
+  const visorRef = useRef();
   const chestCoreRef = useRef();
+  const floatingDataCoreRef = useRef();
+  const platformRef = useRef();
   const spineSignalRef = useRef();
-  const leftArmRef = useRef();
-  const rightArmRef = useRef();
+  const rightHandGroupRef = useRef();
 
   const scrollProgress = useScrollProgress();
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, vx: 0, vy: 0 });
   const timeRef = useRef(0);
   const signalProgressRef = useRef(0);
 
-  // Click Interaction: SYSTEM INITIALIZATION
-  const [isInitMode, setIsInitMode] = useState(false);
+  // Click Interaction: SYSTEM ANALYSIS (1.5s sequence)
+  const [analysisMode, setAnalysisMode] = useState(false);
 
   const handlePointerDown = (e) => {
     e.stopPropagation();
-    if (!isInitMode) {
-      setIsInitMode(true);
-      setTimeout(() => setIsInitMode(false), 1200); // 1.2s initialization pulse
+    if (!analysisMode) {
+      setAnalysisMode(true);
+      setTimeout(() => setAnalysisMode(false), 1500); // 1.5s System Analysis pulse
     }
   };
 
   // Node particle constellation count
-  const nodeCount = tier === 'high' ? 300 : tier === 'medium' ? 160 : 70;
+  const nodeCount = tier === 'high' ? 360 : tier === 'medium' ? 180 : 80;
 
   const { positions, colors } = useMemo(() => {
     const pos = new Float32Array(nodeCount * 3);
     const col = new Float32Array(nodeCount * 3);
     const crimson = new THREE.Color('#DC143C');
-    const slate = new THREE.Color('#CBD5E1');
+    const slate = new THREE.Color('#94A3B8');
+    const white = new THREE.Color('#FFFFFF');
 
     for (let i = 0; i < nodeCount; i++) {
       const i3 = i * 3;
-      const radius = 1.6 + Math.random() * 0.8;
+      const radius = 1.8 + Math.random() * 1.2;
       const theta = 2 * Math.PI * Math.random();
       const phi = Math.acos(2 * Math.random() - 1);
 
@@ -51,8 +56,8 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
       pos[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
       pos[i3 + 2] = radius * Math.cos(phi);
 
-      const color = i % 3 === 0 ? crimson : slate;
-      color.multiplyScalar(0.85);
+      const color = i % 3 === 0 ? crimson : i % 3 === 1 ? slate : white;
+      color.multiplyScalar(i % 3 === 0 ? 0.9 : 0.7);
 
       col[i3] = color.r;
       col[i3 + 1] = color.g;
@@ -85,9 +90,9 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
       mouseRef.current.y += mouseRef.current.vy;
     }
 
-    // Target position interpolation: x = 2.0 (right 50% viewport)
-    const targetX = isMobile ? 0 : THREE.MathUtils.lerp(2.0, -1.8, scrollProgress * 2.2);
-    const targetY = THREE.MathUtils.lerp(-0.4, 0.2, scrollProgress);
+    // Target position interpolation: x = 2.1 (right 58% viewport)
+    const targetX = isMobile ? 0 : THREE.MathUtils.lerp(2.1, -1.8, scrollProgress * 2.2);
+    const targetY = THREE.MathUtils.lerp(-0.25, 0.3, scrollProgress);
     const targetZ = THREE.MathUtils.lerp(0, -2.0, scrollProgress);
 
     robotGroupRef.current.position.x += (targetX - robotGroupRef.current.position.x) * 0.05;
@@ -95,9 +100,9 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
     robotGroupRef.current.position.z += (targetZ - robotGroupRef.current.position.z) * 0.05;
 
     // Robot body 3/4 turn angle + mouse tracking
-    const bodyRotY = 0.25 + mouseRef.current.x * 0.22;
+    const bodyRotY = 0.28 + mouseRef.current.x * 0.22;
     robotGroupRef.current.rotation.y += (bodyRotY - robotGroupRef.current.rotation.y) * 0.05;
-    robotGroupRef.current.rotation.x = Math.sin(time * 0.03) * 0.04 - mouseRef.current.y * 0.15;
+    robotGroupRef.current.rotation.x = Math.sin(time * 0.03) * 0.03 - mouseRef.current.y * 0.15;
 
     // Head tracking pointer coordinates
     if (headRef.current) {
@@ -105,91 +110,98 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
       headRef.current.rotation.x = -mouseRef.current.y * 0.25;
     }
 
-    // Breathing chest core rotation
+    // Floating Micro-Data Core above raised palm
+    if (floatingDataCoreRef.current) {
+      const floatY = 1.05 + Math.sin(time * 2.5) * 0.06;
+      floatingDataCoreRef.current.position.y = floatY;
+      floatingDataCoreRef.current.rotation.y = time * 1.2;
+      floatingDataCoreRef.current.rotation.x = time * 0.8;
+    }
+
+    // Breathing chest core rotation & pulse
     if (chestCoreRef.current) {
-      const speed = isInitMode ? 4.0 : 1.0;
-      chestCoreRef.current.rotation.y += delta * 0.8 * speed;
-      chestCoreRef.current.rotation.x += delta * 0.4 * speed;
+      const speed = analysisMode ? 4.5 : 1.0;
+      chestCoreRef.current.rotation.y += delta * 1.0 * speed;
+      chestCoreRef.current.rotation.z += delta * 0.6 * speed;
+    }
+
+    // Concentric Platform pulse
+    if (platformRef.current) {
+      platformRef.current.rotation.z = time * 0.08;
     }
 
     // Open Computational Spine Traveling Crimson Signal
     if (spineSignalRef.current) {
-      signalProgressRef.current += delta * (isInitMode ? 3.0 : 1.2);
+      signalProgressRef.current += delta * (analysisMode ? 3.5 : 1.4);
       const t = signalProgressRef.current;
-      const spineY = 0.6 - (Math.sin(t * 1.5) * 0.5 + 0.5) * 1.2;
+      const spineY = 0.65 - (Math.sin(t * 1.5) * 0.5 + 0.5) * 1.3;
       spineSignalRef.current.position.y = spineY;
       spineSignalRef.current.position.z = -0.32 + Math.cos(t * 3) * 0.03;
-    }
-
-    // Subtle arm micro-idle movement
-    if (leftArmRef.current && rightArmRef.current) {
-      leftArmRef.current.rotation.z = Math.sin(time * 0.05) * 0.03 - 0.15;
-      rightArmRef.current.rotation.z = -Math.sin(time * 0.05) * 0.03 + 0.2;
     }
   });
 
   return (
     <group
       ref={robotGroupRef}
-      position={isMobile ? [0, -0.4, -1] : [2.0, -0.4, 0]}
+      position={isMobile ? [0, -0.3, -1] : [2.1, -0.25, 0]}
       onPointerDown={handlePointerDown}
     >
-      {/* Studio Lighting Setup */}
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[4, 6, 4]} intensity={3.2} color="#FFFFFF" />
-      <pointLight position={[0, 0.4, 0.3]} intensity={isInitMode ? 8.0 : 5.0} color="#DC143C" distance={5} />
-      <pointLight position={[-3, -2, 2]} intensity={2.2} color="#3B82F6" distance={6} />
+      {/* Studio Lighting Setup matching reference */}
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[4, 6, 5]} intensity={3.5} color="#FFFFFF" />
+      <pointLight position={[0, 0.4, 0.4]} intensity={analysisMode ? 9.0 : 6.0} color="#DC143C" distance={6} />
+      <pointLight position={[-3, -2, 2]} intensity={2.5} color="#3B82F6" distance={7} />
 
       {/* ── FULL-BODY ROBOTIC CHARACTER ASSEMBLY ── */}
-      <group scale={[0.85, 0.85, 0.85]}>
+      <group scale={[0.92, 0.92, 0.92]}>
 
         {/* 1. HEAD & OPTICS */}
-        <group ref={headRef} position={[0, 1.6, 0]}>
-          {/* Head Skull Armor Plate */}
+        <group ref={headRef} position={[0, 1.65, 0]}>
+          {/* Helmet Skull Plate */}
           <mesh position={[0, 0.12, 0]}>
-            <boxGeometry args={[0.32, 0.28, 0.32]} />
+            <boxGeometry args={[0.34, 0.3, 0.34]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.2} />
           </mesh>
 
           {/* Dark Glass Visor Faceplate */}
-          <mesh position={[0, 0.12, 0.165]}>
-            <boxGeometry args={[0.28, 0.12, 0.02]} />
+          <mesh ref={visorRef} position={[0, 0.12, 0.175]}>
+            <boxGeometry args={[0.3, 0.14, 0.02]} />
             <meshPhysicalMaterial
               color="#0F172A"
               transparent
-              opacity={0.8}
+              opacity={0.85}
               roughness={0.1}
               metalness={0.8}
             />
           </mesh>
 
           {/* Twin Crimson Optical Sensors */}
-          <group position={[0, 0.12, 0.17]}>
-            <mesh position={[-0.07, 0, 0]}>
-              <sphereGeometry args={[0.022, 16, 16]} />
+          <group position={[0, 0.12, 0.18]}>
+            <mesh position={[-0.075, 0, 0]}>
+              <sphereGeometry args={[0.025, 16, 16]} />
               <meshBasicMaterial color="#DC143C" />
             </mesh>
-            <mesh position={[0.07, 0, 0]}>
-              <sphereGeometry args={[0.022, 16, 16]} />
+            <mesh position={[0.075, 0, 0]}>
+              <sphereGeometry args={[0.025, 16, 16]} />
               <meshBasicMaterial color="#DC143C" />
             </mesh>
           </group>
 
-          {/* Side Ventilation Pods */}
-          <mesh position={[-0.17, 0.12, 0]}>
-            <boxGeometry args={[0.04, 0.14, 0.14]} />
-            <meshStandardMaterial color="#334155" metalness={0.8} roughness={0.3} />
+          {/* Side Mechanical Ear Pods */}
+          <mesh position={[-0.18, 0.12, 0]}>
+            <cylinderGeometry args={[0.08, 0.08, 0.06, 16]} rotation={[0, 0, Math.PI / 2]} />
+            <meshStandardMaterial color="#334155" metalness={0.9} roughness={0.2} />
           </mesh>
-          <mesh position={[0.17, 0.12, 0]}>
-            <boxGeometry args={[0.04, 0.14, 0.14]} />
-            <meshStandardMaterial color="#334155" metalness={0.8} roughness={0.3} />
+          <mesh position={[0.18, 0.12, 0]}>
+            <cylinderGeometry args={[0.08, 0.08, 0.06, 16]} rotation={[0, 0, Math.PI / 2]} />
+            <meshStandardMaterial color="#334155" metalness={0.9} roughness={0.2} />
           </mesh>
         </group>
 
         {/* 2. ARTICULATED NECK */}
-        <group position={[0, 1.35, 0]}>
+        <group position={[0, 1.4, 0]}>
           <mesh>
-            <cylinderGeometry args={[0.07, 0.09, 0.18, 16]} />
+            <cylinderGeometry args={[0.075, 0.095, 0.18, 16]} />
             <meshStandardMaterial color="#334155" metalness={0.9} roughness={0.2} />
           </mesh>
           {/* Hydraulic Struts */}
@@ -204,30 +216,43 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
         </group>
 
         {/* 3. TORSO & CHEST AI PROCESSOR */}
-        <group position={[0, 0.7, 0]}>
+        <group position={[0, 0.72, 0]}>
           {/* Main Graphite Chest Armor Plates */}
-          <mesh position={[0, 0.2, 0]}>
-            <boxGeometry args={[0.62, 0.65, 0.42]} />
+          <mesh position={[0, 0.22, 0]}>
+            <boxGeometry args={[0.66, 0.68, 0.44]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.25} />
           </mesh>
 
-          {/* Compact Chest AI Computational Processor */}
-          <group position={[0, 0.25, 0.22]}>
+          {/* Concentric Chest AI Computational Processor Grid */}
+          <group position={[0, 0.28, 0.23]}>
+            {/* Core Nucleus */}
             <mesh ref={chestCoreRef}>
-              <octahedronGeometry args={[0.16, 0]} />
+              <octahedronGeometry args={[0.18, 0]} />
               <meshStandardMaterial
                 color="#DC143C"
                 emissive="#DC143C"
-                emissiveIntensity={isInitMode ? 2.2 : 1.3}
+                emissiveIntensity={analysisMode ? 2.5 : 1.5}
                 metalness={0.9}
               />
             </mesh>
+
+            {/* Concentric Polygonal Wireframe Grid */}
             <mesh>
-              <boxGeometry args={[0.38, 0.38, 0.03]} />
+              <icosahedronGeometry args={[0.26, 0]} />
+              <meshStandardMaterial
+                color="#DC143C"
+                wireframe
+                transparent
+                opacity={0.85}
+              />
+            </mesh>
+
+            <mesh>
+              <boxGeometry args={[0.42, 0.42, 0.03]} />
               <meshPhysicalMaterial
                 color="#0F172A"
                 transparent
-                opacity={0.45}
+                opacity={0.5}
                 roughness={0.1}
                 metalness={0.8}
               />
@@ -235,140 +260,153 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
           </group>
 
           {/* 4. SIGNATURE FEATURE — OPEN COMPUTATIONAL SPINE */}
-          <group position={[0, 0, -0.22]}>
-            {/* Vertebrae Segment Modules */}
+          <group position={[0, 0, -0.23]}>
             {[-0.3, -0.1, 0.1, 0.3, 0.5].map((yPos, idx) => (
               <mesh key={idx} position={[0, yPos, 0]}>
-                <boxGeometry args={[0.14, 0.08, 0.14]} />
+                <boxGeometry args={[0.15, 0.08, 0.15]} />
                 <meshStandardMaterial color="#334155" metalness={0.9} roughness={0.2} />
               </mesh>
             ))}
             {/* Traveling Crimson Signal Node */}
             <mesh ref={spineSignalRef} position={[0, 0.2, 0]}>
-              <sphereGeometry args={[0.035, 16, 16]} />
+              <sphereGeometry args={[0.04, 16, 16]} />
               <meshBasicMaterial color="#DC143C" />
             </mesh>
           </group>
         </group>
 
-        {/* 5. ASYMMETRIC SHOULDERS & ARMS */}
-        {/* Left Arm (With Shoulder Sensor Module) */}
-        <group ref={leftArmRef} position={[-0.38, 1.0, 0]}>
-          {/* Shoulder Armor + Sensor Module */}
+        {/* 5. ASYMMETRIC ARMS & RAISED PALM WITH FLOATING DATA CORE */}
+        {/* Left Arm (Relaxed at side) */}
+        <group position={[-0.42, 1.05, 0]}>
           <mesh position={[-0.08, 0, 0]}>
-            <sphereGeometry args={[0.16, 16, 16]} />
+            <sphereGeometry args={[0.17, 16, 16]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.2} />
           </mesh>
-          <mesh position={[-0.18, 0.08, 0]}>
-            <boxGeometry args={[0.06, 0.06, 0.08]} />
-            <meshStandardMaterial color="#DC143C" emissive="#DC143C" emissiveIntensity={0.6} />
-          </mesh>
-          {/* Upper Arm & Forearm */}
-          <mesh position={[-0.08, -0.32, 0]}>
-            <cylinderGeometry args={[0.07, 0.06, 0.42, 16]} />
+          <mesh position={[-0.1, -0.34, 0]}>
+            <cylinderGeometry args={[0.075, 0.065, 0.45, 16]} />
             <meshStandardMaterial color="#334155" metalness={0.85} roughness={0.3} />
           </mesh>
-          {/* 5-Finger Elegant Hand (Relaxed) */}
-          <group position={[-0.08, -0.58, 0]}>
+          {/* Left Hand */}
+          <group position={[-0.1, -0.62, 0]}>
             <mesh>
-              <boxGeometry args={[0.08, 0.1, 0.04]} />
+              <boxGeometry args={[0.08, 0.11, 0.04]} />
               <meshStandardMaterial color="#1E293B" metalness={0.9} />
             </mesh>
           </group>
         </group>
 
-        {/* Right Arm (Sleek Observing Pose) */}
-        <group ref={rightArmRef} position={[0.38, 1.0, 0]}>
-          {/* Shoulder Armor */}
+        {/* Right Arm (Raised Palm Observing Floating Micro-Data Core) */}
+        <group ref={rightHandGroupRef} position={[0.42, 1.05, 0]}>
           <mesh position={[0.08, 0, 0]}>
-            <sphereGeometry args={[0.16, 16, 16]} />
+            <sphereGeometry args={[0.17, 16, 16]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.2} />
           </mesh>
-          {/* Upper Arm & Forearm */}
-          <mesh position={[0.08, -0.32, 0.08]} rotation={[0.4, 0, -0.2]}>
-            <cylinderGeometry args={[0.07, 0.06, 0.42, 16]} />
+          {/* Forearm bent forward & upward */}
+          <mesh position={[-0.22, -0.2, 0.35]} rotation={[0.9, -0.4, -0.5]}>
+            <cylinderGeometry args={[0.075, 0.065, 0.45, 16]} />
             <meshStandardMaterial color="#334155" metalness={0.85} roughness={0.3} />
           </mesh>
-          {/* 5-Finger Elegant Hand (Slightly Raised Near Core) */}
-          <group position={[0.08, -0.54, 0.22]}>
+          {/* Raised Palm-Up Hand */}
+          <group position={[-0.45, -0.1, 0.65]} rotation={[0.4, 0.2, 0.8]}>
             <mesh>
-              <boxGeometry args={[0.08, 0.1, 0.04]} />
+              <boxGeometry args={[0.12, 0.04, 0.12]} />
               <meshStandardMaterial color="#1E293B" metalness={0.9} />
             </mesh>
           </group>
+        </group>
+
+        {/* FLOATING MICRO-DATA CORE (Hovering right above raised palm) */}
+        <group ref={floatingDataCoreRef} position={[-0.42, 1.05, 0.65]}>
+          <mesh>
+            <icosahedronGeometry args={[0.14, 0]} />
+            <meshStandardMaterial
+              color="#DC143C"
+              wireframe
+              emissive="#DC143C"
+              emissiveIntensity={1.8}
+            />
+          </mesh>
+          <mesh>
+            <octahedronGeometry args={[0.07, 0]} />
+            <meshBasicMaterial color="#FFFFFF" />
+          </mesh>
         </group>
 
         {/* 6. WAIST, LEGS & FEET */}
-        {/* Waist Connector Ring */}
         <group position={[0, 0.28, 0]}>
           <mesh>
-            <cylinderGeometry args={[0.22, 0.24, 0.16, 24]} />
+            <cylinderGeometry args={[0.23, 0.25, 0.16, 24]} />
             <meshStandardMaterial color="#334155" metalness={0.9} roughness={0.2} />
           </mesh>
         </group>
 
         {/* Left Leg */}
-        <group position={[-0.18, 0.1, 0]}>
-          {/* Thigh Armor */}
-          <mesh position={[0, -0.4, 0]}>
-            <cylinderGeometry args={[0.11, 0.09, 0.55, 16]} />
+        <group position={[-0.2, 0.1, 0]}>
+          <mesh position={[0, -0.42, 0]}>
+            <cylinderGeometry args={[0.115, 0.095, 0.58, 16]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.25} />
           </mesh>
-          {/* Knee Joint */}
-          <mesh position={[0, -0.7, 0.03]}>
-            <sphereGeometry args={[0.08, 16, 16]} />
+          <mesh position={[0, -0.74, 0.03]}>
+            <sphereGeometry args={[0.085, 16, 16]} />
             <meshStandardMaterial color="#334155" metalness={0.9} />
           </mesh>
-          {/* Calf Component */}
-          <mesh position={[0, -1.05, 0]}>
-            <cylinderGeometry args={[0.08, 0.065, 0.55, 16]} />
+          <mesh position={[0, -1.1, 0]}>
+            <cylinderGeometry args={[0.085, 0.07, 0.58, 16]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.3} />
           </mesh>
-          {/* Engineered Foot */}
-          <mesh position={[0, -1.35, 0.08]}>
-            <boxGeometry args={[0.12, 0.08, 0.26]} />
+          <mesh position={[0, -1.42, 0.08]}>
+            <boxGeometry args={[0.13, 0.085, 0.28]} />
             <meshStandardMaterial color="#0F172A" metalness={0.9} roughness={0.2} />
           </mesh>
         </group>
 
-        {/* Right Leg (Slightly Forward Pose) */}
-        <group position={[0.18, 0.1, 0.1]}>
-          {/* Thigh Armor */}
-          <mesh position={[0, -0.4, 0]}>
-            <cylinderGeometry args={[0.11, 0.09, 0.55, 16]} />
+        {/* Right Leg (Slightly Forward Stance) */}
+        <group position={[0.2, 0.1, 0.12]}>
+          <mesh position={[0, -0.42, 0]}>
+            <cylinderGeometry args={[0.115, 0.095, 0.58, 16]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.25} />
           </mesh>
-          {/* Knee Joint */}
-          <mesh position={[0, -0.7, 0.03]}>
-            <sphereGeometry args={[0.08, 16, 16]} />
+          <mesh position={[0, -0.74, 0.03]}>
+            <sphereGeometry args={[0.085, 16, 16]} />
             <meshStandardMaterial color="#334155" metalness={0.9} />
           </mesh>
-          {/* Calf Component */}
-          <mesh position={[0, -1.05, 0]}>
-            <cylinderGeometry args={[0.08, 0.065, 0.55, 16]} />
+          <mesh position={[0, -1.1, 0]}>
+            <cylinderGeometry args={[0.085, 0.07, 0.58, 16]} />
             <meshStandardMaterial color="#1E293B" metalness={0.9} roughness={0.3} />
           </mesh>
-          {/* Engineered Foot */}
-          <mesh position={[0, -1.35, 0.08]}>
-            <boxGeometry args={[0.12, 0.08, 0.26]} />
+          <mesh position={[0, -1.42, 0.08]}>
+            <boxGeometry args={[0.13, 0.085, 0.28]} />
             <meshStandardMaterial color="#0F172A" metalness={0.9} roughness={0.2} />
           </mesh>
         </group>
 
-        {/* 7. REALISTIC CONTACT FLOOR SHADOW PLANE */}
-        <mesh position={[0, -1.39, 0.05]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[1.6, 1.6]} />
-          <meshBasicMaterial
-            color="#000000"
-            transparent
-            opacity={0.45}
-            depthWrite={false}
-          />
-        </mesh>
+        {/* 7. CIRCULAR COMPUTATIONAL SUSPENSION PLATFORM WITH CONCENTRIC GLOWING CRIMSON RINGS */}
+        <group ref={platformRef} position={[0, -1.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          {/* Inner Glowing Ring */}
+          <mesh>
+            <ringGeometry args={[0.5, 0.54, 64]} />
+            <meshBasicMaterial color="#DC143C" side={THREE.DoubleSide} />
+          </mesh>
+          {/* Middle Ring */}
+          <mesh>
+            <ringGeometry args={[0.9, 0.93, 64]} />
+            <meshBasicMaterial color="#DC143C" transparent opacity={0.6} side={THREE.DoubleSide} />
+          </mesh>
+          {/* Outer Segment Ring */}
+          <mesh>
+            <ringGeometry args={[1.3, 1.34, 64]} />
+            <meshBasicMaterial color="#DC143C" transparent opacity={0.35} side={THREE.DoubleSide} />
+          </mesh>
+          {/* Floor Shadow Plane */}
+          <mesh position={[0, 0, -0.01]}>
+            <planeGeometry args={[3.2, 3.2]} />
+            <meshBasicMaterial color="#000000" transparent opacity={0.65} depthWrite={false} />
+          </mesh>
+        </group>
 
       </group>
 
-      {/* Background Node Constellation */}
+      {/* Background Ambient Data Node Constellation */}
       <points>
         <bufferGeometry>
           <bufferAttribute
@@ -385,10 +423,10 @@ export function AIEngineerRobot({ tier = 'high', isMobile = false }) {
           />
         </bufferGeometry>
         <pointsMaterial
-          size={isMobile ? 0.045 : 0.04}
+          size={isMobile ? 0.048 : 0.042}
           vertexColors
           transparent
-          opacity={0.65}
+          opacity={0.7}
           sizeAttenuation
           depthWrite={false}
           blending={THREE.AdditiveBlending}
