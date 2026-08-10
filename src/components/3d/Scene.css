@@ -1,6 +1,7 @@
 /* ─────────────────────────────────────────────────────
    Global 3D Scene Canvas Styling
-   Fixed full-viewport backdrop behind all sections
+   Fixed full-viewport backdrop behind HTML text safe zones
+   Strict Z-Index Architecture (Layer 2) — Rule #22
    ───────────────────────────────────────────────────── */
 
 .scene {
@@ -8,25 +9,25 @@
   height: 100vh;
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-robot); /* Layer 2: 3D Robot scene */
   pointer-events: none;
   overflow: hidden;
 }
 
-/* Ensure R3F canvas takes full viewport without overflow */
+/* Ensure R3F canvas takes full viewport without blocking mouse clicks */
 .scene canvas {
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
 }
 
-/* ── CSS Fallback ──────────────────────────────── */
+/* ── CSS Fallback (WebGL Failures / Accessibility) ── */
 .scene-fallback {
   width: 100vw;
   height: 100vh;
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: var(--z-canvas-bg);
   pointer-events: none;
   display: flex;
   align-items: center;

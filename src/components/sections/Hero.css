@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────
-   Hero Section — Signature BBH 3D Robot Chamber
-   Exact Art Direction from Reference UI
+   Hero Section — P M K BLESSING BRYSON HONG Identity & 3D Chamber
+   Strict 2-Column Grid Boundary & Protected Text Safe Zone
    ───────────────────────────────────────────────────── */
 
 .hero {
@@ -8,18 +8,18 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-top: var(--space-20);
+  padding-top: calc(var(--space-20) + 20px);
   padding-bottom: var(--space-12);
   background: transparent;
   overflow: hidden;
 }
 
-/* Background Technical Environment */
+/* Background Computational Grid Environment */
 .hero__environment {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-canvas-bg, 1);
 }
 
 .hero__grid {
@@ -35,72 +35,62 @@
   position: absolute;
   inset: 0;
   opacity: 0.03;
-  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
 }
 
-/* Far-Right Technical Axis Rail (DATA -> LEARN -> BUILD -> DEPLOY -> IMPACT) */
-.hero__far-right-axis {
-  position: absolute;
-  right: var(--space-8);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-  z-index: 3;
-  pointer-events: none;
-}
-
-@media (max-width: 1023px) {
-  .hero__far-right-axis {
-    display: none;
-  }
-}
-
-.axis-step {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.axis-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 8px var(--color-primary-glow);
-}
-
-.axis-text {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.2em;
-  opacity: 0.6;
-}
-
-/* Container & Asymmetric Layout (0-48% Left Safe Zone for Typography) */
+/* Responsive Grid Container (42% Left Text Safe Zone / 58% Right Visual Chamber) */
 .hero__container {
+  width: min(100% - 2 * var(--space-6), 1440px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+  align-items: center;
+  gap: var(--space-6);
   position: relative;
-  z-index: 2;
-  width: 100%;
+  z-index: var(--z-content, 3);
 }
 
+/* Left Column: Protected Text Safe Zone (.hero__interface) */
 .hero__interface {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-5);
-  max-width: 46ch; /* 42% desktop typography width */
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 560px;
+  grid-column: 1 / 2;
+  position: relative;
+  z-index: var(--z-content, 3);
 }
 
-.hero__interface--visible {
+/* Right Column: Visual Chamber Region for 3D Robot */
+.hero__visual-zone {
+  grid-column: 2 / 3;
+  height: clamp(520px, 76vh, 800px);
+  width: 100%;
+  position: relative;
+  pointer-events: none;
+}
+
+/* Sequence Reveal System */
+.hero__reveal-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero__interface--visible .hero__reveal-item {
   opacity: 1;
   transform: translateY(0);
 }
+
+.hero__reveal-item--1 { transition-delay: 150ms; }
+.hero__reveal-item--2 { transition-delay: 300ms; }
+.hero__reveal-item--3 { transition-delay: 500ms; }
+.hero__reveal-item--4 { transition-delay: 650ms; }
+.hero__reveal-item--5 { transition-delay: 800ms; }
+.hero__reveal-item--6 { transition-delay: 950ms; }
+.hero__reveal-item--7 { transition-delay: 1100ms; }
 
 /* System Index Tag */
 .hero__sys-index {
@@ -110,33 +100,47 @@
   padding: 3px 10px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full, 9999px);
 }
 
 .sys-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 8px var(--color-primary-glow);
+  background: var(--color-primary, #DC143C);
+  box-shadow: 0 0 8px var(--color-primary-glow, rgba(220, 20, 60, 0.4));
 }
 
 .sys-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono, monospace);
   font-size: 0.6875rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-secondary, #A0A0B0);
   letter-spacing: 0.15em;
 }
 
-/* Name Headline */
+/* Headline Name (Controlled Line Breaks: P M K / BLESSING / BRYSON HONG) */
 .hero__name {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(2.2rem, 4.5vw, 4.2rem);
   font-weight: 700;
-  color: var(--color-text);
+  color: #FFFFFF;
   margin: 0;
-  line-height: 1.05;
+  line-height: 1.02;
   letter-spacing: -0.03em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+.name-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.name-line--pmk {
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(0.9rem, 1.8vw, 1.4rem);
+  color: var(--color-primary, #DC143C);
+  letter-spacing: 0.25em;
+  margin-bottom: 2px;
 }
 
 /* Role Badge */
@@ -145,31 +149,32 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-text-secondary);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.8125rem);
+  color: var(--color-text-secondary, #A0A0B0);
   letter-spacing: 0.08em;
 }
 
 .role-main {
-  color: var(--color-text);
+  color: var(--color-text, #F0F0F5);
   font-weight: 600;
 }
 
 .role-sep {
-  color: var(--color-primary);
+  color: var(--color-primary, #DC143C);
 }
 
 .role-sub {
-  color: var(--color-text-muted);
+  color: var(--color-text-muted, #6B6B7B);
 }
 
 /* Controlled Statement */
 .hero__statement {
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
+  font-size: var(--text-base, 1rem);
+  color: var(--color-text-secondary, #A0A0B0);
   line-height: 1.6;
-  margin: var(--space-1) 0 0 0;
+  max-width: 520px;
+  margin: 0;
   font-style: italic;
 }
 
@@ -181,168 +186,124 @@
   padding: var(--space-2) var(--space-3);
   background: rgba(220, 20, 60, 0.05);
   border: 1px solid rgba(220, 20, 60, 0.2);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
+  border-radius: var(--radius-sm, 4px);
+  font-family: var(--font-mono, monospace);
   font-size: 0.6875rem;
-  margin-top: var(--space-1);
 }
 
 .direction-label {
-  color: var(--color-text-muted);
+  color: var(--color-text-muted, #6B6B7B);
   letter-spacing: 0.1em;
 }
 
 .direction-value {
-  color: var(--color-primary);
+  color: var(--color-primary, #DC143C);
   font-weight: 600;
   letter-spacing: 0.05em;
 }
 
-/* Precision CTA Actions */
+/* CTA Actions */
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
+  position: relative;
+  z-index: var(--z-controls, 5);
+  pointer-events: auto;
 }
 
 .hero__cta {
-  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.8125rem);
   font-weight: 600;
   padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-sm, 4px);
   text-decoration: none;
   letter-spacing: 0.1em;
-  overflow: hidden;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero__cta--primary {
-  background: var(--color-text);
-  color: var(--color-base);
-  border: 1px solid var(--color-text);
+  background: var(--color-text, #F0F0F5);
+  color: var(--color-base, #050508);
+  border: 1px solid var(--color-text, #F0F0F5);
 }
 
 .hero__cta--primary:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-text);
+  background: var(--color-primary, #DC143C);
+  border-color: var(--color-primary, #DC143C);
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px var(--color-primary-glow);
+  box-shadow: 0 4px 20px rgba(220, 20, 60, 0.4);
 }
 
 .hero__cta--outline {
   background: transparent;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary, #A0A0B0);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .hero__cta--outline:hover {
-  border-color: var(--color-border-hover);
-  color: var(--color-text);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--color-text, #F0F0F5);
   transform: translateY(-2px);
 }
 
-/* Status Line with Progress Accent */
-.hero__status-block {
+/* Status Line */
+.hero__status {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: var(--space-2);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #6B6B7B);
+  letter-spacing: 0.1em;
   margin-top: var(--space-2);
 }
 
-.hero__status-line {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.1em;
-}
-
-.status-year {
-  color: var(--color-primary);
-}
-
-.status-progress-bar {
-  width: 140px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-.status-progress-fill {
-  width: 40%;
-  height: 100%;
-  background: var(--color-primary);
-}
-
-/* Reference Signature Scroll Hint (SCROLL TO EXPLORE) */
-.hero__scroll-explore {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  background: transparent;
-  border: none;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  margin-top: var(--space-4);
-  padding: 0;
-  opacity: 0;
-  transition: opacity 1s ease 0.6s, color var(--transition-fast);
-}
-
-.hero__scroll-explore--visible {
-  opacity: 0.7;
-}
-
-.hero__scroll-explore:hover {
-  opacity: 1;
-  color: var(--color-primary);
-}
-
-.scroll-icon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--color-border);
+.status-indicator {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  transition: border-color var(--transition-fast);
+  background: #10B981;
 }
 
-.hero__scroll-explore:hover .scroll-icon-wrap {
-  border-color: var(--color-primary);
+.status-highlight {
+  color: var(--color-primary, #DC143C);
+  font-weight: 600;
 }
 
-.scroll-text {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.18em;
-}
-
-/* Mobile Overrides (< 768px) */
-@media (max-width: 767px) {
-  .hero {
-    min-height: auto;
-    padding-top: var(--space-20);
+/* Responsive Stacking (< 1024px) */
+@media (max-width: 1023px) {
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 
   .hero__interface {
+    grid-column: 1;
     max-width: 100%;
-    gap: var(--space-4);
+  }
+
+  .hero__visual-zone {
+    grid-column: 1;
+    height: 440px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--space-16) + 30px);
+    padding-bottom: var(--space-10);
   }
 
   .hero__name {
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
   }
 
   .hero__actions {
@@ -353,5 +314,9 @@
   .hero__cta {
     width: 100%;
     justify-content: center;
+  }
+
+  .hero__visual-zone {
+    height: 360px;
   }
 }

@@ -104,7 +104,7 @@ export function Interests() {
 
         {/* 9 Premium Cards Grid */}
         <div className="interests-grid">
-          {interests.map((interest, i) => {
+          {(interests || []).map((interest, i) => {
             const IconComponent = ICON_MAP[interest.icon] || Code;
             const isHovered = hoveredId === interest.id;
 

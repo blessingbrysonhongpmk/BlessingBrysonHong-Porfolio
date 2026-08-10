@@ -1,10 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { Loader } from './components/layout/Loader';
+import { PortfolioLoader } from './components/loader/PortfolioLoader';
 import { Hero } from './components/sections/Hero';
 import { Scene } from './components/3d/Scene';
 import { CustomCursor } from './components/ui/CustomCursor';
+import { useRobotController } from './hooks/useRobotController';
 import './styles/global.css';
 import './App.css';
 
@@ -19,6 +20,7 @@ const Contact = lazy(() => import('./components/sections/Contact').then(m => ({ 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [easterEggActive, setEasterEggActive] = useState(false);
+  const robotCtrl = useRobotController();
 
   // Easter egg: Konami-inspired sequence → B B H
   useEffect(() => {
@@ -41,17 +43,22 @@ function App() {
   return (
     <>
       <CustomCursor />
-      {!isLoaded && <Loader onComplete={() => setIsLoaded(true)} />}
+      {!isLoaded && <PortfolioLoader onComplete={() => setIsLoaded(true)} />}
 
       <div className={`app ${isLoaded ? 'app--loaded' : ''}`}>
         {/* Global 3D Interactive Background Matrix */}
-        <Scene />
+        <Scene
+          robotState={robotCtrl.robotState}
+          isSpeaking={robotCtrl.isSpeaking}
+          speechAmplitudeRef={robotCtrl.speechAmplitudeRef}
+          onInitializeRobot={robotCtrl.initializeSystem}
+        />
 
         <a href="#main-content" className="sr-only">Skip to main content</a>
         <Navbar />
 
         <main id="main-content">
-          <Hero />
+          <Hero robotCtrl={robotCtrl} />
 
           <Suspense fallback={<SectionSkeleton />}>
             <About />
@@ -98,8 +105,7 @@ function App() {
 function SectionSkeleton() {
   return (
     <div className="section-skeleton" aria-hidden="true">
-      <div className="section-skeleton__bar section-skeleton__bar--sm" />
-      <div className="section-skeleton__bar section-skeleton__bar--lg" />
+      <div className="skeleton-bar" />
     </div>
   );
 }

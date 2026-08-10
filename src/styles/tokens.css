@@ -98,12 +98,14 @@
   --glass-blur: blur(16px);
   --glass-blur-heavy: blur(32px);
 
-  /* ── Z-Index Scale ─────────────────────────────── */
+  /* ── Z-Index Scale (Strict Layer System — Rule #22) ── */
   --z-below: -1;
-  --z-base: 0;
-  --z-raised: 10;
-  --z-sticky: 100;
-  --z-overlay: 500;
+  --z-bg: 0;            /* Layer 0: Page background */
+  --z-canvas-bg: 1;     /* Layer 1: Three.js background */
+  --z-robot: 2;         /* Layer 2: 3D Robot model */
+  --z-content: 3;       /* Layer 3: HTML content safe zone */
+  --z-navbar: 4;        /* Layer 4: Navbar */
+  --z-controls: 5;      /* Layer 5: Interactive controls */
   --z-modal: 1000;
   --z-cursor: 9999;
 

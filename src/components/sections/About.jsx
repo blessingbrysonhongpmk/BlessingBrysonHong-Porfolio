@@ -1,46 +1,15 @@
 import { PORTFOLIO_DATA } from '../../data/portfolio';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon, DiscordIcon } from '../ui/SocialIcons';
-import { Calendar, MapPin, Briefcase, CheckCircle2, Zap, Search, Users, BookOpen, Star, Quote } from 'lucide-react';
+import { Calendar, MapPin, Briefcase, Compass, Shield, Zap, Search, RefreshCw, CheckCircle2, TrendingUp } from 'lucide-react';
 import './About.css';
 
-const PRINCIPLES = [
-  {
-    index: '01',
-    name: 'Ownership',
-    icon: CheckCircle2,
-    description: 'If I start something, I want to understand it, improve it and take responsibility for the result.',
-  },
-  {
-    index: '02',
-    name: 'Initiative',
-    icon: Zap,
-    description: "I don't want to wait until I know everything before trying something.",
-  },
-  {
-    index: '03',
-    name: 'Curiosity',
-    icon: Search,
-    description: "If I don't understand something, that's usually where I want to look closer.",
-  },
-  {
-    index: '04',
-    name: 'Leadership',
-    icon: Users,
-    isFeatured: true, // Gives subtle crimson emphasis
-    description: 'Leadership starts with taking responsibility, communicating clearly and helping the people around me grow.',
-  },
-  {
-    index: '05',
-    name: 'Learning',
-    icon: BookOpen,
-    description: 'Every project should leave me knowing something I didn\'t know before.',
-  },
-  {
-    index: '06',
-    name: 'Originality',
-    icon: Star,
-    description: 'I naturally look for a different approach instead of building something just because everyone else does.',
-  },
+const PRINCIPLE_ICONS = [
+  Search,       // 01 Curiosity
+  Zap,          // 02 Building
+  Shield,       // 03 Discipline
+  RefreshCw,    // 04 Adaptability
+  CheckCircle2, // 05 Ownership
+  TrendingUp,   // 06 Improvement
 ];
 
 const SOCIAL_ICONS = {
@@ -52,68 +21,71 @@ const SOCIAL_ICONS = {
 };
 
 export function About() {
-  const { socials } = PORTFOLIO_DATA;
-  
-  // Specific name for the About section as requested
-  const aboutName = "P M K Blessing Bryson Hong";
+  const { profile, socials, principles } = PORTFOLIO_DATA;
 
   return (
     <section id="about" className="about-section" aria-label="About Me">
-      <div className="container about-dashboard">
+      <div className="container about-container">
         
-        {/* ── Left Column: Identity Card & Find Me ── */}
+        {/* ── Left Column: Profile Card & Fact Sheet ── */}
         <div className="about-left">
-          
-          <div className="about-portrait-wrapper">
-            <div className="about-portrait-frame">
-              <img
-                src="/profile.jpeg"
-                alt={aboutName}
-                className="about-portrait-img"
-                loading="lazy"
-              />
-              <div className="about-portrait-overlay" />
+          <div className="about-portrait-frame">
+            <img
+              src={profile.avatar}
+              alt={profile.name}
+              className="about-portrait-img"
+              loading="lazy"
+            />
+            <div className="about-portrait-badge">
+              <span className="badge-dot" />
+              <span>2ND YEAR · B.TECH</span>
             </div>
           </div>
 
-          <div className="about-details">
-            <h2 className="about-name">{aboutName}</h2>
-            <p className="about-direction-sub">Building towards AI Engineering</p>
-            
-            <div className="about-meta-card">
+          <div className="about-identity">
+            <h2 className="about-name">{profile.name}</h2>
+            <p className="about-role">{profile.role}</p>
+
+            <div className="about-meta-grid">
               <div className="about-meta-item">
-                <Calendar size={14} className="about-meta-icon" />
-                <span>
-                  B.Tech — Artificial Intelligence & Data Science
-                  <br />
-                  <span className="about-meta-sub">2024 — 2028</span>
-                </span>
+                <Calendar size={15} className="meta-icon" />
+                <div>
+                  <span className="meta-label">EDUCATION</span>
+                  <span className="meta-value">B.Tech AI & Data Science (2024–2028)</span>
+                </div>
               </div>
               <div className="about-meta-item">
-                <MapPin size={14} className="about-meta-icon" />
-                <span>Kulashekaram, Tamil Nadu, India</span>
+                <MapPin size={15} className="meta-icon" />
+                <div>
+                  <span className="meta-label">LOCATION</span>
+                  <span className="meta-value">India</span>
+                </div>
               </div>
               <div className="about-meta-item">
-                <Briefcase size={14} className="about-meta-icon" />
-                <span>Open to Internships, Freelance & Collaborations</span>
+                <Briefcase size={15} className="meta-icon" />
+                <div>
+                  <span className="meta-label">AVAILABILITY</span>
+                  <span className="meta-value">{profile.availability}</span>
+                </div>
               </div>
             </div>
 
-            <div className="about-connect">
-              <span className="about-connect-label">FIND ME</span>
+            <div className="about-socials-wrap">
+              <span className="socials-label">CONNECT:</span>
               <div className="about-socials">
-                {socials.map((social) => {
-                  const Icon = SOCIAL_ICONS[social.icon] || GithubIcon;
+                {socials.map((s) => {
+                  const Icon = SOCIAL_ICONS[s.icon] || GithubIcon;
                   return (
                     <a
-                      key={social.platform}
-                      href={social.url}
+                      key={s.platform}
+                      href={s.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="about-social-link"
-                      aria-label={social.platform}
+                      className="social-btn"
+                      aria-label={s.platform}
+                      title={s.platform}
                     >
-                      <Icon size={16} />
+                      <Icon size={15} />
                     </a>
                   );
                 })}
@@ -122,63 +94,53 @@ export function About() {
           </div>
         </div>
 
-        {/* ── Right Column: Narrative & Principles ── */}
+        {/* ── Right Column: Architectural Bio & Compact Principles ── */}
         <div className="about-right">
           
-          {/* Main Introduction */}
-          <div className="about-block">
-            <span className="about-section-label">ABOUT ME</span>
-            <h2 className="about-main-title">
+          <div className="about-narrative">
+            <span className="section-label">ABOUT</span>
+            <h2 className="about-title">
               Engineer<span className="text-accent">.</span> Learner<span className="text-accent">.</span> Builder<span className="text-accent">.</span>
             </h2>
-            <p className="about-bio">
-              An AI & Data Science engineering student who learns best by building. I would rather turn an imperfect idea into a working prototype, test it, break it, and improve it than wait for the perfect plan.
+
+            <p className="about-intro">
+              {profile.shortBio}
             </p>
 
-            <p className="about-bio-sub">
-              Right now, I'm moving across Data Science, Full Stack Development and AI — learning where each one connects and building projects along the way.
-            </p>
-            
-            <div className="about-signature-line">
-              <span>Still figuring things out.</span> <span className="text-accent">Still building anyway.</span>
+            <div className="about-direction-box">
+              <div className="direction-header">
+                <Compass size={16} className="text-accent" />
+                <span className="direction-title">CURRENT DIRECTION</span>
+              </div>
+              <p className="direction-text">
+                {profile.currentDirection}
+              </p>
             </div>
           </div>
 
-          {/* How I Think (Principles Grid) */}
-          <div className="about-block about-block--philosophy">
-            <span className="about-section-label">HOW I THINK</span>
-            
-            <div className="about-principles-grid">
-              {PRINCIPLES.map((principle) => {
-                const IconComponent = principle.icon;
+          {/* ── Compact Principles Section ── */}
+          <div className="about-principles-block">
+            <h3 className="principles-heading">ENGINEERING PRINCIPLES</h3>
+
+            <div className="principles-grid">
+              {principles.map((p, idx) => {
+                const IconComponent = PRINCIPLE_ICONS[idx % PRINCIPLE_ICONS.length];
                 return (
-                  <div
-                    key={principle.index}
-                    className={`about-principle-card ${principle.isFeatured ? 'is-featured' : ''}`}
-                  >
-                    <div className="principle-card-header">
-                      <span className="principle-index">{principle.index}</span>
-                      <IconComponent size={16} className="principle-icon" />
+                  <div key={p.number} className="principle-card">
+                    <div className="principle-card-top">
+                      <span className="principle-num">{p.number}</span>
+                      <IconComponent size={15} className="principle-icon" />
                     </div>
-                    <h3 className="principle-title">{principle.name}</h3>
-                    <p className="principle-desc">{principle.description}</p>
-                    <div className="principle-accent-bar" />
+                    <h4 className="principle-name">{p.title}</h4>
+                    <p className="principle-desc">{p.description}</p>
                   </div>
                 );
               })}
             </div>
-            
-            {/* Foundational Statement Footer */}
-            <div className="about-statement-footer">
-              <Quote size={20} className="about-statement-icon text-accent" />
-              <p className="about-statement-text">
-                I don't want to build another version of what already exists. Even when the idea is simple, I look for a way to make the experience feel like mine.
-              </p>
-              <span className="about-statement-author">— BBH.</span>
-            </div>
           </div>
 
         </div>
+
       </div>
     </section>
   );

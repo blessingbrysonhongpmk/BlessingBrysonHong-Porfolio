@@ -1,0 +1,354 @@
+/* ─────────────────────────────────────────────────────
+   PortfolioLoader — Premium AI System Initialization Boot
+   Cinematic, Minimal, Technical & Lightweight
+   ───────────────────────────────────────────────────── */
+
+.portfolio-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--color-base, #050508);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 600ms var(--ease-out, ease-out), transform 600ms var(--ease-out, ease-out);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.loader--fading {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+/* ── Subtle Digital Grid & Laser Scan ── */
+.loader-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loader-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.6), transparent);
+  animation: laserScan 2.5s linear infinite;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+@keyframes laserScan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ── Central Computational Core ── */
+.loader-core-wrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-8, 32px);
+}
+
+.core-red-point {
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary, #DC143C);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--color-primary, #DC143C);
+  z-index: 3;
+  transition: transform 400ms ease;
+}
+
+.phase-7 .core-red-point {
+  transform: scale(1.8);
+}
+
+.core-wave {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 20, 60, 0.3);
+  animation: waveEmit 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+.wave-1 { width: 30px; height: 30px; }
+.wave-2 { width: 60px; height: 60px; animation-delay: 400ms; }
+
+@keyframes waveEmit {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ── Abstract Neural Nodes ── */
+.neural-nodes-group {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.phase-2 .neural-nodes-group,
+.phase-3 .neural-nodes-group,
+.phase-4 .neural-nodes-group,
+.phase-5 .neural-nodes-group,
+.phase-6 .neural-nodes-group,
+.phase-7 .neural-nodes-group,
+.phase-8 .neural-nodes-group {
+  opacity: 1;
+}
+
+.node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.node-1 { top: 25%; left: 20%; }
+.node-2 { top: 20%; right: 20%; }
+.node-3 { bottom: 25%; right: 18%; }
+.node-4 { bottom: 30%; left: 18%; }
+.node-5 { top: 12%; left: 50%; transform: translateX(-50%); }
+
+.node-lines-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.neural-line {
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 1;
+  stroke-dasharray: 4 2;
+}
+
+/* ── Orbiting Technical Stream Tags ── */
+.tags-orbit {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+}
+
+.orbit-tag {
+  position: absolute;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(220, 20, 60, 0.1);
+  border: 1px solid rgba(220, 20, 60, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 300ms ease;
+}
+
+.tag-pos-1 { top: 0; left: -10px; opacity: 1; transform: scale(1); }
+.tag-pos-2 { top: -10px; right: -10px; opacity: 1; transform: scale(1); }
+.tag-pos-3 { bottom: 0; right: -15px; opacity: 1; transform: scale(1); }
+.tag-pos-4 { bottom: -10px; left: -10px; opacity: 1; transform: scale(1); }
+.tag-pos-5 { top: 50%; right: -25px; transform: translateY(-50%); opacity: 1; }
+
+/* ── System HUD & Profile Readout ── */
+.loader-hud-content {
+  width: 100%;
+  max-width: 440px;
+  padding: 0 var(--space-6, 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4, 16px);
+  z-index: 2;
+}
+
+.hud-top-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+
+.hud-sys-tag {
+  color: var(--color-primary, #DC143C);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.hud-status-badge {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.08em;
+}
+
+/* Identity Block (Phase 4+) */
+.hud-identity-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 400ms ease;
+}
+
+.hud-identity-block.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.identity-prefix {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  color: var(--color-primary, #DC143C);
+  letter-spacing: 0.15em;
+  margin-bottom: 2px;
+}
+
+.identity-name {
+  font-family: var(--font-display, sans-serif);
+  font-size: var(--text-xl, 1.25rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.identity-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 2px 0 0 0;
+  letter-spacing: 0.05em;
+}
+
+/* System Checks Panel (Phase 5+) */
+.hud-checks-panel {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 400ms ease;
+}
+
+.hud-checks-panel.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+
+.check-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.check-dots {
+  color: rgba(255, 255, 255, 0.15);
+  flex: 1;
+  text-align: center;
+  letter-spacing: 0.15em;
+}
+
+.check-state {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.check-state.is-ready {
+  color: #10B981;
+  font-weight: 700;
+}
+
+/* Bottom Progress Bar & Readout */
+.hud-progress-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-text-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+
+.progress-title {
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.08em;
+}
+
+.progress-percent {
+  color: var(--color-primary, #DC143C);
+  font-weight: 700;
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary, #DC143C);
+  box-shadow: 0 0 10px var(--color-primary, #DC143C);
+  transition: width 150ms linear;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .loader-core-wrap {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+  }
+
+  .neural-nodes-group {
+    scale: 0.8;
+  }
+
+  .hud-checks-panel {
+    padding: 10px 12px;
+    gap: 4px;
+  }
+
+  .identity-name {
+    font-size: 1.1rem;
+  }
+}

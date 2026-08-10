@@ -1,22 +1,23 @@
 // ─────────────────────────────────────────────────────
 // BBH Portfolio — Structured Data
-// All personal content lives here for easy updates.
-// Placeholders are marked with TODO comments.
+// Official Full Name: P M K BLESSING BRYSON HONG
 // ─────────────────────────────────────────────────────
 
 export const PORTFOLIO_DATA = {
   // ── Identity ──────────────────────────────────────
   profile: {
-    name: 'P M K Blessing Bryson Hong',
+    name: 'P M K BLESSING BRYSON HONG',
     brand: 'BBH',
-    role: 'Engineering Student · Building towards AI',
+    role: 'AI & Data Science Engineering Student',
     avatar: '/profile.jpeg',
     heroStatement:
-      'I explore how machines learn and turn ideas into meaningful real-world projects.\nNot there yet — but every build takes me closer.',
+      'I learn by building — moving from data and software into intelligent systems.',
     shortBio:
-      'Second-year AI & Data Science student who would rather ship a rough prototype than theorise about a perfect one. Currently somewhere between understanding backpropagation and deploying real-world client websites.',
+      'Second-year Artificial Intelligence & Data Science engineering student building practical experience across data science, full-stack development, and emerging AI systems.',
+    currentDirection:
+      'Building toward AI Engineering while strengthening the foundations in machine learning, software engineering, and intelligent systems.',
     email: 'blessingbrysonhongpmk@gmail.com',
-    availability: 'Open to internships, freelance opportunities and collaborations.',
+    availability: 'Open to internships, freelance opportunities, and technical collaborations.',
   },
 
   // ── Social Links ──────────────────────────────────
@@ -38,82 +39,83 @@ export const PORTFOLIO_DATA = {
     { label: 'Contact', href: '#contact' },
   ],
 
-  // ── Skills (proof-based) ──────────────────────────
-  skills: [
+  // ── Categorized Skills (Confidence/Group Based) ───
+  skillCategories: [
     {
-      name: 'Python',
-      status: 'practical',
-      usedIn: ['Smart Canteen AI'],
-      description: 'Data processing, scripting, ML pipelines',
+      category: 'PROGRAMMING',
+      skills: [
+        { name: 'Python', status: 'Working Knowledge', description: 'Scripting, data wrangling, ML concepts' },
+        { name: 'Java', status: 'Working Knowledge', description: 'Core OOP, data structures' },
+        { name: 'C#', status: 'Exploring', description: 'Syntax fundamentals' },
+        { name: 'JavaScript', status: 'Working Knowledge', description: 'ES6+, async/await, DOM' },
+        { name: 'HTML & CSS', status: 'Comfortable', description: 'Semantic markup, responsive layouts' },
+      ],
     },
     {
-      name: 'React',
-      status: 'practical',
-      usedIn: ['DEVI DEVAN Industries', 'Aluminium Fabrication', 'PLANIX'],
-      description: 'Component architecture, state management, SPA development',
+      category: 'WEB DEVELOPMENT',
+      skills: [
+        { name: 'React', status: 'Working Knowledge', description: 'Component architecture, state, Vite' },
+        { name: 'Vite', status: 'Comfortable', description: 'Fast build tooling & ESM development' },
+        { name: 'Django', status: 'Working Knowledge', description: 'Backend models, views, REST patterns' },
+        { name: 'REST Concepts', status: 'Working Knowledge', description: 'API consumption & design' },
+      ],
     },
     {
-      name: 'Vite',
-      status: 'practical',
-      usedIn: ['DEVI DEVAN Industries', 'Aluminium Fabrication', 'This Portfolio'],
-      description: 'Build tooling, development server, production bundling',
+      category: 'DATA & AI',
+      skills: [
+        { name: 'Pandas & NumPy', status: 'Working Knowledge', description: 'Data cleaning, tabular manipulation' },
+        { name: 'Matplotlib', status: 'Working Knowledge', description: 'Data visualization & plotting' },
+        { name: 'Scikit-learn', status: 'Exploring', description: 'Supervised ML algorithms' },
+        { name: 'Machine Learning', status: 'Exploring', description: 'Demand prediction & model evaluation' },
+        { name: 'Data Analysis', status: 'Working Knowledge', description: 'Exploratory data analysis & insights' },
+      ],
     },
     {
-      name: 'JavaScript',
-      status: 'practical',
-      usedIn: ['DEVI DEVAN Industries', 'Aluminium Fabrication'],
-      description: 'DOM manipulation, ES6+, async patterns',
-    },
-    {
-      name: 'HTML & CSS',
-      status: 'practical',
-      usedIn: ['DEVI DEVAN Industries', 'Aluminium Fabrication', 'This Portfolio'],
-      description: 'Semantic markup, responsive layouts, CSS custom properties',
-    },
-    {
-      name: 'Git & GitHub',
-      status: 'practical',
-      usedIn: ['All projects'],
-      description: 'Version control, collaboration, open-source workflows',
-    },
-    {
-      name: 'Django',
-      status: 'practical',
-      usedIn: ['Aluminium Fabrication'],
-      description: 'Backend basics, models, views, REST patterns',
-    },
-    {
-      name: 'Data Science',
-      status: 'practical',
-      usedIn: ['Smart Canteen AI'],
-      description: 'Pandas, data wrangling, statistical analysis',
-    },
-    {
-      name: 'Machine Learning',
-      status: 'learning',
-      usedIn: ['Smart Canteen AI'],
-      description: 'Currently exploring supervised learning, demand prediction',
-    },
-    {
-      name: 'Streamlit',
-      status: 'practical',
-      usedIn: ['Smart Canteen AI'],
-      description: 'Rapid prototyping of data applications',
+      category: 'TOOLS & ENVIRONMENTS',
+      skills: [
+        { name: 'Git & GitHub', status: 'Comfortable', description: 'Version control & repository management' },
+        { name: 'VS Code', status: 'Comfortable', description: 'Primary IDE & extensions' },
+        { name: 'Jupyter & Colab', status: 'Working Knowledge', description: 'Interactive notebooks & GPU acceleration' },
+        { name: 'Streamlit', status: 'Working Knowledge', description: 'Data app prototyping' },
+      ],
     },
   ],
 
-  // ── Projects ──────────────────────────────────────
+  // ── Projects (Work) ───────────────────────────────
   projects: [
+    {
+      id: 'smart-canteen-ai',
+      name: 'SMART CANTEEN AI',
+      category: 'Data Science / Machine Learning',
+      status: 'Complete',
+      statusLabel: 'Data Science Project',
+      role: 'Data Science / ML Project',
+      technologies: ['Python', 'Machine Learning', 'Data Analysis', 'Prediction', 'Streamlit'],
+      description:
+        'An ML-based food demand prediction system designed to estimate item-level daily demand and help reduce food preparation waste in canteens.',
+      problem: 'Food preparation in institutional canteens relies heavily on guesswork, causing substantial daily food wastage or sudden shortages.',
+      approach: 'Analyzed historical transaction data, seasonal demand spikes, and day-of-week patterns to train regression prediction models.',
+      contribution: 'Built the complete Python data processing pipeline and interactive Streamlit decision dashboard.',
+      result: 'Provides canteen managers with actionable daily ingredient quantity forecasts to minimize food waste.',
+      liveUrl: null,
+      githubUrl: 'https://github.com/blessingbrysonhongpmk',
+      isFlagship: true,
+      color: '#22C55E',
+    },
     {
       id: 'devi-devan-industries',
       name: 'DEVI DEVAN INDUSTRIES',
-      category: 'Client',
+      category: 'Client Web Project',
       status: 'Live',
-      statusLabel: 'Real-world Client Website',
-      role: 'Full website — design, frontend, development',
-      technologies: ['React', 'Vite', 'CSS'],
+      statusLabel: 'Client Website',
+      role: 'Full-Stack Web Development / Client Project',
+      technologies: ['React', 'Vite', 'CSS', 'JavaScript'],
       description:
-        'Designed and built a complete professional website for a real client from the ground up. Handled the entire process — visual design, component architecture, responsive implementation, and deployment.',
+        'A complete professional website designed and built for a real client, featuring custom branding, responsive service sections, and performant web architecture.',
+      problem: 'The client needed a modern online presence to showcase custom industrial fabrication capabilities and acquire customer leads.',
+      approach: 'Designed a dark, industrial visual language and built a fast modular React application deployed via Vite.',
+      contribution: 'Handled 100% of the visual design, frontend component development, responsive optimization, and deployment.',
+      result: 'Delivered an online business hub driving client visibility and customer inquiries.',
       liveUrl: 'https://devidevanindustries.com',
       githubUrl: null,
       isFlagship: true,
@@ -121,177 +123,86 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: 'aluminium-fabrication',
-      name: 'ALUMINIUM FABRICATION',
-      category: 'Internship',
+      name: 'ALUMINIUM FABRICATION PORTAL',
+      category: 'Web Development Project',
       status: 'Live',
-      statusLabel: 'Internship / Real-world project',
+      statusLabel: 'Commercial Web Project',
       role: 'Frontend Developer',
-      technologies: ['React', 'Vite', 'Django'],
+      technologies: ['React', 'Vite', 'Django', 'REST API'],
       description:
-        'Built a commercial website for an aluminium fabrication company during an internship. Gained practical experience with full-stack patterns using Django on the backend.',
+        'Commercial web application for an aluminium fabrication business built with React on the frontend and Django REST framework on the backend.',
+      problem: 'Displaying complex product lines and custom sizing quotes in a intuitive web interface.',
+      approach: 'Built a responsive React catalog UI consuming Django REST API endpoints for product categories.',
+      contribution: 'Developed frontend product components, inquiry forms, and API integration.',
+      result: 'Delivered a web catalog showcasing fabrication offerings with responsive navigation.',
       liveUrl: 'https://alumunium-fabrication-company.vercel.app/',
       githubUrl: null,
       isFlagship: false,
       color: '#3B82F6',
     },
     {
-      id: 'smart-canteen-ai',
-      name: 'SMART CANTEEN AI',
-      category: 'Data Science',
-      status: 'Complete',
-      statusLabel: 'Data Science / ML project',
-      role: 'Developer',
-      technologies: ['Python', 'Streamlit', 'Pandas', 'Machine Learning'],
-      description:
-        'Predicts item-level daily demand for a canteen and determines preparation quantities to reduce food waste. An intelligent decision system built with real data processing.',
-      liveUrl: null,
-      githubUrl: null, // TODO: Add GitHub repository URL
-      isFlagship: false,
-      color: '#22C55E',
-    },
-    {
-      id: 'planix',
-      name: 'PLANIX',
-      category: 'Hobby',
-      status: 'Building',
-      statusLabel: 'Under Development',
-      role: 'Developer',
-      technologies: ['React', 'AI Integration (Planned)'],
-      description:
-        'An AI-powered planning tool being actively developed. AI model integration is planned — the project is a work in progress, not a finished product.',
-      liveUrl: null,
-      githubUrl: null, // TODO: Add GitHub repository URL
-      isFlagship: false,
-      color: '#DC143C',
-    },
-    {
       id: 'campus-safety-ai',
       name: 'CAMPUS SAFETY AI',
-      category: 'Prototype',
+      category: 'AI Prototype',
       status: 'Prototype',
-      statusLabel: 'Under Development / Prototype',
-      role: 'Student Collaborator',
-      technologies: ['AI', 'Computer Vision', 'Python'],
+      statusLabel: 'AI Research Prototype',
+      role: 'Collaborator',
+      technologies: ['Python', 'Computer Vision', 'AI'],
       description:
-        'A prototype exploring camera-based AI analysis for campus safety — detecting incidents like fire or dangerous situations. Built with a collaborator. Not a production system.',
+        'A computer vision prototype exploring camera-based video analysis to detect hazard events like fire or unauthorized entry on campus grounds.',
+      problem: 'Manual security monitoring across vast campus areas can miss rapid hazard developments.',
+      approach: 'Explored frame-by-frame anomaly detection scripts using computer vision model architectures.',
+      contribution: 'Co-developed frame sampling algorithms and alert visual overlays.',
+      result: 'Functional proof-of-concept demonstrating real-time visual alert flags.',
       liveUrl: null,
-      githubUrl: null, // TODO: Add GitHub repository URL
+      githubUrl: null,
       isFlagship: false,
-      color: '#3B82F6',
+      color: '#A855F7',
     },
   ],
 
-  // ── Project categories for filtering ──────────────
-  projectCategories: ['All', 'Client', 'Internship', 'Data Science', 'AI', 'Hobby', 'Prototype'],
+  projectCategories: ['All', 'Data Science / Machine Learning', 'Client Web Project', 'Web Development Project', 'AI Prototype'],
 
-  // ── Experience ────────────────────────────────────
+  // ── Experience (STRICTLY TWO INTERNSHIPS ONLY) ────
   experience: [
     {
-      company: 'Data Science Internship',
-      location: null,
-      role: 'Python + Data Science',
-      type: 'Internship',
+      id: 'ak-info-park',
+      company: 'AK INFO PARK',
+      role: 'Data Science Intern',
       period: '2025',
-      description: 'Applied Data Science learning to food-demand prediction and waste reduction (Smart Canteen AI).',
+      location: 'India',
+      description:
+        'Worked on a Data Science internship and developed the Smart Canteen food demand prediction project using Python and machine learning concepts.',
+      highlights: [
+        'Analyzed item-level daily consumption datasets using Pandas and Python.',
+        'Built predictive demand models to help reduce canteen food preparation waste.',
+        'Gained practical experience with data analysis and machine learning workflows.',
+      ],
     },
     {
-      company: 'Agile Info Techytern Solutions',
-      location: null,
-      role: 'Full Stack Development',
-      type: 'Learning / Internship Experience',
+      id: 'agile-infotechytern',
+      company: 'AGILE INFOTECHYTERN SOLUTIONS LLP',
+      role: 'Python Full Stack Development Intern',
       period: '2026',
-      description: 'Expanded from Data Science into practical web/full-stack development (React, Vite, Python, Django).',
-    },
-    {
-      company: 'Devi Devan Industries',
-      location: null,
-      role: 'Real-World Client Project',
-      type: 'Client Work',
-      period: '2026',
-      description: 'Design, frontend, and development for a real client using React + Vite.',
-    },
-  ],
-
-  // ── Education ─────────────────────────────────────
-  education: [
-    {
-      degree: 'B.Tech — Artificial Intelligence & Data Science',
-      institution: 'TODO: College Name', // TODO: Add college name
-      period: '2024–2028',
-      status: 'current',
-    },
-    {
-      degree: 'Higher Secondary',
-      institution: 'John Paul II Matric Higher Secondary School, Kulashekaram',
-      period: 'Completed 2024',
-      status: 'completed',
+      location: 'India',
+      description:
+        'Worked on Python full-stack development, gaining practical experience with frontend development, backend integration, and real-world web application development.',
+      highlights: [
+        'Developed dynamic frontend interfaces using React and Vite.',
+        'Learned backend integration and API connectivity using Python and Django.',
+        'Participated in real-world application building and code reviews.',
+      ],
     },
   ],
 
-  // ── Hackathons ────────────────────────────────────
-  hackathons: {
-    philosophy: 'Participated in multiple hackathons from first year onward.',
-    note: 'Build → Present → Learn → Return',
-    entries: [],
-  },
-
-  // ── Certificates ──────────────────────────────────
-  certificates: [],
-
-  // ── Career Direction ──────────────────────────────
-  careerDirection: {
-    longTerm: 'AI Engineer',
-    currentPhase: 'Exploring',
-    statement:
-      'Building towards AI engineering whilst researching where I fit best — whether that is generative AI, computer vision, or something I haven\'t discovered yet.',
-  },
-
-  // ── Currently Exploring ───────────────────────────
-  exploring: [
-    { name: 'Machine Learning', status: 'active' },
-    { name: 'React Ecosystem', status: 'active' },
-  ],
-
-  // ── Next Build ────────────────────────────────────
-  nextBuild: [
-    { name: 'Advanced AI', status: 'researching' },
-    { name: 'GenAI', status: 'researching' },
-    { name: 'Computer Vision', status: 'researching' },
-    { name: 'Advanced React Patterns', status: 'planned' },
-  ],
-
-  // ── Values ────────────────────────────────────────
-  values: [
-    {
-      name: 'Wisdom',
-      source: 'Inspired by the Bible and Thirukkural',
-      description: 'Seeking understanding before action.',
-    },
-    {
-      name: 'Discipline',
-      source: null,
-      description: 'Consistency over intensity.',
-    },
-    {
-      name: 'Integrity',
-      source: null,
-      description: 'Building honestly — no inflated claims.',
-    },
-    {
-      name: 'Learning',
-      source: null,
-      description: 'Every project is an education.',
-    },
-    {
-      name: 'Purposeful Creation',
-      source: null,
-      description: 'Technology should solve real problems.',
-    },
-    {
-      name: 'Responsibility',
-      source: null,
-      description: 'Own the outcome, not just the code.',
-    },
+  // ── Principles (Compact 6 Core Rules) ────────────
+  principles: [
+    { number: '01', title: 'Curiosity', description: 'Question before assuming.' },
+    { number: '02', title: 'Building', description: 'Learn through implementation.' },
+    { number: '03', title: 'Discipline', description: 'Consistency beats intensity.' },
+    { number: '04', title: 'Adaptability', description: 'Technology changes. Learning continues.' },
+    { number: '05', title: 'Ownership', description: 'Take responsibility for the result.' },
+    { number: '06', title: 'Improvement', description: 'Every project exposes something new to learn.' },
   ],
 
   // ── Interests (Outside the Code) ─────────────────
@@ -300,147 +211,134 @@ export const PORTFOLIO_DATA = {
       id: 'chess',
       name: 'Chess',
       icon: 'crown',
-      description: 'Thinking several moves ahead, solving patterns and enjoying the quiet pressure of the board.',
+      description: 'Thinking several moves ahead, solving patterns, and enjoying strategic focus.',
     },
     {
       id: 'dance',
       name: 'Dance',
       icon: 'music',
-      description: 'A different way of expressing energy, rhythm and creativity away from the screen.',
+      description: 'A creative way of expressing energy, rhythm, and focus away from the screen.',
     },
     {
       id: 'singing',
       name: 'Singing',
       icon: 'mic',
-      description: 'Music keeps me connected to expression, emotion and a different kind of focus.',
+      description: 'Music keeps me connected to expression, emotion, and discipline.',
     },
     {
       id: 'books',
       name: 'Books',
       icon: 'book-open',
-      description: 'Exploring ideas, stories and perspectives that challenge how I think.',
+      description: 'Exploring ideas, technical literature, and perspectives that challenge my thinking.',
     },
     {
       id: 'bible-reading',
-      name: 'Bible Reading',
+      name: 'Reflection',
       icon: 'book',
-      description: 'A source of reflection, discipline, wisdom and perspective.',
+      description: 'A source of discipline, wisdom, and core personal perspective.',
     },
     {
       id: 'web-series',
-      name: 'Web Series',
+      name: 'Stories & Media',
       icon: 'tv',
-      description: 'Stories, characters and ideas that give me a break from building — and sometimes spark new ones.',
+      description: 'Engaging narratives and cinematography that spark fresh creative ideas.',
     },
     {
       id: 'hackathons',
       name: 'Hackathons',
       icon: 'trophy',
-      description: 'Building under pressure, learning quickly, presenting ideas and returning with something better.',
+      description: 'Building under pressure, rapid prototyping, and solving problems with teams.',
     },
     {
       id: 'hobby-projects',
-      name: 'Hobby Projects',
+      name: 'Hobby Experiments',
       icon: 'code',
-      description: 'Small experiments built because an idea was interesting enough to try.',
+      description: 'Small technical builds created simply because an idea was fun to explore.',
     },
     {
       id: 'learning',
-      name: 'Learning',
+      name: 'Continuous Learning',
       icon: 'lightbulb',
-      description: 'The habit behind everything else — continuously picking up something new.',
+      description: 'The core habit behind everything — constantly picking up new technical skills.',
+    },
+  ],
+
+  // ── Education ─────────────────────────────────────
+  education: [
+    {
+      degree: 'B.Tech in Artificial Intelligence & Data Science',
+      institution: 'Higher Education Institution',
+      period: '2024 – 2028',
+      status: 'Current — 2nd Year',
+    },
+    {
+      degree: 'Higher Secondary Schooling',
+      institution: 'John Paul II Matric Higher Secondary School, Kulashekaram',
+      period: 'Completed 2024',
+      status: 'Completed',
     },
   ],
 
   // ── Journey Timeline ──────────────────────────────
-  // Interactive Milestones
   journey: [
     {
       year: '2024',
-      subLabel: 'BEGINNING',
-      title: 'Engineering Begins',
-      description: 'Started B.Tech in Artificial Intelligence & Data Science. Building the foundation.',
-      icon: 'graduationCap',
-      tag: 'Education',
-    },
-    {
-      year: '2024 – 2025',
-      subLabel: 'FIRST YEAR',
-      title: 'Hackathons & Exploration',
-      description: 'Participated in multiple hackathons and technical events from the first year itself.',
-      tech: 'Explore → Participate → Build → Present → Learn',
-      icon: 'trophy',
-      tag: 'Experience',
+      milestone: 'Engineering Begins',
+      tag: 'EDUCATION',
+      summary: 'Started B.Tech in Artificial Intelligence & Data Science.',
+      details: 'Laid the core academic foundations in mathematics, programming, and computer science principles.',
     },
     {
       year: '2025',
-      subLabel: '3RD SEM COMPLETED',
-      title: 'Data Science Internship',
-      description: 'Joined as a Data Science intern. Worked with Python, data analysis and machine learning concepts.',
-      icon: 'barChart',
-      tag: 'Internship',
+      milestone: 'First Data Science Internship',
+      tag: 'INTERNSHIP',
+      summary: 'Completed data science internship at AK Info Park.',
+      details: 'Built the Smart Canteen demand prediction project using Python, Pandas, and machine learning models.',
     },
     {
       year: '2025',
-      subLabel: 'PROJECT',
-      title: 'Smart Canteen AI',
-      description: 'Applied data science to predict daily food demand and reduce waste using ML.',
-      icon: 'database',
-      tag: 'Project',
+      milestone: 'Hackathon Exploration',
+      tag: 'HACKATHONS',
+      summary: 'Participated in multiple hackathons from first year onward.',
+      details: 'Focused on rapid prototyping, presenting ideas, team collaboration, and real-time problem solving.',
     },
     {
       year: '2026',
-      subLabel: '4TH SEM COMPLETED',
-      title: 'Full Stack Development',
-      description: 'Joined Agile Info Techytern Solutions to learn Python Full Stack Development.',
-      icon: 'code',
-      tag: 'Internship',
+      milestone: 'Full Stack Development',
+      tag: 'INTERNSHIP',
+      summary: 'Joined Agile Infotechytern Solutions LLP.',
+      details: 'Gained practical Python full-stack development experience with frontend components, backend logic, and REST APIs.',
     },
     {
       year: '2026',
-      subLabel: 'REAL-WORLD WORK',
-      title: 'Devi Devan Industries',
-      description: 'Got the opportunity to work on a real-world client project. Designed and developed the website using React & Vite.',
-      icon: 'globe',
-      tag: 'Client Project',
+      milestone: 'Client Project',
+      tag: 'CLIENT WORK',
+      summary: 'Engineered and shipped Devidevan Industries.',
+      details: 'Designed and deployed a production client website from scratch using React, Vite, and modern CSS.',
     },
     {
       year: '2026',
-      subLabel: 'CURRENTLY',
-      title: 'AI / ML Learning',
-      description: 'Diving deeper into Artificial Intelligence, Machine Learning, and building intelligent systems.',
-      icon: 'brain',
-      tag: 'Learning',
+      milestone: 'AI Exploration',
+      tag: 'LEARNING',
+      summary: 'Deepening machine learning and AI system knowledge.',
+      details: 'Exploring model architectures, computer vision prototypes, and intelligent web integrations.',
     },
     {
-      year: '2026',
-      subLabel: 'IN PROGRESS',
-      title: 'Campus Safety AI',
-      description: 'Building a prototype for camera-based AI analysis to detect safety incidents on campus.',
-      icon: 'shield',
-      tag: 'Prototype',
-    },
-    {
-      year: '2026', // To keep alignment, but the icon is arrow-up. Wait, the prompt says "NEXT" instead of year
+      year: 'NEXT',
       isNext: true,
-      title: 'NEXT STOP: AI ENGINEER',
-      description: 'Building towards AI Engineering.',
-      icon: 'arrowUp',
+      milestone: 'AI ENGINEERING',
+      tag: 'FUTURE DIRECTION',
+      summary: 'Building toward full AI Engineering capability.',
+      details: 'Strengthening foundations in Machine Learning, AI systems, Software Engineering, Generative AI, and Computer Vision.',
     },
   ],
 
-  // ── GitHub ────────────────────────────────────────
-  github: {
-    username: 'blessingbrysonhongpmk',
-    profileUrl: 'https://github.com/blessingbrysonhongpmk',
-  },
-
   // ── SEO / Meta ────────────────────────────────────
   meta: {
-    title: 'BBH — Blessing Bryson Hong P M K',
+    title: 'P M K BLESSING BRYSON HONG | AI & Data Science',
     description:
-      'Engineering student building real projects in AI, data science, and web development. View live client work, prototypes, and experiments.',
+      'Portfolio of P M K Blessing Bryson Hong, an Artificial Intelligence and Data Science engineering student building projects across data science, full-stack development, and AI.',
     url: 'https://blessingbrysonhong.vercel.app',
-    image: '/og-image.png',
+    image: '/profile.jpeg',
   },
 };

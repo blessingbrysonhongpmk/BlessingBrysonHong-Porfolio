@@ -13,20 +13,15 @@ const SOCIAL_ICONS = {
 
 export function Footer() {
   const { socials } = PORTFOLIO_DATA;
-  const year = new Date().getFullYear();
-  
-  // Custom name for the footer as requested
-  const footerName = "P M K Blessing Bryson Hong";
 
   return (
     <footer className="footer" role="contentinfo">
       <div className="container footer__inner">
-        {/* Top */}
         <div className="footer__top">
           <div className="footer__brand">
             <span className="footer__brand-mark">BBH<span className="text-accent">.</span></span>
-            <span className="footer__brand-name">{footerName}</span>
-            <span className="footer__brand-sub">Building towards AI Engineering.</span>
+            <span className="footer__brand-name">P M K BLESSING BRYSON HONG</span>
+            <span className="footer__brand-sub">AI & Data Science</span>
           </div>
 
           <div className="footer__socials">
@@ -40,6 +35,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="footer__social"
                   aria-label={platform}
+                  title={platform}
                 >
                   <IconComp size={16} />
                 </a>
@@ -48,12 +44,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="footer__bottom">
-          <span className="footer__copyright">© {year} {footerName}</span>
+          <span className="footer__copyright">© 2026 P M K BLESSING BRYSON HONG</span>
 
           <nav className="footer__nav" aria-label="Footer Navigation">
-            <span className="footer__nav-label">Navigation:</span>
+            <a href="#home" className="footer__nav-link">Home</a>
+            <span className="footer__separator">·</span>
             <a href="#about" className="footer__nav-link">About</a>
             <span className="footer__separator">·</span>
             <a href="#work" className="footer__nav-link">Work</a>
