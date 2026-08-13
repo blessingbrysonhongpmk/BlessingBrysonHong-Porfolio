@@ -232,11 +232,21 @@ export function AIEngineerRobot({
     let targetZ = -0.15;
     let targetRotY = 0.25;
 
+    // Dynamic Three.js Camera Scroll Control Targets
+    const camera = state.camera;
+    let camTargetX = 0;
+    let camTargetY = 0;
+    let camTargetZ = 6.0;
+    let camLookAtX = 0;
+    let camLookAtY = 0;
+    let camLookAtZ = 0;
+
     if (isMobile) {
       targetX = 0;
       targetY = -2.55 + hoverSwayY;
       targetZ = -0.6;
       targetRotY = 0;
+      camTargetZ = 6.5;
     } else {
       if (scrollProgress < 0.2) {
         const t = scrollProgress / 0.2;
@@ -244,26 +254,56 @@ export function AIEngineerRobot({
         targetY = THREE.MathUtils.lerp(-0.15, 0.25, t) + hoverSwayY;
         targetZ = THREE.MathUtils.lerp(-0.15, -0.5, t);
         targetRotY = THREE.MathUtils.lerp(0.25, -0.3, t);
+
+        camTargetX = THREE.MathUtils.lerp(0.0, -0.5, t);
+        camTargetY = THREE.MathUtils.lerp(0.0, 0.2, t);
+        camTargetZ = THREE.MathUtils.lerp(6.0, 5.2, t);
+        camLookAtX = THREE.MathUtils.lerp(0.4, -0.6, t);
+        camLookAtY = THREE.MathUtils.lerp(0.0, 0.2, t);
       } else if (scrollProgress < 0.45) {
         const t = (scrollProgress - 0.2) / 0.25;
         targetX = THREE.MathUtils.lerp(-1.8, 1.8, t);
         targetY = THREE.MathUtils.lerp(0.25, 0.65, t) + hoverSwayY;
         targetZ = THREE.MathUtils.lerp(-0.5, -1.2, t);
         targetRotY = THREE.MathUtils.lerp(-0.3, 0.4, t);
+
+        camTargetX = THREE.MathUtils.lerp(-0.5, 0.6, t);
+        camTargetY = THREE.MathUtils.lerp(0.2, 0.5, t);
+        camTargetZ = THREE.MathUtils.lerp(5.2, 5.5, t);
+        camLookAtX = THREE.MathUtils.lerp(-0.6, 1.0, t);
+        camLookAtY = THREE.MathUtils.lerp(0.2, 0.4, t);
       } else if (scrollProgress < 0.75) {
         const t = (scrollProgress - 0.45) / 0.3;
         targetX = THREE.MathUtils.lerp(1.8, -1.6, t);
         targetY = THREE.MathUtils.lerp(0.65, -0.15, t) + hoverSwayY;
         targetZ = THREE.MathUtils.lerp(-1.2, -0.8, t);
         targetRotY = THREE.MathUtils.lerp(0.4, -0.2, t);
+
+        camTargetX = THREE.MathUtils.lerp(0.6, -0.4, t);
+        camTargetY = THREE.MathUtils.lerp(0.5, -0.3, t);
+        camTargetZ = THREE.MathUtils.lerp(5.5, 4.8, t);
+        camLookAtX = THREE.MathUtils.lerp(1.0, -0.8, t);
+        camLookAtY = THREE.MathUtils.lerp(0.4, 0.1, t);
       } else {
         const t = (scrollProgress - 0.75) / 0.25;
         targetX = THREE.MathUtils.lerp(-1.6, 1.6, t);
         targetY = THREE.MathUtils.lerp(-0.15, -0.05, t) + hoverSwayY;
         targetZ = THREE.MathUtils.lerp(-0.8, 0.0, t);
         targetRotY = THREE.MathUtils.lerp(-0.2, 0.3, t);
+
+        camTargetX = THREE.MathUtils.lerp(-0.4, 0.0, t);
+        camTargetY = THREE.MathUtils.lerp(-0.3, 0.1, t);
+        camTargetZ = THREE.MathUtils.lerp(4.8, 5.2, t);
+        camLookAtX = THREE.MathUtils.lerp(-0.8, 0.0, t);
+        camLookAtY = THREE.MathUtils.lerp(0.1, 0.0, t);
       }
     }
+
+    // Smoothly lerp Three.js Camera position and focus orientation
+    camera.position.x += (camTargetX + mouseRef.current.x * 0.35 - camera.position.x) * 0.05;
+    camera.position.y += (camTargetY + mouseRef.current.y * 0.35 - camera.position.y) * 0.05;
+    camera.position.z += (camTargetZ - camera.position.z) * 0.05;
+    camera.lookAt(camLookAtX, camLookAtY, camLookAtZ);
 
     robotGroupRef.current.position.x += (targetX - robotGroupRef.current.position.x) * 0.06;
     robotGroupRef.current.position.y += (targetY - robotGroupRef.current.position.y) * 0.06;

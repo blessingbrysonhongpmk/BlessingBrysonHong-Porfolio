@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { robotAudio } from '../utils/robotAudio';
 
 /**
  * useRobotVoice — Clean browser-native Web Speech API SpeechSynthesis hook.
  * Features:
  * - Natural English voice selection (high quality Google/Microsoft/Apple voices)
  * - Rate (0.95), Pitch (1.0), Volume control
+ * - Web Audio API sci-fi activation & speech blip sound effects
  * - Non-overlapping speech queue management with cancellation
  * - LocalStorage persistent Mute toggle (🔊 / 🔇)
  * - Speech reactive amplitude callbacks for 3D core pulsation
@@ -105,6 +107,8 @@ export function useRobotVoice() {
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
         setCurrentCaption('');
+      } else if (!next) {
+        robotAudio.playClickSFX();
       }
       return next;
     });
@@ -140,7 +144,10 @@ export function useRobotVoice() {
         return;
       }
 
-      // Cancel ongoing speech to prevent overlap (Rule #3)
+      // Play Web Audio API futuristic activate chime
+      robotAudio.playActivateSFX();
+
+      // Cancel ongoing speech to prevent overlap
       window.speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);

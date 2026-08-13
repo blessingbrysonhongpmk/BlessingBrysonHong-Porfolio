@@ -49,11 +49,17 @@ export function RobotHUD({
         </button>
       </div>
 
-      {/* ── 2. Voice Link Status Indicator ── */}
+      {/* ── 2. Voice Link Equalizer Audio Wave ── */}
       {isSpeaking && (
         <div className="robot-hud__speaking-badge" aria-live="polite">
-          <span className="speaking-pulse" />
-          <span className="speaking-text">VOICE LINK ACTIVE</span>
+          <div className="voice-equalizer">
+            <span className="eq-bar eq-bar--1" />
+            <span className="eq-bar eq-bar--2" />
+            <span className="eq-bar eq-bar--3" />
+            <span className="eq-bar eq-bar--4" />
+            <span className="eq-bar eq-bar--5" />
+          </div>
+          <span className="speaking-text">AI VOICE LINK ACTIVE</span>
         </div>
       )}
 
