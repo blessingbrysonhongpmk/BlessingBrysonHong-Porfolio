@@ -1,0 +1,764 @@
+/* ─────────────────────────────────────────────────────
+   Interactive Simulators & Blueprint System CSS
+   ───────────────────────────────────────────────────── */
+
+/* Main Container Box */
+.simulator-box {
+  background: rgba(8, 10, 15, 0.95);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  margin-top: 16px;
+}
+
+.simulator-box--canteen { border-color: rgba(34, 197, 94, 0.25); }
+.simulator-box--industrial { border-color: rgba(220, 20, 60, 0.25); }
+.simulator-box--aluminium { border-color: rgba(59, 130, 246, 0.25); }
+.simulator-box--safety { border-color: rgba(234, 179, 8, 0.25); }
+
+/* Header */
+.simulator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 14px;
+}
+
+.simulator-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.simulator-icon-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.simulator-icon-badge--green { background: rgba(34, 197, 94, 0.12); color: #22C55E; border-color: rgba(34, 197, 94, 0.3); }
+.simulator-icon-badge--crimson { background: rgba(220, 20, 60, 0.12); color: #DC143C; border-color: rgba(220, 20, 60, 0.3); }
+.simulator-icon-badge--blue { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-color: rgba(59, 130, 246, 0.3); }
+.simulator-icon-badge--amber { background: rgba(234, 179, 8, 0.12); color: #EAB308; border-color: rgba(234, 179, 8, 0.3); }
+
+.simulator-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0 0 2px 0;
+  letter-spacing: 0.04em;
+}
+
+.simulator-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.simulator-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  padding: 4px 10px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius-full);
+  color: #22C55E;
+  font-weight: 600;
+}
+
+.simulator-status-badge--crimson { background: rgba(220, 20, 60, 0.1); border-color: rgba(220, 20, 60, 0.3); color: #DC143C; }
+.simulator-status-badge--blue { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #38BDF8; }
+.simulator-status-badge--amber { background: rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.3); color: #EAB308; }
+
+.live-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  box-shadow: 0 0 8px #22C55E;
+  animation: pulseDot 1.8s infinite;
+}
+
+.live-pulse-dot--red { background: #DC143C; box-shadow: 0 0 8px #DC143C; }
+.live-pulse-dot--blue { background: #38BDF8; box-shadow: 0 0 8px #38BDF8; }
+.live-pulse-dot--yellow { background: #EAB308; box-shadow: 0 0 8px #EAB308; }
+
+@keyframes pulseDot {
+  0% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* Grid Layout */
+.simulator-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 900px) {
+  .simulator-grid {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+/* Controls Column */
+.simulator-controls-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
+.control-val {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: #F8FAFC;
+  font-weight: 700;
+}
+
+.simulator-select {
+  width: 100%;
+  padding: 8px 12px;
+  background: #0D111A;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  color: #F8FAFC;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.simulator-select:focus {
+  border-color: var(--color-primary);
+}
+
+.simulator-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.simulator-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.simulator-slider--green::-webkit-slider-thumb { background: #22C55E; box-shadow: 0 0 10px rgba(34, 197, 94, 0.8); }
+.simulator-slider--crimson::-webkit-slider-thumb { background: #DC143C; box-shadow: 0 0 10px rgba(220, 20, 60, 0.8); }
+.simulator-slider--blue::-webkit-slider-thumb { background: #38BDF8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.8); }
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: #64748B;
+}
+
+.control-row-dual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.control-toggle-row {
+  padding-top: 4px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.simulator-checkbox {
+  display: none;
+}
+
+.toggle-custom {
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.simulator-checkbox:checked + .toggle-custom {
+  background: #22C55E;
+  border-color: #22C55E;
+}
+
+.simulator-checkbox:checked + .toggle-custom::after {
+  content: '✓';
+  color: #000000;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.toggle-text {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: #CBD5E1;
+}
+
+/* Output Column */
+.simulator-output-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sim-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.sim-metric-card {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sim-metric-card--primary { border-color: rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.05); }
+.sim-metric-card--green { border-color: rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.05); }
+.sim-metric-card--crimson { border-color: rgba(220, 20, 60, 0.3); background: rgba(220, 20, 60, 0.05); }
+.sim-metric-card--blue { border-color: rgba(59, 130, 246, 0.3); background: rgba(59, 130, 246, 0.05); }
+.sim-metric-card--dark { background: rgba(0, 0, 0, 0.3); }
+
+.sim-metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+}
+
+.sim-metric-val-group {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.sim-metric-num {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #F8FAFC;
+}
+
+.sim-metric-unit {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: #CBD5E1;
+}
+
+.sim-metric-sub {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: #64748B;
+}
+
+.text-green { color: #22C55E; }
+.text-crimson { color: #DC143C; }
+.text-blue { color: #38BDF8; }
+
+/* Chart & Graphics */
+.sim-chart-container {
+  background: #06080D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sim-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: #94A3B8;
+}
+
+.sim-svg-chart {
+  width: 100%;
+  height: 110px;
+  overflow: visible;
+}
+
+.sim-path-anim {
+  transition: d 0.4s ease;
+}
+
+.recipe-breakdown-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+}
+
+.breakdown-title { color: #94A3B8; }
+.breakdown-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.prep-pill {
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  color: #F8FAFC;
+}
+
+/* CAD & Industrial Blueprint Boxes */
+.industrial-blueprint-box,
+.elevation-drawing-box {
+  background: #04060A;
+  border: 1px stroke rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blueprint-topbar,
+.elevation-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: #94A3B8;
+}
+
+.blueprint-tag,
+.elevation-scale-tag {
+  font-weight: 600;
+}
+
+.blueprint-svg,
+.elevation-svg {
+  width: 100%;
+  height: 90px;
+}
+
+.industrial-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+}
+
+.fab-time-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #CBD5E1;
+}
+
+.live-site-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.live-site-link:hover {
+  text-decoration: underline;
+}
+
+/* Color Swatches for Aluminium Customizer */
+.color-swatch-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.color-swatch-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #0D111A;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: #CBD5E1;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.color-swatch-btn.active {
+  border-color: var(--swatch-color);
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.swatch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--swatch-color);
+}
+
+/* Computer Vision Feed HUD (Campus Safety) */
+.cv-mode-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cv-mode-pill {
+  padding: 6px 10px;
+  background: #0D111A;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: #CBD5E1;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cv-mode-pill.active {
+  border-color: var(--mode-color);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hazard-btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.hazard-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: #CBD5E1;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hazard-btn--intrusion.active {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #EF4444;
+  color: #EF4444;
+}
+
+.hazard-btn--fire.active {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #F59E0B;
+  color: #F59E0B;
+}
+
+.cv-camera-feed {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-camera-feed--alert {
+  border-color: #EF4444;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.cv-hud-topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: #F8FAFC;
+}
+
+.cv-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  animation: pulseDot 1s infinite;
+}
+
+.cv-hud-right {
+  display: flex;
+  gap: 10px;
+  color: #94A3B8;
+}
+
+.cv-frame-viewport {
+  position: relative;
+  height: 140px;
+  background: radial-gradient(circle at center, #0F172A 0%, #020617 100%);
+  overflow: hidden;
+}
+
+.cv-scanline {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 0 8px #22C55E;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cv-svg-hud {
+  width: 100%;
+  height: 100%;
+}
+
+.alert-rect-pulse {
+  animation: pulseDot 0.8s infinite;
+}
+
+.cv-hud-bottombar {
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.status-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+
+.status-banner--normal { color: #22C55E; }
+.status-banner--alert { color: #EF4444; animation: pulseDot 1s infinite; }
+
+/* ─────────────────────────────────────────────────────
+   Architecture Blueprint Flowchart CSS
+   ───────────────────────────────────────────────────── */
+.blueprint-section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.blueprint-nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blueprint-tab-btn {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blueprint-tab-btn:hover {
+  color: #F8FAFC;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.blueprint-tab-btn.active {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.blueprint-flow-card {
+  background: rgba(8, 10, 15, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blueprint-flow-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.blueprint-pipeline-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .blueprint-pipeline-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.blueprint-step-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.blueprint-step-card {
+  flex: 1;
+  position: relative;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color var(--transition-fast);
+}
+
+.blueprint-step-card:hover {
+  border-color: var(--step-color, var(--color-primary));
+}
+
+.step-badge {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--step-color, var(--color-primary));
+  font-weight: 800;
+}
+
+.step-icon-box {
+  margin-bottom: 2px;
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.step-desc {
+  font-size: 0.75rem;
+  color: #CBD5E1;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.blueprint-arrow-connector {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .blueprint-arrow-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+  }
+}
