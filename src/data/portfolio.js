@@ -1,23 +1,26 @@
 // ─────────────────────────────────────────────────────
 // BBH Portfolio — Structured Data
-// Official Full Name: P M K BLESSING BRYSON HONG
+// Blessing Bryson Hong | AI & Data Science Engineer
 // ─────────────────────────────────────────────────────
 
 export const PORTFOLIO_DATA = {
   // ── Identity ──────────────────────────────────────
   profile: {
-    name: 'P M K BLESSING BRYSON HONG',
+    name: 'Blessing Bryson Hong',
+    fullName: 'P M K BLESSING BRYSON HONG',
     brand: 'BBH',
-    role: 'AI & Data Science Engineering Student',
+    role: 'AI & Data Science + Full Stack Developer',
+    education: 'III Year B.Tech — Artificial Intelligence & Data Science',
+    location: 'India',
     avatar: '/profile.jpeg',
     heroStatement:
-      'I learn by building — moving from data and software into intelligent systems.',
+      'Building intelligent systems at the intersection of AI, data, and full-stack engineering.',
     shortBio:
-      'Second-year Artificial Intelligence & Data Science engineering student building practical experience across data science, full-stack development, and emerging AI systems.',
+      'Third-year Artificial Intelligence & Data Science engineering student building practical experience across machine learning, data science, and full-stack web applications.',
     currentDirection:
-      'Building toward AI Engineering while strengthening the foundations in machine learning, software engineering, and intelligent systems.',
+      'Advancing toward AI Engineering by mastering model pipelines, computer vision, and high-performance full-stack architectures.',
     email: 'blessingbrysonhongpmk@gmail.com',
-    availability: 'Open to internships, freelance opportunities, and technical collaborations.',
+    availability: 'Available for 2026 Opportunities',
   },
 
   // ── Social Links ──────────────────────────────────
@@ -44,39 +47,40 @@ export const PORTFOLIO_DATA = {
     {
       category: 'PROGRAMMING',
       skills: [
-        { name: 'Python', status: 'Working Knowledge', description: 'Scripting, data wrangling, ML concepts' },
-        { name: 'Java', status: 'Working Knowledge', description: 'Core OOP, data structures' },
-        { name: 'C#', status: 'Exploring', description: 'Syntax fundamentals' },
-        { name: 'JavaScript', status: 'Working Knowledge', description: 'ES6+, async/await, DOM' },
-        { name: 'HTML & CSS', status: 'Comfortable', description: 'Semantic markup, responsive layouts' },
+        { name: 'Python', status: 'Working Knowledge', description: 'Scripting, data wrangling, ML pipelines, automation' },
+        { name: 'SQL', status: 'Working Knowledge', description: 'Relational database queries, schema design, data modeling' },
+        { name: 'JavaScript / TypeScript', status: 'Working Knowledge', description: 'Modern ES6+, async architectures, DOM manipulation' },
+        { name: 'HTML & CSS', status: 'Comfortable', description: 'Semantic structure, responsive layouts, modern design tokens' },
       ],
     },
     {
       category: 'WEB DEVELOPMENT',
       skills: [
-        { name: 'React', status: 'Working Knowledge', description: 'Component architecture, state, Vite' },
-        { name: 'Vite', status: 'Comfortable', description: 'Fast build tooling & ESM development' },
-        { name: 'Django', status: 'Working Knowledge', description: 'Backend models, views, REST patterns' },
-        { name: 'REST Concepts', status: 'Working Knowledge', description: 'API consumption & design' },
+        { name: 'React', status: 'Working Knowledge', description: 'Modular component architecture, state management, Vite' },
+        { name: 'Node.js', status: 'Working Knowledge', description: 'Runtime server logic, backend API integration' },
+        { name: 'Django', status: 'Working Knowledge', description: 'Backend ORM models, views, REST patterns' },
+        { name: 'REST APIs', status: 'Working Knowledge', description: 'Endpoint design, API consumption, client-server sync' },
+        { name: 'Full Stack Development', status: 'Working Knowledge', description: 'End-to-end web architectures from database to UI' },
       ],
     },
     {
       category: 'DATA & AI',
       skills: [
-        { name: 'Pandas & NumPy', status: 'Working Knowledge', description: 'Data cleaning, tabular manipulation' },
-        { name: 'Matplotlib', status: 'Working Knowledge', description: 'Data visualization & plotting' },
-        { name: 'Scikit-learn', status: 'Exploring', description: 'Supervised ML algorithms' },
-        { name: 'Machine Learning', status: 'Exploring', description: 'Demand prediction & model evaluation' },
-        { name: 'Data Analysis', status: 'Working Knowledge', description: 'Exploratory data analysis & insights' },
+        { name: 'Data Science', status: 'Working Knowledge', description: 'Exploratory data analysis, insights extraction, metrics' },
+        { name: 'Machine Learning', status: 'Exploring', description: 'Demand prediction, regression, model evaluation' },
+        { name: 'Pandas & NumPy', status: 'Working Knowledge', description: 'Data wrangling, matrix calculations, tabular datasets' },
+        { name: 'Matplotlib', status: 'Working Knowledge', description: 'Data visualization, distribution plots, trend analysis' },
+        { name: 'Scikit-learn', status: 'Exploring', description: 'Supervised ML algorithms, feature preprocessing' },
       ],
     },
     {
       category: 'TOOLS & ENVIRONMENTS',
       skills: [
-        { name: 'Git & GitHub', status: 'Comfortable', description: 'Version control & repository management' },
-        { name: 'VS Code', status: 'Comfortable', description: 'Primary IDE & extensions' },
-        { name: 'Jupyter & Colab', status: 'Working Knowledge', description: 'Interactive notebooks & GPU acceleration' },
-        { name: 'Streamlit', status: 'Working Knowledge', description: 'Data app prototyping' },
+        { name: 'Git & GitHub', status: 'Comfortable', description: 'Version control, repository management, collaboration' },
+        { name: 'Firebase & MongoDB', status: 'Working Knowledge', description: 'NoSQL document stores & modern cloud services' },
+        { name: 'VS Code', status: 'Comfortable', description: 'Primary engineering IDE and developer extensions' },
+        { name: 'Jupyter & Colab', status: 'Working Knowledge', description: 'Interactive notebooks and GPU-accelerated computing' },
+        { name: 'Streamlit', status: 'Working Knowledge', description: 'Rapid ML/data dashboard development and deployment' },
       ],
     },
   ],
@@ -280,8 +284,8 @@ export const PORTFOLIO_DATA = {
     {
       degree: 'B.Tech in Artificial Intelligence & Data Science',
       institution: 'Higher Education Institution',
-      period: '2024 – 2028',
-      status: 'Current — 2nd Year',
+      period: '2023 – 2027',
+      status: 'Current — III Year',
     },
     {
       degree: 'Higher Secondary Schooling',
@@ -347,9 +351,9 @@ export const PORTFOLIO_DATA = {
 
   // ── SEO / Meta ────────────────────────────────────
   meta: {
-    title: 'P M K BLESSING BRYSON HONG | AI & Data Science',
+    title: 'P M K BLESSING BRYSON HONG | AI & Data Science + Full Stack Developer',
     description:
-      'Portfolio of P M K Blessing Bryson Hong, an Artificial Intelligence and Data Science engineering student building projects across data science, full-stack development, and AI.',
+      'Portfolio of P M K Blessing Bryson Hong — III Year B.Tech AI & Data Science student and Full Stack Developer building intelligent systems.',
     url: 'https://blessingbrysonhong.vercel.app',
     image: '/profile.jpeg',
   },

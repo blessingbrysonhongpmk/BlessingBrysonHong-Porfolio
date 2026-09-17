@@ -35,7 +35,7 @@ class RobotAudioSynthesizer {
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.35);
-    } catch (e) {}
+    } catch {}
   }
 
   playBlipSFX() {
@@ -52,7 +52,7 @@ class RobotAudioSynthesizer {
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.08);
-    } catch (e) {}
+    } catch {}
   }
 
   playClickSFX() {
@@ -70,7 +70,7 @@ class RobotAudioSynthesizer {
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.06);
-    } catch (e) {}
+    } catch {}
   }
 }
 

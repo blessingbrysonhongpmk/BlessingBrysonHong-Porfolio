@@ -1,39 +1,86 @@
 /* ─────────────────────────────────────────────────────
-   Custom Cursor — Desktop interactive cursor
+   Custom Cursor — 2026 Refined Contextual Pointer
+   Smooth lerped trailing ring, sharp central pip,
+   contextual labels ('VIEW', 'COPY').
    ───────────────────────────────────────────────────── */
 
-.custom-cursor {
+.cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: var(--z-cursor);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFFFFF;
   pointer-events: none;
-  mix-blend-mode: difference;
+  z-index: var(--z-cursor);
+  margin-top: -2.5px;
+  margin-left: -2.5px;
+  transition: opacity 0.2s ease, transform 0.05s linear;
   will-change: transform;
-  margin-top: -3px;
-  margin-left: -3px;
-  width: 6px;
-  height: 6px;
+}
+
+.cursor-dot--hovered {
+  opacity: 0;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: calc(var(--z-cursor) - 1);
+  margin-top: -14px;
+  margin-left: -14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: width 0.25s var(--ease-out),
+              height 0.25s var(--ease-out),
+              margin 0.25s var(--ease-out),
+              border-color 0.25s var(--ease-out),
+              background 0.25s var(--ease-out);
+  will-change: transform;
 }
 
-.custom-cursor__dot {
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  border-radius: 50%;
-  transition: transform var(--transition-fast), background-color var(--transition-fast);
+.cursor-ring--hovered {
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  margin-left: -22px;
+  border-color: var(--color-primary);
+  background: rgba(225, 29, 72, 0.08);
 }
 
-.custom-cursor--hovered .custom-cursor__dot {
-  transform: scale(2.5);
-  background: var(--color-primary);
+.cursor-ring--has-text {
+  width: 68px;
+  height: 68px;
+  margin-top: -34px;
+  margin-left: -34px;
+  border-color: var(--color-primary);
+  background: rgba(225, 29, 72, 0.18);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .custom-cursor {
+.cursor-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+/* Hide on touchscreen devices */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
     display: none !important;
   }
 }

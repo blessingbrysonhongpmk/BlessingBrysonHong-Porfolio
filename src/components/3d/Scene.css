@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────
    Global 3D Scene Canvas Styling
-   Fixed full-viewport backdrop behind HTML text safe zones
-   Strict Z-Index Architecture (Layer 2) — Rule #22
+   Ambient full-viewport neural matrix behind HTML content
+   Strict non-interactive background layer
    ───────────────────────────────────────────────────── */
 
 .scene {
@@ -9,81 +9,15 @@
   height: 100vh;
   position: fixed;
   inset: 0;
-  z-index: var(--z-robot); /* Layer 2: 3D Robot scene */
+  z-index: var(--z-canvas, 1);
   pointer-events: none;
   overflow: hidden;
+  opacity: 0.40;
+  transition: opacity 1s ease;
 }
 
-/* Ensure R3F canvas takes full viewport without blocking mouse clicks */
 .scene canvas {
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
-}
-
-/* ── CSS Fallback (WebGL Failures / Accessibility) ── */
-.scene-fallback {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-canvas-bg);
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.5;
-}
-
-.scene-fallback__ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid transparent;
-}
-
-.scene-fallback__ring--1 {
-  width: 260px;
-  height: 260px;
-  border-color: rgba(220, 20, 60, 0.15);
-  animation: fallbackSpin 12s linear infinite;
-}
-
-.scene-fallback__ring--2 {
-  width: 380px;
-  height: 380px;
-  border-color: rgba(59, 130, 246, 0.1);
-  animation: fallbackSpin 18s linear infinite reverse;
-  transform: rotate(30deg);
-}
-
-.scene-fallback__ring--3 {
-  width: 500px;
-  height: 500px;
-  border-color: rgba(255, 255, 255, 0.04);
-  animation: fallbackSpin 24s linear infinite;
-  transform: rotate(-15deg);
-}
-
-.scene-fallback__core {
-  width: 8px;
-  height: 8px;
-  background: var(--color-primary);
-  border-radius: 50%;
-  box-shadow: 0 0 20px var(--color-primary-glow);
-  animation: fallbackPulse 3s var(--ease-in-out) infinite;
-}
-
-@keyframes fallbackSpin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fallbackPulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.5); }
-}
-
-@media (max-width: 767px) {
-  .scene-fallback__ring--1 { width: 140px; height: 140px; }
-  .scene-fallback__ring--2 { width: 220px; height: 220px; }
-  .scene-fallback__ring--3 { width: 320px; height: 320px; }
 }

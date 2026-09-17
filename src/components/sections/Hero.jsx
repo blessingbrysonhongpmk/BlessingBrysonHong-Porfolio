@@ -1,119 +1,118 @@
-import { useState, useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
-import { RobotHUD } from '../robot/RobotHUD';
+import { useRef } from 'react';
+import { PORTFOLIO_DATA } from '../../data/portfolio';
+import { getLenis } from '../../utils/scrollOrchestrator';
 import './Hero.css';
 
-export function Hero({ robotCtrl }) {
-  const [isRevealed, setIsRevealed] = useState(false);
-  const sectionRef = useRef(null);
+export function Hero() {
+  const { profile } = PORTFOLIO_DATA;
+  const heroRef = useRef(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsRevealed(true), 150);
-    return () => clearTimeout(timer);
-  }, []);
+  const handleScrollTo = (e, targetId) => {
+    e.preventDefault();
+    const target = document.querySelector(targetId);
+    if (!target) return;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(target, { offset: -70, duration: 1.0 });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section
       id="home"
-      className="hero"
-      ref={sectionRef}
-      aria-label="Introduction"
-      onMouseEnter={robotCtrl?.handleMouseEnterHero}
-      onMouseLeave={robotCtrl?.handleMouseLeaveHero}
+      className="hero-section"
+      ref={heroRef}
+      aria-label="Introduction and Identity"
     >
-      {/* Background Grid Environment */}
-      <div className="hero__environment" aria-hidden="true">
-        <div className="hero__grid" />
-        <div className="hero__noise" />
-      </div>
-
-      {/* Grid Container (Strict Left Text Safe Zone & Right Visual Anchor) */}
-      <div className="hero__container">
-        {/* Left Column: Protected Text Safe Zone (Layer 3 z-index) */}
-        <div className={`hero__interface ${isRevealed ? 'hero__interface--visible' : ''}`}>
+      <div className="container hero-container">
+        <div className="hero-editorial-grid">
           
-          {/* System Index Tag */}
-          <div className="hero__sys-index hero__reveal-item hero__reveal-item--1">
-            <span className="sys-dot" />
-            <span className="sys-label">BBH // SYSTEM</span>
+          {/* ── Left Column: Editorial Typography & CTAs ── */}
+          <div className="hero-content-col">
+            
+            {/* Top: Availability / Status Line */}
+            <div className="hero-status-row">
+              <div className="hero-status-pill">
+                <span className="hero-status-dot" aria-hidden="true" />
+                <span className="hero-status-text">AVAILABLE FOR 2026 OPPORTUNITIES</span>
+              </div>
+            </div>
+
+            {/* Eyebrow Label */}
+            <div className="hero-eyebrow-wrap">
+              <span className="hero-eyebrow">AI &amp; DATA SCIENCE ENGINEER</span>
+            </div>
+
+            {/* Identity Prefix & Monumental Heading */}
+            <div className="hero-heading-block">
+              <span className="hero-identity-prefix" aria-label="Prefix initials">P M K</span>
+              <h1 className="hero-heading">
+                <span className="hero-heading-line">BLESSING</span>
+                <span className="hero-heading-line">BRYSON</span>
+                <span className="hero-heading-line hero-heading-line--accent">HONG</span>
+              </h1>
+            </div>
+
+            {/* Supporting Copy (Max 2 lines on desktop) */}
+            <p className="hero-copy">
+              Building intelligent systems at the intersection of AI, data, and full-stack engineering.
+            </p>
+
+            {/* Compact Premium CTAs */}
+            <div className="hero-cta-group">
+              <a
+                href="#work"
+                className="hero-btn hero-btn--primary"
+                onClick={(e) => handleScrollTo(e, '#work')}
+              >
+                <span>VIEW MY WORK</span>
+                <span className="btn-arrow" aria-hidden="true">→</span>
+              </a>
+
+              <a
+                href="#contact"
+                className="hero-btn hero-btn--secondary"
+                onClick={(e) => handleScrollTo(e, '#contact')}
+              >
+                <span>LET&apos;S CONNECT</span>
+                <span className="btn-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            {/* Personal Information */}
+            <div className="hero-personal-info" aria-label="Personal Details">
+              <span className="info-item">India</span>
+              <span className="info-sep">•</span>
+              <span className="info-item">III Year • B.Tech AI &amp; Data Science</span>
+              <span className="info-sep">•</span>
+              <span className="info-item info-item--accent">AI / ML • Full Stack</span>
+            </div>
+
           </div>
 
-          {/* Official Full Name Headline */}
-          <h1 className="hero__name hero__reveal-item hero__reveal-item--2">
-            <span className="name-line name-line--pmk">P M K</span>
-            <span className="name-line">BLESSING</span>
-            <span className="name-line">BRYSON HONG</span>
-          </h1>
+          {/* ── Right Column: Refined Editorial Portrait Frame ── */}
+          <div className="hero-visual-col">
+            <div className="hero-portrait-frame">
+              <div className="portrait-image-container">
+                <img
+                  src={profile.avatar}
+                  alt={profile.fullName || profile.name}
+                  className="portrait-img"
+                  loading="eager"
+                />
+                <div className="portrait-gradient-sheen" />
+              </div>
 
-          {/* Role & Descriptor */}
-          <div className="hero__role-badge hero__reveal-item hero__reveal-item--3">
-            <span className="role-main">AI &amp; DATA SCIENCE</span>
-            <span className="role-sep">—</span>
-            <span className="role-sub">ENGINEERING STUDENT</span>
+              {/* Subtle Floating Identity Tag */}
+              <div className="portrait-badge">
+                <span className="badge-pulse-dot" />
+                <span className="badge-text">AI &amp; DS • ENGINEERING</span>
+              </div>
+            </div>
           </div>
 
-          {/* Controlled Personal Statement */}
-          <p className="hero__statement hero__reveal-item hero__reveal-item--4">
-            &ldquo;I learn by building — moving from data and software into intelligent systems.&rdquo;
-          </p>
-
-          {/* Direction Tag */}
-          <div className="hero__direction-tag hero__reveal-item hero__reveal-item--5">
-            <span className="direction-label">DIRECTION:</span>
-            <span className="direction-value">BUILDING TOWARDS AI ENGINEERING</span>
-          </div>
-
-          {/* CTA Actions Group */}
-          <div className="hero__actions hero__reveal-item hero__reveal-item--6">
-            <a
-              href="#work"
-              className="hero__cta hero__cta--primary"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              <span>VIEW WORK</span>
-              <ArrowRight size={14} className="cta-icon" />
-            </a>
-
-            <a
-              href="#contact"
-              className="hero__cta hero__cta--outline"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              <span>GET IN TOUCH</span>
-            </a>
-          </div>
-
-          {/* Status Line */}
-          <div className="hero__status hero__reveal-item hero__reveal-item--7">
-            <span className="status-indicator" />
-            <span className="status-text">CURRENTLY / BUILDING <span className="status-highlight">2026</span></span>
-          </div>
-
-        </div>
-
-        {/* Right Column: Visual Chamber Region for 3D Robot & HUD Controls */}
-        <div className="hero__visual-zone" aria-hidden="true">
-          {robotCtrl && (
-            <RobotHUD
-              robotState={robotCtrl.robotState}
-              onInitialize={robotCtrl.initializeSystem}
-              isSpeaking={robotCtrl.isSpeaking}
-              isMuted={robotCtrl.isMuted}
-              onToggleMute={robotCtrl.toggleMute}
-              currentCaption={robotCtrl.currentCaption}
-              isListening={robotCtrl.isListening}
-              onStartListening={robotCtrl.startListening}
-              recognitionSupported={robotCtrl.recognitionSupported}
-              onSelectIntent={robotCtrl.handleIntentRecognized}
-              transcript={robotCtrl.transcript}
-            />
-          )}
         </div>
       </div>
     </section>

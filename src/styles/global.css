@@ -1,14 +1,15 @@
 /* ─────────────────────────────────────────────────────
-   BBH Portfolio — Global Styles
-   Base reset, typography, utilities, accessibility.
+   BBH Portfolio — Global Styles (2026 Editorial Edition)
+   Clean typography, architectural baseline grid, zero-jank
+   CSS hardware-accelerated animations.
    ───────────────────────────────────────────────────── */
 
 @import './tokens.css';
 
 /* ── Google Fonts ────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* ── Reset ───────────────────────────────────────── */
+/* ── Reset & Foundation ──────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -17,37 +18,61 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
+  /* DO NOT set scroll-behavior: smooth — Lenis smooth scroll handles this */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background-color: var(--color-base);
+  color-scheme: dark;
 }
 
 body {
   background-color: var(--color-base);
+  background-image: 
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(225, 29, 72, 0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 25% 35%, rgba(225, 29, 72, 0.02) 0%, transparent 55%),
+    radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.012) 0%, transparent 50%);
+  background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-base);
-  line-height: 1.65;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Only block horizontal scroll; Lenis smooth scroll manages vertical */
   overflow-x: hidden;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Faint, elegant architectural grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none;
+  z-index: var(--z-bg);
+  opacity: 0.6;
 }
 
 /* ── Selection ───────────────────────────────────── */
 ::selection {
   background: var(--color-primary);
-  color: var(--color-text);
+  color: #FFFFFF;
 }
 
 ::-moz-selection {
   background: var(--color-primary);
-  color: var(--color-text);
+  color: #FFFFFF;
 }
 
-/* ── Scrollbar ───────────────────────────────────── */
+/* ── Sleek Scrollbar ─────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -55,25 +80,25 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border-hover);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  background: rgba(225, 29, 72, 0.5);
 }
 
-/* ── Typography ──────────────────────────────────── */
+/* ── Typography Scale & Rhythms ──────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   color: var(--color-text);
 }
 
 h1 { font-size: var(--text-5xl); }
-h2 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-4xl); }
 h3 { font-size: var(--text-2xl); }
 h4 { font-size: var(--text-xl); }
 h5 { font-size: var(--text-lg); }
@@ -82,7 +107,7 @@ h6 { font-size: var(--text-base); }
 p {
   color: var(--color-text-secondary);
   margin-bottom: var(--space-4);
-  max-width: 65ch;
+  max-width: 68ch;
 }
 
 p:last-child {
@@ -96,7 +121,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 strong {
@@ -124,9 +149,10 @@ button {
 input, textarea {
   font-family: inherit;
   font-size: inherit;
+  color: var(--color-text);
 }
 
-/* ── Focus ───────────────────────────────────────── */
+/* ── Focus States ────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
@@ -137,12 +163,12 @@ input, textarea {
   outline: none;
 }
 
-/* ── Layout Utilities ────────────────────────────── */
+/* ── Container Layouts ───────────────────────────── */
 .container {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding-inline: var(--space-5);
+  padding-inline: var(--space-6);
 }
 
 @media (min-width: 768px) {
@@ -153,27 +179,35 @@ input, textarea {
 
 @media (min-width: 1280px) {
   .container {
-    padding-inline: var(--space-10);
+    padding-inline: var(--space-12);
   }
 }
 
-/* ── Text Utilities ──────────────────────────────── */
+/* ── Utility Classes ─────────────────────────────── */
 .text-primary { color: var(--color-primary); }
-.text-secondary-color { color: var(--color-secondary); }
+.text-secondary { color: var(--color-secondary); }
 .text-accent { color: var(--color-accent); }
 .text-muted { color: var(--color-text-muted); }
 .font-display { font-family: var(--font-display); }
 .font-mono { font-family: var(--font-mono); }
 
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-primary {
-  background: linear-gradient(135deg, var(--color-primary) 0%, #ff4d6d 100%);
+.text-gradient-crimson {
+  background: linear-gradient(135deg, #FFFFFF 20%, #E11D48 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -200,27 +234,19 @@ input, textarea {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-
   html {
     scroll-behavior: auto;
   }
 }
 
-/* ── Reveal Animation Base ───────────────────────── */
-.reveal {
+/* ── Reveal Animations ───────────────────────────── */
+.reveal-entry {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity var(--duration-slower) var(--ease-out),
-              transform var(--duration-slower) var(--ease-out);
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 
-.reveal.visible {
+.reveal-entry.is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
-
-.reveal-delay-1 { transition-delay: 100ms; }
-.reveal-delay-2 { transition-delay: 200ms; }
-.reveal-delay-3 { transition-delay: 300ms; }
-.reveal-delay-4 { transition-delay: 400ms; }
-.reveal-delay-5 { transition-delay: 500ms; }

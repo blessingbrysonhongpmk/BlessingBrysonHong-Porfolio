@@ -1,28 +1,40 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { PortfolioLoader } from './components/loader/PortfolioLoader';
 import { Hero } from './components/sections/Hero';
+import { About } from './components/sections/About';
+import { Projects } from './components/sections/Projects';
+import { Skills } from './components/sections/Skills';
+import { Journey } from './components/sections/Journey';
+import { Interests } from './components/sections/Interests';
+import { Contact } from './components/sections/Contact';
 import { Scene } from './components/3d/Scene';
 import { CustomCursor } from './components/ui/CustomCursor';
-import { useRobotController } from './hooks/useRobotController';
+import { initScrollEngine, ScrollTrigger } from './utils/scrollOrchestrator';
 import './styles/global.css';
 import './App.css';
-
-// Lazy load below-the-fold sections
-const About = lazy(() => import('./components/sections/About').then(m => ({ default: m.About })));
-const Projects = lazy(() => import('./components/sections/Projects').then(m => ({ default: m.Projects })));
-const Skills = lazy(() => import('./components/sections/Skills').then(m => ({ default: m.Skills })));
-const Journey = lazy(() => import('./components/sections/Journey').then(m => ({ default: m.Journey })));
-const Interests = lazy(() => import('./components/sections/Interests').then(m => ({ default: m.Interests })));
-const Contact = lazy(() => import('./components/sections/Contact').then(m => ({ default: m.Contact })));
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [easterEggActive, setEasterEggActive] = useState(false);
-  const robotCtrl = useRobotController();
 
-  // Easter egg: Konami-inspired sequence → B B H
+  // Initialize Lenis smooth inertia engine
+  useEffect(() => {
+    initScrollEngine();
+  }, []);
+
+  // Refresh ScrollTrigger when portfolio completes loading
+  useEffect(() => {
+    if (isLoaded) {
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded]);
+
+  // Easter egg: Key sequence → B B H
   useEffect(() => {
     const sequence = ['b', 'b', 'h'];
     let buffer = [];
@@ -46,43 +58,20 @@ function App() {
       {!isLoaded && <PortfolioLoader onComplete={() => setIsLoaded(true)} />}
 
       <div className={`app ${isLoaded ? 'app--loaded' : ''}`}>
-        {/* Global 3D Interactive Background Matrix */}
-        <Scene
-          robotState={robotCtrl.robotState}
-          isSpeaking={robotCtrl.isSpeaking}
-          speechAmplitudeRef={robotCtrl.speechAmplitudeRef}
-          onInitializeRobot={robotCtrl.initializeSystem}
-        />
+        {/* Global 3D Ambient Neural Matrix */}
+        <Scene />
 
         <a href="#main-content" className="sr-only">Skip to main content</a>
         <Navbar />
 
         <main id="main-content">
-          <Hero robotCtrl={robotCtrl} />
-
-          <Suspense fallback={<SectionSkeleton />}>
-            <About />
-          </Suspense>
-
-          <Suspense fallback={<SectionSkeleton />}>
-            <Projects />
-          </Suspense>
-
-          <Suspense fallback={<SectionSkeleton />}>
-            <Skills />
-          </Suspense>
-
-          <Suspense fallback={<SectionSkeleton />}>
-            <Journey />
-          </Suspense>
-
-          <Suspense fallback={<SectionSkeleton />}>
-            <Interests />
-          </Suspense>
-
-          <Suspense fallback={<SectionSkeleton />}>
-            <Contact />
-          </Suspense>
+          <Hero />
+          <About />
+          <Projects />
+          <Skills />
+          <Journey />
+          <Interests />
+          <Contact />
         </main>
 
         <Footer />
@@ -98,15 +87,6 @@ function App() {
         </div>
       )}
     </>
-  );
-}
-
-/** Minimal loading skeleton for lazy sections */
-function SectionSkeleton() {
-  return (
-    <div className="section-skeleton" aria-hidden="true">
-      <div className="skeleton-bar" />
-    </div>
   );
 }
 

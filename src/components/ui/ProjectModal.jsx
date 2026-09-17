@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, ExternalLink, CheckCircle2, Layers, Cpu, ShieldCheck, FlaskConical, LayoutGrid, Video, Play } from 'lucide-react';
+import { X, ExternalLink, CheckCircle2, Layers, Cpu, ShieldCheck, FlaskConical, LayoutGrid, Video } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 import { SmartCanteenSimulator } from './SmartCanteenSimulator';
 import { IndustrialEstimator } from './IndustrialEstimator';

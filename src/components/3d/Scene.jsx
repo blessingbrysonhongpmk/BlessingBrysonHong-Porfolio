@@ -1,9 +1,7 @@
 import { Suspense, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
 import { useDeviceCapability } from '../../hooks/useDeviceCapability';
-import { AIEngineerRobot } from './AIEngineerRobot';
+import { NeuralDataMatrix } from './NeuralDataMatrix';
 import './Scene.css';
 
 /**
@@ -33,70 +31,35 @@ function WebGLContextHandler() {
 }
 
 /**
- * PostProcessingEffects — Bloom & Chromatic Aberration for cinematic glow.
+ * Scene — Ambient, non-intrusive 3D background canvas.
+ * Perfectly calibrated for editorial portfolios: stays in background, zero text collision.
  */
-function PostProcessingEffects({ tier }) {
-  if (tier === 'low') return null;
-
-  return (
-    <EffectComposer multisampling={0}>
-      <Bloom
-        intensity={tier === 'high' ? 0.4 : 0.25}
-        luminanceThreshold={0.5}
-        luminanceSmoothing={0.6}
-        mipmapBlur
-      />
-      {tier === 'high' && (
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL}
-          offset={[0.0008, 0.0008]}
-          radialModulation
-          modulationOffset={0.5}
-        />
-      )}
-    </EffectComposer>
-  );
-}
-
-/**
- * R3F Canvas wrapper with WebGL detection, device-aware quality, error boundaries,
- * post-processing effects, and crash-proof context loss recovery.
- */
-export function Scene({ robotState = 'IDLE', isSpeaking = false, speechAmplitudeRef = null, onInitializeRobot = null }) {
-  const { tier, webgl, pixelRatio, isMobile } = useDeviceCapability();
+export function Scene() {
+  const { tier, webgl, pixelRatio } = useDeviceCapability();
 
   if (!webgl) {
-    return <div className="scene-fallback" />;
+    return null;
   }
 
+  const particleCount = tier === 'high' ? 60 : tier === 'medium' ? 36 : 18;
+
   return (
-    <div className="scene">
+    <div className="scene" aria-hidden="true">
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 50 }}
+        camera={{ position: [0, 0, 7], fov: 45 }}
         dpr={Math.min(pixelRatio, tier === 'low' ? 1 : 1.5)}
         gl={{
           antialias: tier !== 'low',
           alpha: true,
-          powerPreference: tier === 'low' ? 'low-power' : 'high-performance',
+          powerPreference: 'high-performance',
           failIfMajorPerformanceCaveat: false,
         }}
-        style={{ background: 'transparent' }}
-        onCreated={({ gl }) => {
-          gl.toneMappingExposure = 0.8;
-        }}
+        style={{ background: 'transparent', pointerEvents: 'none' }}
       >
         <WebGLContextHandler />
         <Suspense fallback={null}>
-          <AIEngineerRobot
-            tier={tier}
-            isMobile={isMobile}
-            robotState={robotState}
-            isSpeaking={isSpeaking}
-            speechAmplitudeRef={speechAmplitudeRef}
-            onPointerDown={onInitializeRobot}
-          />
+          <NeuralDataMatrix particleCount={particleCount} />
         </Suspense>
-        <PostProcessingEffects tier={tier} />
       </Canvas>
     </div>
   );
