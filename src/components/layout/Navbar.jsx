@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { PORTFOLIO_DATA } from '../../data/portfolio';
 import { getLenis } from '../../utils/scrollOrchestrator';
+import { Sun, Moon } from 'lucide-react';
 import './Navbar.css';
 
 export function Navbar() {
@@ -8,6 +9,23 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,14 +120,14 @@ export function Navbar() {
             href="#home"
             className="navbar__brand"
             onClick={(e) => handleNavClick(e, '#home')}
-            aria-label="PMK • BLESSING BRYSON HONG — Return to Top"
+            aria-label="PMK · BLESSING BRYSON HONG — Return to Top"
           >
-            <span className="navbar__brand-desktop">PMK • BLESSING BRYSON HONG</span>
-            <span className="navbar__brand-mobile">PMK • BBH</span>
+            <span className="navbar__brand-desktop">PMK · BLESSING BRYSON HONG</span>
+            <span className="navbar__brand-mobile">PMK · BBH</span>
             <span className="navbar__brand-dot" />
           </a>
 
-          {/* Minimal Center Navigation (no heavy pill containers) */}
+          {/* Minimal Center Navigation */}
           <nav className="navbar__nav-links" role="navigation" aria-label="Main Navigation">
             {PORTFOLIO_DATA.navLinks.map((link) => {
               const isActive = activeSection === link.href.slice(1);
@@ -127,8 +145,17 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Action */}
+          {/* Right Action & Theme Toggle */}
           <div className="navbar__action-col">
+            <button
+              className="navbar__theme-btn"
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
+
             <a
               href="#contact"
               className="navbar__contact-btn"
@@ -158,6 +185,17 @@ export function Navbar() {
         aria-hidden={!isMobileMenuOpen}
       >
         <div className="mobile-menu__inner">
+          <div className="mobile-menu__top-bar">
+            <button
+              className="mobile-menu__theme-btn"
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+              <span>{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+            </button>
+          </div>
+
           <div className="mobile-menu__links">
             {PORTFOLIO_DATA.navLinks.map((link, i) => (
               <a

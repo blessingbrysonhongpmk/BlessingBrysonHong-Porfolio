@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { PORTFOLIO_DATA } from '../../data/portfolio';
 import { ProjectModal } from '../ui/ProjectModal';
+import { getLenis } from '../../utils/scrollOrchestrator';
 import {
   ExternalLink,
   Info,
@@ -10,10 +11,7 @@ import {
   BarChart2,
   Eye,
   Sliders,
-  ChevronLeft,
-  ChevronRight,
-  Grid,
-  Maximize2,
+  Filter,
 } from 'lucide-react';
 import { GithubIcon } from '../ui/SocialIcons';
 import './Projects.css';
@@ -21,63 +19,64 @@ import './Projects.css';
 export function Projects() {
   const { projects } = PORTFOLIO_DATA;
   const [selectedProject, setSelectedProject] = useState(null);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [viewMode, setViewMode] = useState('spotlight'); // 'spotlight' | 'all'
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeProjectId, setActiveProjectId] = useState(projects[0]?.id || '');
+  const sectionRef = useRef(null);
+  const projectRefs = useRef({});
 
-  const workSectionRef = useRef(null);
-  const currentProject = projects[activeProjectIndex] || projects[0];
+  const categories = [
+    'All',
+    'Data Science / Machine Learning',
+    'Client Web Project',
+    'Web Development Project',
+    'AI Prototype',
+  ];
 
-  const handleSelectProject = (index) => {
-    if (index === activeProjectIndex) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setActiveProjectIndex(index);
-      setIsTransitioning(false);
-    }, 150);
-  };
+  const filteredProjects = activeCategory === 'All'
+    ? projects
+    : projects.filter((p) => p.category === activeCategory);
 
-  const handlePrevProject = () => {
-    const nextIndex = (activeProjectIndex - 1 + projects.length) % projects.length;
-    handleSelectProject(nextIndex);
-  };
-
-  const handleNextProject = () => {
-    const nextIndex = (activeProjectIndex + 1) % projects.length;
-    handleSelectProject(nextIndex);
-  };
-
-  // Keyboard navigation for carousel
+  // Set up IntersectionObserver to update active project indicator on scroll
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      // Only navigate if user is not in an input/modal
-      if (selectedProject) return;
-      if (e.key === 'ArrowLeft') {
-        const nextIndex = (activeProjectIndex - 1 + projects.length) % projects.length;
-        if (nextIndex !== activeProjectIndex) {
-          setIsTransitioning(true);
-          setTimeout(() => {
-            setActiveProjectIndex(nextIndex);
-            setIsTransitioning(false);
-          }, 150);
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('data-project-id');
+          if (id) {
+            setActiveProjectId(id);
+          }
+          entry.target.classList.add('is-in-view');
         }
-      } else if (e.key === 'ArrowRight') {
-        const nextIndex = (activeProjectIndex + 1) % projects.length;
-        if (nextIndex !== activeProjectIndex) {
-          setIsTransitioning(true);
-          setTimeout(() => {
-            setActiveProjectIndex(nextIndex);
-            setIsTransitioning(false);
-          }, 150);
-        }
-      }
+      });
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeProjectIndex, selectedProject, projects.length]);
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: '-20% 0px -40% 0px',
+      threshold: 0.15,
+    });
 
-  // Helper to render visual stage for any project
+    const cardElements = document.querySelectorAll('.showcase-card');
+    cardElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [filteredProjects]);
+
+  const scrollToProject = useCallback((e, projectId) => {
+    e.preventDefault();
+    const target = document.getElementById(`project-${projectId}`);
+    if (target) {
+      const lenis = getLenis();
+      if (lenis) {
+        lenis.scrollTo(target, { offset: -90, duration: 1.1 });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+      setActiveProjectId(projectId);
+    }
+  }, []);
+
+  // Helper to render interactive visual stage for any project
   const renderVisualStage = (project) => {
     const isSmartCanteen = project.id === 'smart-canteen-ai';
     const isDeviDevan = project.id === 'devi-devan-industries';
@@ -309,209 +308,175 @@ export function Projects() {
     );
   };
 
-  // Helper to render a project card layout
-  const renderCardContent = (project, index) => {
-    const projectNum = String(index + 1).padStart(2, '0');
-    const totalNum = String(projects.length).padStart(2, '0');
-
-    return (
-      <article
-        key={project.id}
-        id={`project-${project.id}`}
-        className="showcase-card"
-        style={{ '--project-theme': project.color }}
-      >
-        {/* Top Ambient Highlight Line */}
-        <div className="showcase-card__glow-bar" />
-
-        <div className="showcase-card__layout">
-          {/* ── Column A: Detailed Engineering Information ── */}
-          <div className="showcase-card__info-pane">
-            {/* Index & Category */}
-            <div className="project-meta-row">
-              <span className="project-index-badge">{projectNum} / {totalNum}</span>
-              <span className="project-category-pill">{project.category}</span>
-              <span className="project-status-pill">
-                <span className="status-live-dot" />
-                {project.status}
-              </span>
-            </div>
-
-            {/* Headline & Role */}
-            <div className="project-title-group">
-              <h3 className="project-display-title">{project.name}</h3>
-              <p className="project-role-badge">{project.role}</p>
-            </div>
-
-            {/* Description */}
-            <p className="project-description-text">
-              {project.description}
-            </p>
-
-            {/* Problem & Approach Highlights */}
-            <div className="project-insights-card">
-              <div className="insight-row">
-                <span className="insight-label">CHALLENGE:</span>
-                <p className="insight-text">{project.problem}</p>
-              </div>
-              <div className="insight-row">
-                <span className="insight-label">SOLUTION:</span>
-                <p className="insight-text">{project.approach}</p>
-              </div>
-            </div>
-
-            {/* Technology Stack */}
-            <div className="project-tech-matrix">
-              {project.technologies.map(tech => (
-                <span key={tech} className="tech-badge">{tech}</span>
-              ))}
-            </div>
-
-            {/* Action Triggers */}
-            <div className="project-actions-strip">
-              <button
-                className="project-action-btn project-action-btn--primary"
-                onClick={() => setSelectedProject(project)}
-                aria-label={`Open specifications for ${project.name}`}
-              >
-                <Info size={14} />
-                <span>SPECIFICATIONS &amp; DEMO</span>
-              </button>
-
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-action-btn project-action-btn--ghost"
-                >
-                  <span>VISIT LIVE</span>
-                  <ExternalLink size={13} />
-                </a>
-              )}
-
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-action-btn project-action-btn--ghost"
-                >
-                  <GithubIcon size={14} />
-                  <span>SOURCE CODE</span>
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* ── Column B: Dominant Visual Engineering Stage ── */}
-          {renderVisualStage(project)}
-        </div>
-      </article>
-    );
-  };
-
   return (
-    <section id="work" className="work-section" ref={workSectionRef} aria-label="Selected Engineering Work">
+    <section id="work" className="work-section" ref={sectionRef} aria-label="Selected Engineering Work">
       <div className="container work-container">
         
         {/* Section Marker */}
         <div className="work-header-meta">
           <span className="section-index-num">02</span>
-          <span className="section-index-title">SELECTED WORK &amp; SYSTEMS</span>
+          <span className="section-index-title">FEATURED CASE STUDIES</span>
           <div className="section-index-line" />
         </div>
 
-        {/* Section Headline & Controls Header */}
+        {/* Section Headline */}
         <div className="work-intro-block">
           <div className="work-intro-header-row">
             <div>
               <h2 className="work-title">
-                Featured <span className="text-gradient-crimson">Case Studies</span>
+                Engineered <span className="text-gradient-crimson">Systems &amp; Work</span>
               </h2>
               <p className="work-subtitle">
-                Production-grade systems spanning autonomous ML demand forecasting, live client enterprise delivery, full-stack portals, and computer vision inference.
+                Production-grade applications spanning ML demand forecasting, client enterprise platforms, full-stack portals, and computer vision prototypes.
               </p>
             </div>
 
-            {/* View Mode Switcher */}
-            <div className="work-view-toggle">
-              <button
-                className={`view-toggle-btn ${viewMode === 'spotlight' ? 'view-toggle-btn--active' : ''}`}
-                onClick={() => setViewMode('spotlight')}
-                title="Interactive Spotlight View"
-                aria-label="Switch to Spotlight View"
-              >
-                <Maximize2 size={13} />
-                <span>Spotlight</span>
-              </button>
-              <button
-                className={`view-toggle-btn ${viewMode === 'all' ? 'view-toggle-btn--active' : ''}`}
-                onClick={() => setViewMode('all')}
-                title="View All Projects Simultaneously"
-                aria-label="Switch to All Projects View"
-              >
-                <Grid size={13} />
-                <span>All Projects</span>
-              </button>
+            {/* Category Filter Pills */}
+            <div className="work-category-filters" role="tablist" aria-label="Filter projects by category">
+              <div className="filter-pill-label">
+                <Filter size={11} />
+                <span>FILTER</span>
+              </div>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`category-filter-btn ${activeCategory === cat ? 'category-filter-btn--active' : ''}`}
+                  onClick={() => setActiveCategory(cat)}
+                  role="tab"
+                  aria-selected={activeCategory === cat}
+                >
+                  {cat === 'All' ? `All (${projects.length})` : cat}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Interactive Project Switcher (Spotlight Mode) */}
-          {viewMode === 'spotlight' && (
-            <div className="work-control-bar">
-              <div className="work-nav-track" role="tablist" aria-label="Project switcher">
-                {projects.map((p, idx) => (
-                  <button
-                    key={p.id}
-                    className={`work-nav-btn ${activeProjectIndex === idx ? 'work-nav-btn--active' : ''}`}
-                    onClick={() => handleSelectProject(idx)}
-                    role="tab"
-                    aria-selected={activeProjectIndex === idx}
-                  >
-                    <span className="nav-btn-index">0{idx + 1}</span>
-                    <span className="nav-btn-name">{p.name}</span>
-                    {activeProjectIndex === idx && <span className="nav-active-pip" />}
-                  </button>
-                ))}
-              </div>
-
-              {/* Prev / Next Buttons */}
-              <div className="work-carousel-controls">
-                <button
-                  className="carousel-arrow-btn"
-                  onClick={handlePrevProject}
-                  aria-label="Previous Case Study"
-                  title="Previous Case Study (Arrow Left)"
+          {/* Sticky Quick-Navigation Rail */}
+          <nav className="work-quick-nav" aria-label="Quick jump to project">
+            <div className="quick-nav-track">
+              {filteredProjects.map((p, idx) => (
+                <a
+                  key={p.id}
+                  href={`#project-${p.id}`}
+                  className={`quick-nav-item ${activeProjectId === p.id ? 'quick-nav-item--active' : ''}`}
+                  onClick={(e) => scrollToProject(e, p.id)}
                 >
-                  <ChevronLeft size={16} />
-                </button>
-                <span className="carousel-counter">
-                  <strong>0{activeProjectIndex + 1}</strong> / 0{projects.length}
-                </span>
-                <button
-                  className="carousel-arrow-btn"
-                  onClick={handleNextProject}
-                  aria-label="Next Case Study"
-                  title="Next Case Study (Arrow Right)"
-                >
-                  <ChevronRight size={16} />
-                </button>
-              </div>
+                  <span className="quick-nav-num">0{idx + 1}</span>
+                  <span className="quick-nav-name">{p.name}</span>
+                  {activeProjectId === p.id && <span className="quick-nav-indicator" />}
+                </a>
+              ))}
             </div>
-          )}
+          </nav>
         </div>
 
-        {/* ── Main Projects Display ── */}
-        {viewMode === 'spotlight' ? (
-          <div className={`projects-spotlight-wrapper ${isTransitioning ? 'is-fading' : ''}`}>
-            {renderCardContent(currentProject, activeProjectIndex)}
-          </div>
-        ) : (
-          <div className="projects-all-grid">
-            {projects.map((project, index) => renderCardContent(project, index))}
-          </div>
-        )}
+        {/* ── Editorial Case Study Stream ── */}
+        <div className="projects-showcase-stream">
+          {filteredProjects.map((project, index) => {
+            const projectNum = String(index + 1).padStart(2, '0');
+            const totalNum = String(filteredProjects.length).padStart(2, '0');
+            const isActive = activeProjectId === project.id;
+
+            return (
+              <article
+                key={project.id}
+                id={`project-${project.id}`}
+                data-project-id={project.id}
+                className={`showcase-card ${isActive ? 'showcase-card--active' : ''}`}
+                style={{ '--project-theme': project.color }}
+                ref={(el) => (projectRefs.current[project.id] = el)}
+              >
+                {/* Active Highlight Bar */}
+                <div className="showcase-card__glow-bar" />
+
+                <div className="showcase-card__layout">
+                  {/* ── Column A: Editorial Information ── */}
+                  <div className="showcase-card__info-pane">
+                    
+                    {/* Index, Category & Live Status */}
+                    <div className="project-meta-row">
+                      <span className="project-index-badge">{projectNum} // {totalNum}</span>
+                      <span className="project-category-pill">{project.category}</span>
+                      <span className="project-status-pill">
+                        <span className="status-live-dot" />
+                        {project.status}
+                      </span>
+                    </div>
+
+                    {/* Title & Role */}
+                    <div className="project-title-group">
+                      <h3 className="project-display-title">{project.name}</h3>
+                      <p className="project-role-badge">{project.role}</p>
+                    </div>
+
+                    {/* Editorial Description */}
+                    <p className="project-description-text">
+                      {project.description}
+                    </p>
+
+                    {/* Challenge & Solution Summary */}
+                    <div className="project-insights-card">
+                      <div className="insight-row">
+                        <span className="insight-label">CHALLENGE:</span>
+                        <p className="insight-text">{project.problem}</p>
+                      </div>
+                      <div className="insight-row">
+                        <span className="insight-label">OUTCOME:</span>
+                        <p className="insight-text">{project.result}</p>
+                      </div>
+                    </div>
+
+                    {/* Technology Stack Pills */}
+                    <div className="project-tech-matrix">
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className="tech-badge">{tech}</span>
+                      ))}
+                    </div>
+
+                    {/* Action Triggers */}
+                    <div className="project-actions-strip">
+                      <button
+                        className="project-action-btn project-action-btn--primary"
+                        onClick={() => setSelectedProject(project)}
+                        aria-label={`Open interactive case study for ${project.name}`}
+                      >
+                        <Info size={14} />
+                        <span>VIEW CASE STUDY</span>
+                      </button>
+
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-action-btn project-action-btn--ghost"
+                        >
+                          <span>VISIT LIVE</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      )}
+
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-action-btn project-action-btn--ghost"
+                        >
+                          <GithubIcon size={14} />
+                          <span>SOURCE CODE</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* ── Column B: Visual Engineering Stage ── */}
+                  {renderVisualStage(project)}
+                </div>
+              </article>
+            );
+          })}
+        </div>
 
       </div>
 

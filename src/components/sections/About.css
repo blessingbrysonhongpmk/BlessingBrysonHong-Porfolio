@@ -376,3 +376,37 @@
   color: var(--color-text-secondary);
   margin: 0;
 }
+
+/* ── Light Mode Specific Polish ─────────────────── */
+[data-theme="light"] .about-section {
+  background-color: var(--color-base);
+}
+
+[data-theme="light"] .about-identity-capsule,
+[data-theme="light"] .principle-item-card {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .principle-item-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 0 16px rgba(225, 29, 72, 0.1);
+}
+
+[data-theme="light"] .channel-link {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .fact-icon-box {
+  background: #F1F5F9;
+  border-color: var(--color-border);
+}
+
+[data-theme="light"] .about-channels,
+[data-theme="light"] .about-fact-sheet .fact-row {
+  border-color: var(--color-border);
+}
+

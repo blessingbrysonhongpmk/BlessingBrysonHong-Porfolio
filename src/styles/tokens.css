@@ -119,3 +119,51 @@
   --max-width-narrow: 840px;
   --max-width-wide: 1520px;
 }
+
+/* ── Complete Light Mode Design System ──────────────── */
+[data-theme="light"] {
+  /* Crisp, warm architectural platinum foundation (Apple/Linear standard) */
+  --color-base: #F8F9FA;
+  --color-base-tint: #F1F3F5;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FFFFFF;
+  --color-surface-hover: #F8FAFC;
+  --color-surface-glass: rgba(255, 255, 255, 0.88);
+
+  /* Calibrated Brand Accents for Light Backgrounds */
+  --color-primary: #E11D48;         /* High-contrast Rose/Magenta */
+  --color-primary-soft: rgba(225, 29, 72, 0.08);
+  --color-primary-glow: rgba(225, 29, 72, 0.16);
+  --color-primary-border: rgba(225, 29, 72, 0.28);
+
+  --color-secondary: #0284C7;       /* Deep cyan/sky tuned for crisp light contrast */
+  --color-secondary-soft: rgba(2, 132, 199, 0.08);
+  --color-secondary-glow: rgba(2, 132, 199, 0.18);
+  --color-secondary-border: rgba(2, 132, 199, 0.25);
+
+  --color-accent: #059669;          /* Deep emerald live indicator */
+  --color-accent-soft: rgba(5, 150, 105, 0.09);
+
+  --color-amber: #D97706;
+  --color-amber-soft: rgba(217, 119, 6, 0.09);
+
+  /* Deep slate high-contrast typography */
+  --color-text: #0F172A;            /* Slate-900: commanding contrast */
+  --color-text-secondary: #475569;  /* Slate-600: balanced readability */
+  --color-text-muted: #64748B;      /* Slate-500: metadata & labels */
+  --color-text-dim: #CBD5E1;        /* Slate-300 */
+
+  /* Hairline borders & grid for light mode */
+  --color-border: rgba(15, 23, 42, 0.09);
+  --color-border-subtle: rgba(15, 23, 42, 0.04);
+  --color-border-hover: rgba(15, 23, 42, 0.20);
+  --color-border-strong: rgba(15, 23, 42, 0.30);
+  --color-grid: rgba(15, 23, 42, 0.035);
+
+  /* Sculpted light shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 18px -2px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 4px 8px -1px rgba(0, 0, 0, 0.06), 0 16px 32px -4px rgba(0, 0, 0, 0.09);
+}

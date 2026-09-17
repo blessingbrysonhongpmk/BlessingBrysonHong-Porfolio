@@ -141,8 +141,29 @@
 .navbar__action-col {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   z-index: calc(var(--z-navbar) + 2);
+}
+
+.navbar__theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+}
+
+.navbar__theme-btn:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: rgba(225, 29, 72, 0.08);
+  transform: translateY(-1px);
 }
 
 .navbar__contact-btn {
@@ -255,7 +276,34 @@
   padding: var(--space-8);
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-8);
+}
+
+.mobile-menu__top-bar {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mobile-menu__theme-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.mobile-menu__theme-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .mobile-menu__links {
@@ -333,3 +381,20 @@
 .mobile-menu__email:hover {
   color: var(--color-primary);
 }
+
+/* ── Light Mode Specific Polish ────────────────── */
+[data-theme="light"] .navbar--scrolled {
+  background: rgba(248, 249, 250, 0.88);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .navbar__theme-btn,
+[data-theme="light"] .navbar__toggle {
+  background: #ffffff;
+}
+
+[data-theme="light"] .mobile-menu {
+  background: rgba(248, 249, 250, 0.98);
+}
+

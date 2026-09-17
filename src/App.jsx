@@ -7,7 +7,6 @@ import { About } from './components/sections/About';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
 import { Journey } from './components/sections/Journey';
-import { Interests } from './components/sections/Interests';
 import { Contact } from './components/sections/Contact';
 import { Scene } from './components/3d/Scene';
 import { CustomCursor } from './components/ui/CustomCursor';
@@ -70,7 +69,6 @@ function App() {
           <Projects />
           <Skills />
           <Journey />
-          <Interests />
           <Contact />
         </main>
 

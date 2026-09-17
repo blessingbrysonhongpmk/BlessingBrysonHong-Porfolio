@@ -239,3 +239,44 @@
   line-height: 1.4;
   margin: 0;
 }
+
+/* ── Light Mode Specific Polish ─────────────────── */
+[data-theme="light"] .skills-section {
+  background-color: var(--color-base);
+}
+
+[data-theme="light"] .skills-filter-btn {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .skills-filter-btn:hover {
+  background: #F1F5F9;
+  color: var(--color-text);
+}
+
+[data-theme="light"] .skills-filter-btn--active {
+  background: rgba(225, 29, 72, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+[data-theme="light"] .skill-module-card {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .skill-interactive-node {
+  background: #F8FAFC;
+  border-color: var(--color-border);
+}
+
+[data-theme="light"] .skill-interactive-node:hover,
+[data-theme="light"] .skill-interactive-node.is-active {
+  background: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), 0 0 12px rgba(225, 29, 72, 0.1);
+}
+

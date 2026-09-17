@@ -312,13 +312,6 @@ export const PORTFOLIO_DATA = {
       details: 'Built the Smart Canteen demand prediction project using Python, Pandas, and machine learning models.',
     },
     {
-      year: '2025',
-      milestone: 'Hackathon Exploration',
-      tag: 'HACKATHONS',
-      summary: 'Participated in multiple hackathons from first year onward.',
-      details: 'Focused on rapid prototyping, presenting ideas, team collaboration, and real-time problem solving.',
-    },
-    {
       year: '2026',
       milestone: 'Full Stack Development',
       tag: 'INTERNSHIP',

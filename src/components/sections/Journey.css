@@ -419,3 +419,58 @@
   color: #34D399;
   align-self: flex-start;
 }
+
+/* ── Light Mode Specific Polish ─────────────────── */
+[data-theme="light"] .journey-section {
+  background-color: var(--color-base);
+}
+
+[data-theme="light"] .timeline-progress-rail {
+  background: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .timeline-event-card {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .timeline-event-card:hover,
+[data-theme="light"] .timeline-event-card.is-active {
+  background: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.12);
+}
+
+[data-theme="light"] .timeline-event-card.is-future {
+  background: #F0F9FF;
+  border-color: rgba(2, 132, 199, 0.3);
+}
+
+[data-theme="light"] .node-dot {
+  background: #FFFFFF;
+  border-color: #94A3B8;
+}
+
+[data-theme="light"] .event-tag {
+  background: #F1F5F9;
+  color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .exp-section-card {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .internship-block,
+[data-theme="light"] .education-block,
+[data-theme="light"] .timeline-header-bar {
+  border-bottom-color: var(--color-border);
+}
+
+[data-theme="light"] .internship-duration-pill {
+  background: rgba(225, 29, 72, 0.08);
+  color: var(--color-primary);
+}
+

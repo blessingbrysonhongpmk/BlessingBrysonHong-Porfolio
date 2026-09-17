@@ -34,13 +34,15 @@ export function Hero() {
         <div className="hero-bg__calm-center" />
 
         {/* Subtle Geometric / Architectural Edge Accents */}
+        <div className="hero-bg__axis-line hero-bg__axis-line--v" />
+        <div className="hero-bg__axis-line hero-bg__axis-line--h" />
         <div className="hero-bg__corner hero-bg__corner--tl">
           <span className="hero-bg__crosshair">+</span>
           <span className="hero-bg__coord">SYS.01 // 2026</span>
         </div>
         <div className="hero-bg__corner hero-bg__corner--tr">
           <span className="hero-bg__crosshair">+</span>
-          <span className="hero-bg__coord">AI.DS.FS</span>
+          <span className="hero-bg__coord">LAT 13.0827° N</span>
         </div>
         <div className="hero-bg__hairline hero-bg__hairline--top" />
       </div>
@@ -59,16 +61,18 @@ export function Hero() {
               </div>
             </div>
 
-            {/* 2. Identity Eyebrow & Small PMK Label */}
+            {/* 2. Role Label */}
             <div className="hero-eyebrow-row">
-              <span className="hero-identity-tag">PMK</span>
-              <span className="hero-eyebrow-divider" aria-hidden="true">/</span>
-              <span className="hero-role-label">AI &amp; DATA SCIENCE ENGINEER</span>
+              <span className="hero-role-label">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
             </div>
 
-            {/* 3. Primary Stacked Headline */}
+            {/* 3. Primary Integrated Headline */}
             <h1 className="hero-heading">
-              <span className="hero-heading-line">BLESSING</span>
+              <span className="hero-heading-line hero-heading-line--lead">
+                <span className="hero-monogram-tag" aria-label="PMK Monogram">PMK</span>
+                <span className="hero-heading-sep" aria-hidden="true">·</span>
+                <span>BLESSING</span>
+              </span>
               <span className="hero-heading-line">BRYSON</span>
               <span className="hero-heading-line hero-heading-line--accent">HONG</span>
             </h1>

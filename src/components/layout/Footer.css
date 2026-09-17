@@ -190,3 +190,22 @@
   background: var(--color-primary-soft);
   transform: translateY(-2px);
 }
+
+/* ── Light Mode Specific Polish ─────────────────── */
+[data-theme="light"] .footer {
+  background: #F1F5F9;
+  border-top-color: var(--color-border);
+}
+
+[data-theme="light"] .footer__time-capsule,
+[data-theme="light"] .footer__social,
+[data-theme="light"] .footer__back-to-top {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="light"] .footer__bottom {
+  border-top-color: var(--color-border);
+}
+
