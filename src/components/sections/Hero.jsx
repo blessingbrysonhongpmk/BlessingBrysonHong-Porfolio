@@ -26,13 +26,32 @@ export function Hero() {
       ref={heroRef}
       aria-label="Introduction and Identity"
     >
+      {/* ── Refined Architectural Background Layer ── */}
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-bg__grid" />
+        <div className="hero-bg__radial-magenta" />
+        <div className="hero-bg__radial-cyan" />
+        <div className="hero-bg__calm-center" />
+
+        {/* Subtle Geometric / Architectural Edge Accents */}
+        <div className="hero-bg__corner hero-bg__corner--tl">
+          <span className="hero-bg__crosshair">+</span>
+          <span className="hero-bg__coord">SYS.01 // 2026</span>
+        </div>
+        <div className="hero-bg__corner hero-bg__corner--tr">
+          <span className="hero-bg__crosshair">+</span>
+          <span className="hero-bg__coord">AI.DS.FS</span>
+        </div>
+        <div className="hero-bg__hairline hero-bg__hairline--top" />
+      </div>
+
       <div className="container hero-container">
         <div className="hero-editorial-grid">
-          
-          {/* ── Left Column: Editorial Typography & CTAs ── */}
+
+          {/* ── Left Column: Typography, Hierarchy & CTAs ── */}
           <div className="hero-content-col">
-            
-            {/* Top: Availability / Status Line */}
+
+            {/* 1. Availability Badge */}
             <div className="hero-status-row">
               <div className="hero-status-pill">
                 <span className="hero-status-dot" aria-hidden="true" />
@@ -40,27 +59,26 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Eyebrow Label */}
-            <div className="hero-eyebrow-wrap">
-              <span className="hero-eyebrow">AI &amp; DATA SCIENCE ENGINEER</span>
+            {/* 2. Identity Eyebrow & Small PMK Label */}
+            <div className="hero-eyebrow-row">
+              <span className="hero-identity-tag">PMK</span>
+              <span className="hero-eyebrow-divider" aria-hidden="true">/</span>
+              <span className="hero-role-label">AI &amp; DATA SCIENCE ENGINEER</span>
             </div>
 
-            {/* Identity Prefix & Monumental Heading */}
-            <div className="hero-heading-block">
-              <span className="hero-identity-prefix" aria-label="Prefix initials">P M K</span>
-              <h1 className="hero-heading">
-                <span className="hero-heading-line">BLESSING</span>
-                <span className="hero-heading-line">BRYSON</span>
-                <span className="hero-heading-line hero-heading-line--accent">HONG</span>
-              </h1>
-            </div>
+            {/* 3. Primary Stacked Headline */}
+            <h1 className="hero-heading">
+              <span className="hero-heading-line">BLESSING</span>
+              <span className="hero-heading-line">BRYSON</span>
+              <span className="hero-heading-line hero-heading-line--accent">HONG</span>
+            </h1>
 
-            {/* Supporting Copy (Max 2 lines on desktop) */}
+            {/* 4. Short Description */}
             <p className="hero-copy">
               Building intelligent systems at the intersection of AI, data, and full-stack engineering.
             </p>
 
-            {/* Compact Premium CTAs */}
+            {/* 5. Compact CTAs */}
             <div className="hero-cta-group">
               <a
                 href="#work"
@@ -77,39 +95,68 @@ export function Hero() {
                 onClick={(e) => handleScrollTo(e, '#contact')}
               >
                 <span>LET&apos;S CONNECT</span>
-                <span className="btn-arrow" aria-hidden="true">↗</span>
+                <span className="btn-arrow" aria-hidden="true">→</span>
               </a>
             </div>
 
-            {/* Personal Information */}
-            <div className="hero-personal-info" aria-label="Personal Details">
+            {/* 6. Supporting Metadata Row (Desktop Placement) */}
+            <div className="hero-personal-info hero-personal-info--desktop" aria-label="Personal Details">
               <span className="info-item">India</span>
               <span className="info-sep">•</span>
-              <span className="info-item">III Year • B.Tech AI &amp; Data Science</span>
+              <span className="info-item">III Year</span>
               <span className="info-sep">•</span>
-              <span className="info-item info-item--accent">AI / ML • Full Stack</span>
+              <span className="info-item">B.Tech AI &amp; Data Science</span>
+              <span className="info-sep">•</span>
+              <span className="info-item info-item--accent">AI / ML</span>
+              <span className="info-sep">•</span>
+              <span className="info-item info-item--cyan">Full Stack</span>
             </div>
 
           </div>
 
-          {/* ── Right Column: Refined Editorial Portrait Frame ── */}
+          {/* ── Right Column: Framed Editorial Portrait & Subtle Identity Tags ── */}
           <div className="hero-visual-col">
             <div className="hero-portrait-frame">
+
+              {/* Corner Technical Bracket Accents */}
+              <div className="frame-corner frame-corner--tl" aria-hidden="true" />
+              <div className="frame-corner frame-corner--tr" aria-hidden="true" />
+              <div className="frame-corner frame-corner--bl" aria-hidden="true" />
+              <div className="frame-corner frame-corner--br" aria-hidden="true" />
+
               <div className="portrait-image-container">
                 <img
                   src={profile.avatar}
-                  alt={profile.fullName || profile.name}
+                  alt="Blessing Bryson Hong"
                   className="portrait-img"
                   loading="eager"
                 />
-                <div className="portrait-gradient-sheen" />
+                <div className="portrait-gradient-sheen" aria-hidden="true" />
               </div>
 
-              {/* Subtle Floating Identity Tag */}
-              <div className="portrait-badge">
-                <span className="badge-pulse-dot" />
-                <span className="badge-text">AI &amp; DS • ENGINEERING</span>
+              {/* Controlled Subtle Technical Details (Max 4 subtle tags) */}
+              <div className="portrait-tech-strip">
+                <span className="tech-strip-tag">AI / ML</span>
+                <span className="tech-strip-dot" aria-hidden="true">•</span>
+                <span className="tech-strip-tag">DATA SCIENCE</span>
+                <span className="tech-strip-dot" aria-hidden="true">•</span>
+                <span className="tech-strip-tag">FULL STACK</span>
+                <span className="tech-strip-dot" aria-hidden="true">•</span>
+                <span className="tech-strip-tag tech-strip-tag--cyan">PYTHON</span>
               </div>
+            </div>
+
+            {/* Supporting Metadata for Mobile (matches stack order requirement) */}
+            <div className="hero-personal-info hero-personal-info--mobile" aria-label="Personal Details">
+              <span className="info-item">India</span>
+              <span className="info-sep">•</span>
+              <span className="info-item">III Year</span>
+              <span className="info-sep">•</span>
+              <span className="info-item">B.Tech AI &amp; DS</span>
+              <span className="info-sep">•</span>
+              <span className="info-item info-item--accent">AI / ML</span>
+              <span className="info-sep">•</span>
+              <span className="info-item info-item--cyan">Full Stack</span>
             </div>
           </div>
 

@@ -6,21 +6,23 @@
 
 :root {
   /* ── 2026 Obsidian & Editorial Color System ──────── */
-  --color-base: #08090D;            /* Near-black charcoal base */
-  --color-base-tint: #0B0D13;       /* Subtle section variation */
+  --color-base: #07080B;            /* Primary background */
+  --color-base-tint: #0B0D12;       /* Secondary background */
   --color-surface: #0E1118;         /* Primary container surface */
   --color-surface-raised: #141822;  /* Elevated cards */
   --color-surface-hover: #1A1F2D;   /* Interactive hover state */
   --color-surface-glass: rgba(14, 17, 24, 0.72);
 
   /* ── Signature Brand Accents ─────────────────────── */
-  --color-primary: #E11D48;         /* Editorial Crimson Accent */
-  --color-primary-soft: rgba(225, 29, 72, 0.12);
-  --color-primary-glow: rgba(225, 29, 72, 0.28);
-  --color-primary-border: rgba(225, 29, 72, 0.35);
+  --color-primary: #FF174F;         /* Primary Accent: Magenta / Pink */
+  --color-primary-soft: rgba(255, 23, 79, 0.12);
+  --color-primary-glow: rgba(255, 23, 79, 0.28);
+  --color-primary-border: rgba(255, 23, 79, 0.35);
 
-  --color-secondary: #38BDF8;       /* Refined Sky Blue — technical metadata */
-  --color-secondary-soft: rgba(56, 189, 248, 0.10);
+  --color-secondary: #00D9FF;       /* Secondary Accent: Cyan / Teal technical highlight */
+  --color-secondary-soft: rgba(0, 217, 255, 0.10);
+  --color-secondary-glow: rgba(0, 217, 255, 0.25);
+  --color-secondary-border: rgba(0, 217, 255, 0.30);
 
   --color-accent: #10B981;          /* Emerald Pulse — live status indicator */
   --color-accent-soft: rgba(16, 185, 129, 0.12);
@@ -29,16 +31,17 @@
   --color-amber-soft: rgba(245, 158, 11, 0.12);
 
   /* ── High-Legibility Typography Shades ──────────── */
-  --color-text: #F8FAFC;            /* Pure readable off-white */
-  --color-text-secondary: #94A3B8;  /* Crisp balanced slate */
+  --color-text: #F5F5F7;            /* Primary text */
+  --color-text-secondary: #8F98A8;  /* Secondary text */
   --color-text-muted: #64748B;      /* Technical metadata & tags */
   --color-text-dim: #334155;        /* Gridlines & structure */
 
-  /* ── Architectural Hairline Borders ─────────────── */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-subtle: rgba(255, 255, 255, 0.04);
-  --color-border-hover: rgba(255, 255, 255, 0.18);
-  --color-border-strong: rgba(255, 255, 255, 0.24);
+  /* ── Architectural Hairline Borders & Grid ───────── */
+  --color-border: rgba(255, 255, 255, 0.10);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-hover: rgba(255, 255, 255, 0.20);
+  --color-border-strong: rgba(255, 255, 255, 0.28);
+  --color-grid: rgba(255, 255, 255, 0.035);
 
   /* ── Typography Pairing ─────────────────────────── */
   --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;

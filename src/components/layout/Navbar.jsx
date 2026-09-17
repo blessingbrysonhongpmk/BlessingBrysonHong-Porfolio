@@ -102,10 +102,10 @@ export function Navbar() {
             href="#home"
             className="navbar__brand"
             onClick={(e) => handleNavClick(e, '#home')}
-            aria-label="P M K BLESSING BRYSON HONG — Return to Top"
+            aria-label="PMK • BLESSING BRYSON HONG — Return to Top"
           >
-            <span className="navbar__brand-desktop">P M K BLESSING BRYSON HONG</span>
-            <span className="navbar__brand-mobile">BBH</span>
+            <span className="navbar__brand-desktop">PMK • BLESSING BRYSON HONG</span>
+            <span className="navbar__brand-mobile">PMK • BBH</span>
             <span className="navbar__brand-dot" />
           </a>
 
@@ -134,7 +134,7 @@ export function Navbar() {
               className="navbar__contact-btn"
               onClick={(e) => handleNavClick(e, '#contact')}
             >
-              <span>GET IN TOUCH</span>
+              <span>GET IN TOUCH →</span>
             </a>
 
             {/* Mobile Toggle Hamburger */}

@@ -19,9 +19,10 @@ export function NeuralDataMatrix({ particleCount = 180 }) {
     const colorArray = new Float32Array(particleCount * 3);
     const phaseArray = new Float32Array(particleCount);
 
-    const colorCrimson = new THREE.Color('#E11D48');
-    const colorSlate = new THREE.Color('#94A3B8');
-    const colorWhite = new THREE.Color('#E2E8F0');
+    const colorMagenta = new THREE.Color('#FF174F');
+    const colorCyan = new THREE.Color('#00D9FF');
+    const colorSlate = new THREE.Color('#8F98A8');
+    const colorOffWhite = new THREE.Color('#F5F5F7');
 
     for (let i = 0; i < particleCount; i++) {
       const x = (Math.random() - 0.5) * 18;
@@ -38,15 +39,17 @@ export function NeuralDataMatrix({ particleCount = 180 }) {
 
       phaseArray[i] = Math.random() * Math.PI * 2;
 
-      // Color distribution: 80% soft neutral slate/white, 20% crimson accent
+      // Color distribution: 15% Magenta, 5% Cyan, 60% Slate, 20% Off-White
       const rand = Math.random();
       let chosenColor;
-      if (rand < 0.20) {
-        chosenColor = colorCrimson;
-      } else if (rand < 0.70) {
+      if (rand < 0.15) {
+        chosenColor = colorMagenta;
+      } else if (rand < 0.20) {
+        chosenColor = colorCyan;
+      } else if (rand < 0.80) {
         chosenColor = colorSlate;
       } else {
-        chosenColor = colorWhite;
+        chosenColor = colorOffWhite;
       }
 
       colorArray[i * 3] = chosenColor.r;
