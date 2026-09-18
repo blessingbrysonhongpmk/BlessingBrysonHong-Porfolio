@@ -19,6 +19,8 @@ export function LinkedinIcon({ size = 18, ...props }) {
   );
 }
 
+export { LinkedinIcon as LinkedInIcon };
+
 export function InstagramIcon({ size = 18, ...props }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" {...props}>

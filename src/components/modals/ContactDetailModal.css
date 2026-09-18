@@ -1,0 +1,213 @@
+/* ─────────────────────────────────────────────────────
+   Contact Detail Modal Styling
+   ───────────────────────────────────────────────────── */
+
+.contact-modal-card {
+  max-width: 880px;
+}
+
+.contact-deep-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .contact-deep-grid {
+    grid-template-columns: 1fr 1.15fr;
+  }
+}
+
+.contact-deep-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.contact-email-capsule {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  gap: 10px;
+}
+
+.contact-email-str {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.contact-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.contact-copy-btn:hover {
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  background: rgba(225, 29, 72, 0.1);
+}
+
+.contact-social-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-social-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.contact-social-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.contact-social-icon {
+  color: var(--color-primary);
+  display: flex;
+}
+
+.contact-social-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.contact-social-platform {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.contact-social-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.contact-social-arrow {
+  color: var(--color-text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.contact-social-item:hover .contact-social-arrow {
+  color: var(--color-primary);
+  transform: translate(2px, -2px);
+}
+
+/* Contact Form */
+.contact-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-field-group label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+.modal-field-input,
+.modal-field-textarea {
+  background: #050608;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.modal-field-input:focus,
+.modal-field-textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.modal-field-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.status-pill {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.status-pill--sending {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.status-pill--success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.contact-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+/* Light Mode */
+[data-theme="light"] .contact-email-capsule,
+[data-theme="light"] .contact-social-item {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+}
+
+[data-theme="light"] .modal-field-input,
+[data-theme="light"] .modal-field-textarea {
+  background: #F8FAFC;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="light"] .modal-field-input:focus,
+[data-theme="light"] .modal-field-textarea:focus {
+  background: #FFFFFF;
+  border-color: var(--color-primary);
+}

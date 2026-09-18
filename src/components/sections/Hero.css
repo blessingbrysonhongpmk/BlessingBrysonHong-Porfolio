@@ -233,6 +233,20 @@
   color: #34D399;
 }
 
+.hero-degree-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #CBD5E1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 4px 12px;
+  border-radius: var(--radius-full, 9999px);
+}
+
 .hero-identity-tag {
   display: inline-flex;
   align-items: center;
@@ -289,6 +303,15 @@
   letter-spacing: -0.04em;
   font-weight: 700;
   margin: 4px 0 8px 0;
+}
+
+.hero-heading-lead {
+  font-size: 0.42em;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-bottom: 4px;
 }
 
 .hero-heading-line {
@@ -529,7 +552,8 @@
   pointer-events: none;
 }
 
-/* Subtle Technical Strip Docked at Bottom of Frame */
+/* Subtle Technical Strip / Monogram Dock at Bottom of Frame */
+.portrait-brand-dock,
 .portrait-tech-strip {
   position: absolute;
   bottom: 14px;
@@ -548,6 +572,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
+.dock-name,
 .tech-strip-tag {
   font-family: var(--font-mono, monospace);
   font-size: 10px;
@@ -556,13 +581,19 @@
   color: var(--color-text, #F5F5F7);
 }
 
+.dock-dot,
 .tech-strip-sep {
   color: rgba(255, 255, 255, 0.25);
   font-size: 11px;
 }
 
+.dock-tag,
 .tech-strip-tag--highlight {
-  color: #38BDF8;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #E11D48;
 }
 
 /* ── Light Mode Specific Polish ────────────────── */

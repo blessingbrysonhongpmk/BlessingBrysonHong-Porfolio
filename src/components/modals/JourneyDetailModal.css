@@ -1,0 +1,173 @@
+/* ─────────────────────────────────────────────────────
+   Journey Detail Modal Styling
+   ───────────────────────────────────────────────────── */
+
+.journey-modal-card {
+  max-width: 880px;
+}
+
+.journey-deep-exp-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.journey-deep-exp-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.journey-exp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.journey-exp-company {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.journey-exp-role {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-primary);
+  display: block;
+  margin-top: 2px;
+}
+
+.journey-exp-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.journey-exp-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Deep Timeline List */
+.journey-timeline-deep-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid var(--color-border);
+  margin-left: 8px;
+}
+
+.journey-timeline-deep-item {
+  position: relative;
+}
+
+.timeline-deep-node {
+  position: absolute;
+  top: 4px;
+  left: -27px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-deep-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 6px var(--color-primary);
+}
+
+.journey-timeline-deep-item.is-future .timeline-deep-dot {
+  background: var(--color-secondary);
+  box-shadow: 0 0 6px var(--color-secondary);
+}
+
+.timeline-deep-content {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timeline-deep-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline-deep-year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.timeline-deep-tag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.timeline-deep-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.timeline-deep-details {
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.timeline-deep-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.timeline-highlight-pill {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+/* Light Mode */
+[data-theme="light"] .journey-deep-exp-item,
+[data-theme="light"] .timeline-deep-content {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+}

@@ -1,0 +1,132 @@
+/* ─────────────────────────────────────────────────────
+   About Detail Modal Styling
+   ───────────────────────────────────────────────────── */
+
+.about-modal-card {
+  max-width: 860px;
+}
+
+.about-edu-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.about-edu-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.about-edu-degree {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.about-edu-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.about-edu-inst {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.about-edu-focus {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+.about-achievements-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .about-achievements-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.about-ach-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-ach-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about-ach-category {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.about-ach-year {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-primary);
+}
+
+.about-ach-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.about-ach-result {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2px 7px;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+.about-ach-desc {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.about-cta-footer {
+  padding-top: var(--space-2);
+}
+
+/* Light Mode Support */
+[data-theme="light"] .about-ach-card {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+}
+
+[data-theme="light"] .about-edu-degree {
+  color: var(--color-text);
+}

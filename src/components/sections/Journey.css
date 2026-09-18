@@ -1,476 +1,254 @@
 /* ─────────────────────────────────────────────────────
-   Journey Section — 2026 Editorial Progression Timeline
-   Connected rail, milestone activation, and internship credentials.
+   Journey Section — Compact Trajectory & Recognition Preview
+   Small Surface: Key milestones & category capsules.
+   Deep Content: Click opens JourneyDetailModal.
    ───────────────────────────────────────────────────── */
 
-.journey-section {
+.journey-preview-section {
   position: relative;
-  padding-top: var(--space-section);
-  padding-bottom: var(--space-section);
-  z-index: var(--z-content);
-  border-top: 1px solid var(--color-border-subtle);
+  padding: clamp(56px, 7vh, 88px) 0;
+  border-top: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.07));
+  z-index: var(--z-content, 2);
 }
 
-.journey-container {
+.journey-preview-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-8, 2rem);
 }
 
-/* ── Section Marker ──────────────────────────────── */
-.journey-header-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.journey-intro-block {
+/* ── Header ───────────────────────────────────────── */
+.journey-preview-header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4, 1rem);
 }
 
-.journey-title {
-  font-size: clamp(2.25rem, 2rem + 1.8vw, 3.5rem);
-  letter-spacing: -0.03em;
+.journey-preview-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 680px;
+}
+
+.journey-preview-title {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
   font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text, #F5F5F7);
+  margin: 0;
   line-height: 1.15;
 }
 
-.journey-subtitle {
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  max-width: 65ch;
-  line-height: 1.55;
+.journey-preview-subtitle {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-secondary, #94A3B8);
+  line-height: 1.5;
   margin: 0;
 }
 
-/* ── Editorial Grid ──────────────────────────────── */
-.journey-editorial-grid {
+/* ── 2-Column Split Grid ──────────────────────────── */
+.trajectory-split-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-12);
+  gap: var(--space-6, 1.5rem);
 }
 
-@media (min-width: 1024px) {
-  .journey-editorial-grid {
-    grid-template-columns: 1.2fr 0.95fr;
-    gap: var(--space-16);
-    align-items: start;
+@media (min-width: 860px) {
+  .trajectory-split-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8, 2rem);
   }
 }
 
-/* ── Left Column: Timeline Track ─────────────────── */
-.timeline-col {
+.trajectory-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-}
-
-.timeline-header-bar {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border-subtle);
+  gap: var(--space-6, 1.5rem);
+  padding: clamp(20px, 3vh, 28px);
+  border-radius: var(--radius-lg, 12px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
-.timeline-header-title {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
+.trajectory-card:hover {
+  border-color: rgba(225, 29, 72, 0.35);
+  background: rgba(225, 29, 72, 0.02);
 }
 
-.timeline-header-caption {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-.timeline-track-wrap {
-  position: relative;
-  padding-left: 28px;
-}
-
-.timeline-progress-rail {
-  position: absolute;
-  top: 14px;
-  bottom: 20px;
-  left: 7px;
-  width: 2px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.timeline-progress-laser {
-  position: absolute;
-  top: 14px;
-  bottom: 20px;
-  left: 7px;
-  width: 2px;
-  background: linear-gradient(180deg, #E11D48 0%, #38BDF8 80%, #34D399 100%);
-  box-shadow: 0 0 10px #E11D48, 0 0 16px rgba(56, 189, 248, 0.6);
-  z-index: 2;
-  transform-origin: top center;
-  will-change: transform;
-}
-
-.timeline-events-list {
+.trajectory-card__top {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
+  align-items: center;
+  gap: 10px;
+  padding-bottom: var(--space-3, 0.75rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.timeline-event-card {
-  position: relative;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  cursor: pointer;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
-}
-
-.timeline-event-card:hover,
-.timeline-event-card.is-active {
-  border-color: var(--color-primary);
-  background: var(--color-surface-hover);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(225, 29, 72, 0.16);
-  transform: translateX(6px);
-}
-
-.timeline-event-card:not(.is-active) {
-  opacity: 0.72;
-}
-
-.timeline-event-card:hover {
-  opacity: 1;
-}
-
-.timeline-event-card.is-future {
-  border-color: rgba(56, 189, 248, 0.4);
-  background: rgba(56, 189, 248, 0.04);
-}
-
-.timeline-node-marker {
-  position: absolute;
-  top: 22px;
-  left: -28px;
-  width: 16px;
-  height: 16px;
+.trajectory-card__icon-box {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.node-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-base);
-  border: 2px solid var(--color-text-muted);
-  transition: all var(--transition-fast);
-}
-
-.timeline-event-card:hover .node-dot,
-.timeline-event-card.is-active .node-dot {
-  background: var(--color-primary);
-  border-color: #FFFFFF;
-  box-shadow: 0 0 10px var(--color-primary);
-}
-
-.timeline-event-card.is-future .node-dot {
-  border-color: var(--color-secondary);
-  background: var(--color-secondary);
-}
-
-.timeline-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.event-meta-line {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.event-year {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.event-tag {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  color: var(--color-text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm, 6px);
   background: rgba(255, 255, 255, 0.04);
-  padding: 2px 6px;
-  border-radius: 3px;
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
 }
 
-.event-title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--color-text);
-  line-height: 1.25;
-}
-
-.event-summary {
-  font-size: var(--text-xs);
-  color: var(--color-text-secondary);
-  line-height: 1.45;
-  margin: 0;
-}
-
-.event-details {
+.trajectory-card__title {
+  font-family: var(--font-mono, monospace);
   font-size: 11px;
-  color: var(--color-text-muted);
-  line-height: 1.4;
-  border-top: 1px solid var(--color-border-subtle);
-  padding-top: var(--space-2);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--color-text, #F5F5F7);
   margin: 0;
 }
 
-/* ── Right Column: Experience Sidebar ────────────── */
-.experience-sidebar-col {
+/* ── Milestones Stream ────────────────────────────── */
+.milestones-stream {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-4, 1rem);
 }
 
-.exp-section-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  box-shadow: var(--shadow-card);
+.milestone-preview-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+  align-items: flex-start;
 }
 
-.exp-card-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.exp-header-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-}
-
-.exp-header-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-  display: block;
-}
-
-.exp-header-title {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+.milestone-preview-year {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.8125rem);
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-primary, #E11D48);
 }
 
-/* Internship Items Stack */
-.internship-items-stack {
+.milestone-preview-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: 2px;
 }
 
-.internship-block {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding-bottom: var(--space-5);
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.internship-block:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.internship-topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-2);
-}
-
-.internship-company-name {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.internship-duration-pill {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--color-primary);
-  background: var(--color-primary-soft);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-}
-
-.internship-role-title {
-  font-size: var(--text-xs);
+.milestone-preview-heading {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-text-secondary);
-}
-
-.internship-overview {
-  font-size: var(--text-xs);
-  color: var(--color-text-secondary);
-  line-height: 1.45;
+  color: var(--color-text, #F5F5F7);
   margin: 0;
 }
 
-.internship-keypoints {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding-top: var(--space-2);
+.milestone-preview-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary, #94A3B8);
+  line-height: 1.4;
+  margin: 0;
 }
 
-.internship-keypoints li {
+/* ── Achievements Stream ──────────────────────────── */
+.achievements-stream {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+}
+
+.achievement-preview-item {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: 11px;
-  color: var(--color-text-muted);
-  line-height: 1.35;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm, 6px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.bullet-check {
+.achievement-preview-pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38BDF8;
+  box-shadow: 0 0 6px #38BDF8;
+  margin-top: 6px;
   flex-shrink: 0;
-  margin-top: 2px;
 }
 
-/* Education Stack */
-.education-items-stack {
+.achievement-preview-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 2px;
 }
 
-.education-block {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border-subtle);
+.achievement-preview-label {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text, #F5F5F7);
+  margin: 0;
 }
 
-.education-block:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
+.achievement-preview-detail {
+  font-size: 11px;
+  color: var(--color-text-muted, #64748B);
 }
 
-.edu-topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-2);
+/* ── Action Buttons ───────────────────────────────── */
+.trajectory-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm, 6px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.10));
+  color: var(--color-text, #F5F5F7);
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.edu-degree-title {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.edu-period-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--color-text-muted);
-}
-
-.edu-institution-name {
-  font-size: var(--text-xs);
-  color: var(--color-text-secondary);
-}
-
-.edu-status-badge {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #34D399;
-  align-self: flex-start;
-}
-
-/* ── Light Mode Specific Polish ─────────────────── */
-[data-theme="light"] .journey-section {
-  background-color: var(--color-base);
-}
-
-[data-theme="light"] .timeline-progress-rail {
-  background: rgba(15, 23, 42, 0.08);
-}
-
-[data-theme="light"] .timeline-event-card {
-  background: #FFFFFF;
-  border-color: var(--color-border);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
-}
-
-[data-theme="light"] .timeline-event-card:hover,
-[data-theme="light"] .timeline-event-card.is-active {
-  background: #FFFFFF;
-  border-color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.12);
-}
-
-[data-theme="light"] .timeline-event-card.is-future {
-  background: #F0F9FF;
-  border-color: rgba(2, 132, 199, 0.3);
-}
-
-[data-theme="light"] .node-dot {
-  background: #FFFFFF;
-  border-color: #94A3B8;
-}
-
-[data-theme="light"] .event-tag {
-  background: #F1F5F9;
-  color: var(--color-text-secondary);
-}
-
-[data-theme="light"] .exp-section-card {
-  background: #FFFFFF;
-  border-color: var(--color-border);
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
-}
-
-[data-theme="light"] .internship-block,
-[data-theme="light"] .education-block,
-[data-theme="light"] .timeline-header-bar {
-  border-bottom-color: var(--color-border);
-}
-
-[data-theme="light"] .internship-duration-pill {
+.trajectory-action-btn:hover {
   background: rgba(225, 29, 72, 0.08);
-  color: var(--color-primary);
+  border-color: var(--color-primary, #E11D48);
+  color: #FFFFFF;
+  transform: translateY(-2px);
 }
 
+.action-btn-arrow {
+  color: var(--color-primary, #E11D48);
+  transition: transform 0.2s ease;
+}
+
+.trajectory-action-btn:hover .action-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ── Light Mode Polish ────────────────────────────── */
+[data-theme="light"] .journey-preview-section {
+  border-top-color: var(--color-border, rgba(0, 0, 0, 0.08));
+}
+
+[data-theme="light"] .trajectory-card {
+  background: #FFFFFF;
+  border-color: var(--color-border, rgba(0, 0, 0, 0.08));
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+}
+
+[data-theme="light"] .achievement-preview-item {
+  background: #F8FAFC;
+  border-color: var(--color-border, rgba(0, 0, 0, 0.06));
+}
+
+[data-theme="light"] .trajectory-action-btn {
+  background: #FFFFFF;
+  border-color: var(--color-border, rgba(0, 0, 0, 0.12));
+  color: var(--color-text, #0F172A);
+}

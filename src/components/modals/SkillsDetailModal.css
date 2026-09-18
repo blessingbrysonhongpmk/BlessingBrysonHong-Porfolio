@@ -1,0 +1,84 @@
+/* ─────────────────────────────────────────────────────
+   Skills Detail Modal Styling
+   ───────────────────────────────────────────────────── */
+
+.skills-modal-card {
+  max-width: 880px;
+}
+
+.skills-deep-groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.skills-deep-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .skills-deep-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.skill-deep-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skill-deep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-deep-name {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.skill-status-pip {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.status-pip--comfortable {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34D399;
+}
+
+.status-pip--working-knowledge {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38BDF8;
+}
+
+.status-pip--exploring {
+  background: rgba(245, 158, 11, 0.12);
+  color: #FBBF24;
+}
+
+.skill-deep-desc {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Light Mode Support */
+[data-theme="light"] .skill-deep-item {
+  background: #FFFFFF;
+  border-color: var(--color-border);
+}
