@@ -29,11 +29,11 @@ export function Hero() {
       {/* ── Refined Architectural Background Layer ── */}
       <div className="hero-bg" aria-hidden="true">
         <div className="hero-bg__grid" />
-        <div className="hero-bg__radial-magenta" />
-        <div className="hero-bg__radial-cyan" />
+        <div className="hero-bg__radial-crimson" />
+        <div className="hero-bg__radial-ambient" />
         <div className="hero-bg__calm-center" />
 
-        {/* Subtle Geometric / Architectural Edge Accents */}
+        {/* Engineering Geometric Guides */}
         <div className="hero-bg__axis-line hero-bg__axis-line--v" />
         <div className="hero-bg__axis-line hero-bg__axis-line--h" />
         <div className="hero-bg__corner hero-bg__corner--tl">
@@ -44,7 +44,7 @@ export function Hero() {
           <span className="hero-bg__crosshair">+</span>
           <span className="hero-bg__coord">LAT 13.0827° N</span>
         </div>
-        <div className="hero-bg__hairline hero-bg__hairline--top" />
+        <div className="hero-bg__hairline--top" />
       </div>
 
       <div className="container hero-container">
@@ -53,26 +53,27 @@ export function Hero() {
           {/* ── Left Column: Typography, Hierarchy & CTAs ── */}
           <div className="hero-content-col">
 
-            {/* 1. Availability Badge */}
-            <div className="hero-status-row">
+            {/* 1. Status Pill & Monogram Lockup */}
+            <div className="hero-badge-row">
               <div className="hero-status-pill">
                 <span className="hero-status-dot" aria-hidden="true" />
                 <span className="hero-status-text">AVAILABLE FOR 2026 OPPORTUNITIES</span>
               </div>
+              <div className="hero-identity-tag">
+                <span className="hero-identity-monogram">PMK</span>
+                <span className="hero-identity-dot">·</span>
+                <span className="hero-identity-label">IDENTITY</span>
+              </div>
             </div>
 
-            {/* 2. Role Label */}
-            <div className="hero-eyebrow-row">
+            {/* 2. Role Eyebrow */}
+            <div className="hero-role-row">
               <span className="hero-role-label">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
             </div>
 
-            {/* 3. Primary Integrated Headline */}
+            {/* 3. Primary Stacked Headline */}
             <h1 className="hero-heading">
-              <span className="hero-heading-line hero-heading-line--lead">
-                <span className="hero-monogram-tag" aria-label="PMK Monogram">PMK</span>
-                <span className="hero-heading-sep" aria-hidden="true">·</span>
-                <span>BLESSING</span>
-              </span>
+              <span className="hero-heading-line">BLESSING</span>
               <span className="hero-heading-line">BRYSON</span>
               <span className="hero-heading-line hero-heading-line--accent">HONG</span>
             </h1>
@@ -82,7 +83,7 @@ export function Hero() {
               Building intelligent systems at the intersection of AI, data, and full-stack engineering.
             </p>
 
-            {/* 5. Compact CTAs */}
+            {/* 5. CTAs */}
             <div className="hero-cta-group">
               <a
                 href="#work"
@@ -103,22 +104,18 @@ export function Hero() {
               </a>
             </div>
 
-            {/* 6. Supporting Metadata Row (Desktop Placement) */}
-            <div className="hero-personal-info hero-personal-info--desktop" aria-label="Personal Details">
-              <span className="info-item">India</span>
-              <span className="info-sep">•</span>
-              <span className="info-item">III Year</span>
-              <span className="info-sep">•</span>
-              <span className="info-item">B.Tech AI &amp; Data Science</span>
-              <span className="info-sep">•</span>
-              <span className="info-item info-item--accent">AI / ML</span>
-              <span className="info-sep">•</span>
-              <span className="info-item info-item--cyan">Full Stack</span>
+            {/* 6. Supporting Metadata Tags (Clean Pills, No Dangling Dots) */}
+            <div className="hero-meta-tags" aria-label="Personal Details">
+              <span className="meta-tag">India</span>
+              <span className="meta-tag">III Year B.Tech</span>
+              <span className="meta-tag meta-tag--focus">AI &amp; Data Science</span>
+              <span className="meta-tag meta-tag--accent">AI / ML</span>
+              <span className="meta-tag meta-tag--cyan">Full Stack</span>
             </div>
 
           </div>
 
-          {/* ── Right Column: Framed Editorial Portrait & Subtle Identity Tags ── */}
+          {/* ── Right Column: Framed Editorial Portrait ── */}
           <div className="hero-visual-col">
             <div className="hero-portrait-frame">
 
@@ -138,29 +135,16 @@ export function Hero() {
                 <div className="portrait-gradient-sheen" aria-hidden="true" />
               </div>
 
-              {/* Controlled Subtle Technical Details (Max 4 subtle tags) */}
+              {/* Technical Strip Docked at Bottom of Frame */}
               <div className="portrait-tech-strip">
                 <span className="tech-strip-tag">AI / ML</span>
-                <span className="tech-strip-dot" aria-hidden="true">•</span>
+                <span className="tech-strip-sep" aria-hidden="true">·</span>
                 <span className="tech-strip-tag">DATA SCIENCE</span>
-                <span className="tech-strip-dot" aria-hidden="true">•</span>
+                <span className="tech-strip-sep" aria-hidden="true">·</span>
                 <span className="tech-strip-tag">FULL STACK</span>
-                <span className="tech-strip-dot" aria-hidden="true">•</span>
-                <span className="tech-strip-tag tech-strip-tag--cyan">PYTHON</span>
+                <span className="tech-strip-sep" aria-hidden="true">·</span>
+                <span className="tech-strip-tag tech-strip-tag--highlight">PYTHON</span>
               </div>
-            </div>
-
-            {/* Supporting Metadata for Mobile (matches stack order requirement) */}
-            <div className="hero-personal-info hero-personal-info--mobile" aria-label="Personal Details">
-              <span className="info-item">India</span>
-              <span className="info-sep">•</span>
-              <span className="info-item">III Year</span>
-              <span className="info-sep">•</span>
-              <span className="info-item">B.Tech AI &amp; DS</span>
-              <span className="info-sep">•</span>
-              <span className="info-item info-item--accent">AI / ML</span>
-              <span className="info-sep">•</span>
-              <span className="info-item info-item--cyan">Full Stack</span>
             </div>
           </div>
 

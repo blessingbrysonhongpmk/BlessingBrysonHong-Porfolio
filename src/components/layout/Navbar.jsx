@@ -29,7 +29,12 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      setIsScrolled(window.scrollY > 50);
+
+      // Force 'home' active when at top of page
+      if (window.scrollY < 180) {
+        setActiveSection('home');
+      }
 
       // Calculate scroll progress percentage
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -39,6 +44,7 @@ export function Navbar() {
       }
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
