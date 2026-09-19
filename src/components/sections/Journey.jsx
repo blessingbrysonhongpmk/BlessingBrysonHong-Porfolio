@@ -1,126 +1,169 @@
-import { ArrowRight, Trophy, Milestone } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import './Journey.css';
 
-const MILESTONES = [
-  {
-    year: '2024',
-    title: 'Started B.Tech AI & DS',
-    desc: 'Foundations in Python, discrete mathematics, and linear algebra.',
-  },
-  {
-    year: '2025',
-    title: 'Full-Stack Systems & Dual Internships',
-    desc: 'Data science at Pantech ProLabs & full-stack development at Corizo.',
-  },
-  {
-    year: '2026',
-    title: 'Hackathons, Client Engineering & AI Systems',
-    desc: 'Production deployment for Devi Devan, Smart Canteen ML & campus AI.',
-  },
-];
+export function Journey({ onOpenJourney, onOpenAchievements }) {
+  const { content } = usePortfolioContent();
+  const achievements = content.achievementsSummary || [];
 
-const ACHIEVEMENTS_SUMMARY = [
-  { label: 'Technical Competitions', detail: 'State & University Engineering Challenges' },
-  { label: 'Paper Presentations', detail: 'Machine Learning & Predictive Modeling' },
-  { label: 'Hackathons', detail: 'Rapid Prototyping & AI Hackathons' },
-  { label: 'Client Delivery', detail: 'Production Web Systems & Commercial Deployments' },
-];
-
-export function Journey({ onOpenJourney }) {
   return (
-    <section id="journey" className="journey-preview-section" aria-label="Journey and Achievements Preview">
-      <div className="container journey-preview-container">
-        
-        {/* Section Kicker */}
-        <div className="section-kicker">
-          <span className="section-kicker__num">04</span>
-          <span className="section-kicker__label">JOURNEY &amp; ACHIEVEMENTS</span>
-          <div className="section-kicker__line" />
-        </div>
-
-        {/* Header Block */}
-        <div className="journey-preview-header">
-          <div className="journey-preview-header__text">
-            <h2 className="journey-preview-title">
-              Engineering <span className="text-gradient-crimson">Trajectory</span>
-            </h2>
-            <p className="journey-preview-subtitle">
-              Progressive timeline and verified competitive recognition. Click any block to view the full chronological narrative and dual internship dossiers.
+    <section id="journey" className="journey-section" aria-label="Experience & Achievements">
+      <div className="container journey-container">
+        {/* ── 1. Experience Timeline ── */}
+        <div className="journey-block">
+          <div className="journey-header">
+            <span className="section-label">Experience</span>
+            <h2 className="section-title">Work &amp; Internships</h2>
+            <p className="section-subtitle">
+              Professional software development and industry internships.
             </p>
           </div>
-        </div>
 
-        {/* ── 2-Column Split: Milestones & Achievements ── */}
-        <div className="trajectory-split-grid">
-          
-          {/* Column A: Milestones Preview */}
-          <div className="trajectory-card">
-            <div className="trajectory-card__top">
-              <div className="trajectory-card__icon-box">
-                <Milestone size={16} className="text-primary" />
+          <div className="experience-timeline" role="list">
+            {/* CURRENT: Nesus Park */}
+            <div
+              className="timeline-entry timeline-entry--current"
+              onClick={onOpenJourney}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onOpenJourney();
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="Current: Nesus Park — Software Developer"
+            >
+              <div className="timeline-entry__year-badge">
+                <span className="timeline-dot" aria-hidden="true" />
+                <span className="timeline-year-text">CURRENT</span>
               </div>
-              <h3 className="trajectory-card__title">MILESTONES</h3>
-            </div>
-
-            <div className="milestones-stream">
-              {MILESTONES.map((m) => (
-                <div key={m.year} className="milestone-preview-item">
-                  <span className="milestone-preview-year">{m.year}</span>
-                  <div className="milestone-preview-body">
-                    <h4 className="milestone-preview-heading">{m.title}</h4>
-                    <p className="milestone-preview-desc">{m.desc}</p>
-                  </div>
+              <div className="timeline-entry__content">
+                <div className="timeline-entry__header">
+                  <h3 className="timeline-entry__company">Nesus Park</h3>
+                  <span className="timeline-entry__role">Software Developer</span>
                 </div>
-              ))}
+                <p className="timeline-entry__desc">Working on company projects.</p>
+              </div>
             </div>
 
+            {/* 2026: Agile Info Park */}
+            <div
+              className="timeline-entry"
+              onClick={onOpenJourney}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onOpenJourney();
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="2026: Agile Info Park — Internship Full Stack Development"
+            >
+              <div className="timeline-entry__year-badge">
+                <span className="timeline-dot timeline-dot--muted" aria-hidden="true" />
+                <span className="timeline-year-text">2026</span>
+              </div>
+              <div className="timeline-entry__content">
+                <div className="timeline-entry__header">
+                  <h3 className="timeline-entry__company">Agile Info Park</h3>
+                  <span className="timeline-entry__role">Internship</span>
+                </div>
+                <p className="timeline-entry__desc">Full Stack Development using Python and Django.</p>
+              </div>
+            </div>
+
+            {/* 2025: AK Info Park */}
+            <div
+              className="timeline-entry"
+              onClick={onOpenJourney}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onOpenJourney();
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="2025: AK Info Park — Internship Data Science"
+            >
+              <div className="timeline-entry__year-badge">
+                <span className="timeline-dot timeline-dot--muted" aria-hidden="true" />
+                <span className="timeline-year-text">2025</span>
+              </div>
+              <div className="timeline-entry__content">
+                <div className="timeline-entry__header">
+                  <h3 className="timeline-entry__company">AK Info Park</h3>
+                  <span className="timeline-entry__role">Internship</span>
+                </div>
+                <p className="timeline-entry__desc">Data Science using Python.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="journey-action">
             <button
               type="button"
-              className="trajectory-action-btn"
+              className="journey-btn"
               onClick={onOpenJourney}
               id="journey-view-btn"
-              aria-label="View complete detailed engineering journey and internships"
+              aria-label="View complete journey details"
             >
-              <span>VIEW COMPLETE JOURNEY</span>
-              <ArrowRight size={14} className="action-btn-arrow" />
+              <span>VIEW FULL JOURNEY DETAILS</span>
+              <ArrowRight size={14} className="journey-btn__arrow" />
             </button>
           </div>
-
-          {/* Column B: Achievements Preview */}
-          <div className="trajectory-card">
-            <div className="trajectory-card__top">
-              <div className="trajectory-card__icon-box">
-                <Trophy size={16} className="text-accent" />
-              </div>
-              <h3 className="trajectory-card__title">ACHIEVEMENTS</h3>
-            </div>
-
-            <div className="achievements-stream">
-              {ACHIEVEMENTS_SUMMARY.map((a) => (
-                <div key={a.label} className="achievement-preview-item">
-                  <span className="achievement-preview-pip" />
-                  <div className="achievement-preview-body">
-                    <h4 className="achievement-preview-label">{a.label}</h4>
-                    <span className="achievement-preview-detail">{a.detail}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              className="trajectory-action-btn"
-              onClick={onOpenJourney}
-              id="achievements-view-btn"
-              aria-label="View full achievements and credentials dossier"
-            >
-              <span>VIEW ALL ACHIEVEMENTS</span>
-              <ArrowRight size={14} className="action-btn-arrow" />
-            </button>
-          </div>
-
         </div>
 
+        {/* ── 2. Achievements Overview ── */}
+        <div className="achievements-block">
+          <div className="achievements-header">
+            <span className="section-label">Achievements</span>
+            <h2 className="section-title">Credentials &amp; Milestones</h2>
+            <p className="section-subtitle">
+              Verified recognitions across competitions, presentations, and client delivery.
+            </p>
+          </div>
+
+          <div className="achievements-compact-grid" role="list">
+            {achievements.map((ach) => (
+              <div
+                key={ach.label}
+                className="achievement-item"
+                onClick={() => onOpenAchievements && onOpenAchievements(ach.label)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (onOpenAchievements) onOpenAchievements(ach.label);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`View achievements for ${ach.label}`}
+              >
+                <div className="achievement-item__top">
+                  <h4 className="achievement-item__title">{ach.label}</h4>
+                  <ArrowRight size={14} className="achievement-item__arrow" />
+                </div>
+                <p className="achievement-item__detail">{ach.detail}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="achievements-action">
+            <button
+              type="button"
+              className="journey-btn"
+              onClick={() => onOpenAchievements && onOpenAchievements('ALL')}
+              id="achievements-view-all-btn"
+              aria-label="View all achievement details"
+            >
+              <span>EXPLORE ALL ACHIEVEMENTS</span>
+              <ArrowRight size={14} className="journey-btn__arrow" />
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );

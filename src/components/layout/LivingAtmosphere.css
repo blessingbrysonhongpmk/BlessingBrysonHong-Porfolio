@@ -1,0 +1,142 @@
+/* ─────────────────────────────────────────────────────
+   Massive Digital Universe — Living Atmosphere CSS
+   Vast fluid radiant lighting, cosmic depth, microscopic grain.
+   ───────────────────────────────────────────────────── */
+
+.universe {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-atmosphere, 0);
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  transition: background-color var(--transition-slow);
+}
+
+/* Massive Radiant Fluid Glow Sheets */
+.universe__glow {
+  position: absolute;
+  border-radius: 50%;
+  -webkit-filter: blur(90px);
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity var(--transition-slow);
+}
+
+.universe__glow--crimson {
+  top: -15%;
+  right: -8%;
+  width: 65vw;
+  height: 65vw;
+  max-width: 900px;
+  max-height: 900px;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.18) 0%, rgba(225, 29, 72, 0.05) 50%, transparent 75%);
+  animation: floatCrimsonGlow 24s ease-in-out infinite alternate;
+}
+
+.universe__glow--indigo {
+  top: 45%;
+  left: -12%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 850px;
+  max-height: 850px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, rgba(59, 130, 246, 0.03) 50%, transparent 75%);
+  animation: floatIndigoGlow 28s ease-in-out infinite alternate;
+}
+
+.universe__glow--warm {
+  bottom: -15%;
+  right: 18%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.12) 0%, rgba(244, 63, 94, 0.03) 50%, transparent 75%);
+  animation: floatWarmGlow 26s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .universe__glow--crimson {
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.22) 0%, rgba(180, 18, 55, 0.08) 50%, transparent 75%);
+}
+
+[data-theme="dark"] .universe__glow--indigo {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(30, 41, 59, 0.06) 50%, transparent 75%);
+}
+
+[data-theme="dark"] .universe__glow--warm {
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.15) 0%, rgba(180, 18, 55, 0.04) 50%, transparent 75%);
+}
+
+@keyframes floatCrimsonGlow {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-50px, 40px, 0) scale(1.08); }
+  100% { transform: translate3d(30px, -30px, 0) scale(0.96); }
+}
+
+@keyframes floatIndigoGlow {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(60px, -50px, 0) scale(1.10); }
+  100% { transform: translate3d(-40px, 30px, 0) scale(0.95); }
+}
+
+@keyframes floatWarmGlow {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-45px, -35px, 0) scale(1.06); }
+  100% { transform: translate3d(50px, 40px, 0) scale(0.97); }
+}
+
+/* Canvas Engine Layer */
+.universe__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Micro-grain texture */
+.universe__grain {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-texture, 1);
+  background-image: radial-gradient(rgba(17, 18, 20, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.35;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.2) 85%);
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.2) 85%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .universe__grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  opacity: 0.28;
+}
+
+/* Edge vignette */
+.universe__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.04) 100%);
+}
+
+[data-theme="dark"] .universe__vignette {
+  background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.50) 100%);
+}
+
+@media (max-width: 768px) {
+  .universe__glow {
+    -webkit-filter: blur(55px);
+    filter: blur(55px);
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universe__glow {
+    animation: none;
+  }
+}

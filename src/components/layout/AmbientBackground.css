@@ -1,0 +1,167 @@
+/* ─────────────────────────────────────────────────────
+   Ambient Background & Texture Engine
+   Soft organic aurora blobs + delicate tactile micro-grid.
+   GPU-accelerated, non-blocking, zero pointer events.
+   ───────────────────────────────────────────────────── */
+
+.ambient-background {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  transition: background-color var(--transition-slow);
+}
+
+/* ── Aurora Floating Blobs ── */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  -webkit-filter: blur(90px);
+  filter: blur(90px);
+  opacity: 0.55;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+[data-theme="dark"] .ambient-blob {
+  opacity: 0.38;
+  -webkit-filter: blur(100px);
+  filter: blur(100px);
+}
+
+/* Blob 1: Soft Rose/Crimson (Anchored near top-right / Hero) */
+.ambient-blob--accent {
+  top: -8%;
+  right: -5%;
+  width: 580px;
+  height: 580px;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.16) 0%, rgba(225, 29, 72, 0.04) 70%, transparent 100%);
+  animation: auroraFloat1 28s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+[data-theme="dark"] .ambient-blob--accent {
+  background: radial-gradient(circle, rgba(251, 113, 133, 0.20) 0%, rgba(251, 113, 133, 0.05) 70%, transparent 100%);
+}
+
+/* Blob 2: Soft Slate Indigo/Blue (Mid-left / Work & Skills) */
+.ambient-blob--indigo {
+  top: 38%;
+  left: -10%;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.03) 70%, transparent 100%);
+  animation: auroraFloat2 34s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+[data-theme="dark"] .ambient-blob--indigo {
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.16) 0%, rgba(129, 140, 248, 0.04) 70%, transparent 100%);
+}
+
+/* Blob 3: Warm Ambient Amber (Lower-right / Journey & Contact) */
+.ambient-blob--amber {
+  bottom: -5%;
+  right: 5%;
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.10) 0%, rgba(245, 158, 11, 0.025) 70%, transparent 100%);
+  animation: auroraFloat3 32s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+[data-theme="dark"] .ambient-blob--amber {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, rgba(251, 191, 36, 0.03) 70%, transparent 100%);
+}
+
+/* ── GPU-Accelerated Organic Floating Keyframes ── */
+@keyframes auroraFloat1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-60px, 40px, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-30px, 90px, 0) scale(0.95);
+  }
+}
+
+@keyframes auroraFloat2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(80px, -50px, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(40px, 60px, 0) scale(0.96);
+  }
+}
+
+@keyframes auroraFloat3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-70px, -40px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-20px, -80px, 0) scale(0.94);
+  }
+}
+
+/* ── Delicate Tactile Texture Overlay (Subtle 32px Dot-Grid) ── */
+.ambient-texture-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.35;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.2) 85%);
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.2) 85%);
+}
+
+[data-theme="dark"] .ambient-texture-overlay {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  opacity: 0.25;
+}
+
+/* ── Mobile Guardrails (<768px): Zero Lag & Battery Preservation ── */
+@media (max-width: 768px) {
+  .ambient-blob {
+    animation: none !important;
+    -webkit-filter: blur(40px) !important;
+    filter: blur(40px) !important;
+    opacity: 0.45;
+  }
+  .ambient-blob--accent {
+    width: 320px;
+    height: 320px;
+    top: -4%;
+    right: -10%;
+  }
+  .ambient-blob--indigo {
+    width: 340px;
+    height: 340px;
+    top: 40%;
+    left: -15%;
+  }
+  .ambient-blob--amber {
+    width: 300px;
+    height: 300px;
+    bottom: 0;
+    right: -5%;
+  }
+  .ambient-texture-overlay {
+    opacity: 0.2;
+    background-size: 24px 24px;
+  }
+}
+
+/* ── Respect Prefers-Reduced-Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob {
+    animation: none !important;
+    transform: none !important;
+  }
+}

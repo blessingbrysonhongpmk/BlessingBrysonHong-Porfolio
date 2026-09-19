@@ -1,48 +1,20 @@
-import { ArrowRight } from 'lucide-react';
 import './About.css';
 
-export function About({ onOpenAbout }) {
+export function About() {
   return (
-    <section id="about" className="about-preview-section" aria-label="About Preview">
-      <div className="container about-preview-container">
-        
-        {/* Section Index Marker */}
-        <div className="section-kicker">
-          <span className="section-kicker__num">01</span>
-          <span className="section-kicker__label">ABOUT</span>
-          <div className="section-kicker__line" />
+    <section id="about" className="about-section" aria-label="About">
+      <div className="container about-container">
+        <div className="about-wrapper">
+          <span className="section-label">About</span>
+
+          <h2 className="about-statement">
+            I build practical software and intelligent systems across AI, data, and full-stack development.
+          </h2>
+
+          <p className="about-lead">
+            Currently working as a Software Developer and continuing to build real-world projects while studying Artificial Intelligence &amp; Data Science at St. Xavier&apos;s Catholic College of Engineering (SXCCE).
+          </p>
         </div>
-
-        {/* Compact Editorial Content */}
-        <div className="about-preview-content">
-          <div className="about-preview-lead-col">
-            <h2 className="about-preview-heading">
-              AI &amp; Data Science student focused on building practical software, intelligent systems, and full-stack products.
-            </h2>
-
-            <div className="about-preview-tags">
-              <span className="about-preview-tag">B.Tech AI &amp; DS (III Year)</span>
-              <span className="about-preview-tag">Predictive Machine Learning</span>
-              <span className="about-preview-tag">Full-Stack Architecture</span>
-              <span className="about-preview-tag">Open for 2026 Roles</span>
-            </div>
-          </div>
-
-          <div className="about-preview-action-col">
-            <button
-              type="button"
-              className="about-preview-btn"
-              onClick={onOpenAbout}
-              id="about-read-more-btn"
-              aria-label="Read full biography and technical dossier"
-            >
-              <span>READ MORE</span>
-              <ArrowRight size={15} className="about-preview-btn__icon" />
-            </button>
-            <span className="about-preview-hint">Education · Principles · Journey</span>
-          </div>
-        </div>
-
       </div>
     </section>
   );

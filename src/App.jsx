@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
+import { LivingAtmosphere } from './components/layout/LivingAtmosphere';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { PortfolioLoader } from './components/loader/PortfolioLoader';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
 import { Projects } from './components/sections/Projects';
@@ -9,47 +9,71 @@ import { Skills } from './components/sections/Skills';
 import { Journey } from './components/sections/Journey';
 import { Contact } from './components/sections/Contact';
 
-// Deep Dossier & Case Study Modals ("Small Surface, Deep Content")
 import { ProjectDetailModal } from './components/modals/ProjectDetailModal';
 import { AboutDetailModal } from './components/modals/AboutDetailModal';
 import { SkillsDetailModal } from './components/modals/SkillsDetailModal';
 import { JourneyDetailModal } from './components/modals/JourneyDetailModal';
+import { AchievementsDetailModal } from './components/modals/AchievementsDetailModal';
 import { ContactDetailModal } from './components/modals/ContactDetailModal';
 
-import { Scene } from './components/3d/Scene';
-import { CustomCursor } from './components/ui/CustomCursor';
-import { PORTFOLIO_DATA } from './data/portfolio';
-import { initScrollEngine, ScrollTrigger } from './utils/scrollOrchestrator';
+import { AdminLayout } from './components/admin/AdminLayout';
+import { PortfolioProvider, usePortfolioContent } from './context/PortfolioContext';
+
 import './styles/global.css';
 import './App.css';
 
-function App() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [easterEggActive, setEasterEggActive] = useState(false);
+function PortfolioApp() {
+  const { content } = usePortfolioContent();
 
-  // Deep Content Modal States
+  // Theme: default to light
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'light';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  }, []);
+
+  // Admin route
+  const [isAdminView, setIsAdminView] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.location.hash.startsWith('#/admin') || window.location.pathname === '/admin';
+  });
+
+  // Modal states
   const [activeProject, setActiveProject] = useState(null);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
   const [isJourneyOpen, setIsJourneyOpen] = useState(false);
+  const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
+  const [selectedAchievementCategory, setSelectedAchievementCategory] = useState('ALL');
   const [isContactOpen, setIsContactOpen] = useState(false);
 
-  // Initialize Lenis smooth inertia engine
+  // Admin keyboard shortcut
   useEffect(() => {
-    initScrollEngine();
+    const handler = (e) => {
+      if ((e.altKey && e.key.toLowerCase() === 'a') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a')) {
+        e.preventDefault();
+        setIsAdminView(prev => {
+          const next = !prev;
+          window.location.hash = next ? '#/admin' : '#/';
+          return next;
+        });
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // Refresh ScrollTrigger when portfolio completes loading
-  useEffect(() => {
-    if (isLoaded) {
-      const timer = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [isLoaded]);
-
-  // Modal Open Handlers with URL Hash Sync
+  // Modal handlers
   const handleSelectProject = useCallback((project) => {
     setActiveProject(project);
     window.location.hash = `#/project/${project.id}`;
@@ -70,6 +94,14 @@ function App() {
     window.location.hash = '#/journey';
   }, []);
 
+  const handleOpenAchievements = useCallback((category = 'ALL') => {
+    setSelectedAchievementCategory(category);
+    setIsAchievementsOpen(true);
+    window.location.hash = category && category !== 'ALL'
+      ? `#/achievements/${encodeURIComponent(category)}`
+      : '#/achievements';
+  }, []);
+
   const handleOpenContact = useCallback(() => {
     setIsContactOpen(true);
     window.location.hash = '#/contact';
@@ -80,158 +112,154 @@ function App() {
     setIsAboutOpen(false);
     setIsSkillsOpen(false);
     setIsJourneyOpen(false);
+    setIsAchievementsOpen(false);
     setIsContactOpen(false);
-
-    if (window.location.hash.startsWith('#/')) {
+    if (window.location.hash.startsWith('#/') && !window.location.hash.startsWith('#/admin')) {
       window.history.pushState(null, '', window.location.pathname + window.location.search);
     }
   }, []);
 
-  // Synchronize URL Hash routing with deep modals and browser history
+  // URL hash sync
   useEffect(() => {
-    const handleHashSync = () => {
+    const sync = () => {
       const hash = window.location.hash;
+      if (hash.startsWith('#/admin') || window.location.pathname === '/admin') {
+        setIsAdminView(true);
+        handleCloseModal();
+        return;
+      }
+      setIsAdminView(false);
+
       if (hash.startsWith('#/project/')) {
-        const projectId = hash.replace('#/project/', '');
-        const found = PORTFOLIO_DATA.projects.find((p) => p.id === projectId);
+        const id = hash.replace('#/project/', '');
+        const found = (content.projects || []).find(p => p.id === id);
         if (found) {
           setActiveProject(found);
-          setIsAboutOpen(false);
-          setIsSkillsOpen(false);
-          setIsJourneyOpen(false);
-          setIsContactOpen(false);
+          setIsAboutOpen(false); setIsSkillsOpen(false); setIsJourneyOpen(false);
+          setIsAchievementsOpen(false); setIsContactOpen(false);
         }
       } else if (hash === '#/about') {
-        setIsAboutOpen(true);
-        setActiveProject(null);
-        setIsSkillsOpen(false);
-        setIsJourneyOpen(false);
-        setIsContactOpen(false);
+        setIsAboutOpen(true); setActiveProject(null); setIsSkillsOpen(false);
+        setIsJourneyOpen(false); setIsAchievementsOpen(false); setIsContactOpen(false);
       } else if (hash === '#/skills') {
-        setIsSkillsOpen(true);
-        setActiveProject(null);
-        setIsAboutOpen(false);
-        setIsJourneyOpen(false);
-        setIsContactOpen(false);
+        setIsSkillsOpen(true); setActiveProject(null); setIsAboutOpen(false);
+        setIsJourneyOpen(false); setIsAchievementsOpen(false); setIsContactOpen(false);
       } else if (hash === '#/journey') {
-        setIsJourneyOpen(true);
-        setActiveProject(null);
-        setIsAboutOpen(false);
-        setIsSkillsOpen(false);
-        setIsContactOpen(false);
+        setIsJourneyOpen(true); setActiveProject(null); setIsAboutOpen(false);
+        setIsSkillsOpen(false); setIsAchievementsOpen(false); setIsContactOpen(false);
+      } else if (hash.startsWith('#/achievements')) {
+        setIsAchievementsOpen(true); setActiveProject(null); setIsAboutOpen(false);
+        setIsSkillsOpen(false); setIsJourneyOpen(false); setIsContactOpen(false);
+        const sub = hash.replace('#/achievements/', '').trim();
+        setSelectedAchievementCategory(sub && sub !== '#/achievements' ? decodeURIComponent(sub) : 'ALL');
       } else if (hash === '#/contact') {
-        setIsContactOpen(true);
-        setActiveProject(null);
-        setIsAboutOpen(false);
-        setIsSkillsOpen(false);
-        setIsJourneyOpen(false);
+        setIsContactOpen(true); setActiveProject(null); setIsAboutOpen(false);
+        setIsSkillsOpen(false); setIsJourneyOpen(false); setIsAchievementsOpen(false);
       } else if (!hash.startsWith('#/')) {
-        setActiveProject(null);
-        setIsAboutOpen(false);
-        setIsSkillsOpen(false);
-        setIsJourneyOpen(false);
-        setIsContactOpen(false);
+        setActiveProject(null); setIsAboutOpen(false); setIsSkillsOpen(false);
+        setIsJourneyOpen(false); setIsAchievementsOpen(false); setIsContactOpen(false);
       }
     };
 
-    handleHashSync();
-    window.addEventListener('hashchange', handleHashSync);
-    window.addEventListener('popstate', handleHashSync);
+    sync();
+    window.addEventListener('hashchange', sync);
+    window.addEventListener('popstate', sync);
     return () => {
-      window.removeEventListener('hashchange', handleHashSync);
-      window.removeEventListener('popstate', handleHashSync);
+      window.removeEventListener('hashchange', sync);
+      window.removeEventListener('popstate', sync);
     };
-  }, []);
+  }, [content.projects, handleCloseModal]);
 
-  // Easter egg: Key sequence → B B H
+  // Massive In-and-Out Scroll Reveal Observer
   useEffect(() => {
-    const sequence = ['b', 'b', 'h'];
-    let buffer = [];
+    if (typeof window === 'undefined') return;
 
-    const handleKeyDown = (e) => {
-      buffer.push(e.key.toLowerCase());
-      if (buffer.length > sequence.length) buffer.shift();
-      if (buffer.join('') === sequence.join('')) {
-        setEasterEggActive(true);
-        setTimeout(() => setEasterEggActive(false), 4000);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          } else {
+            // Smooth In-and-Out transition when scrolling into and out of view
+            entry.target.classList.remove('is-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '20px 0px -40px 0px',
       }
-    };
+    );
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    const timer = setTimeout(() => {
+      const targets = document.querySelectorAll(
+        '.about-statement, .about-lead, .work-header, .project-item, .skills-header, .skills-editorial-layout, .journey-block, .achievements-block, .contact-content-zone, .contact-form-card, .contact-channel-card'
+      );
+      targets.forEach((el, index) => {
+        el.classList.add('reveal-on-scroll');
+        if (!el.dataset.staggerSet) {
+          const delay = (index % 3) * 70;
+          if (delay > 0) {
+            el.style.transitionDelay = `${delay}ms`;
+          }
+          el.dataset.staggerSet = 'true';
+        }
+        observer.observe(el);
+      });
+    }, 120);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [content]);
+
+  // Admin view
+  if (isAdminView) {
+    return (
+      <AdminLayout
+        theme={theme}
+        toggleTheme={toggleTheme}
+        onExit={() => {
+          window.location.hash = '#/';
+          setIsAdminView(false);
+        }}
+      />
+    );
+  }
 
   return (
     <>
-      <CustomCursor />
-      {!isLoaded && <PortfolioLoader onComplete={() => setIsLoaded(true)} />}
+      <LivingAtmosphere />
+      <a href="#main-content" className="sr-only">Skip to main content</a>
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      <div className={`app ${isLoaded ? 'app--loaded' : ''}`}>
-        {/* Global 3D Ambient Neural Matrix */}
-        <Scene />
+      <main id="main-content">
+        <Hero onOpenContact={handleOpenContact} />
+        <About onOpenAbout={handleOpenAbout} />
+        <Projects onSelectProject={handleSelectProject} />
+        <Skills onOpenSkills={handleOpenSkills} />
+        <Journey onOpenJourney={handleOpenJourney} onOpenAchievements={handleOpenAchievements} />
+        <Contact onOpenContact={handleOpenContact} />
+      </main>
 
-        <a href="#main-content" className="sr-only">Skip to main content</a>
-        <Navbar />
+      <Footer />
 
-        <main id="main-content">
-          <Hero onOpenContact={handleOpenContact} />
-          <About onOpenAbout={handleOpenAbout} />
-          <Projects onSelectProject={handleSelectProject} />
-          <Skills onOpenSkills={handleOpenSkills} />
-          <Journey onOpenJourney={handleOpenJourney} />
-          <Contact onOpenContact={handleOpenContact} />
-        </main>
-
-        <Footer />
-      </div>
-
-      {/* ── Deep Content Experiences (Controlled by "Small Surface, Deep Content") ── */}
-      {activeProject && (
-        <ProjectDetailModal
-          project={activeProject}
-          onClose={handleCloseModal}
-        />
-      )}
-
-      {isAboutOpen && (
-        <AboutDetailModal
-          onClose={handleCloseModal}
-          onOpenContact={() => {
-            setIsAboutOpen(false);
-            handleOpenContact();
-          }}
-        />
-      )}
-
-      {isSkillsOpen && (
-        <SkillsDetailModal
-          onClose={handleCloseModal}
-        />
-      )}
-
-      {isJourneyOpen && (
-        <JourneyDetailModal
-          onClose={handleCloseModal}
-        />
-      )}
-
-      {isContactOpen && (
-        <ContactDetailModal
-          onClose={handleCloseModal}
-        />
-      )}
-
-      {/* Easter egg overlay */}
-      {easterEggActive && (
-        <div className="easter-egg" role="status" aria-live="polite">
-          <p className="easter-egg__text">
-            &ldquo;Before anything else, preparation is the key to success.&rdquo;
-          </p>
-          <span className="easter-egg__attribution">— a constant reminder</span>
-        </div>
-      )}
+      {/* Modals */}
+      {activeProject && <ProjectDetailModal project={activeProject} onClose={handleCloseModal} />}
+      {isAboutOpen && <AboutDetailModal onClose={handleCloseModal} onOpenContact={() => { setIsAboutOpen(false); handleOpenContact(); }} />}
+      {isSkillsOpen && <SkillsDetailModal onClose={handleCloseModal} />}
+      {isJourneyOpen && <JourneyDetailModal onClose={handleCloseModal} />}
+      {isAchievementsOpen && <AchievementsDetailModal initialCategory={selectedAchievementCategory} onClose={handleCloseModal} />}
+      {isContactOpen && <ContactDetailModal onClose={handleCloseModal} />}
     </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <PortfolioProvider>
+      <PortfolioApp />
+    </PortfolioProvider>
+  );
+}

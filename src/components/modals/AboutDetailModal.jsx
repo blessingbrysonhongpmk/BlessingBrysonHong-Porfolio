@@ -10,11 +10,12 @@ import {
   Target,
   CheckCircle2,
 } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import './AboutDetailModal.css';
 
 export function AboutDetailModal({ onClose }) {
-  const { profile, education, achievements } = PORTFOLIO_DATA;
+  const { content } = usePortfolioContent();
+  const { profile, education, achievements, aboutPreview } = content;
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -43,14 +44,14 @@ export function AboutDetailModal({ onClose }) {
           <div className="detail-modal-meta">
             <span className="meta-pill meta-pill--year">
               <Sparkles size={11} />
-              <span>DOSSIER // 2026</span>
+              <span>Overview</span>
             </span>
             <span className="meta-pill meta-pill--cat">
-              <span>BACKGROUND &amp; PHILOSOPHY</span>
+              <span>Background &amp; Principles</span>
             </span>
           </div>
 
-          <button className="detail-modal-close" onClick={onClose} aria-label="Close About Dossier">
+          <button className="detail-modal-close" onClick={onClose} aria-label="Close About Modal">
             <X size={18} />
           </button>
         </header>
@@ -60,7 +61,7 @@ export function AboutDetailModal({ onClose }) {
           {/* Hero Bio */}
           <div className="case-study-hero">
             <h2 id="about-modal-title" className="case-study-title">
-              About Blessing Bryson Hong
+              About {profile.name}
             </h2>
             <p className="case-study-tagline">
               {profile.fullBio || profile.shortBio}
@@ -73,7 +74,7 @@ export function AboutDetailModal({ onClose }) {
               <GraduationCap size={16} className="text-primary" />
               <h3>Academic Credentials &amp; Foundation</h3>
             </div>
-            {education.map((edu, idx) => (
+            {(education || []).map((edu, idx) => (
               <div key={idx} className="about-edu-row">
                 <div className="about-edu-top">
                   <h4 className="about-edu-degree">{edu.degree}</h4>
@@ -93,18 +94,12 @@ export function AboutDetailModal({ onClose }) {
                 <h3>Development Focus</h3>
               </div>
               <ul className="features-list">
-                <li>
-                  <CheckCircle2 size={13} className="text-secondary" />
-                  <span><strong>Intelligent Model Serving:</strong> Training, evaluating, and containerizing ML predictive models for production.</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-secondary" />
-                  <span><strong>Full-Stack Product Architecture:</strong> Developing decoupled React frontends backed by modular REST APIs.</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-secondary" />
-                  <span><strong>Computer Vision Inference:</strong> Video frame sampling, spatial zone partitioning, and hazard alert telemetry.</span>
-                </li>
+                {(aboutPreview?.developmentFocus || []).map((item, idx) => (
+                  <li key={idx}>
+                    <CheckCircle2 size={13} className="text-secondary" />
+                    <span><strong>{item.title}:</strong> {item.desc}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -114,24 +109,18 @@ export function AboutDetailModal({ onClose }) {
                 <h3>Engineering Principles</h3>
               </div>
               <ul className="features-list">
-                <li>
-                  <CheckCircle2 size={13} className="text-accent" />
-                  <span><strong>Small Surface, Deep Content:</strong> Build clean, scannable interfaces that reward curiosity with depth.</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-accent" />
-                  <span><strong>Data Rigor Before Code:</strong> Understand data distributions, noise, and edge cases before engineering pipelines.</span>
-                </li>
-                <li>
-                  <CheckCircle2 size={13} className="text-accent" />
-                  <span><strong>Production Delivery:</strong> Prioritize shipping real, working software to live users over theoretical prototypes.</span>
-                </li>
+                {(aboutPreview?.engineeringPrinciples || []).map((item, idx) => (
+                  <li key={idx}>
+                    <CheckCircle2 size={13} className="text-accent" />
+                    <span><strong>{item.title}:</strong> {item.desc}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </section>
 
           {/* 3. Verified Achievements & Milestones */}
-          {achievements && (
+          {achievements && achievements.length > 0 && (
             <section className="case-card">
               <div className="case-card-header">
                 <Award size={16} className="text-primary" />
@@ -166,7 +155,7 @@ export function AboutDetailModal({ onClose }) {
                 className="case-study-btn case-study-btn--primary"
                 onClick={onClose}
               >
-                <span>INITIATE CONTACT</span>
+                <span>Get In Touch</span>
                 <ArrowUpRight size={13} />
               </a>
             </div>

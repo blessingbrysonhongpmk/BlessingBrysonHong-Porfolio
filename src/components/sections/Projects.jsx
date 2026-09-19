@@ -1,88 +1,118 @@
-import { ArrowUpRight } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
+import { useState, useMemo } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import './Projects.css';
 
 export function Projects({ onSelectProject }) {
-  const { projects } = PORTFOLIO_DATA;
+  const { content } = usePortfolioContent();
+  const projects = useMemo(() => content.projects || [], [content.projects]);
+
+  // Dynamic Categories
+  const categories = useMemo(() => {
+    const set = new Set();
+    projects.forEach((p) => {
+      if (p.category) set.add(p.category);
+    });
+    return ['ALL', ...Array.from(set)];
+  }, [projects]);
+
+  const [activeCategory, setActiveCategory] = useState('ALL');
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === 'ALL') return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [projects, activeCategory]);
 
   return (
-    <section id="work" className="work-preview-section" aria-label="Selected Engineering Work">
-      <div className="container work-preview-container">
+    <section id="projects" className="work-section" aria-label="Featured Projects">
+      <span id="work" className="sr-only" aria-hidden="true" />
 
-        {/* Section Marker */}
-        <div className="section-kicker">
-          <span className="section-kicker__num">02</span>
-          <span className="section-kicker__label">SELECTED WORK</span>
-          <div className="section-kicker__line" />
-        </div>
-
+      <div className="container work-container">
         {/* Section Header */}
-        <div className="work-preview-header">
-          <div className="work-preview-header__text">
-            <h2 className="work-preview-title">
-              Engineered <span className="text-gradient-crimson">Systems</span>
-            </h2>
-            <p className="work-preview-subtitle">
-              Selected production software, machine learning forecasting, and full-stack systems. Click any project to open the comprehensive case study.
-            </p>
+        <div className="work-header">
+          <div className="work-header__top">
+            <span className="section-label">Projects</span>
+            <span className="work-header__count">{projects.length} Projects</span>
           </div>
-          <span className="work-preview-count">{projects.length} CASE STUDIES</span>
+          <h2 className="section-title">Selected Work</h2>
+          <p className="section-subtitle">
+            Machine learning models, full-stack applications, and commercial client websites.
+          </p>
+
+          {/* Minimal Domain Filter Pills */}
+          <div className="work-filters" role="tablist" aria-label="Filter projects">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`work-filter-pill ${isActive ? 'work-filter-pill--active' : ''}`}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  <span>{cat}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* ── Editorial Project List (Compact & Scannable) ── */}
-        <div className="editorial-project-list" role="list" aria-label="Project Case Studies">
-          {projects.map((project, index) => {
-            const num = String(index + 1).padStart(2, '0');
-            return (
-              <div
-                key={project.id}
-                role="button"
-                tabIndex={0}
-                className="editorial-project-row"
-                onClick={() => onSelectProject(project)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelectProject(project);
-                  }
-                }}
-                id={`project-row-${project.id}`}
-                aria-label={`View case study for ${project.name}`}
-              >
-                {/* Left Edge Accent Line */}
-                <div className="project-row__accent-line" aria-hidden="true" />
+        {/* Compact Editorial Project Previews */}
+        <div className="work-list" role="list">
+          {filteredProjects.map((project) => (
+            <article
+              key={project.id}
+              className="project-item"
+              onClick={() => onSelectProject(project)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelectProject(project);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`View case study for ${project.name}`}
+            >
+              {/* 1. Small Thumbnail Image (Immediately Visible) */}
+              <div className="project-item__thumb-wrap">
+                <img
+                  src={project.image || '/profile.jpeg'}
+                  alt={project.name}
+                  className="project-item__thumb"
+                  loading="lazy"
+                />
+              </div>
 
-                {/* Project Index */}
-                <span className="project-row__num">{num}</span>
-
-                {/* Project Core Identity */}
-                <div className="project-row__identity">
-                  <div className="project-row__title-row">
-                    <h3 className="project-row__name">{project.name}</h3>
-                    <span className="project-row__category-tag">{project.category}</span>
-                  </div>
-                  <p className="project-row__desc">
-                    {project.oneLiner || project.description}
-                  </p>
+              {/* 2. Middle Content Column */}
+              <div className="project-item__content">
+                <div className="project-item__title-row">
+                  <h3 className="project-item__name">{project.name}</h3>
                 </div>
 
-                {/* Project Metadata & Year */}
-                <div className="project-row__meta">
-                  <span className="project-row__year">{project.year || '2026'}</span>
-                </div>
+                {/* 3. One-line Description */}
+                <p className="project-item__desc">
+                  {project.oneLiner || project.tagline || project.description}
+                </p>
 
-                {/* Interactive Action Trigger */}
-                <div className="project-row__action">
-                  <span className="project-row__action-label">View Case Study</span>
-                  <span className="project-row__arrow-circle">
-                    <ArrowUpRight size={14} className="project-row__arrow-icon" />
-                  </span>
+                {/* 4. Category · Year */}
+                <div className="project-item__meta">
+                  <span className="project-item__cat">{project.category}</span>
+                  <span className="project-item__dot" aria-hidden="true">·</span>
+                  <span className="project-item__year">{project.year || '2026'}</span>
                 </div>
               </div>
-            );
-          })}
-        </div>
 
+              {/* 5. Right Arrow Action */}
+              <div className="project-item__action" aria-hidden="true">
+                <span className="project-item__action-label">Case Study</span>
+                <ArrowRight size={16} className="project-item__arrow" />
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,22 +1,22 @@
 /* ─────────────────────────────────────────────────────
-   Journey Detail Modal Styling
+   Journey Detail Modal Styling (Clean & Accessible)
    ───────────────────────────────────────────────────── */
 
 .journey-modal-card {
-  max-width: 880px;
+  max-width: 860px;
 }
 
 .journey-deep-exp-stack {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 .journey-deep-exp-item {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -31,27 +31,29 @@
 
 .journey-exp-company {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: var(--text-base);
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
 }
 
 .journey-exp-role {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 600;
   display: block;
   margin-top: 2px;
 }
 
 .journey-exp-period {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .journey-exp-desc {
@@ -78,7 +80,7 @@
 
 .timeline-deep-node {
   position: absolute;
-  top: 4px;
+  top: 6px;
   left: -27px;
   width: 14px;
   height: 14px;
@@ -88,23 +90,22 @@
 }
 
 .timeline-deep-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 6px var(--color-primary);
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
 }
 
 .journey-timeline-deep-item.is-future .timeline-deep-dot {
-  background: var(--color-secondary);
-  box-shadow: 0 0 6px var(--color-secondary);
+  border-color: var(--color-text-muted);
 }
 
 .timeline-deep-content {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -117,20 +118,20 @@
 }
 
 .timeline-deep-year {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .timeline-deep-tag {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.06em;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
-  background: rgba(255, 255, 255, 0.04);
-  padding: 2px 6px;
-  border-radius: 3px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
 }
 
 .timeline-deep-title {
@@ -142,7 +143,7 @@
 }
 
 .timeline-deep-details {
-  font-size: 11.5px;
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
   line-height: 1.5;
   margin: 0;
@@ -156,18 +157,11 @@
 }
 
 .timeline-highlight-pill {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  color: var(--color-text-muted);
-  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
-  padding: 2px 7px;
-  border-radius: 3px;
-}
-
-/* Light Mode */
-[data-theme="light"] .journey-deep-exp-item,
-[data-theme="light"] .timeline-deep-content {
-  background: #FFFFFF;
-  border-color: var(--color-border);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
 }

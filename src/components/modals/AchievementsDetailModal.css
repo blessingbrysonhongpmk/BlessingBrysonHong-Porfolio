@@ -1,0 +1,377 @@
+/* ─────────────────────────────────────────────────────
+   Focused Credential Detail Panel — Apple Pro Sheet
+   Clean, progressive disclosure. No dashboard clutter.
+   Full-width comfortable mobile presentation.
+   ───────────────────────────────────────────────────── */
+
+.credential-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(0, 0, 0, 0.65);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  overflow-y: auto;
+  animation: credentialBackdropFade 220ms ease-out;
+}
+
+[data-theme="dark"] .credential-modal-backdrop {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+@keyframes credentialBackdropFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.credential-modal-sheet {
+  background: var(--glass-bg-elevated);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 620px;
+  box-shadow: var(--shadow-spatial);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: credentialSheetScale 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  max-height: 90vh;
+}
+
+@keyframes credentialSheetScale {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Top Bar: Navigation & Close ── */
+.credential-sheet-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.credential-sheet-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.credential-step {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+.credential-close-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .credential-close-btn:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+}
+
+/* ── Content Body ── */
+.credential-sheet-body {
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.credential-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.credential-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.credential-badge-icon {
+  flex-shrink: 0;
+}
+
+.credential-year {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Title */
+.credential-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin: 0 0 clamp(0.75rem, 1.2vw, 1.1rem) 0;
+}
+
+/* Short Summary */
+.credential-summary {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-6) 0;
+}
+
+/* Key Structured Details */
+.credential-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.credential-meta-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.credential-meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.credential-meta-val {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.credential-meta-val--highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #10B981;
+}
+
+/* Highlights */
+.credential-highlights-zone {
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  background: var(--color-surface-subtle);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.credential-subhead {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.credential-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.credential-highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.highlight-icon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* External Link */
+.credential-action-row {
+  margin-top: auto;
+}
+
+.credential-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .credential-action-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+    transform: translateY(-1px);
+  }
+}
+
+/* ── Footer: Pagination ── */
+.credential-sheet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
+
+.credential-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.credential-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .credential-nav-btn:not(:disabled):hover {
+    color: var(--color-accent);
+    background: var(--color-surface);
+  }
+}
+
+.credential-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.credential-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.credential-dot--active {
+  background: var(--color-accent);
+  transform: scale(1.4);
+}
+
+/* ── Mobile Screen Optimization ── */
+@media (max-width: 640px) {
+  .credential-modal-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .credential-modal-sheet {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    max-height: 92vh;
+    border-bottom: none;
+  }
+
+  .credential-sheet-topbar {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .credential-sheet-body {
+    padding: var(--space-4);
+  }
+
+  .credential-title {
+    font-size: 1.28rem;
+  }
+
+  .credential-meta-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .credential-sheet-footer {
+    padding: var(--space-3) var(--space-4);
+  }
+}

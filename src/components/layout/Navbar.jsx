@@ -1,234 +1,134 @@
 import { useState, useEffect, useCallback } from 'react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
-import { getLenis } from '../../utils/scrollOrchestrator';
-import { Sun, Moon } from 'lucide-react';
+import { usePortfolioContent } from '../../context/PortfolioContext';
+import { scrollToElement } from '../../utils/scrollOrchestrator';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 import './Navbar.css';
 
-export function Navbar() {
+const NAV_ITEMS = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Journey', href: '#journey' },
+  { label: 'Contact', href: '#contact' },
+];
+
+export function Navbar({ theme, toggleTheme }) {
+  const { content } = usePortfolioContent();
+  const { profile } = content;
+
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved) return saved;
-      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    }
-    return 'dark';
-  });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      // Force 'home' active when at top of page
-      if (window.scrollY < 180) {
-        setActiveSection('home');
-      }
-
-      // Calculate scroll progress percentage
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        const progress = (window.scrollY / totalScroll) * 100;
-        setScrollProgress(progress);
-      }
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+      if (window.scrollY < 150) setActiveSection('home');
     };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Track active section via IntersectionObserver
+  // Intersection observer for active nav
   useEffect(() => {
-    const sections = PORTFOLIO_DATA.navLinks
-      .map(link => document.querySelector(link.href))
-      .filter(Boolean);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-35% 0px -55% 0px', threshold: 0 }
-    );
-
-    sections.forEach(section => observer.observe(section));
-    return () => observer.disconnect();
+    const ids = NAV_ITEMS.map(l => l.href.replace('#', '')).filter(Boolean);
+    const observers = [];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) setActiveSection(id); }),
+        { threshold: 0.15, rootMargin: '-80px 0px -40% 0px' }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  // Lock scroll when mobile menu is open — use Lenis API so smooth scroll isn't broken
+  // Lock scroll when mobile menu open
   useEffect(() => {
-    const lenis = getLenis();
-    if (isMobileMenuOpen) {
-      if (lenis) {
-        lenis.stop();
-      } else {
-        document.body.style.overflow = 'hidden';
-      }
-    } else {
-      if (lenis) {
-        lenis.start();
-      } else {
-        document.body.style.overflow = '';
-      }
-    }
-    return () => {
-      const l = getLenis();
-      if (l) l.start();
-      else document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
-  const handleNavClick = useCallback((e, href) => {
+  const handleNav = useCallback((e, href) => {
     e.preventDefault();
-    setIsMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      const lenis = getLenis();
-      if (lenis) {
-        lenis.scrollTo(target, { offset: -70, duration: 1.1 });
-      } else {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+    setMobileOpen(false);
+    scrollToElement(href);
   }, []);
 
   return (
     <>
-      {/* ── Top Scroll Progress Bar ── */}
-      <div
-        className="navbar__scroll-indicator"
-        style={{ width: `${scrollProgress}%` }}
-        aria-hidden="true"
-      />
-
-      <header
-        className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}
-        role="banner"
-      >
+      <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} role="banner">
         <div className="container navbar__inner">
-          {/* Brand Mark */}
-          <a
-            href="#home"
-            className="navbar__brand"
-            onClick={(e) => handleNavClick(e, '#home')}
-            aria-label="PMK · BLESSING BRYSON HONG — Return to Top"
-          >
-            <span className="navbar__brand-desktop">PMK · BLESSING BRYSON HONG</span>
-            <span className="navbar__brand-mobile">PMK · BBH</span>
-            <span className="navbar__brand-dot" />
+          {/* Brand */}
+          <a href="#home" className="navbar__brand" onClick={e => handleNav(e, '#home')} aria-label="Blessing Bryson Hong">
+            <span className="navbar__brand-name">BLESSING BRYSON HONG</span>
           </a>
 
-          {/* Minimal Center Navigation */}
-          <nav className="navbar__nav-links" role="navigation" aria-label="Main Navigation">
-            {PORTFOLIO_DATA.navLinks.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`navbar__link ${isActive ? 'navbar__link--active' : ''}`}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                >
-                  <span className="navbar__link-text">{link.label}</span>
-                  {isActive && <span className="navbar__active-indicator" />}
-                </a>
-              );
-            })}
+          {/* Desktop Nav */}
+          <nav className="navbar__links" role="navigation" aria-label="Main Navigation">
+            {NAV_ITEMS.map(link => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`navbar__link ${activeSection === link.href.slice(1) ? 'navbar__link--active' : ''}`}
+                onClick={e => handleNav(e, link.href)}
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Right Action & Theme Toggle */}
-          <div className="navbar__action-col">
+          {/* Actions */}
+          <div className="navbar__actions">
             <button
               className="navbar__theme-btn"
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
-              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
             </button>
 
-            <a
-              href="#contact"
-              className="navbar__contact-btn"
-              onClick={(e) => handleNavClick(e, '#contact')}
-            >
-              <span>GET IN TOUCH →</span>
-            </a>
-
-            {/* Mobile Toggle Hamburger */}
             <button
-              className="navbar__toggle"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMobileMenuOpen}
+              className="navbar__mobile-btn"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
             >
-              <span className={`navbar__toggle-bar ${isMobileMenuOpen ? 'open' : ''}`} />
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation */}
-      <div
-        className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu--open' : ''}`}
-        role="dialog"
-        aria-label="Mobile Navigation"
-        aria-hidden={!isMobileMenuOpen}
-      >
-        <div className="mobile-menu__inner">
-          <div className="mobile-menu__top-bar">
-            <button
-              className="mobile-menu__theme-btn"
-              onClick={toggleTheme}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-              <span>{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
-            </button>
-          </div>
-
-          <div className="mobile-menu__links">
-            {PORTFOLIO_DATA.navLinks.map((link, i) => (
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="mobile-menu" role="dialog" aria-label="Mobile Navigation">
+          <nav className="mobile-menu__nav">
+            {NAV_ITEMS.map(link => (
               <a
                 key={link.label}
                 href={link.href}
                 className="mobile-menu__link"
-                onClick={(e) => handleNavClick(e, link.href)}
-                style={{ '--delay': `${i * 50 + 100}ms` }}
-                tabIndex={isMobileMenuOpen ? 0 : -1}
+                onClick={e => handleNav(e, link.href)}
               >
-                <span className="mobile-menu__link-index">0{i + 1}</span>
-                <span className="mobile-menu__link-label">{link.label}</span>
+                {link.label}
               </a>
             ))}
-          </div>
-
+          </nav>
           <div className="mobile-menu__footer">
-            <p className="mobile-menu__availability">
-              <span className="pulse-dot" />
-              {PORTFOLIO_DATA.profile.availability}
-            </p>
-            <a href={`mailto:${PORTFOLIO_DATA.profile.email}`} className="mobile-menu__email">
-              {PORTFOLIO_DATA.profile.email}
-            </a>
+            <button className="mobile-menu__theme-btn" onClick={toggleTheme}>
+              {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+              <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+            </button>
+            <a href={`mailto:${profile.email}`} className="mobile-menu__email">{profile.email}</a>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

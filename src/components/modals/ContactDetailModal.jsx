@@ -9,12 +9,13 @@ import {
   Copy,
   ExternalLink,
 } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import { GithubIcon, LinkedInIcon, InstagramIcon, DiscordIcon, FacebookIcon } from '../ui/SocialIcons';
 import './ContactDetailModal.css';
 
 export function ContactDetailModal({ onClose }) {
-  const { profile, socials } = PORTFOLIO_DATA;
+  const { content } = usePortfolioContent();
+  const { profile, socials } = content;
   const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitStatus, setSubmitStatus] = useState(null); // 'sending' | 'success' | 'error'
@@ -92,10 +93,10 @@ export function ContactDetailModal({ onClose }) {
         <div className="detail-modal-body">
           <div className="case-study-hero">
             <h2 id="contact-modal-title" className="case-study-title">
-              Let&apos;s Build Something Intelligent
+              Get In Touch
             </h2>
             <p className="case-study-tagline">
-              Open to technical collaboration, machine learning pipelines, and full-stack engineering roles. Direct inbox is monitored daily.
+              Have a question, collaboration idea, or opportunity? Fill out the form or reach out directly via email or LinkedIn.
             </p>
           </div>
 
@@ -106,7 +107,7 @@ export function ContactDetailModal({ onClose }) {
               <div className="case-card">
                 <div className="case-card-header">
                   <Mail size={16} className="text-primary" />
-                  <h3>Direct Communication</h3>
+                  <h3>Email</h3>
                 </div>
 
                 <div className="contact-email-capsule">
@@ -135,7 +136,7 @@ export function ContactDetailModal({ onClose }) {
               <div className="case-card">
                 <div className="case-card-header">
                   <Clock size={16} className="text-secondary" />
-                  <h3>Verified Channels</h3>
+                  <h3>Online Profiles</h3>
                 </div>
 
                 <div className="contact-social-list">
@@ -163,12 +164,12 @@ export function ContactDetailModal({ onClose }) {
             <div className="case-card contact-form-card">
               <div className="case-card-header">
                 <Send size={16} className="text-accent" />
-                <h3>Transmit a Message</h3>
+                <h3>Send a Message</h3>
               </div>
 
               <form className="contact-modal-form" onSubmit={handleSubmit}>
                 <div className="form-field-group">
-                  <label htmlFor="contact-name">YOUR NAME / ORG</label>
+                  <label htmlFor="contact-name">Your Name / Organization</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -181,12 +182,12 @@ export function ContactDetailModal({ onClose }) {
                 </div>
 
                 <div className="form-field-group">
-                  <label htmlFor="contact-email">EMAIL ADDRESS</label>
+                  <label htmlFor="contact-email">Email Address</label>
                   <input
                     id="contact-email"
                     type="email"
                     required
-                    placeholder="e.g. alex@enterprise.com"
+                    placeholder="e.g. alex@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="modal-field-input"
@@ -194,12 +195,12 @@ export function ContactDetailModal({ onClose }) {
                 </div>
 
                 <div className="form-field-group">
-                  <label htmlFor="contact-message">PROJECT INQUIRY / NOTE</label>
+                  <label htmlFor="contact-message">Message</label>
                   <textarea
                     id="contact-message"
                     required
                     rows={4}
-                    placeholder="Tell me about your project, timeline, or engineering requirement..."
+                    placeholder="Tell me about your project, timeline, or engineering inquiry..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="modal-field-textarea"
@@ -208,7 +209,7 @@ export function ContactDetailModal({ onClose }) {
 
                 {submitStatus === 'sending' && (
                   <div className="status-pill status-pill--sending">
-                    Transmitting message...
+                    Sending message...
                   </div>
                 )}
                 {submitStatus === 'success' && (
@@ -223,7 +224,7 @@ export function ContactDetailModal({ onClose }) {
                   className="case-study-btn case-study-btn--primary contact-submit-btn"
                 >
                   <Send size={14} />
-                  <span>TRANSMIT DISPATCH</span>
+                  <span>Send Message</span>
                 </button>
               </form>
             </div>

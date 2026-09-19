@@ -20,10 +20,16 @@ import { GithubIcon } from '../ui/SocialIcons';
 import { SmartCanteenSimulator } from '../ui/SmartCanteenSimulator';
 import { IndustrialEstimator } from '../ui/IndustrialEstimator';
 import { AluminiumCustomizer } from '../ui/AluminiumCustomizer';
-import { CampusSafetySimulator } from '../ui/CampusSafetySimulator';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import './ProjectDetailModal.css';
 
-export function ProjectDetailModal({ project, onClose }) {
+export function ProjectDetailModal({ project: initialProject, onClose }) {
+  const { content } = usePortfolioContent();
+  const project = (content.projects || []).find((p) => p.id === initialProject?.id) || initialProject;
+  
+  const hasSimulator = ['smart-canteen-ai', 'devi-devan-industries', 'aluminium-fabrication'].includes(project?.id);
+  const hasVideo = Boolean(project?.videoUrl);
+
   const [activeTab, setActiveTab] = useState('case-study'); // 'case-study' | 'simulator' | 'video'
 
   useEffect(() => {
@@ -75,20 +81,24 @@ export function ProjectDetailModal({ project, onClose }) {
               <LayoutGrid size={13} />
               <span>Case Study</span>
             </button>
-            <button
-              className={`tab-btn ${activeTab === 'simulator' ? 'tab-btn--active' : ''}`}
-              onClick={() => setActiveTab('simulator')}
-            >
-              <FlaskConical size={13} />
-              <span>Live Simulator</span>
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'video' ? 'tab-btn--active' : ''}`}
-              onClick={() => setActiveTab('video')}
-            >
-              <Video size={13} />
-              <span>Video Demo</span>
-            </button>
+            {hasSimulator && (
+              <button
+                className={`tab-btn ${activeTab === 'simulator' ? 'tab-btn--active' : ''}`}
+                onClick={() => setActiveTab('simulator')}
+              >
+                <FlaskConical size={13} />
+                <span>Live Simulator</span>
+              </button>
+            )}
+            {hasVideo && (
+              <button
+                className={`tab-btn ${activeTab === 'video' ? 'tab-btn--active' : ''}`}
+                onClick={() => setActiveTab('video')}
+              >
+                <Video size={13} />
+                <span>Video Demo</span>
+              </button>
+            )}
           </div>
 
           <button className="detail-modal-close" onClick={onClose} aria-label="Close Case Study">
@@ -182,22 +192,24 @@ export function ProjectDetailModal({ project, onClose }) {
               )}
 
               {/* Technology Stack Matrix */}
-              <section className="case-card">
-                <div className="case-card-header">
-                  <Layers size={16} className="text-secondary" />
-                  <h3>Technology Stack</h3>
-                </div>
-                <div className="tech-pills-wrap">
-                  {project.technologies.map((tech) => (
-                    <span key={tech} className="tech-badge-capsule">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </section>
+              {project.technologies && project.technologies.length > 0 && (
+                <section className="case-card">
+                  <div className="case-card-header">
+                    <Layers size={16} className="text-secondary" />
+                    <h3>Technology Stack</h3>
+                  </div>
+                  <div className="tech-pills-wrap">
+                    {project.technologies.map((tech) => (
+                      <span key={tech} className="tech-badge-capsule">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* Key Features */}
-              {project.keyFeatures && (
+              {project.keyFeatures && project.keyFeatures.length > 0 && (
                 <section className="case-card">
                   <div className="case-card-header">
                     <ShieldCheck size={16} className="text-accent" />
@@ -263,17 +275,16 @@ export function ProjectDetailModal({ project, onClose }) {
           )}
 
           {/* TAB 2: Live Interactive Simulator */}
-          {activeTab === 'simulator' && (
+          {activeTab === 'simulator' && hasSimulator && (
             <div className="simulator-tab-pane">
               {project.id === 'smart-canteen-ai' && <SmartCanteenSimulator />}
               {project.id === 'devi-devan-industries' && <IndustrialEstimator />}
               {project.id === 'aluminium-fabrication' && <AluminiumCustomizer />}
-              {project.id === 'campus-safety-ai' && <CampusSafetySimulator />}
             </div>
           )}
 
           {/* TAB 3: Video Demo */}
-          {activeTab === 'video' && (
+          {activeTab === 'video' && hasVideo && (
             <div className="video-tab-pane">
               <div className="video-wrapper">
                 <iframe

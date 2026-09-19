@@ -1,32 +1,35 @@
 // ─────────────────────────────────────────────────────
-// BBH Portfolio — Structured Data
-// Blessing Bryson Hong | AI & Data Science Engineer
+// BBH Portfolio — Unified Structured Data Layer
+// P M K Blessing Bryson Hong | Software Developer
+// Single Source of Truth for Public Site & Admin Panel
+// STRICTLY FACTUAL — Verified real information only.
 // ─────────────────────────────────────────────────────
 
 export const PORTFOLIO_DATA = {
-  // ── Identity ──────────────────────────────────────
+  // ── Identity & Site Info ──────────────────────────
   profile: {
     name: 'Blessing Bryson Hong',
     fullName: 'P M K BLESSING BRYSON HONG',
     brand: 'BBH',
-    role: 'AI & DATA SCIENCE + FULL STACK DEVELOPER',
-    education: 'III YEAR — B.TECH AI & DATA SCIENCE',
-    institution: 'Panimalar Engineering College',
-    location: 'India',
+    role: 'Software Developer',
+    heroRole: 'AI & DATA SCIENCE + FULL STACK DEVELOPER',
+    education: 'III YEAR — B.TECH ARTIFICIAL INTELLIGENCE & DATA SCIENCE',
+    institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
+    location: 'Kanyakumari, Tamil Nadu, India',
     avatar: '/profile.jpeg',
     heroStatement:
-      'Building intelligent systems across AI, data, and full-stack engineering.',
+      'Building practical software with AI, data, and full-stack development.',
     shortBio:
-      'AI & Data Science student focused on building practical software, intelligent systems, and full-stack products.',
+      "Software Developer at Nesus Park and III-year B.Tech AI & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE).",
     fullBio:
-      'Third-year Artificial Intelligence & Data Science engineering undergraduate at Panimalar Engineering College with hands-on development experience across machine learning workflows, data science pipelines, and production web applications. Combines analytical rigor with practical full-stack engineering to build software that solves real institutional and commercial problems.',
+      "Third-year Artificial Intelligence & Data Science engineering undergraduate at St. Xavier's Catholic College of Engineering (SXCCE). Currently working as a Software Developer at Nesus Park on company projects. Experienced in Python, full-stack web development with Django and React, and data science workflows.",
     currentDirection:
-      'Advancing toward AI Engineering by mastering model pipelines, computer vision inference, and high-performance full-stack architectures.',
+      'Working on company projects at Nesus Park while advancing skills in Python, machine learning models, and full-stack software development.',
     email: 'blessingbrysonhongpmk@gmail.com',
-    availability: 'Available for 2026 Opportunities',
+    availability: 'Open to Opportunities',
   },
 
-  // ── Social Links ──────────────────────────────────
+  // ── Social Channels ───────────────────────────────
   socials: [
     { platform: 'GitHub', url: 'https://github.com/blessingbrysonhongpmk', icon: 'github', label: 'github.com/blessingbrysonhongpmk' },
     { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/blessing-bryson-hong-p-m-k-2b908b386', icon: 'linkedin', label: 'linkedin.com/in/blessing-bryson-hong' },
@@ -39,309 +42,345 @@ export const PORTFOLIO_DATA = {
   navLinks: [
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
-    { label: 'Work', href: '#work' },
+    { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
-    { label: 'Journey', href: '#journey' },
+    { label: 'Experience', href: '#journey' },
     { label: 'Contact', href: '#contact' },
   ],
 
-  // ── Categorized Skills (Confidence/Group Based) ───
+  // ── About Section Content (Concise & Minimal) ─────
+  aboutPreview: {
+    heading: 'P M K BLESSING BRYSON HONG',
+    degree: 'III Year B.Tech Artificial Intelligence & Data Science',
+    institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
+    statement: 'Focused on building practical software and intelligent systems.',
+    paragraphs: [
+      "III Year B.Tech Artificial Intelligence & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE). Focused on building practical software and intelligent systems.",
+    ],
+    tags: [
+      'B.Tech AI & Data Science (III Year)',
+      "St. Xavier's Catholic College of Engineering (SXCCE)",
+      'Software Developer at Nesus Park',
+      'Python & Full-Stack Development',
+    ],
+    developmentFocus: [
+      {
+        title: 'Machine Learning Pipelines',
+        desc: 'Developing predictive regression models and data analysis pipelines using Python and Scikit-learn.',
+      },
+      {
+        title: 'Full-Stack Web Development',
+        desc: 'Building responsive React web applications paired with Python and Django backends.',
+      },
+      {
+        title: 'Data Science & Visualizations',
+        desc: 'Conducting exploratory data analysis with Pandas, NumPy, Matplotlib, and Streamlit dashboards.',
+      },
+    ],
+  },
+
+  // ── Categorized Skills Matrix (Verified Only) ─────
   skillCategories: [
     {
-      category: 'LANGUAGES',
+      category: 'PROGRAMMING',
       skills: [
-        { name: 'Python', status: 'Working Knowledge', description: 'Scripting, data wrangling, ML pipelines, automation' },
-        { name: 'SQL', status: 'Working Knowledge', description: 'Relational database queries, schema design, data modeling' },
-        { name: 'JavaScript / TypeScript', status: 'Working Knowledge', description: 'Modern ES6+, async architectures, DOM manipulation' },
-        { name: 'HTML & CSS', status: 'Comfortable', description: 'Semantic structure, responsive layouts, modern design tokens' },
+        { name: 'Python', status: 'Primary Language', description: 'Core programming language for scripting, data analysis, ML models, and backend logic' },
       ],
     },
     {
       category: 'WEB DEVELOPMENT',
       skills: [
-        { name: 'React', status: 'Working Knowledge', description: 'Modular component architecture, state management, Vite' },
-        { name: 'Node.js', status: 'Working Knowledge', description: 'Runtime server logic, backend API integration' },
-        { name: 'Django', status: 'Working Knowledge', description: 'Backend ORM models, views, REST patterns' },
-        { name: 'REST APIs', status: 'Working Knowledge', description: 'Endpoint design, API consumption, client-server sync' },
-        { name: 'Full Stack Development', status: 'Working Knowledge', description: 'End-to-end web architectures from database to UI' },
+        { name: 'HTML & CSS', status: 'Comfortable', description: 'Semantic web structure, responsive layouts, modern styling' },
+        { name: 'JavaScript', status: 'Working Knowledge', description: 'Modern ES6+, DOM manipulation, asynchronous programming' },
+        { name: 'React', status: 'Working Knowledge', description: 'Component-based UI architecture, state management, Vite' },
+        { name: 'Django', status: 'Working Knowledge', description: 'Python backend web framework, ORM models, views, and templates' },
       ],
     },
     {
       category: 'DATA & AI',
       skills: [
-        { name: 'Data Science', status: 'Working Knowledge', description: 'Exploratory data analysis, insights extraction, metrics' },
-        { name: 'Machine Learning', status: 'Exploring', description: 'Demand prediction, regression, model evaluation' },
-        { name: 'Pandas & NumPy', status: 'Working Knowledge', description: 'Data wrangling, matrix calculations, tabular datasets' },
-        { name: 'Matplotlib', status: 'Working Knowledge', description: 'Data visualization, distribution plots, trend analysis' },
-        { name: 'Scikit-learn', status: 'Exploring', description: 'Supervised ML algorithms, feature preprocessing' },
-        { name: 'Computer Vision', status: 'Exploring', description: 'Frame sampling, object tracking, visual hazard alerts' },
+        { name: 'Data Science', status: 'Working Knowledge', description: 'Exploratory data analysis, statistical insights, data workflows' },
+        { name: 'Pandas & NumPy', status: 'Working Knowledge', description: 'Data wrangling, aggregation, array manipulation, tabular processing' },
+        { name: 'Scikit-learn', status: 'Working Knowledge', description: 'Supervised machine learning algorithms, model training, evaluation' },
+        { name: 'Matplotlib', status: 'Working Knowledge', description: 'Data visualization, distribution plots, analytical charts' },
+        { name: 'Machine Learning', status: 'Working Knowledge', description: 'Predictive modeling, regression analysis, evaluation metrics' },
+        { name: 'Streamlit', status: 'Working Knowledge', description: 'Interactive Python dashboards for machine learning and data tools' },
       ],
     },
     {
-      category: 'TOOLS & CLOUD',
+      category: 'TOOLS',
       skills: [
-        { name: 'Git & GitHub', status: 'Comfortable', description: 'Version control, repository management, collaboration' },
-        { name: 'Firebase & MongoDB', status: 'Working Knowledge', description: 'NoSQL document stores & modern cloud services' },
-        { name: 'VS Code', status: 'Comfortable', description: 'Primary engineering IDE and developer extensions' },
-        { name: 'Jupyter & Colab', status: 'Working Knowledge', description: 'Interactive notebooks and GPU-accelerated computing' },
-        { name: 'Streamlit', status: 'Working Knowledge', description: 'Rapid ML/data dashboard development and deployment' },
+        { name: 'Git & GitHub', status: 'Comfortable', description: 'Version control, repository management, collaborative branching' },
+        { name: 'VS Code', status: 'Comfortable', description: 'Primary development environment and tooling' },
+        { name: 'Vite', status: 'Comfortable', description: 'Frontend build tooling and local development server' },
+        { name: 'Antigravity', status: 'Working Knowledge', description: 'Advanced agentic AI development and programming workflows' },
+      ],
+    },
+    {
+      category: 'LANGUAGES',
+      skills: [
+        { name: 'Tamil', status: 'Native / Fluent', description: 'Native language' },
+        { name: 'English', status: 'Professional Working', description: 'Professional working proficiency' },
+        { name: 'Malayalam', status: 'Conversational', description: 'Working conversational proficiency' },
+        { name: 'German', status: 'Basic', description: 'Basic foundational proficiency' },
       ],
     },
   ],
 
-  // ── Projects (Work) ───────────────────────────────
+  // ── Projects (Verified Real Projects — Zero REST API) ──
   projects: [
     {
       id: 'smart-canteen-ai',
       name: 'SMART CANTEEN AI',
       tagline: 'ML-based food demand prediction & waste reduction system',
-      oneLiner: 'Machine learning demand forecasting to eliminate institutional food waste.',
+      oneLiner: 'Machine learning demand forecasting to help reduce institutional food waste.',
       year: '2026',
       category: 'Data Science / ML',
       status: 'Complete',
       statusLabel: 'Data Science Project',
-      role: 'ML Pipeline & Full-Stack Developer',
-      technologies: ['Python', 'Machine Learning', 'Data Analysis', 'Prediction', 'Streamlit', 'Pandas'],
+      role: 'ML Pipeline & Developer',
+      technologies: ['Python', 'Machine Learning', 'Data Analysis', 'Streamlit', 'Pandas', 'Scikit-learn'],
       description:
-        'An ML-based food demand prediction system designed to estimate item-level daily demand and help reduce food preparation waste in institutional dining halls and canteens.',
+        'An ML-based food demand prediction system designed to estimate daily food preparation quantities and help minimize waste in institutional dining facilities.',
       problem:
-        'Institutional food preparation relies heavily on manual guesswork, causing up to 35% daily food wastage on low-turnout days or sudden food shortages during unanticipated meal surges.',
+        'Institutional dining preparation often relies on manual estimation, which can result in significant food waste on low-turnout days or meal shortages during unexpected surges.',
       goal:
-        'Provide canteen operations managers with reliable item-by-item daily ingredient forecasts 24 hours in advance to optimize purchasing and reduce waste.',
+        'Provide canteen operations with daily meal quantity forecasts based on historical attendance patterns to optimize food preparation.',
       solution:
-        'Engineered an end-to-end machine learning pipeline that ingests historical transaction logs, seasonal semester calendars, and day-of-week variables to train multi-feature regression prediction models.',
+        'Engineered a machine learning pipeline in Python that analyzes historical transaction logs, academic schedules, and day-of-week variables to train regression forecasting models.',
       contribution:
-        'Built the complete Python data processing pipeline, feature engineering modules, regression model evaluation metrics (94.2% R²), and interactive Streamlit manager dashboard.',
+        'Built the Python data preprocessing scripts, feature engineering, regression model evaluation, and an interactive Streamlit operations dashboard.',
       architecture:
-        'Data Ingestion (CSV/DB) → Cleaning & Aggregation (Pandas/NumPy) → Feature Extraction (Calendar/Seasonal/Weather) → Regression Predictor (Scikit-learn) → Real-Time Telemetry & Forecast Dashboard (Streamlit).',
+        'Data Ingestion (CSV) → Preprocessing (Pandas/NumPy) → Feature Engineering → Regression Modeling (Scikit-learn) → Interactive Dashboard (Streamlit).',
       keyFeatures: [
-        'Item-level demand forecasting for breakfast, lunch, and dinner shifts',
-        'Automated 7-day trend rolling average and peak surge anomaly detection',
-        'Interactive ingredient quantity calculation table for kitchen prep staff',
-        'Cost impact & waste reduction metrics tracking (-34% estimated waste)',
+        'Daily meal quantity demand forecasting',
+        '7-day trend rolling average calculation',
+        'Interactive quantity estimation table for kitchen prep',
+        'Streamlit-based operator dashboard',
       ],
       challenges:
-        'Handling extreme variability in student attendance during exam periods and unexpected campus holidays required building custom temporal lag features.',
+        'Accounting for fluctuations during exam schedules and campus holidays required engineering calendar-based features.',
       implementation:
-        'Implemented with Scikit-learn regression models, Pandas time-series aggregations, and a modular Streamlit UI containerized for lightweight deployment.',
+        'Implemented using Scikit-learn regression models, Pandas for data processing, and Streamlit for the user interface.',
       result:
-        'Delivered an actionable forecasting engine that gives canteen supervisors high-confidence meal prep targets, estimating up to 34% reduction in surplus food waste.',
+        'Delivered a working forecasting model and dashboard that provides canteen operators with actionable daily prep estimates.',
       learnings:
-        'Gained deep experience in real-world time-series data noise, feature importance ranking, and designing intuitive data products for non-technical kitchen managers.',
+        'Gained practical experience with tabular data preprocessing, model evaluation, and building straightforward data tools for non-technical users.',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&rel=0',
-      videoTitle: 'Smart Canteen AI — Machine Learning Demand Forecast Demo',
-      videoDescription: 'Demonstration of daily food consumption forecasting, model feature importance, and interactive Streamlit manager dashboard.',
-      liveUrl: null,
+      videoTitle: 'Smart Canteen AI — Demo Walkthrough',
+      videoDescription: 'Demonstration of daily meal consumption forecasting and the interactive Streamlit dashboard.',
+      liveUrl: '',
       githubUrl: 'https://github.com/blessingbrysonhongpmk',
       isFlagship: true,
       color: '#10B981',
+      image: '/projects/smart-canteen-ai-v2.jpg',
     },
     {
       id: 'devi-devan-industries',
       name: 'DEVI DEVAN INDUSTRIES',
-      tagline: 'Production commercial fabrication & enterprise client platform',
-      oneLiner: 'End-to-end commercial website built and deployed for a live manufacturing client.',
+      tagline: 'Production commercial website for pure coconut & edible oil manufacturer',
+      oneLiner: 'Commercial responsive website designed, developed, and deployed for Devi Devan coconut oil enterprise.',
       year: '2026',
       category: 'Client Production',
       status: 'Live',
       statusLabel: 'Production Client Website',
-      role: 'Sole Full-Stack Developer & UI Designer',
-      technologies: ['React', 'Vite', 'CSS Modules', 'JavaScript', 'Responsive UI'],
+      role: 'Developer & UI Designer',
+      technologies: ['React', 'Vite', 'CSS Modules', 'JavaScript', 'HTML & CSS'],
       description:
-        'A comprehensive professional digital presence designed, developed, and deployed for Devi Devan Industries, a heavy industrial steel and metal fabrication enterprise.',
+        'A comprehensive professional digital presence designed, developed, and deployed for Devi Devan Industries, a pure coconut oil and edible oils manufacturing enterprise.',
       problem:
-        'The client had zero digital visibility, relying exclusively on word-of-mouth inquiries and struggling to communicate custom industrial fabrication specifications and lead times to new enterprise buyers.',
+        'The enterprise lacked an online product catalog and digital presence to present their pure coconut oil products, quality standards, and bulk order options to commercial buyers and retail customers.',
       goal:
-        'Create a modern, high-performance web hub that presents custom industrial fabrication capabilities, automates customer quotation inquiries, and establishes commercial credibility.',
+        'Create a responsive, clean web platform showcasing pure coconut oil products and enabling direct quotation inquiries and customer orders.',
       solution:
-        'Designed a high-contrast industrial aesthetic and engineered a fast, responsive React application deployed via Vite with interactive specification catalogs and direct quotation inquiry capture.',
+        'Designed a fresh, clean organic aesthetic and developed a responsive React application built with Vite, featuring pure coconut oil product showcases and customer inquiry workflows.',
       contribution:
-        'Handled 100% of the project lifecycle: stakeholder discovery, UI/UX design, modular React component architecture, responsive mobile optimization, custom CSS styling, and live cloud deployment.',
+        'Completed UI/UX design, React component architecture, responsive styling across screen sizes, and production deployment.',
       architecture:
-        'Modular Component Hierarchy (React 19) → Build & Asset Optimization (Vite) → Responsive Design System (CSS Custom Properties) → Production CDN Hosting with SSL.',
+        'Component Architecture (React) → Build & Asset Bundling (Vite) → Styling (CSS Modules & Custom Properties) → Production Hosting.',
       keyFeatures: [
-        'Interactive fabrication services showcase (CNC cutting, structural steel, custom tanks)',
-        'Built-in commercial project inquiry form with client contact routing',
-        'High-contrast industrial design language tailored to engineering clients',
-        'Sub-second initial page load across 3G mobile networks via asset optimization',
+        'Pure coconut oil products showcase (cold-pressed virgin coconut oil, edible oils)',
+        'Built-in commercial bulk inquiry and customer contact form',
+        'Responsive layout optimized for both desktop and mobile shoppers',
+        'Fast page load times with optimized product media',
       ],
       challenges:
-        'Translating complex physical fabrication measurements and industrial certifications into clean, easily digestible web layouts suitable for both engineers and procurement officers.',
+        'Presenting organic product attributes, quality packaging options, and order flows in a clean, modern layout.',
       implementation:
-        'Built using pure modular CSS and lightweight React hooks with zero heavy runtime dependencies, achieving 98+ Google Lighthouse performance scores.',
+        'Built using modular CSS and React hooks with minimal runtime overhead.',
       result:
-        'Shipped on schedule to live production at devidevanindustries.com, serving as the client’s official commercial touchpoint and actively generating new inbound project requests.',
+        'Deployed to production at devidevanindustries.com, serving as the client’s official commercial web presence for coconut oil products.',
       learnings:
-        'Learned end-to-end client communication, requirement scoping, managing commercial deadlines, and engineering production software for real-world business stakeholders.',
+        'Gained hands-on experience in client communication, product showcase requirements, and shipping a real-world commercial website.',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&rel=0',
-      videoTitle: 'Devi Devan Industries — Production Client Website Showcase',
-      videoDescription: 'Full visual walkthrough of client branding, industrial cost calculation engines, responsive mobile UI, and enquiry flows.',
+      videoTitle: 'Devi Devan Industries — Client Showcase',
+      videoDescription: 'Visual walkthrough of client website sections, responsive mobile layout, and coconut oil inquiry forms.',
       liveUrl: 'https://devidevanindustries.com',
-      githubUrl: null,
+      githubUrl: '',
       isFlagship: true,
       color: '#E11D48',
+      image: '/projects/devi-devan-industries-v2.jpg',
     },
     {
       id: 'aluminium-fabrication',
       name: 'ALUMINIUM FABRICATION PORTAL',
       tagline: 'Architectural window & facade configurator catalog',
-      oneLiner: 'Commercial web configurator with Django REST API backend catalog integration.',
+      oneLiner: 'Commercial web configurator with Django backend catalog integration.',
       year: '2026',
       category: 'Web Development',
       status: 'Live',
       statusLabel: 'Commercial Web Project',
-      role: 'Frontend Architect & API Integration',
-      technologies: ['React', 'Vite', 'Django', 'REST API', 'CSS Grid'],
+      role: 'Frontend & Backend Developer',
+      technologies: ['React', 'Vite', 'Django', 'Python', 'CSS Grid'],
       description:
-        'A commercial web application for an architectural aluminium fabrication firm, pairing an interactive React product configurator with a Django REST API backend.',
+        'A commercial web application for an architectural aluminium fabrication firm, pairing an interactive React product configurator with a Django backend.',
       problem:
-        'Presenting dozens of complex architectural profiles, double-glazing options, and thermal-break window systems made customer self-service quote requests nearly impossible.',
+        'Customers needed a clear way to explore custom window profiles, glazing configurations, and frame sizing online.',
       goal:
-        'Empower architects, contractors, and homeowners to explore custom sizing, profile styles, and glazing options with real-time specification readouts.',
+        'Allow clients and contractors to view aluminium profile styles, options, and sizing with real-time specification readouts.',
       solution:
-        'Constructed a dynamic product catalog interface consuming REST API endpoints to serve specifications, material options, and dimension-based quotation estimates.',
+        'Constructed a dynamic product catalog and configurator interface connected with a Django backend to deliver specification options.',
       contribution:
-        'Architected the responsive React user interface, developed dynamic schematic wireframe preview components, and integrated asynchronous REST API endpoints for product data.',
+        'Developed the responsive React user interface, dynamic schematic view components, and Django backend models and views.',
       architecture:
-        'Django REST API Backend (Models & Serializers) ↔ Asynchronous Fetch Layer ↔ State Management (React) ↔ Dynamic Blueprint Schematic Renderer.',
+        'Django Backend (Models & Views) ↔ Fetch Layer ↔ State Management (React) ↔ Dynamic Schematic Renderer.',
       keyFeatures: [
-        'Dynamic architectural window & facade assembly configurator',
-        'Real-time dimension calculation readout (width, height, profile, glazing)',
-        'RESTful category browsing and instant search filtering',
-        'Mobile-optimized quotation submission modal with inquiry tracking',
+        'Architectural window and facade configurator',
+        'Real-time dimension calculation readout',
+        'Product category browsing and search filtering',
+        'Mobile-friendly quotation submission form',
       ],
       challenges:
-        'Synchronizing complex multi-variant pricing dependencies (profile thickness × glass tier × area) without slowing down the client-side UI.',
+        'Managing state synchronization across multiple product configuration options on the client side.',
       implementation:
-        'Used declarative state machines in React to drive the dynamic schematic canvas while keeping API payload size under 15KB per catalog query.',
+        'Built using React components for the interactive configurator and Django for backend data modeling.',
       result:
-        'Successfully deployed to production, providing prospective clients with an intuitive digital showroom for architectural window and door solutions.',
+        'Successfully deployed to production, providing prospective clients with an interactive showroom for architectural window products.',
       learnings:
-        'Deepened expertise in decoupled frontend-backend architectures, REST API contract design, and building engaging product configurators.',
+        'Strengthened skills in full-stack Python and Django development paired with interactive React user interfaces.',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&rel=0',
-      videoTitle: 'Aluminium Fabrication Portal — Product Configurator Demo',
-      videoDescription: 'Live architectural window configurator demo showcasing automated price estimation and REST API catalog consumption.',
+      videoTitle: 'Aluminium Fabrication Portal — Demo',
+      videoDescription: 'Live architectural window configurator demo showcasing product options and catalog browsing.',
       liveUrl: 'https://alumunium-fabrication-company.vercel.app/',
-      githubUrl: null,
+      githubUrl: '',
       isFlagship: false,
       color: '#0284C7',
-    },
-    {
-      id: 'campus-safety-ai',
-      name: 'CAMPUS SAFETY AI',
-      tagline: 'Real-time computer vision automated hazard detection',
-      oneLiner: 'Computer vision prototype exploring frame-by-frame campus hazard identification.',
-      year: '2026',
-      category: 'AI Research Prototype',
-      status: 'Prototype',
-      statusLabel: 'AI Research Prototype',
-      role: 'AI Model & Video Stream Collaborator',
-      technologies: ['Python', 'Computer Vision', 'PyTorch', 'OpenCV', 'AI Inference'],
-      description:
-        'A computer vision research prototype exploring automated security camera video analysis to identify safety incidents such as unauthorized perimeter breach or fire hazards on campus.',
-      problem:
-        'Campus surveillance networks monitor dozens of simultaneous camera feeds, making continuous human visual monitoring exhausting and prone to delayed incident response.',
-      goal:
-        'Demonstrate an automated video stream analysis prototype capable of flagging bounding-box anomalies and generating instant visual alerts.',
-      solution:
-        'Engineered an OpenCV and PyTorch inference pipeline running frame sampling to classify designated danger zones and render real-time bounding box telemetry.',
-      contribution:
-        'Co-developed the frame downsampling scripts, anomaly detection confidence thresholds, and HUD-style telemetry visualization.',
-      architecture:
-        'RTSP Camera Stream → Frame Downsampling (OpenCV) → Neural Model Inference (PyTorch) → Telemetry Overlay Engine (HUD / FPS Monitor) → Notification Trigger.',
-      keyFeatures: [
-        'Sub-50ms inference latency per sampled video frame (30 FPS target)',
-        'Real-time HUD telemetry readout with confidence score overlays',
-        'Multi-region safety zone partitioning (Authorized vs. Restricted)',
-        'Automated alert logging with timestamped frame captures',
-      ],
-      challenges:
-        'Maintaining acceptable inference frame rates on non-GPU edge environments while minimizing false positives caused by shifting shadows and rain.',
-      implementation:
-        'Implemented lightweight convolutional models with optimized frame skipping heuristics to run smoothly on standard compute hardware.',
-      result:
-        'Produced a successful proof-of-concept prototype presented in departmental research reviews, validating automated visual safety monitoring.',
-      learnings:
-        'Strengthened practical understanding of computer vision pipelines, frame rate optimization, edge compute tradeoffs, and real-time inference latency.',
-      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&rel=0',
-      videoTitle: 'Campus Safety AI — Computer Vision Hazard Detection Feed',
-      videoDescription: 'Video stream simulation showcasing automated frame sampling, anomaly detection bounding boxes, and instant alert system.',
-      liveUrl: null,
-      githubUrl: null,
-      isFlagship: false,
-      color: '#8B5CF6',
+      image: '/projects/aluminium-fabrication-v2.jpg',
     },
   ],
 
-  // ── Chronological Journey ─────────────────────────
-  journey: [
+  // ── Trajectory & Summary Streams ──────────────────
+  journeyMilestonesSummary: [
     {
-      year: '2024',
-      milestone: 'B.Tech AI & Data Science Inception',
-      tag: 'Academic Foundation',
-      summary: 'Commenced undergraduate engineering degree at Panimalar Engineering College.',
-      details:
-        'Established core engineering disciplines in data structures, algorithms, calculus, object-oriented principles, and Python scripting.',
-      keyHighlights: ['University academic honors', 'Core computer science fundamentals', 'Python programming mastery'],
+      year: 'CURRENT',
+      title: 'Nesus Park',
+      role: 'Software Developer',
+      desc: 'Working on company projects.',
+    },
+    {
+      year: '2026',
+      title: 'Agile Info Park',
+      role: 'Internship — Full Stack Development',
+      desc: 'Full Stack Development using Python and Django.',
     },
     {
       year: '2025',
-      milestone: 'Data Science & Full-Stack Internships',
-      tag: 'Industry Experience',
-      summary: 'Completed industry training with Pantech Solutions and Corizo.',
-      details:
-        'Applied machine learning pipelines, regression models, SQL database querying, and modern React frontend architectures to real datasets.',
-      keyHighlights: ['Pantech Solutions Data Science Internship', 'Corizo Full Stack Development Internship', 'Production exploratory data analysis'],
+      title: 'AK Info Park',
+      role: 'Internship — Data Science',
+      desc: 'Data Science using Python.',
     },
     {
-      year: '2026',
-      milestone: 'Enterprise Client Delivery & Systems',
-      tag: 'Production Delivery',
-      summary: 'Shipped commercial web platform for Devi Devan Industries and developed Smart Canteen AI.',
-      details:
-        'Delivered production engineering software for real clients while advancing into demand prediction modeling and computer vision prototypes.',
-      keyHighlights: ['Shipped live devidevanindustries.com', 'Engineered Smart Canteen demand forecaster', 'Architectural portal configurator deployment'],
-    },
-    {
-      year: '2026+',
-      milestone: 'Advancing Toward AI Engineering',
-      tag: 'Next Horizon',
-      summary: 'Targeting graduate software engineering and AI systems engineering roles.',
-      details:
-        'Expanding into deep learning model deployment, autonomous agent workflows, distributed cloud architectures, and scalable full-stack products.',
-      keyHighlights: ['Production model serving', 'Cloud microservices', 'Open-source engineering contributions'],
-      isNext: true,
+      year: '2024',
+      title: "St. Xavier's Catholic College of Engineering (SXCCE)",
+      role: 'B.Tech AI & Data Science',
+      desc: 'Foundations in computer science, Python, and mathematics.',
     },
   ],
 
-  // ── Formal Experience (Strictly Two Internships) ──
+  achievementsSummary: [
+    { label: 'Technical Competitions', detail: 'Collegiate and state-level engineering challenges' },
+    { label: 'Paper Presentations', detail: 'Technical paper presentations on ML and data systems' },
+    { label: 'Hackathons', detail: 'Participation in competitive technical hackathons' },
+    { label: 'Client Delivery', detail: 'Production website delivery for Devi Devan Industries' },
+  ],
+
+  // ── Chronological Journey (Full Narrative) ─────────
+  journey: [
+    {
+      year: 'CURRENT',
+      milestone: 'Nesus Park — Software Developer',
+      tag: 'Professional Experience',
+      summary: 'Software Developer at Nesus Park, working on company projects.',
+      details:
+        'Currently working as a Software Developer at Nesus Park, collaborating on company projects and contributing to production development.',
+      keyHighlights: ['Working on company projects', 'Software development and feature implementation'],
+      isCurrent: true,
+    },
+    {
+      year: '2026',
+      milestone: 'Agile Info Park — Full Stack Internship',
+      tag: 'Industry Internship',
+      summary: 'Internship in Full Stack Development using Python and Django.',
+      details:
+        'Completed full-stack development internship utilizing Python and Django to build web application components, backend views, and database interactions.',
+      keyHighlights: ['Python and Django full-stack development', 'Backend views and database model implementation'],
+    },
+    {
+      year: '2025',
+      milestone: 'AK Info Park — Data Science Internship',
+      tag: 'Industry Internship',
+      summary: 'Internship in Data Science using Python.',
+      details:
+        'Completed data science internship utilizing Python to process datasets, conduct exploratory data analysis, and implement analytical workflows.',
+      keyHighlights: ['Data Science with Python', 'Exploratory data analysis and dataset preprocessing'],
+    },
+    {
+      year: '2024',
+      milestone: "St. Xavier's Catholic College of Engineering (SXCCE)",
+      tag: 'Academic Foundation',
+      summary: 'B.Tech in Artificial Intelligence & Data Science.',
+      details:
+        'Commenced undergraduate studies in Artificial Intelligence and Data Science, establishing foundations in Python programming, mathematics, algorithms, and data structures.',
+      keyHighlights: ['Core computer science fundamentals', 'Python programming foundations'],
+    },
+  ],
+
+  // ── Formal Experience (Strictly Verified Facts Only) ──
   experience: [
     {
-      id: 'pantech-internship',
-      company: 'Pantech Solutions',
-      role: 'Data Science Intern',
-      period: '2025',
-      location: 'Chennai, India',
-      description:
-        'Engineered data analysis workflows, exploratory metrics, and predictive modeling prototypes across structured datasets using Python and Scikit-learn.',
+      id: 'nesus-park-current',
+      company: 'Nesus Park',
+      role: 'Software Developer',
+      period: 'CURRENT',
+      location: 'India',
+      description: 'Working on company projects.',
       highlights: [
-        'Processed tabular business datasets using Pandas and NumPy for missing value imputation and feature scaling',
-        'Implemented supervised regression models to predict outcome trends with documented evaluation metrics',
-        'Constructed interactive data visualizations and distribution charts using Matplotlib',
+        'Software Developer working on company projects',
+        'Collaborating on software development and delivery',
       ],
     },
     {
-      id: 'corizo-internship',
-      company: 'Corizo',
-      role: 'Full Stack Development Intern',
-      period: '2025',
-      location: 'Remote, India',
-      description:
-        'Developed responsive web interfaces, reusable component libraries, and backend API integration workflows in collaborative agile sprints.',
+      id: 'agile-info-park-2026',
+      company: 'Agile Info Park',
+      role: 'Intern — Full Stack Development',
+      period: '2026',
+      location: 'India',
+      description: 'Full Stack Development using Python and Django.',
       highlights: [
-        'Built modern single-page application interfaces using React, JavaScript, and modular CSS architecture',
-        'Consumed RESTful API endpoints and implemented state management patterns for asynchronous data synchronization',
-        'Practiced version control workflows with Git and GitHub within collaborative team environments',
+        'Full Stack Development using Python and Django',
+        'Built backend logic, database models, and web components',
+      ],
+    },
+    {
+      id: 'ak-info-park-2025',
+      company: 'AK Info Park',
+      role: 'Intern — Data Science',
+      period: '2025',
+      location: 'India',
+      description: 'Data Science using Python.',
+      highlights: [
+        'Data Science using Python',
+        'Data analysis, preprocessing, and exploratory data workflows',
       ],
     },
   ],
@@ -350,46 +389,78 @@ export const PORTFOLIO_DATA = {
   education: [
     {
       degree: 'B.Tech — Artificial Intelligence & Data Science',
-      institution: 'Panimalar Engineering College',
+      institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
       period: '2023 — 2027',
       status: 'Currently in III Year',
-      focus: 'Machine Learning, Data Engineering, Algorithms, Database Systems, Computer Networks, Full Stack Engineering.',
+      focus: 'Artificial Intelligence, Data Science, Machine Learning, Data Structures, Algorithms, Full Stack Web Development.',
     },
   ],
 
-  // ── Key Achievements & Competitions ───────────────
+  // ── Key Achievements ──────────────────────────────
   achievements: [
     {
-      title: 'Commercial Enterprise Client Delivery',
+      id: 'ach-client-production',
+      title: 'Commercial Client Website Delivery',
       category: 'Client Production',
+      event: 'Devi Devan Industries (devidevanindustries.com)',
       year: '2026',
-      result: '100% Deployed & Live',
+      result: 'Deployed to Production',
+      role: 'Developer & UI Designer',
       description:
-        'Sole engineer and designer for Devi Devan Industries (devidevanindustries.com), establishing client digital branding and automated project quotation workflows.',
+        'Designed, built, and deployed the official commercial website for Devi Devan Industries, establishing their digital catalog and client inquiry touchpoint.',
+      keyHighlights: [
+        'Deployed live production website at devidevanindustries.com',
+        'Built responsive commercial catalog and client inquiry touchpoint for coconut oil products',
+      ],
+      link: 'https://devidevanindustries.com',
     },
     {
+      id: 'ach-paper-presentation',
       title: 'Technical Symposium & Paper Presentations',
-      category: 'Research & Presentations',
+      category: 'Paper Presentations',
+      event: 'Inter-Collegiate Technical Symposiums',
       year: '2025',
-      result: 'Finalist / Presenter',
+      result: 'Technical Presenter',
+      role: 'Presenter',
       description:
-        'Presented research and technical findings on machine learning demand prediction, automated decision systems, and full-stack web architectures at collegiate symposiums.',
+        'Presented technical papers and methodology on machine learning applications and data systems at collegiate engineering symposiums.',
+      keyHighlights: [
+        'Presented technical papers on machine learning',
+        'Discussed model evaluation and data analysis workflows',
+      ],
+      link: '',
     },
     {
-      title: 'Applied AI & ML Prototype Development',
-      category: 'Engineering Prototypes',
+      id: 'ach-ml-prototypes',
+      title: 'Machine Learning Demand Forecasting System',
+      category: 'Engineering Projects',
+      event: 'Smart Canteen AI Project',
       year: '2026',
-      result: 'Completed Working Proof-of-Concepts',
+      result: 'Working Application & Model',
+      role: 'Lead Developer',
       description:
-        'Engineered Smart Canteen AI (food demand forecasting with 94.2% R² accuracy) and Campus Safety AI (real-time computer vision hazard detection overlay).',
+        'Engineered Smart Canteen AI, a Python and Streamlit machine learning demand prediction system designed to help dining operations forecast daily meal preparation.',
+      keyHighlights: [
+        'Machine learning forecasting model in Python',
+        'Interactive Streamlit operator dashboard',
+      ],
+      link: '',
     },
     {
-      title: 'Dual Industry Engineering Internships',
-      category: 'Industry Credentials',
-      year: '2025',
-      result: 'Certified Completion',
+      id: 'ach-internships',
+      title: 'Industry Internships',
+      category: 'Experience',
+      event: 'Agile Info Park & AK Info Park',
+      year: '2025 — 2026',
+      result: 'Internships Completed',
+      role: 'Intern',
       description:
-        'Completed rigorous industry internships in Data Science (Pantech Solutions) and Full Stack Web Development (Corizo).',
+        'Completed internships in Full Stack Development using Python and Django (Agile Info Park, 2026) and Data Science using Python (AK Info Park, 2025).',
+      keyHighlights: [
+        'Agile Info Park: Full Stack Development using Python and Django',
+        'AK Info Park: Data Science using Python',
+      ],
+      link: '',
     },
   ],
 };

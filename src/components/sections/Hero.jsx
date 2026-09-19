@@ -1,131 +1,102 @@
-import { useRef } from 'react';
+import { useState } from 'react';
+import { scrollToElement } from '../../utils/scrollOrchestrator';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
-import { getLenis } from '../../utils/scrollOrchestrator';
 import './Hero.css';
 
 export function Hero({ onOpenContact }) {
-  const { profile } = PORTFOLIO_DATA;
-  const heroRef = useRef(null);
+  // Gentle spatial depth response on portrait (desktop only)
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+
+  const handleVisualMove = (e) => {
+    if (window.innerWidth <= 768) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ rx: -y * 5, ry: x * 5 });
+  };
+
+  const handleVisualLeave = () => {
+    setTilt({ rx: 0, ry: 0 });
+  };
 
   const handleScrollToWork = (e) => {
     e.preventDefault();
-    const target = document.querySelector('#work');
-    if (!target) return;
-    const lenis = getLenis();
-    if (lenis) {
-      lenis.scrollTo(target, { offset: -70, duration: 1.0 });
-    } else {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToElement('#projects', -70);
   };
 
   return (
-    <section
-      id="home"
-      className="hero-section"
-      ref={heroRef}
-      aria-label="Introduction and Identity"
-    >
-      {/* ── Subtle Architectural Ambient Layer ── */}
-      <div className="hero-bg" aria-hidden="true">
-        <div className="hero-bg__grid" />
-        <div className="hero-bg__radial-crimson" />
-        <div className="hero-bg__axis-line hero-bg__axis-line--v" />
-        <div className="hero-bg__corner hero-bg__corner--tl">
-          <span className="hero-bg__crosshair">+</span>
-          <span>SYS.01 // 2026</span>
-        </div>
-        <div className="hero-bg__corner hero-bg__corner--tr">
-          <span className="hero-bg__crosshair">+</span>
-          <span>LAT 13.0827° N</span>
-        </div>
-      </div>
-
+    <section id="home" className="hero-section" aria-label="Introduction">
       <div className="container hero-container">
-        <div className="hero-editorial-grid">
-
-          {/* ── Left Column: Identity, Typography & Actions ── */}
-          <div className="hero-content-col">
-
-            {/* Availability & Academic Status */}
-            <div className="hero-badge-row">
-              <div className="hero-status-pill">
-                <span className="hero-status-dot" aria-hidden="true" />
-                <span className="hero-status-text">AVAILABLE FOR 2026 ROLES</span>
-              </div>
-              <span className="hero-degree-pill">III YEAR — B.TECH AI &amp; DATA SCIENCE</span>
-            </div>
-
-            {/* Role Eyebrow */}
-            <div className="hero-role-row">
-              <span className="hero-role-label">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
-            </div>
-
-            {/* Primary Stacked Name */}
-            <h1 className="hero-heading">
-              <span className="hero-heading-lead">P M K</span>
-              <span className="hero-heading-line">BLESSING</span>
-              <span className="hero-heading-line">BRYSON</span>
-              <span className="hero-heading-line hero-heading-line--accent">HONG</span>
+        <div className="hero-layout">
+          {/* Content Column (First on Desktop & First on Mobile) */}
+          <div className="hero-content">
+            {/* 1. Name: Primary visual emphasis with subtle trailing initials */}
+            <h1 className="hero-name">
+              <span className="hero-name-line">BLESSING</span>
+              <span className="hero-name-line hero-name-line--secondary">
+                BRYSON HONG <span className="hero-name-suffix">P M K</span>
+              </span>
             </h1>
 
-            {/* One Focused Sentence */}
-            <p className="hero-copy">
-              Building intelligent systems across AI, data, and full-stack engineering.
-            </p>
+            {/* 2. Small, Tasteful Bible Quote Directly Below Name */}
+            <figure className="hero-quote">
+              <blockquote className="hero-quote__text">
+                &ldquo;Commit your work to the Lord.&rdquo;
+              </blockquote>
+              <figcaption className="hero-quote__cite">— Proverbs 16:3</figcaption>
+            </figure>
 
-            {/* Two Clear Actions */}
-            <div className="hero-cta-group">
+            {/* 3. Small Role */}
+            <div className="hero-role-wrap">
+              <span className="hero-role">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
+            </div>
+
+            {/* 4. Primary CTA Actions */}
+            <div className="hero-actions">
               <a
-                href="#work"
+                href="#projects"
                 className="hero-btn hero-btn--primary"
                 onClick={handleScrollToWork}
+                id="hero-view-work-btn"
               >
-                <span>VIEW WORK</span>
-                <ArrowDown size={14} className="btn-icon" />
+                <span>VIEW MY WORK</span>
+                <ArrowDown size={15} />
               </a>
 
               <button
                 type="button"
                 className="hero-btn hero-btn--secondary"
                 onClick={onOpenContact}
+                id="hero-contact-btn"
               >
                 <span>CONTACT ME</span>
-                <ArrowUpRight size={14} className="btn-icon" />
+                <ArrowUpRight size={15} />
               </button>
             </div>
-
           </div>
 
-          {/* ── Right Column: Compact Profile Frame ── */}
-          <div className="hero-visual-col">
-            <div className="hero-portrait-frame">
-              {/* Subtle Technical Corner Accents */}
-              <div className="frame-corner frame-corner--tl" aria-hidden="true" />
-              <div className="frame-corner frame-corner--tr" aria-hidden="true" />
-              <div className="frame-corner frame-corner--bl" aria-hidden="true" />
-              <div className="frame-corner frame-corner--br" aria-hidden="true" />
-
-              <div className="portrait-image-container">
-                <img
-                  src={profile.avatar}
-                  alt="Blessing Bryson Hong"
-                  className="portrait-img"
-                  loading="eager"
-                />
-                <div className="portrait-gradient-sheen" aria-hidden="true" />
-              </div>
-
-              {/* Monogram Dock */}
-              <div className="portrait-brand-dock">
-                <span className="dock-name">BLESSING BRYSON HONG</span>
-                <span className="dock-dot">·</span>
-                <span className="dock-tag">2026 PORTFOLIO</span>
-              </div>
+          {/* 5. Portrait Visual Column */}
+          <div
+            className="hero-visual"
+            onMouseMove={handleVisualMove}
+            onMouseLeave={handleVisualLeave}
+          >
+            <div className="hero-ambient-glow" aria-hidden="true" />
+            <div
+              className="hero-image-frame"
+              style={{
+                transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+              }}
+            >
+              <img
+                src="/profile.jpeg"
+                alt="Blessing Bryson Hong"
+                className="hero-image"
+                loading="eager"
+              />
+              <div className="hero-image-rim" aria-hidden="true" />
             </div>
           </div>
-
         </div>
       </div>
     </section>

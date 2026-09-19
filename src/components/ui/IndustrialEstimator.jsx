@@ -1,61 +1,61 @@
 import { useState, useMemo } from 'react';
-import { Wrench, ShieldCheck, HardHat, ExternalLink, Layers, Scale, Clock } from 'lucide-react';
+import { Droplet, ShieldCheck, Package, ExternalLink, Scale, Clock, Sparkles } from 'lucide-react';
 import './Simulators.css';
 
-const STRUCTURE_TYPES = [
-  { id: 'ibeam', label: 'I-Beam Structural Frame', multiplier: 1.4 },
-  { id: 'truss', label: 'Roof Steel Truss Assembly', multiplier: 1.1 },
-  { id: 'gate', label: 'Industrial Heavy Gate', multiplier: 0.9 },
-  { id: 'fence', label: 'Perimeter Steel Enclosure', multiplier: 0.75 },
+const OIL_GRADES = [
+  { id: 'extra-virgin', label: 'Cold-Pressed Virgin Coconut Oil', copraFactor: 1.62, yieldPct: 62, purity: '99.9%' },
+  { id: 'traditional', label: 'Traditional Roasted Coconut Oil', copraFactor: 1.55, yieldPct: 64.5, purity: '99.5%' },
+  { id: 'pure-edible', label: 'Pure Edible Cooking Coconut Oil', copraFactor: 1.50, yieldPct: 66, purity: '99.2%' },
 ];
 
-const FINISHES = [
-  { id: 'crimson', label: 'Crimson Protective Primer', color: '#DC143C' },
-  { id: 'galvanized', label: 'Galvanized Zinc Coat', color: '#38BDF8' },
-  { id: 'matte', label: 'Industrial Matte Black', color: '#64748B' },
+const PACKAGING_TYPES = [
+  { id: 'glass', label: '1L Food-Grade Glass Jars', unitLitres: 1 },
+  { id: 'tin', label: '5L Protective Tin Cans', unitLitres: 5 },
+  { id: 'bulk-can', label: '15L Wholesale Metal Cans', unitLitres: 15 },
+  { id: 'barrel', label: '200L Industrial HDPE Drums', unitLitres: 200 },
 ];
 
 export function IndustrialEstimator() {
-  const [structure, setStructure] = useState('ibeam');
-  const [length, setLength] = useState(14);
-  const [gauge, setGauge] = useState(8); // mm
-  const [finish, setFinish] = useState('crimson');
+  const [gradeId, setGradeId] = useState('extra-virgin');
+  const [litres, setLitres] = useState(250);
+  const [packId, setPackId] = useState('tin');
 
   const stats = useMemo(() => {
-    const structObj = STRUCTURE_TYPES.find(s => s.id === structure) || STRUCTURE_TYPES[0];
-    const finishObj = FINISHES.find(f => f.id === finish) || FINISHES[0];
+    const grade = OIL_GRADES.find(g => g.id === gradeId) || OIL_GRADES[0];
+    const pack = PACKAGING_TYPES.find(p => p.id === packId) || PACKAGING_TYPES[0];
 
-    const weightPerMeter = gauge * 4.25 * structObj.multiplier;
-    const totalWeight = Math.round(length * weightPerMeter);
-    const loadCapacity = ((totalWeight * 2.85) / 1000).toFixed(1);
-    const fabDays = Math.max(2, Math.ceil(length / 3.5) + (gauge > 8 ? 2 : 1));
-    const safetyFactor = (2.4 + (gauge * 0.1)).toFixed(1);
+    const copraKg = Math.round(litres * grade.copraFactor);
+    const coconutsCount = Math.round(copraKg * 6.8); // avg ~6.8 mature coconuts per kg copra
+    const units = Math.ceil(litres / pack.unitLitres);
+    const leadDays = Math.max(2, Math.ceil(litres / 200) + 1);
 
     return {
-      totalWeight,
-      loadCapacity,
-      fabDays,
-      safetyFactor,
-      finishColor: finishObj.color,
-      structLabel: structObj.label,
+      copraKg,
+      coconutsCount,
+      units,
+      leadDays,
+      yieldPct: grade.yieldPct,
+      purity: grade.purity,
+      packLabel: pack.label,
+      gradeLabel: grade.label,
     };
-  }, [structure, length, gauge, finish]);
+  }, [gradeId, litres, packId]);
 
   return (
     <div className="simulator-box simulator-box--industrial">
       <div className="simulator-header">
         <div className="simulator-title-group">
           <div className="simulator-icon-badge simulator-icon-badge--crimson">
-            <Wrench size={16} />
+            <Droplet size={16} />
           </div>
           <div>
-            <h4 className="simulator-title">DEVI DEVAN INDUSTRIAL FABRICATION CALCULATOR</h4>
-            <p className="simulator-subtitle">Custom Steel Structure &amp; Load Spec Estimator Engine</p>
+            <h4 className="simulator-title">DEVI DEVAN COCONUT OIL BATCH &amp; YIELD ESTIMATOR</h4>
+            <p className="simulator-subtitle">Cold-Pressed Extraction &amp; Bulk Commercial Order Calculator</p>
           </div>
         </div>
         <div className="simulator-status-badge simulator-status-badge--crimson">
           <span className="live-pulse-dot live-pulse-dot--red" />
-          <span>CLIENT PORTAL ONLINE</span>
+          <span>PRODUCTION LINE ONLINE</span>
         </div>
       </div>
 
@@ -63,137 +63,138 @@ export function IndustrialEstimator() {
         {/* CONTROLS */}
         <div className="simulator-controls-col">
           <div className="control-group">
-            <span className="control-label"><HardHat size={12} /> Structural Fabrication Type</span>
+            <span className="control-label"><Sparkles size={12} /> Coconut Oil Grade</span>
             <select
-              value={structure}
-              onChange={(e) => setStructure(e.target.value)}
+              value={gradeId}
+              onChange={(e) => setGradeId(e.target.value)}
               className="simulator-select"
             >
-              {STRUCTURE_TYPES.map(s => (
-                <option key={s.id} value={s.id}>{s.label}</option>
+              {OIL_GRADES.map(g => (
+                <option key={g.id} value={g.id}>{g.label}</option>
               ))}
             </select>
           </div>
 
           <div className="control-group">
             <div className="control-label-row">
-              <span className="control-label"><Scale size={12} /> Span Length</span>
-              <span className="control-val">{length} meters</span>
+              <span className="control-label"><Scale size={12} /> Required Batch Volume</span>
+              <span className="control-val">{litres} Litres</span>
             </div>
             <input
               type="range"
-              min="3"
-              max="40"
-              step="1"
-              value={length}
-              onChange={(e) => setLength(Number(e.target.value))}
+              min="25"
+              max="1500"
+              step="25"
+              value={litres}
+              onChange={(e) => setLitres(Number(e.target.value))}
               className="simulator-slider simulator-slider--crimson"
             />
             <div className="slider-ticks">
-              <span>3m (Compact)</span>
-              <span>20m (Medium)</span>
-              <span>40m (Industrial)</span>
+              <span>25L (Sample)</span>
+              <span>500L (Commercial)</span>
+              <span>1500L (Industrial)</span>
             </div>
           </div>
 
-          <div className="control-row-dual">
-            <div className="control-group">
-              <span className="control-label"><Layers size={12} /> Steel Gauge Thickness</span>
-              <select
-                value={gauge}
-                onChange={(e) => setGauge(Number(e.target.value))}
-                className="simulator-select"
-              >
-                <option value={4}>4mm (Light Structural)</option>
-                <option value={8}>8mm (Standard Heavy)</option>
-                <option value={12}>12mm (Extra Heavy Duty)</option>
-              </select>
-            </div>
-
-            <div className="control-group">
-              <span className="control-label"><ShieldCheck size={12} /> Surface Coating Finish</span>
-              <select
-                value={finish}
-                onChange={(e) => setFinish(e.target.value)}
-                className="simulator-select"
-              >
-                {FINISHES.map(f => (
-                  <option key={f.id} value={f.id}>{f.label}</option>
-                ))}
-              </select>
-            </div>
+          <div className="control-group">
+            <span className="control-label"><Package size={12} /> Commercial Packaging Type</span>
+            <select
+              value={packId}
+              onChange={(e) => setPackId(e.target.value)}
+              className="simulator-select"
+            >
+              {PACKAGING_TYPES.map(p => (
+                <option key={p.id} value={p.id}>{p.label}</option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {/* OUTPUT METRICS & BLUEPRINT PREVIEW */}
+        {/* OUTPUT METRICS & PROCESS FLOW */}
         <div className="simulator-output-col">
           <div className="sim-metrics-grid">
             <div className="sim-metric-card sim-metric-card--crimson">
-              <span className="sim-metric-label">TOTAL STRUCTURAL WEIGHT</span>
+              <span className="sim-metric-label">RAW COPRA REQUIRED</span>
               <div className="sim-metric-val-group">
-                <span className="sim-metric-num text-crimson">{stats.totalWeight}</span>
+                <span className="sim-metric-num text-crimson">{stats.copraKg.toLocaleString()}</span>
                 <span className="sim-metric-unit">kg</span>
               </div>
-              <span className="sim-metric-sub">Est. Material Mass</span>
+              <span className="sim-metric-sub">≈ {stats.coconutsCount.toLocaleString()} Fresh Coconuts</span>
             </div>
 
             <div className="sim-metric-card sim-metric-card--dark">
-              <span className="sim-metric-label">SAFE LOAD CAPACITY</span>
+              <span className="sim-metric-label">PACKAGED UNITS</span>
               <div className="sim-metric-val-group">
-                <span className="sim-metric-num">{stats.loadCapacity}</span>
-                <span className="sim-metric-unit">Tons</span>
+                <span className="sim-metric-num">{stats.units.toLocaleString()}</span>
+                <span className="sim-metric-unit">units</span>
               </div>
-              <span className="sim-metric-sub">Safety Factor: {stats.safetyFactor}x</span>
+              <span className="sim-metric-sub">Purity: {stats.purity} · Yield: {stats.yieldPct}%</span>
             </div>
           </div>
 
-          {/* BLUEPRINT SVG GRAPHIC */}
+          {/* EXTRACTION PROCESS FLOW DIAGRAM */}
           <div className="industrial-blueprint-box">
             <div className="blueprint-topbar">
-              <span>CAD STRUCTURAL PREVIEW</span>
-              <span className="blueprint-tag" style={{ color: stats.finishColor }}>
-                ● {stats.structLabel}
+              <span>EXTRACTION &amp; REFINEMENT PIPELINE</span>
+              <span className="blueprint-tag" style={{ color: '#F59E0B' }}>
+                ● 100% Pure &amp; Natural
               </span>
             </div>
 
             <svg viewBox="0 0 380 90" className="blueprint-svg">
-              <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+              <pattern id="gridPatternOil" width="20" height="20" patternUnits="userSpaceOnUse">
                 <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
               </pattern>
-              <rect width="100%" height="100%" fill="url(#gridPattern)" />
+              <rect width="100%" height="100%" fill="url(#gridPatternOil)" />
 
-              {/* Top Support Beam */}
-              <rect x="30" y="25" width="320" height="12" rx="2" fill="none" stroke={stats.finishColor} strokeWidth="2" />
-              {/* Internal Cross-Bracing Trusses */}
-              <line x1="30" y1="25" x2="90" y2="37" stroke={stats.finishColor} strokeWidth="1.5" strokeDasharray="4 2" />
-              <line x1="90" y1="25" x2="150" y2="37" stroke={stats.finishColor} strokeWidth="1.5" strokeDasharray="4 2" />
-              <line x1="150" y1="25" x2="210" y2="37" stroke={stats.finishColor} strokeWidth="1.5" strokeDasharray="4 2" />
-              <line x1="210" y1="25" x2="270" y2="37" stroke={stats.finishColor} strokeWidth="1.5" strokeDasharray="4 2" />
-              <line x1="270" y1="25" x2="350" y2="37" stroke={stats.finishColor} strokeWidth="1.5" strokeDasharray="4 2" />
+              {/* Step 1: Mature Copra */}
+              <rect x="15" y="24" width="70" height="36" rx="4" fill="rgba(255,255,255,0.06)" stroke="#94A3B8" strokeWidth="1" />
+              <text x="50" y="42" textAnchor="middle" fill="#F8FAFC" fontSize="9" fontWeight="600" fontFamily="sans-serif">Sun-Dried</text>
+              <text x="50" y="53" textAnchor="middle" fill="#94A3B8" fontSize="8" fontFamily="sans-serif">Copra Prep</text>
 
-              {/* Vertical Support Columns */}
-              <rect x="40" y="37" width="14" height="40" fill="rgba(255,255,255,0.1)" stroke={stats.finishColor} strokeWidth="1.5" />
-              <rect x="326" y="37" width="14" height="40" fill="rgba(255,255,255,0.1)" stroke={stats.finishColor} strokeWidth="1.5" />
+              {/* Arrow 1 */}
+              <line x1="87" y1="42" x2="105" y2="42" stroke="#E11D48" strokeWidth="1.5" />
+              <polygon points="105,39 110,42 105,45" fill="#E11D48" />
 
-              {/* Dimension Arrow Line */}
-              <line x1="30" y1="82" x2="350" y2="82" stroke="#94A3B8" strokeWidth="1" />
-              <polyline points="35,79 30,82 35,85" fill="none" stroke="#94A3B8" strokeWidth="1" />
-              <polyline points="345,79 350,82 345,85" fill="none" stroke="#94A3B8" strokeWidth="1" />
-              <text x="190" y="80" textAnchor="middle" fill="#CBD5E1" fontSize="9" fontFamily="monospace">
-                SPAN LENGTH: {length} METERS ({gauge}mm GAUGE)
+              {/* Step 2: Cold Press Exeller */}
+              <rect x="112" y="24" width="74" height="36" rx="4" fill="rgba(225,29,72,0.12)" stroke="#E11D48" strokeWidth="1.2" />
+              <text x="149" y="42" textAnchor="middle" fill="#FDA4AF" fontSize="9" fontWeight="600" fontFamily="sans-serif">Cold Press</text>
+              <text x="149" y="53" textAnchor="middle" fill="#E2E8F0" fontSize="8" fontFamily="sans-serif">Exeller Mill</text>
+
+              {/* Arrow 2 */}
+              <line x1="188" y1="42" x2="206" y2="42" stroke="#E11D48" strokeWidth="1.5" />
+              <polygon points="206,39 211,42 206,45" fill="#E11D48" />
+
+              {/* Step 3: Multi-Stage Filtration */}
+              <rect x="213" y="24" width="74" height="36" rx="4" fill="rgba(255,255,255,0.06)" stroke="#94A3B8" strokeWidth="1" />
+              <text x="250" y="42" textAnchor="middle" fill="#F8FAFC" fontSize="9" fontWeight="600" fontFamily="sans-serif">Micro-Filter</text>
+              <text x="250" y="53" textAnchor="middle" fill="#94A3B8" fontSize="8" fontFamily="sans-serif">Multi-Stage</text>
+
+              {/* Arrow 3 */}
+              <line x1="289" y1="42" x2="307" y2="42" stroke="#10B981" strokeWidth="1.5" />
+              <polygon points="307,39 312,42 307,45" fill="#10B981" />
+
+              {/* Step 4: Final Packaging */}
+              <rect x="314" y="24" width="54" height="36" rx="4" fill="rgba(16,185,129,0.12)" stroke="#10B981" strokeWidth="1.2" />
+              <text x="341" y="42" textAnchor="middle" fill="#6EE7B7" fontSize="9" fontWeight="600" fontFamily="sans-serif">Bottling</text>
+              <text x="341" y="53" textAnchor="middle" fill="#A7F3D0" fontSize="8" fontFamily="sans-serif">&amp; QA Sealed</text>
+
+              {/* Bottom line */}
+              <text x="190" y="77" textAnchor="middle" fill="#94A3B8" fontSize="8.5" fontFamily="monospace">
+                BATCH TARGET: {litres}L · {stats.packLabel}
               </text>
             </svg>
           </div>
 
           <div className="industrial-footer-row">
-            <span className="fab-time-pill"><Clock size={11} /> Est. Lead Time: <strong>{stats.fabDays} Working Days</strong></span>
+            <span className="fab-time-pill"><Clock size={11} /> Est. Lead Time: <strong>{stats.leadDays} Days</strong></span>
             <a
               href="https://devidevanindustries.com"
               target="_blank"
               rel="noopener noreferrer"
               className="live-site-link"
             >
-              <span>Visit Client Website</span>
+              <span>Visit devidevanindustries.com</span>
               <ExternalLink size={11} />
             </a>
           </div>

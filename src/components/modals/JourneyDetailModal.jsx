@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { X, Briefcase, Calendar, CheckCircle2, Award, Clock } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import './JourneyDetailModal.css';
 
 export function JourneyDetailModal({ onClose }) {
-  const { journey, experience, education, achievements } = PORTFOLIO_DATA;
+  const { content } = usePortfolioContent();
+  const { journey, experience, education, achievements } = content;
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -33,14 +34,14 @@ export function JourneyDetailModal({ onClose }) {
           <div className="detail-modal-meta">
             <span className="meta-pill meta-pill--year">
               <Calendar size={11} />
-              <span>2024 — BEYOND</span>
+              <span>2024 — Present</span>
             </span>
             <span className="meta-pill meta-pill--cat">
-              <span>COMPLETE CHRONOLOGY &amp; DOSSIER</span>
+              <span>Experience &amp; Timeline</span>
             </span>
           </div>
 
-          <button className="detail-modal-close" onClick={onClose} aria-label="Close Journey Dossier">
+          <button className="detail-modal-close" onClick={onClose} aria-label="Close Journey Modal">
             <X size={18} />
           </button>
         </header>
@@ -49,18 +50,18 @@ export function JourneyDetailModal({ onClose }) {
         <div className="detail-modal-body">
           <div className="case-study-hero">
             <h2 id="journey-modal-title" className="case-study-title">
-              Engineering Trajectory &amp; Experience
+              Experience &amp; Milestones
             </h2>
             <p className="case-study-tagline">
-              Comprehensive chronology covering university foundations, verified dual industry internships, production client platform deliveries, and technical milestones.
+              Chronology covering academic foundations at St. Xavier&apos;s Catholic College of Engineering (SXCCE), software development at Nesus Park, industry internships, and technical milestones.
             </p>
           </div>
 
-          {/* 1. Official Industry Internships */}
+          {/* 1. Official Experience & Internships */}
           <section className="case-card">
             <div className="case-card-header">
               <Briefcase size={16} className="text-primary" />
-              <h3>Verified Industry Internships</h3>
+              <h3>Work Experience &amp; Internships</h3>
             </div>
 
             <div className="journey-deep-exp-stack">

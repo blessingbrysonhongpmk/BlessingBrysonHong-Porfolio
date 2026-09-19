@@ -1,58 +1,136 @@
-import { ArrowUpRight, Mail } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../../data/portfolio';
+import { useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { Mail, ArrowUpRight, Send, Check, Copy, AlertCircle, Loader2 } from 'lucide-react';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import { GithubIcon, LinkedinIcon } from '../ui/SocialIcons';
 import './Contact.css';
 
-export function Contact({ onOpenContact }) {
-  const { profile, socials } = PORTFOLIO_DATA;
+export function Contact() {
+  const { content } = usePortfolioContent();
+  const { profile, socials } = content;
 
-  const linkedinObj = socials.find((s) => s.platform.toLowerCase() === 'linkedin');
-  const githubObj = socials.find((s) => s.platform.toLowerCase() === 'github');
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  const linkedinObj = (socials || []).find((s) => s.platform.toLowerCase() === 'linkedin');
+  const githubObj = (socials || []).find((s) => s.platform.toLowerCase() === 'github');
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(profile.email || 'blessingbrysonhongpmk@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2400);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setStatus('error');
+      setErrorMessage('Please fill in all fields before sending.');
+      return;
+    }
+
+    setStatus('sending');
+    setErrorMessage('');
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    // If EmailJS credentials are provided, send via API
+    if (serviceId && templateId && publicKey) {
+      try {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_name: profile.name || 'Blessing Bryson Hong',
+          },
+          publicKey
+        );
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        setStatus('error');
+        setErrorMessage('Failed to send message. Please reach out directly via email below.');
+      }
+    } else {
+      // Graceful fallback: opens mailto pre-filled + marks success
+      const subject = encodeURIComponent(`Portfolio Message from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Hi Blessing,\n\n${formData.message}\n\nFrom: ${formData.name} (${formData.email})`
+      );
+      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    }
+  };
 
   return (
-    <section id="contact" className="contact-preview-section" aria-label="Contact Preview">
-      <div className="container contact-preview-container">
-        
-        {/* Section Kicker */}
-        <div className="section-kicker">
-          <span className="section-kicker__num">05</span>
-          <span className="section-kicker__label">CONTACT</span>
-          <div className="section-kicker__line" />
-        </div>
-
-        {/* Minimalist Direct Callout */}
-        <div className="contact-preview-card">
-          <div className="contact-preview-content">
-            <span className="contact-preview-eyebrow">START A CONVERSATION</span>
-            <h2 className="contact-preview-title">
-              LET&rsquo;S BUILD <span className="text-gradient-crimson">SOMETHING</span>.
+    <section id="contact" className="contact-section" aria-label="Contact Section">
+      <div className="container contact-container">
+        <div className="contact-grid">
+          {/* Left Column: Human, powerful editorial pitch */}
+          <div className="contact-info">
+            <span className="section-label">Connect</span>
+            <h2 className="contact-heading">
+              LET&rsquo;S BUILD<br />
+              <span className="contact-heading-accent">SOMETHING REAL.</span>
             </h2>
-            <p className="contact-preview-subtitle">
-              Open to technical engineering roles, machine learning initiatives, and full-stack collaborations for 2026.
+            <p className="contact-description">
+              Have a project, an idea, or an engineering role in mind? I&rsquo;m open to internships, machine learning pipelines, and full-stack opportunities for 2026.
             </p>
 
-            {/* Direct Channel Links */}
-            <div className="contact-preview-channels">
-              <a
-                href={`mailto:${profile.email}`}
-                className="contact-channel-pill"
-                aria-label="Direct Email"
-              >
-                <Mail size={13} className="text-primary" />
-                <span>{profile.email}</span>
-              </a>
+            {/* Direct Channel Strip */}
+            <div className="contact-channels">
+              <div className="contact-channel-item">
+                <div className="contact-channel-icon" aria-hidden="true">
+                  <Mail size={18} />
+                </div>
+                <div className="contact-channel-text">
+                  <span className="contact-channel-meta">Direct Email</span>
+                  <a href={`mailto:${profile.email}`} className="contact-channel-value">
+                    {profile.email}
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  className="contact-copy-pill"
+                  onClick={handleCopyEmail}
+                  aria-label="Copy email address"
+                >
+                  {copied ? <Check size={12} /> : <Copy size={12} />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                </button>
+              </div>
 
               {linkedinObj && (
                 <a
                   href={linkedinObj.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-channel-pill"
-                  aria-label="LinkedIn Profile"
+                  className="contact-channel-link-card"
+                  aria-label="Connect on LinkedIn"
                 >
-                  <LinkedinIcon size={13} />
-                  <span>LinkedIn</span>
-                  <ArrowUpRight size={11} className="channel-pill-arrow" />
+                  <div className="contact-channel-icon" aria-hidden="true">
+                    <LinkedinIcon size={18} />
+                  </div>
+                  <div className="contact-channel-text">
+                    <span className="contact-channel-meta">Professional Profile</span>
+                    <span className="contact-channel-value">Blessing Bryson Hong</span>
+                  </div>
+                  <ArrowUpRight size={16} className="contact-card-arrow" />
                 </a>
               )}
 
@@ -61,33 +139,115 @@ export function Contact({ onOpenContact }) {
                   href={githubObj.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-channel-pill"
-                  aria-label="GitHub Profile"
+                  className="contact-channel-link-card"
+                  aria-label="View GitHub code repositories"
                 >
-                  <GithubIcon size={13} />
-                  <span>GitHub</span>
-                  <ArrowUpRight size={11} className="channel-pill-arrow" />
+                  <div className="contact-channel-icon" aria-hidden="true">
+                    <GithubIcon size={18} />
+                  </div>
+                  <div className="contact-channel-text">
+                    <span className="contact-channel-meta">Open Source Work</span>
+                    <span className="contact-channel-value">github.com/blessingbrysonhongpmk</span>
+                  </div>
+                  <ArrowUpRight size={16} className="contact-card-arrow" />
                 </a>
               )}
             </div>
           </div>
 
-          {/* Deep Action Trigger */}
-          <div className="contact-preview-action">
-            <button
-              type="button"
-              className="contact-primary-trigger"
-              onClick={onOpenContact}
-              id="contact-open-modal-btn"
-              aria-label="Open detailed communication and message dispatch drawer"
-            >
-              <span>CONTACT ME</span>
-              <ArrowUpRight size={15} />
-            </button>
-            <span className="contact-action-note">Quick Dispatch Form · Response &lt; 24h</span>
+          {/* Right Column: Studio-grade Inline Form */}
+          <div className="contact-form-panel">
+            <div className="contact-form-header">
+              <span className="contact-form-badge">Message Terminal</span>
+              <span className="contact-form-hint">Fastest response within 24h</span>
+            </div>
+
+            <form onSubmit={handleSubmit} className="contact-form" noValidate>
+              <div className="form-group">
+                <label htmlFor="contact-name" className="form-label">
+                  Your Name
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="e.g. Maya Lin"
+                  required
+                  className="form-input"
+                  autoComplete="name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="contact-email" className="form-label">
+                  Your Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="e.g. maya@company.com"
+                  required
+                  className="form-input"
+                  autoComplete="email"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="contact-message" className="form-label">
+                  Project or Opportunity
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about what you're looking to build or explore together..."
+                  rows={4}
+                  required
+                  className="form-input form-textarea"
+                />
+              </div>
+
+              {status === 'error' && (
+                <div className="form-alert form-alert--error" role="alert">
+                  <AlertCircle size={16} />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              {status === 'success' && (
+                <div className="form-alert form-alert--success" role="status">
+                  <Check size={16} />
+                  <span>Thank you! Your message has been prepared and sent.</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="contact-submit-btn"
+                id="contact-submit-btn"
+              >
+                {status === 'sending' ? (
+                  <>
+                    <Loader2 size={16} className="btn-spinner" />
+                    <span>SENDING...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>SEND MESSAGE</span>
+                    <Send size={15} />
+                  </>
+                )}
+              </button>
+            </form>
           </div>
         </div>
-
       </div>
     </section>
   );
