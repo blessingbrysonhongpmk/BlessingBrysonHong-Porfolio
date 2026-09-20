@@ -54,6 +54,7 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  -webkit-user-select: none;
   user-select: none;
   transition: transform var(--spring-bounce),
               border-color var(--transition-fast),
@@ -192,6 +193,7 @@
   display: none;
 }
 
+
 /* 3.4 Desktop Arrow */
 .project-row__arrow-wrap {
   display: flex;
@@ -208,69 +210,71 @@
   transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-/* ── 4. Responsive Reflow (Mobile & Tablet) ── */
-@media (max-width: 768px) {
+/* ── 4. Responsive Reflow (Mobile & Tablet) ──
+   Strategy: Keep the horizontal grid layout at ALL breakpoints.
+   Reduce thumbnail size progressively. Never stack full-width.
+   This preserves the compact editorial feel on mobile.
+──────────────────────────────────────────────────────────── */
+
+/* Tablet: slightly tighter */
+@media (max-width: 860px) {
   .project-row {
-    grid-template-columns: 24px 96px 1fr auto;
+    grid-template-columns: 28px 100px 1fr auto;
     gap: var(--space-4);
-    padding: 12px 16px;
+    padding: 13px 18px;
   }
 
   .project-row__thumb-wrap {
-    width: 96px;
-    height: 64px;
-  }
-
-  .project-row__desc {
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    width: 100px;
+    height: 66px;
   }
 }
 
+/* Mobile (all): compact horizontal row — NO full-width stacking */
 @media (max-width: 600px) {
   .work-header {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
   }
 
   .work-list {
-    gap: var(--space-3);
+    gap: 10px;
   }
 
-  /* Reflow into clean vertical card: image -> title -> desc -> meta + arrow */
   .project-row {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    padding: 14px;
-    border-radius: var(--radius-md);
+    grid-template-columns: 80px 1fr 22px;
+    gap: 10px;
+    padding: 12px 14px;
+    align-items: start;
   }
 
+  /* Thumbnail: fixed compact square-ish size, never full-width */
   .project-row__num {
     display: none;
   }
 
   .project-row__thumb-wrap {
-    width: 100%;
-    height: 130px;
+    width: 80px;
+    height: 80px;
     border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    grid-row: 1 / 3;
   }
 
+  /* Content area */
   .project-row__content {
-    gap: 6px;
+    gap: 4px;
+    min-width: 0;
   }
 
   .project-row__name {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
+    line-height: 1.25;
+    white-space: normal;
   }
 
   .project-row__desc {
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-size: 0.78rem;
+    line-height: 1.4;
     white-space: normal;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -281,29 +285,71 @@
   }
 
   .project-row__bottom {
-    margin-top: 4px;
-    padding-top: 8px;
-    border-top: 1px solid var(--color-border-subtle);
+    margin-top: 3px;
+    align-items: center;
   }
 
-  .project-row__num-mobile {
-    display: inline;
-    color: var(--color-accent);
+  .project-row__meta {
+    font-size: 0.65rem;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .project-row__cat {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 110px;
+  }
+
+  /* Arrow: placed in grid column 3, spans both rows */
+  .project-row__arrow-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 22px;
+    align-self: center;
+    grid-row: 1 / 3;
+  }
+
+  .project-row__arrow {
+    width: 14px;
+    height: 14px;
   }
 
   .project-row__arrow-mobile {
-    display: block;
-    color: var(--color-text-muted);
-    transition: transform var(--transition-fast), color var(--transition-fast);
-  }
-
-  .project-row:active .project-row__arrow-mobile {
-    transform: translate(2px, -2px);
-    color: var(--color-accent);
-  }
-
-  .project-row__arrow-wrap {
     display: none;
+  }
+
+  .project-row__num-mobile {
+    display: none;
+  }
+}
+
+/* Very small phones (360px and below) */
+@media (max-width: 380px) {
+  .project-row {
+    grid-template-columns: 70px 1fr 20px;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .project-row__thumb-wrap {
+    width: 70px;
+    height: 70px;
+  }
+
+  .project-row__name {
+    font-size: 0.86rem;
+  }
+
+  .project-row__desc {
+    font-size: 0.74rem;
+  }
+
+  .project-row__cat {
+    max-width: 90px;
   }
 }
 
