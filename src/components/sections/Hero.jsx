@@ -30,11 +30,11 @@ export function Hero({ onOpenContact }) {
         <div className="hero-layout">
           {/* Content Column (First on Desktop & First on Mobile) */}
           <div className="hero-content">
-            {/* 1. Name: Primary visual emphasis with subtle trailing initials */}
+            {/* 1. Name: BLESSING BRYSON UP and HONG P M K DOWN */}
             <h1 className="hero-name">
-              <span className="hero-name-line">BLESSING</span>
+              <span className="hero-name-line">BLESSING BRYSON</span>
               <span className="hero-name-line hero-name-line--secondary">
-                BRYSON HONG <span className="hero-name-suffix">P M K</span>
+                HONG <span className="hero-name-suffix">P M K</span>
               </span>
             </h1>
 
