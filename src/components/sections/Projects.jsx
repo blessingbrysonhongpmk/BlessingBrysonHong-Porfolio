@@ -17,7 +17,7 @@ export function Projects({ onSelectProject }) {
           <h2 className="work-title">PROJECTS</h2>
         </div>
 
-        {/* Compact Editorial Project Showcase with Bootstrap Layout */}
+        {/* Compact Editorial Showcase with Bootstrap Responsive Grid */}
         <div className="work-list d-flex flex-column gap-3" role="list">
           {projects.map((project, index) => {
             const num = String(index + 1).padStart(2, '0');
@@ -40,16 +40,16 @@ export function Projects({ onSelectProject }) {
                 role="button"
                 aria-label={`View case study for ${project.name}`}
               >
-                <div className="row g-2 g-sm-3 g-md-4 align-items-center flex-nowrap w-100 m-0">
-                  {/* 1. Numbering — visible on tablet/desktop */}
+                <div className="row g-3 g-md-4 align-items-md-center w-100 m-0">
+                  {/* 1. Numbering (visible on tablet & desktop) */}
                   <div className="col-auto d-none d-md-block p-0">
                     <span className="project-row__num" aria-hidden="true">
                       {num}
                     </span>
                   </div>
 
-                  {/* 2. Compact Thumbnail */}
-                  <div className="col-auto p-0">
+                  {/* 2. Project Thumbnail — Perfect ratio banner on mobile, compact preview on desktop */}
+                  <div className="col-12 col-md-auto p-0">
                     <div className="project-row__thumb-wrap">
                       <img
                         src={project.image || '/profile.jpeg'}
@@ -60,10 +60,13 @@ export function Projects({ onSelectProject }) {
                     </div>
                   </div>
 
-                  {/* 3. Content Column — takes remaining space without clipping */}
-                  <div className="col min-w-0 p-0 ps-2 ps-sm-3 ps-md-3">
+                  {/* 3. Content Column — Fits screen comfortably across all mobile frames */}
+                  <div className="col-12 col-md min-w-0 p-0 ps-md-3">
                     <div className="project-row__content">
-                      <h3 className="project-row__name">{project.name}</h3>
+                      <div className="d-flex align-items-center justify-content-between gap-2">
+                        <h3 className="project-row__name">{project.name}</h3>
+                        <ArrowUpRight size={16} className="project-row__arrow-mobile d-md-none" aria-hidden="true" />
+                      </div>
                       <p className="project-row__desc">{description}</p>
                       <div className="project-row__meta d-flex align-items-center gap-1 gap-sm-2">
                         <span className="project-row__num-mobile d-md-none" aria-hidden="true">
@@ -76,8 +79,8 @@ export function Projects({ onSelectProject }) {
                     </div>
                   </div>
 
-                  {/* 4. Action Arrow */}
-                  <div className="col-auto p-0 ms-auto">
+                  {/* 4. Action Arrow (Desktop) */}
+                  <div className="col-auto d-none d-md-block p-0 ms-auto">
                     <div className="project-row__arrow-wrap" aria-hidden="true">
                       <ArrowUpRight size={18} className="project-row__arrow" />
                     </div>
