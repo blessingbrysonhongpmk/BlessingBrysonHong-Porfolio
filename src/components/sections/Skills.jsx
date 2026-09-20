@@ -10,6 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
+import { TechLogo } from '../ui/SocialIcons';
 import './Skills.css';
 
 // Category Icon Mapping
@@ -58,7 +59,7 @@ function CategoryDetailPanel({ category, skillProjectMap, onClose }) {
   const isLanguages = category.category === 'LANGUAGES';
 
   return (
-    <div className="skills-panel" aria-label={`${category.category} detail panel`}>
+    <div className="skills-panel desk-card" aria-label={`${category.category} detail panel`}>
       <div className="skills-panel__header">
         <div className="skills-panel__header-inner">
           <span className="skills-panel__icon" aria-hidden="true">
@@ -86,7 +87,10 @@ function CategoryDetailPanel({ category, skillProjectMap, onClose }) {
           return (
             <li key={skill.name} className="skills-panel__skill">
               <div className="skills-panel__skill-header">
-                <span className="skills-panel__skill-name">{skill.name}</span>
+                <div className="skills-panel__skill-name-wrap">
+                  <TechLogo name={skill.name} size={16} className="skill-item-logo" />
+                  <span className="skills-panel__skill-name">{skill.name}</span>
+                </div>
                 {isGerman ? (
                   <span className="skills-panel__badge skills-panel__badge--accent">Basic</span>
                 ) : skill.status && !isLanguages ? (
@@ -167,13 +171,16 @@ export function Skills({ onOpenSkills }) {
               const isActive = activeCategoryIdx === idx;
               const previewText = (group.skills || []).map((s) => s.name).join(' · ');
 
+              const SUIT_PIPS = ['♠', '♦', '♣', '♥', '♔'];
+              const suitPip = SUIT_PIPS[idx % SUIT_PIPS.length];
+
               return (
                 <div
                   key={group.category}
                   role="tab"
                   aria-selected={isActive}
                   tabIndex={0}
-                  className={`skills-cat-row ${isActive ? 'skills-cat-row--active' : ''}`}
+                  className={`skills-cat-row desk-card ${isActive ? 'skills-cat-row--active' : ''}`}
                   onClick={() => handleSelectCategory(idx)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -184,6 +191,7 @@ export function Skills({ onOpenSkills }) {
                 >
                   <div className="skills-cat-row__header">
                     <div className="skills-cat-row__title-wrap">
+                      <span className="skills-cat-row__pip" aria-hidden="true">{suitPip}</span>
                       <span className="skills-cat-row__icon" aria-hidden="true">
                         <Icon size={16} />
                       </span>

@@ -1,61 +1,64 @@
 /* ─────────────────────────────────────────────────────
-   BBH Portfolio — Signature Visual System Tokens
-   Deep Obsidian & Graphite Studio Aesthetic with Coral Crimson.
+   BBH Portfolio — Digital Chess Table & Card Desk Visual System
+   Theme: CHESS + PLAYING CARDS + PREMIUM DIGITAL STUDIO
    ───────────────────────────────────────────────────── */
 
 :root {
-  /* ── Light Mode (Warm Pearl Editorial) ── */
-  --color-bg: #F5F3EE;
-  --color-bg-alt: #EAE7DF;
+  /* ── Light Mode (Warm Ivory Card Table) ── */
+  --color-bg: #F5F3ED;
+  --color-bg-alt: #ECE9E1;
   --color-surface: #FFFFFF;
-  --color-surface-raised: #FFFFFF;
-  --color-surface-hover: #F0EDE6;
-  --color-surface-glass: rgba(245, 243, 238, 0.85);
+  --color-surface-raised: #FAF9F6;
+  --color-surface-hover: #F0EDE5;
+  --color-surface-glass: rgba(245, 243, 237, 0.90);
 
-  /* Signature Coral Crimson Accent */
-  --color-accent: #FF3B5C;
-  --color-accent-hover: #E62E4E;
-  --color-accent-soft: rgba(255, 59, 92, 0.07);
-  --color-accent-muted: rgba(255, 59, 92, 0.14);
-  --color-accent-glow: rgba(255, 59, 92, 0.22);
+  /* Signature Crimson Accent (Light Mode) */
+  --color-accent: #E52D4F;
+  --color-accent-hover: #C91E3E;
+  --color-accent-soft: rgba(229, 45, 79, 0.08);
+  --color-accent-muted: rgba(229, 45, 79, 0.16);
+  --color-accent-glow: rgba(229, 45, 79, 0.25);
   --color-primary: var(--color-accent);
   --color-primary-hover: var(--color-accent-hover);
 
-  /* Subtle Warm Red / Amber Glow Tokens */
-  --color-glow-crimson: rgba(255, 59, 92, 0.07);
+  /* Studio Desk Tonal Lighting */
+  --color-glow-crimson: rgba(229, 45, 79, 0.08);
   --color-glow-amber: rgba(217, 119, 6, 0.04);
+  --color-table-grid: rgba(18, 21, 26, 0.045);
+  --color-card-border: rgba(18, 21, 26, 0.09);
+  --color-card-edge-highlight: rgba(255, 255, 255, 0.92);
 
   /* Design System Aliases */
   --color-text-main: var(--color-text);
   --color-accent-subtle: var(--color-accent-soft);
   --font-sans: var(--font-body);
 
-  /* Section Tonal Lighting (Light Mode) */
-  --bg-hero-zone: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(255, 59, 92, 0.04) 0%, transparent 70%);
+  /* Section Zones (Light Mode) */
+  --bg-hero-zone: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(229, 45, 79, 0.04) 0%, transparent 70%);
   --bg-about-zone: transparent;
-  --bg-projects-zone: radial-gradient(circle at 50% 10%, rgba(17, 19, 24, 0.02) 0%, transparent 60%);
+  --bg-projects-zone: radial-gradient(circle at 50% 10%, rgba(18, 21, 26, 0.02) 0%, transparent 60%);
   --bg-skills-zone: transparent;
-  --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(17, 19, 24, 0.018) 50%, transparent 100%);
-  --bg-contact-zone: radial-gradient(ellipse 80% 70% at 50% 90%, rgba(255, 59, 92, 0.05) 0%, transparent 70%);
+  --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(18, 21, 26, 0.018) 50%, transparent 100%);
+  --bg-contact-zone: radial-gradient(ellipse 80% 70% at 50% 90%, rgba(229, 45, 79, 0.05) 0%, transparent 70%);
 
   /* Status */
   --color-success: #15803D;
   --color-success-soft: rgba(21, 128, 61, 0.08);
 
   /* Typography */
-  --color-text: #111318;
-  --color-text-secondary: #68707C;
-  --color-text-muted: #8D95A2;
-  --color-text-inverse: #F3F1EC;
+  --color-text: #12151A;
+  --color-text-secondary: #585E6A;
+  --color-text-muted: #858C98;
+  --color-text-inverse: #F5F3ED;
 
   /* Borders */
-  --color-border: rgba(17, 19, 24, 0.08);
-  --color-border-hover: rgba(17, 19, 24, 0.16);
-  --color-border-strong: rgba(17, 19, 24, 0.24);
-  --color-border-subtle: rgba(17, 19, 24, 0.05);
+  --color-border: rgba(18, 21, 26, 0.08);
+  --color-border-hover: rgba(18, 21, 26, 0.16);
+  --color-border-strong: rgba(18, 21, 26, 0.24);
+  --color-border-subtle: rgba(18, 21, 26, 0.05);
 
   /* ── Typography Scale ── */
-  --font-display: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'DM Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
@@ -89,16 +92,16 @@
   --radius-sm:   8px;
   --radius-md:   12px;
   --radius-lg:   16px;
-  --radius-xl:   24px;
-  --radius-2xl:  32px;
+  --radius-xl:   20px;
+  --radius-2xl:  28px;
   --radius-full: 9999px;
 
-  /* ── Shadows (Light) ── */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 6px 18px -3px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 14px 34px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
-  --shadow-spatial: 0 24px 50px -10px rgba(0, 0, 0, 0.10), 0 8px 20px -4px rgba(0, 0, 0, 0.05);
+  /* ── Card Shadows (Light Physical Cards) ── */
+  --shadow-xs: 0 1px 2px rgba(18, 21, 26, 0.04);
+  --shadow-sm: 0 2px 6px rgba(18, 21, 26, 0.04), 0 1px 2px rgba(18, 21, 26, 0.02);
+  --shadow-md: 0 6px 18px -3px rgba(18, 21, 26, 0.06), 0 2px 6px -1px rgba(18, 21, 26, 0.03);
+  --shadow-lg: 0 14px 34px -4px rgba(18, 21, 26, 0.08), 0 4px 12px -2px rgba(18, 21, 26, 0.04);
+  --shadow-spatial: 0 24px 50px -10px rgba(18, 21, 26, 0.10), 0 8px 20px -4px rgba(18, 21, 26, 0.05);
 
   /* ── Transitions ── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -111,21 +114,22 @@
   --transition-slow: 400ms var(--ease-out);
   --transition-spring: 360ms var(--spring-bounce);
 
-  /* ── Glass (Light) ── */
-  --glass-bg: rgba(255, 255, 255, 0.82);
-  --glass-bg-subtle: rgba(255, 255, 255, 0.65);
-  --glass-bg-elevated: rgba(255, 255, 255, 0.95);
-  --glass-border: rgba(255, 255, 255, 0.85);
-  --glass-border-subtle: rgba(17, 19, 24, 0.07);
+  /* ── Glass (Light Desk) ── */
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.72);
+  --glass-bg-elevated: rgba(255, 255, 255, 0.96);
+  --glass-border: rgba(18, 21, 26, 0.08);
+  --glass-border-subtle: rgba(18, 21, 26, 0.05);
   --glass-border-highlight: rgba(255, 255, 255, 0.98);
-  --glass-shadow-base: 0 10px 32px -4px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
-  --glass-shadow-hover: 0 20px 44px -6px rgba(0, 0, 0, 0.09), 0 6px 16px -2px rgba(0, 0, 0, 0.04);
+  --glass-shadow-base: 0 10px 32px -4px rgba(18, 21, 26, 0.05), 0 2px 8px rgba(18, 21, 26, 0.02);
+  --glass-shadow-hover: 0 20px 44px -6px rgba(18, 21, 26, 0.09), 0 6px 16px -2px rgba(18, 21, 26, 0.04);
   --glass-blur: blur(16px) saturate(180%);
   --glass-blur-mobile: blur(8px) saturate(140%);
 
   /* ── Z-Index Layers ── */
   --z-atmosphere: 0;
   --z-texture: 1;
+  --z-objects: 1;
   --z-content: 2;
   --z-navbar: 30;
   --z-modal: 50;
@@ -135,74 +139,76 @@
   --max-width-narrow: 780px;
 }
 
-/* ── DARK MODE — Deep Obsidian & Graphite Studio System ── */
+/* ── DARK MODE — Digital Chess Table & Card Desk System ── */
 [data-theme="dark"] {
-  /* Background: Deep Obsidian */
-  --color-bg:           #07090C;
-  --color-bg-alt:       #0A0D12;
+  /* Background: True Deep Obsidian Desk */
+  --color-bg:           #050608;
+  --color-bg-alt:       #0A0C10;
 
-  /* Secondary Surface: Graphite */
-  --color-surface:        #0D1015;
+  /* Secondary Surface: Pure Graphite / Desk Surface */
+  --color-surface:        #0C1015;
   --color-surface-raised: #12161E;
-  --color-surface-hover:  #171C25;
-  --color-surface-glass:  rgba(13, 16, 21, 0.84);
+  --color-surface-hover:  #181E27;
+  --color-surface-glass:  rgba(12, 16, 21, 0.88);
 
-  /* Primary Accent: Coral Crimson */
-  --color-accent:       #FF3B5C;
-  --color-accent-hover: #FF5472;
-  --color-accent-soft:  rgba(255, 59, 92, 0.09);
-  --color-accent-muted: rgba(255, 59, 92, 0.18);
-  --color-accent-glow:  rgba(255, 59, 92, 0.28);
+  /* Primary Accent: True Crimson */
+  --color-accent:       #F02D4F;
+  --color-accent-hover: #FF4767;
+  --color-accent-soft:  rgba(240, 45, 79, 0.12);
+  --color-accent-muted: rgba(240, 45, 79, 0.22);
+  --color-accent-glow:  rgba(240, 45, 79, 0.35);
   --color-primary: var(--color-accent);
   --color-primary-hover: var(--color-accent-hover);
 
-  /* Very subtle environmental glow: Dark Warm Red / Amber tones only */
-  --color-glow-crimson: rgba(255, 59, 92, 0.12);
-  --color-glow-amber:   rgba(245, 158, 11, 0.05);
+  /* Physical Card & Board Grid Tokens */
+  --color-glow-crimson: rgba(240, 45, 79, 0.16);
+  --color-glow-amber:   rgba(240, 45, 79, 0.06);
+  --color-table-grid:   rgba(244, 243, 239, 0.035);
+  --color-card-border:  rgba(244, 243, 239, 0.08);
+  --color-card-edge-highlight: rgba(255, 255, 255, 0.14);
 
-  /* Section Tonal Lighting (Dark Mode) */
-  --bg-hero-zone: radial-gradient(ellipse 90% 65% at 60% -15%, rgba(255, 59, 92, 0.07) 0%, transparent 70%);
+  /* Section Tonal Lighting (Dark Table) */
+  --bg-hero-zone: radial-gradient(ellipse 90% 65% at 65% -15%, rgba(240, 45, 79, 0.12) 0%, transparent 70%);
   --bg-about-zone: transparent;
-  --bg-projects-zone: radial-gradient(circle at 50% 15%, rgba(13, 16, 21, 0.65) 0%, transparent 80%);
-  --bg-skills-zone: radial-gradient(circle at 50% 50%, rgba(13, 16, 21, 0.40) 0%, transparent 80%);
-  --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(13, 16, 21, 0.50) 50%, transparent 100%);
-  --bg-contact-zone: radial-gradient(ellipse 75% 75% at 50% 85%, rgba(255, 59, 92, 0.11) 0%, transparent 70%);
+  --bg-projects-zone: radial-gradient(circle at 50% 15%, rgba(12, 16, 21, 0.70) 0%, transparent 80%);
+  --bg-skills-zone: radial-gradient(circle at 50% 50%, rgba(12, 16, 21, 0.50) 0%, transparent 80%);
+  --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(12, 16, 21, 0.60) 50%, transparent 100%);
+  --bg-contact-zone: radial-gradient(ellipse 75% 75% at 50% 85%, rgba(240, 45, 79, 0.14) 0%, transparent 70%);
 
   /* Status */
   --color-success:      #10B981;
-  --color-success-soft: rgba(16, 185, 129, 0.10);
+  --color-success-soft: rgba(16, 185, 129, 0.12);
 
-  /* Primary Text: Soft Ivory */
-  --color-text:           #F3F1EC;
+  /* Primary Text: Soft White */
+  --color-text:           #F4F3EF;
 
-  /* Secondary Text: Cool Muted Gray */
-  --color-text-secondary: #8B95A5;
+  /* Secondary Text: Muted Cool Grey */
+  --color-text-secondary: #9AA1AF;
 
-  /* Metadata / Low-contrast steel gray */
-  --color-text-muted:     #5A6474;
-  --color-text-inverse:   #07090C;
+  /* Metadata: Muted Grey */
+  --color-text-muted:     #858C98;
+  --color-text-inverse:   #050608;
 
   /* Restrained hairline borders against Obsidian */
-  --color-border:        rgba(255, 255, 255, 0.06);
-  --color-border-hover:  rgba(255, 255, 255, 0.13);
-  --color-border-strong: rgba(255, 255, 255, 0.20);
-  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border:        rgba(244, 243, 239, 0.08);
+  --color-border-hover:  rgba(244, 243, 239, 0.16);
+  --color-border-strong: rgba(244, 243, 239, 0.24);
+  --color-border-subtle: rgba(244, 243, 239, 0.04);
 
-  /* Shadows — rich obsidian depth */
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.55);
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.65), 0 1px 2px rgba(0, 0, 0, 0.45);
-  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.75), 0 2px 8px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 16px 40px -6px rgba(0, 0, 0, 0.85), 0 4px 14px rgba(0, 0, 0, 0.60);
-  --shadow-spatial: 0 28px 60px -10px rgba(0, 0, 0, 0.92), 0 8px 24px rgba(0, 0, 0, 0.65);
+  /* Shadows — tactile physical card drop shadows */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.65);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.75), 0 1px 2px rgba(0, 0, 0, 0.55);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.85), 0 2px 8px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 16px 40px -6px rgba(0, 0, 0, 0.90), 0 4px 14px rgba(0, 0, 0, 0.70);
+  --shadow-spatial: 0 28px 60px -10px rgba(0, 0, 0, 0.96), 0 8px 24px rgba(0, 0, 0, 0.75);
 
-  /* Glass — dark graphite studio material */
-  --glass-bg:           rgba(13, 16, 21, 0.82);
-  --glass-bg-subtle:    rgba(13, 16, 21, 0.55);
-  --glass-bg-elevated:  rgba(18, 22, 30, 0.92);
-  --glass-border:       rgba(255, 255, 255, 0.07);
-  --glass-border-subtle: rgba(255, 255, 255, 0.04);
-  --glass-border-highlight: rgba(255, 255, 255, 0.12);
-  --glass-shadow-base:  0 10px 36px -4px rgba(0, 0, 0, 0.75), 0 2px 10px rgba(0, 0, 0, 0.55);
-  --glass-shadow-hover: 0 24px 56px -6px rgba(0, 0, 0, 0.88), 0 6px 18px rgba(0, 0, 0, 0.65);
+  /* Glass — dark obsidian desk material */
+  --glass-bg:           rgba(12, 16, 21, 0.88);
+  --glass-bg-subtle:    rgba(12, 16, 21, 0.60);
+  --glass-bg-elevated:  rgba(18, 22, 30, 0.94);
+  --glass-border:       rgba(244, 243, 239, 0.08);
+  --glass-border-subtle: rgba(244, 243, 239, 0.04);
+  --glass-border-highlight: rgba(255, 255, 255, 0.14);
+  --glass-shadow-base:  0 10px 36px -4px rgba(0, 0, 0, 0.80), 0 2px 10px rgba(0, 0, 0, 0.60);
+  --glass-shadow-hover: 0 24px 56px -6px rgba(0, 0, 0, 0.92), 0 6px 18px rgba(0, 0, 0, 0.70);
 }
-

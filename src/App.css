@@ -1,2 +1,25 @@
 /* App-level layout — minimal */
 .app { min-height: 100vh; }
+
+/* Hide lower sections while Mac-style welcome loader is actively playing */
+body.is-welcome-active #about,
+body.is-welcome-active #projects,
+body.is-welcome-active #skills,
+body.is-welcome-active #journey,
+body.is-welcome-active #contact,
+body.is-welcome-active footer {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body:not(.is-welcome-active) #about,
+body:not(.is-welcome-active) #projects,
+body:not(.is-welcome-active) #skills,
+body:not(.is-welcome-active) #journey,
+body:not(.is-welcome-active) #contact,
+body:not(.is-welcome-active) footer {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+}
+

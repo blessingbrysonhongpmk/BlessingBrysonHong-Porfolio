@@ -79,11 +79,18 @@ export function Contact() {
 
   return (
     <section id="contact" className="contact-section" aria-label="Contact Section">
+      {/* Background Environment Accents */}
+      <div className="contact-ambient-glow" aria-hidden="true" />
+      <div className="contact-king-silhouette" aria-hidden="true">♔</div>
+
       <div className="container contact-container">
+        <header className="contact-header">
+          <span className="section-label">Connect</span>
+        </header>
+
         <div className="contact-grid">
           {/* Left Column: Human, powerful editorial pitch */}
           <div className="contact-info">
-            <span className="section-label">Connect</span>
             <h2 className="contact-heading">
               LET&rsquo;S BUILD<br />
               <span className="contact-heading-accent">SOMETHING REAL.</span>
@@ -94,8 +101,8 @@ export function Contact() {
 
             {/* Direct Channel Strip */}
             <div className="contact-channels">
-              <div className="contact-channel-item">
-                <div className="contact-channel-icon" aria-hidden="true">
+              <div className="contact-channel-item desk-card">
+                <div className="contact-channel-icon contact-channel-icon--email" aria-hidden="true">
                   <Mail size={18} />
                 </div>
                 <div className="contact-channel-text">
@@ -120,10 +127,10 @@ export function Contact() {
                   href={linkedinObj.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-channel-link-card"
+                  className="contact-channel-link-card desk-card contact-channel-link-card--linkedin"
                   aria-label="Connect on LinkedIn"
                 >
-                  <div className="contact-channel-icon" aria-hidden="true">
+                  <div className="contact-channel-icon contact-channel-icon--linkedin" aria-hidden="true">
                     <LinkedinIcon size={18} />
                   </div>
                   <div className="contact-channel-text">
@@ -139,10 +146,10 @@ export function Contact() {
                   href={githubObj.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-channel-link-card"
+                  className="contact-channel-link-card desk-card contact-channel-link-card--github"
                   aria-label="View GitHub code repositories"
                 >
-                  <div className="contact-channel-icon" aria-hidden="true">
+                  <div className="contact-channel-icon contact-channel-icon--github" aria-hidden="true">
                     <GithubIcon size={18} />
                   </div>
                   <div className="contact-channel-text">
@@ -155,10 +162,11 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Right Column: Studio-grade Inline Form */}
-          <div className="contact-form-panel">
+          {/* Right Column: Studio-grade Final Card Form */}
+          <div className="contact-form-panel desk-card">
+            <span className="contact-card-pip" aria-hidden="true">♔</span>
             <div className="contact-form-header">
-              <span className="contact-form-badge">Message Terminal</span>
+              <span className="contact-form-badge">Send a Message</span>
               <span className="contact-form-hint">Fastest response within 24h</span>
             </div>
 

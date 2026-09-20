@@ -146,9 +146,11 @@ export function ContactDetailModal({ onClose }) {
                       href={s.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="contact-social-item"
+                      className={`contact-social-item contact-social-item--${s.platform.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
                     >
-                      <span className="contact-social-icon">{getSocialIcon(s.platform)}</span>
+                      <span className={`contact-social-icon contact-social-icon--${s.platform.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}>
+                        {getSocialIcon(s.platform)}
+                      </span>
                       <div className="contact-social-text">
                         <span className="contact-social-platform">{s.platform}</span>
                         <span className="contact-social-label">{s.label || s.url}</span>

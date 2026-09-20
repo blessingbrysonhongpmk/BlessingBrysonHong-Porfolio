@@ -4,7 +4,8 @@ export function About() {
   return (
     <section id="about" className="about-section" aria-label="About Blessing Bryson Hong">
       <div className="container about-container">
-        <div className="about-wrapper">
+        <div className="about-card desk-card">
+          <div className="about-card__pip" aria-hidden="true">♠</div>
           <span className="section-label">About</span>
 
           {/* Large Short Statement */}

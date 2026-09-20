@@ -1,6 +1,7 @@
 /* ─────────────────────────────────────────────────────
    Skills Section — Interactive Category-to-Detail Layout
-   Overview list on left, responsive inspection panel on right
+   Editorial category overview with dark glass inspection panel.
+   Pure crimson accents (#DC1F2E), no fake bars or metrics.
    ───────────────────────────────────────────────────── */
 
 .skills-section {
@@ -30,21 +31,24 @@
 }
 
 .skills-cat-row {
-  padding: 14px 18px;
-  background: var(--glass-bg);
+  position: relative;
+  padding: 16px 20px;
+  background: var(--glass-bg-subtle);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xs);
   cursor: pointer;
+  overflow: hidden;
   transition: transform var(--spring-bounce), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .skills-cat-row:hover {
     transform: translateY(-2px);
-    border-color: var(--color-accent);
+    border-color: rgba(240, 45, 79, 0.40);
+    background: var(--color-surface-hover);
     box-shadow: var(--shadow-sm);
   }
 
@@ -56,6 +60,7 @@
 
 .skills-cat-row--active {
   border-color: var(--color-accent);
+  border-left: 3px solid var(--color-accent);
   background: var(--color-surface-hover);
   box-shadow: var(--shadow-sm);
 }
@@ -83,6 +88,14 @@
   gap: 10px;
 }
 
+.skills-cat-row__pip {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.65;
+  font-family: serif;
+}
+
 .skills-cat-row__icon {
   color: var(--color-accent);
   display: flex;
@@ -91,7 +104,7 @@
 
 .skills-cat-row__title {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -125,7 +138,7 @@
   background: var(--glass-bg-elevated);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   box-shadow: var(--shadow-spatial);
@@ -145,7 +158,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .skills-panel__header-inner {
@@ -160,7 +173,7 @@
 
 .skills-panel__title {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -177,7 +190,7 @@
   border-radius: var(--radius-full);
   color: var(--color-text-muted);
   background: var(--glass-bg-subtle);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   cursor: pointer;
   transition: color var(--transition-fast), background-color var(--transition-fast);
 }
@@ -190,7 +203,7 @@
 .skills-panel__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
   max-height: 480px;
   overflow-y: auto;
   padding-right: 4px;
@@ -200,9 +213,9 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 10px 14px;
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border-subtle);
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 
@@ -211,6 +224,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+}
+
+.skills-panel__skill-name-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .skills-panel__skill-name {
@@ -222,16 +241,18 @@
 
 .skills-panel__badge {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: var(--color-text-muted);
   background: var(--glass-bg-subtle);
-  padding: 2px 6px;
+  padding: 2px 8px;
   border-radius: var(--radius-xs);
+  border: 1px solid var(--color-border);
 }
 
 .skills-panel__badge--accent {
   color: var(--color-accent);
   background: var(--color-accent-soft);
+  border-color: rgba(240, 45, 79, 0.25);
   font-weight: 700;
 }
 
@@ -252,7 +273,7 @@
 
 .skills-panel__projects-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: var(--color-text-muted);
   text-transform: uppercase;
 }
@@ -261,10 +282,11 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.68rem;
+  font-size: 0.70rem;
   font-weight: 600;
   color: var(--color-accent);
   background: var(--color-accent-soft);
+  border: 1px solid rgba(240, 45, 79, 0.20);
   padding: 2px 8px;
   border-radius: var(--radius-full);
 }

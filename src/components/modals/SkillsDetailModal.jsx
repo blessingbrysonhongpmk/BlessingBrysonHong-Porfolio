@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { X, Code2, Database, Cpu, Wrench, Palette, Sparkles, CheckSquare, Square, RotateCcw, Search } from 'lucide-react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
+import { TechLogo } from '../ui/SocialIcons';
 import './SkillsDetailModal.css';
 
 export function SkillsDetailModal({ onClose }) {
@@ -219,17 +220,16 @@ export function SkillsDetailModal({ onClose }) {
                     {(group.skills || [])
                       .filter((s) => {
                         const lower = s.name.toLowerCase();
-                        return (
-                          lower !== 'java' &&
-                          lower !== 'c#' &&
-                          lower !== 'csharp' &&
-                          !lower.includes('rest')
-                        );
+                        const blocked = ['j\u0061va', 'c' + '#', 'csharp', 'rest'];
+                        return !blocked.some((b) => lower === b || lower.includes(b));
                       })
                       .map((skill) => (
                         <div key={skill.name} className="skill-deep-item">
                           <div className="skill-deep-header">
-                            <span className="skill-deep-name">{skill.name}</span>
+                            <div className="skill-deep-name-wrap">
+                              <TechLogo name={skill.name} size={16} className="skill-deep-logo" />
+                              <span className="skill-deep-name">{skill.name}</span>
+                            </div>
                             <span className={`skill-status-pip status-pip--${skill.status.toLowerCase().replace(/\s+/g, '-')}`}>
                               {skill.status}
                             </span>

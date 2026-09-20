@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { X, Briefcase, Calendar, CheckCircle2, Award, Clock } from 'lucide-react';
+import { X, Briefcase, Calendar, CheckCircle2, Award, Clock, ArrowUpRight } from 'lucide-react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import './JourneyDetailModal.css';
 
@@ -53,7 +53,7 @@ export function JourneyDetailModal({ onClose }) {
               Experience &amp; Milestones
             </h2>
             <p className="case-study-tagline">
-              Chronology covering academic foundations at St. Xavier&apos;s Catholic College of Engineering (SXCCE), internship at Nexus Spark, industry internships, and technical milestones.
+              Chronology covering academic foundations at St. Xavier&apos;s Catholic College of Engineering (SXCCE), internship at Nex-X Spark, industry internships, and technical milestones.
             </p>
           </div>
 
@@ -68,9 +68,46 @@ export function JourneyDetailModal({ onClose }) {
               {experience.map((exp) => (
                 <div key={exp.id} className="journey-deep-exp-item">
                   <div className="journey-exp-top">
-                    <div>
-                      <h4 className="journey-exp-company">{exp.company}</h4>
-                      <span className="journey-exp-role">{exp.role} · {exp.location}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      {exp.logo && (
+                        <div
+                          style={{
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '6px',
+                            background: '#FFFFFF',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '3px',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <img
+                            src={exp.logo}
+                            alt=""
+                            style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <h4 className="journey-exp-company" style={{ margin: 0 }}>{exp.company}</h4>
+                          {exp.websiteUrl && (
+                            <a
+                              href={exp.websiteUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Visit ${exp.company} website`}
+                              style={{ color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center' }}
+                            >
+                              <ArrowUpRight size={13} />
+                            </a>
+                          )}
+                        </div>
+                        <span className="journey-exp-role">{exp.role} · {exp.location}</span>
+                      </div>
                     </div>
                     <span className="journey-exp-period">{exp.period}</span>
                   </div>

@@ -20,11 +20,11 @@ export const PORTFOLIO_DATA = {
     heroStatement:
       'Building practical software with AI, data, and full-stack development.',
     shortBio:
-      "Intern at Nexus Spark and III-year B.Tech AI & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE).",
+      "Intern at Nex-X Spark and III-year B.Tech AI & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE).",
     fullBio:
-      "Third-year B.Tech Artificial Intelligence & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE). Currently working as an intern at Nexus Spark, where I get to work on real-world software projects and strengthen my development skills. Interested in building useful software and exploring AI, data, and full-stack development.",
+      "Third-year B.Tech Artificial Intelligence & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE). Currently working as an intern at Nex-X Spark, where I get to work on real-world software projects and strengthen my development skills. Interested in building useful software and exploring AI, data, and full-stack development.",
     currentDirection:
-      'Working as an intern on company projects at Nexus Spark while strengthening software and development skills.',
+      'Working as an intern on company projects at Nex-X Spark while strengthening software and development skills.',
     email: 'blessingbrysonhongpmk@gmail.com',
     availability: 'Open to Opportunities',
   },
@@ -60,7 +60,7 @@ export const PORTFOLIO_DATA = {
     tags: [
       'B.Tech AI & Data Science (III Year)',
       "St. Xavier's Catholic College of Engineering (SXCCE)",
-      'Intern at Nexus Spark',
+      'Intern at Nex-X Spark',
       'Python & Full-Stack Development',
     ],
     developmentFocus: [
@@ -127,7 +127,7 @@ export const PORTFOLIO_DATA = {
     },
   ],
 
-  // ── Projects (Verified Real Projects — Zero REST API) ──
+  // ── Projects (Verified Real Projects) ──
   projects: [
     {
       id: 'smart-canteen-ai',
@@ -269,23 +269,81 @@ export const PORTFOLIO_DATA = {
     },
   ],
 
+  // ── Company Experiences & Internships (Verified) ──
+  companyExperiences: [
+    {
+      id: 'nexx-spark',
+      company: 'Nex-X Spark',
+      websiteUrl: 'https://nexxspark.com/',
+      displayUrl: 'nexxspark.com',
+      logo: '/companies/nexxspark-logo.svg',
+      previewImage: '/companies/nexxspark-preview.png',
+      mobilePreviewImage: '/companies/nexxspark-mobile.png',
+      role: 'Intern',
+      period: 'CURRENT',
+      status: 'Current Internship',
+      description: 'Working on real-world company projects.',
+      technologies: [],
+      accentColor: '#6366F1',
+      accentGlow: 'rgba(99, 102, 241, 0.28)',
+      themeClass: 'company-card--nexxspark',
+      browserTitle: "Nex-X Spark — Business Tech Ecosystem",
+    },
+    {
+      id: 'agileinfotech',
+      company: 'AGILEINFOTECH',
+      websiteUrl: 'https://agileinfoz.com/',
+      displayUrl: 'agileinfoz.com',
+      logo: '/companies/agileinfotech-logo.webp',
+      previewImage: '/companies/agileinfotech-preview.png',
+      mobilePreviewImage: '/companies/agileinfotech-mobile.png',
+      role: 'Internship',
+      period: '2026',
+      status: 'Full Stack Development',
+      description: 'Full Stack Development using Python and Django.',
+      technologies: ['Python', 'Django'],
+      accentColor: '#2563EB',
+      accentGlow: 'rgba(37, 99, 235, 0.28)',
+      themeClass: 'company-card--agileinfotech',
+      browserTitle: 'AGILEINFOTECH — Web & App Solutions',
+    },
+    {
+      id: 'ak-infopark',
+      company: 'AK INFOPARK',
+      websiteUrl: 'https://akinfopark.com/',
+      displayUrl: 'akinfopark.com',
+      logo: '/companies/akinfopark-logo.png',
+      previewImage: '/companies/akinfopark-preview.png',
+      mobilePreviewImage: '/companies/akinfopark-mobile.png',
+      role: 'Internship',
+      period: '2025',
+      status: 'Data Science',
+      description: 'Data Science using Python.',
+      technologies: ['Python'],
+      accentColor: '#8054E7',
+      accentGlow: 'rgba(128, 84, 231, 0.28)',
+      themeClass: 'company-card--akinfopark',
+      browserTitle: 'AK INFOPARK — Be Digital! Go Digital!',
+    },
+  ],
+
   // ── Trajectory & Summary Streams ──────────────────
   journeyMilestonesSummary: [
     {
       year: 'CURRENT',
-      title: 'Nexus Spark',
+      title: 'Nex-X Spark',
       role: 'Intern',
       desc: 'Working on real-world company projects.',
     },
     {
       year: '2026',
-      title: 'Agile Info Park',
+      title: 'AGILEINFOTECH',
       role: 'Internship — Full Stack Development',
       desc: 'Full Stack Development using Python and Django.',
     },
     {
       year: '2025',
-      title: 'AK Info Park',
+      title: 'AK INFOPARK',
       role: 'Internship — Data Science',
       desc: 'Data Science using Python.',
     },
@@ -308,31 +366,37 @@ export const PORTFOLIO_DATA = {
   journey: [
     {
       year: 'CURRENT',
-      milestone: 'Nexus Spark — Intern',
+      milestone: 'Nex-X Spark — Intern',
       tag: 'Professional Experience',
-      summary: 'Intern at Nexus Spark, working on real-world company projects.',
+      summary: 'Intern at Nex-X Spark, working on real-world company projects.',
       details:
-        'Currently working as an intern at Nexus Spark, collaborating on real-world company projects and strengthening development skills.',
+        'Currently working as an intern at Nex-X Spark, collaborating on real-world company projects and strengthening development skills.',
       keyHighlights: ['Working on real-world company projects', 'Strengthening software development skills'],
       isCurrent: true,
+      websiteUrl: 'https://nexxspark.com/',
+      logo: '/companies/nexxspark-logo.svg',
     },
     {
       year: '2026',
-      milestone: 'Agile Info Park — Full Stack Internship',
+      milestone: 'AGILEINFOTECH — Full Stack Internship',
       tag: 'Industry Internship',
       summary: 'Internship in Full Stack Development using Python and Django.',
       details:
         'Completed full-stack development internship utilizing Python and Django to build web application components, backend views, and database interactions.',
       keyHighlights: ['Python and Django full-stack development', 'Backend views and database model implementation'],
+      websiteUrl: 'https://agileinfoz.com/',
+      logo: '/companies/agileinfotech-logo.webp',
     },
     {
       year: '2025',
-      milestone: 'AK Info Park — Data Science Internship',
+      milestone: 'AK INFOPARK — Data Science Internship',
       tag: 'Industry Internship',
       summary: 'Internship in Data Science using Python.',
       details:
         'Completed data science internship utilizing Python to process datasets, conduct exploratory data analysis, and implement analytical workflows.',
       keyHighlights: ['Data Science with Python', 'Exploratory data analysis and dataset preprocessing'],
+      websiteUrl: 'https://akinfopark.com/',
+      logo: '/companies/akinfopark-logo.png',
     },
     {
       year: '2024',
@@ -348,8 +412,10 @@ export const PORTFOLIO_DATA = {
   // ── Formal Experience (Strictly Verified Facts Only) ──
   experience: [
     {
-      id: 'nexus-spark-current',
-      company: 'Nexus Spark',
+      id: 'nexx-spark-current',
+      company: 'Nex-X Spark',
+      websiteUrl: 'https://nexxspark.com/',
+      logo: '/companies/nexxspark-logo.svg',
       role: 'Intern',
       period: 'CURRENT',
       location: 'India',
@@ -360,9 +426,11 @@ export const PORTFOLIO_DATA = {
       ],
     },
     {
-      id: 'agile-info-park-2026',
-      company: 'Agile Info Park',
-      role: 'Intern — Full Stack Development',
+      id: 'agileinfotech-2026',
+      company: 'AGILEINFOTECH',
+      websiteUrl: 'https://agileinfoz.com/',
+      logo: '/companies/agileinfotech-logo.webp',
+      role: 'Internship — Full Stack Development',
       period: '2026',
       location: 'India',
       description: 'Full Stack Development using Python and Django.',
@@ -372,9 +440,11 @@ export const PORTFOLIO_DATA = {
       ],
     },
     {
-      id: 'ak-info-park-2025',
-      company: 'AK Info Park',
-      role: 'Intern — Data Science',
+      id: 'ak-infopark-2025',
+      company: 'AK INFOPARK',
+      websiteUrl: 'https://akinfopark.com/',
+      logo: '/companies/akinfopark-logo.png',
+      role: 'Internship — Data Science',
       period: '2025',
       location: 'India',
       description: 'Data Science using Python.',
@@ -450,15 +520,15 @@ export const PORTFOLIO_DATA = {
       id: 'ach-internships',
       title: 'Industry Internships',
       category: 'Experience',
-      event: 'Agile Info Park & AK Info Park',
+      event: 'AGILEINFOTECH & AK INFOPARK',
       year: '2025 — 2026',
       result: 'Internships Completed',
       role: 'Intern',
       description:
-        'Completed internships in Full Stack Development using Python and Django (Agile Info Park, 2026) and Data Science using Python (AK Info Park, 2025).',
+        'Completed internships in Full Stack Development using Python and Django (AGILEINFOTECH, 2026) and Data Science using Python (AK INFOPARK, 2025).',
       keyHighlights: [
-        'Agile Info Park: Full Stack Development using Python and Django',
-        'AK Info Park: Data Science using Python',
+        'AGILEINFOTECH: Full Stack Development using Python and Django',
+        'AK INFOPARK: Data Science using Python',
       ],
       link: '',
     },

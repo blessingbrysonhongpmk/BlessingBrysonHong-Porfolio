@@ -3,7 +3,7 @@ import { scrollToElement } from '../../utils/scrollOrchestrator';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import './Hero.css';
 
-export function Hero({ onOpenContact }) {
+export function Hero({ onOpenContact, isRevealed = true }) {
   // Gentle spatial depth response on portrait (desktop only)
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
 
@@ -25,13 +25,18 @@ export function Hero({ onOpenContact }) {
   };
 
   return (
-    <section id="home" className="hero-section" aria-label="Introduction">
+    <section
+      id="home"
+      className={`hero-section ${isRevealed ? 'is-revealed' : 'is-concealed'}`}
+      aria-label="Introduction"
+    >
       <div className="container hero-container">
         <div className="hero-layout">
           {/* Content Column (First on Desktop & First on Mobile) */}
           <div className="hero-content">
-            {/* 1. Editorial Typography Lockup: PMK Mark + BLESSING / BRYSON HONG */}
+            {/* 1. Editorial Typography Lockup: BBH Mark + PMK Mark + BLESSING / BRYSON HONG */}
             <div className="hero-identity">
+              <span className="hero-brand-mark" aria-hidden="true">BBH.</span>
               <span className="hero-pmk-mark" aria-hidden="true">P M K</span>
               <h1 className="hero-name" aria-label="Blessing Bryson Hong P M K">
                 <span className="hero-name-line hero-name-line--primary">BLESSING</span>
@@ -86,8 +91,19 @@ export function Hero({ onOpenContact }) {
             onMouseLeave={handleVisualLeave}
           >
             <div className="hero-ambient-glow" aria-hidden="true" />
+
+            {/* Subtle Playing Card desk backing */}
+            <div className="hero-card-frame" aria-hidden="true">
+              <span className="hero-card-pip hero-card-pip--tl">♠</span>
+              <span className="hero-card-pip hero-card-pip--br">♠</span>
+            </div>
+
+            {/* Environmental Chess Pieces */}
+            <span className="hero-chess-king" aria-hidden="true">♔</span>
+            <span className="hero-chess-knight" aria-hidden="true">♘</span>
+
             <div
-              className="hero-image-frame"
+              className="hero-image-stage"
               style={{
                 transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
               }}

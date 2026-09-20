@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────
-   Hero Section — Clean Editorial Identity Presentation
+   Hero Section — Cinematic Editorial Identity Presentation
    "BLESSING / BRYSON HONG P M K" is the primary visual anchor.
-   Centered, disciplined mobile flow.
+   Open cinematic portrait cutout with crimson rim lighting.
    ───────────────────────────────────────────────────── */
 
 .hero-section {
@@ -32,7 +32,7 @@
   flex-direction: column;
 }
 
-/* ── 1. Editorial Typography Lockup: PMK Mark + Two-Line Name ── */
+/* ── 1. Editorial Typography Lockup: BBH Mark + PMK Mark + Two-Line Name ── */
 .hero-identity {
   display: flex;
   flex-direction: column;
@@ -40,7 +40,22 @@
   margin: 0 0 clamp(1rem, 1.8vw, 1.45rem) 0;
 }
 
-/* PMK Mark: Small, quiet, secondary signature mark directly above BLESSING */
+/* BBH Mark: Small, distinctive identity mark (revealed first) */
+.hero-brand-mark {
+  font-family: var(--font-mono);
+  font-size: clamp(0.70rem, 0.82vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: inline-block;
+  margin-bottom: 2px;
+  padding-left: 0.2rem;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* PMK Mark: Small, quiet, signature mark directly above BLESSING */
 .hero-pmk-mark {
   font-family: var(--font-mono);
   font-size: clamp(0.72rem, 0.85vw, 0.84rem);
@@ -51,7 +66,7 @@
   opacity: 0.85;
   display: inline-block;
   margin-bottom: clamp(0.35rem, 0.55vw, 0.55rem);
-  padding-left: 0.2rem; /* Sophisticated editorial offset */
+  padding-left: 0.2rem;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -69,7 +84,7 @@
   line-height: 1.02;
 }
 
-/* Line 1: BLESSING (large, strong, visual width balance) */
+/* Line 1: BLESSING (large, bold, visual balance) */
 .hero-name-line--primary {
   display: block;
   font-size: clamp(2.75rem, 5.35vw, 4.75rem);
@@ -81,7 +96,7 @@
   white-space: nowrap;
 }
 
-/* Line 2: BRYSON HONG (proportional visual width match with BLESSING) */
+/* Line 2: BRYSON HONG */
 .hero-name-line--secondary {
   display: block;
   font-size: clamp(2.05rem, 4.02vw, 3.55rem);
@@ -98,12 +113,12 @@
   color: var(--color-text);
 }
 
-/* HONG: subtle, restrained crimson accent */
+/* HONG: Pure crimson accent */
 .hero-name-accent {
   color: var(--color-accent);
 }
 
-/* ── 2. Small, Elegant Bible Quote Directly Under the Name ── */
+/* ── 2. Small, Tasteful Bible Quote Directly Under the Name ── */
 .hero-quote {
   margin: 0 0 clamp(1.4rem, 2.2vw, 1.85rem) 0;
   padding: 0;
@@ -133,7 +148,7 @@
   opacity: 0.75;
 }
 
-/* ── 3. Small Role ── */
+/* ── 3. Role ── */
 .hero-role-wrap {
   display: flex;
   margin-bottom: clamp(1.75rem, 3vw, 2.4rem);
@@ -141,14 +156,14 @@
 
 .hero-role {
   font-family: var(--font-body);
-  font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+  font-size: clamp(0.88rem, 1.1vw, 1rem);
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent);
 }
 
-/* ── 4. Actions Group (CTA) ── */
+/* ── 4. Primary Actions (CTA) ── */
 .hero-actions {
   display: flex;
   align-items: center;
@@ -174,16 +189,16 @@
 
 .hero-btn--primary {
   background: var(--color-accent);
-  color: var(--color-text-inverse);
+  color: #FFFFFF !important;
   border: 1px solid transparent;
-  box-shadow: 0 4px 14px rgba(255, 59, 92, 0.28);
+  box-shadow: 0 4px 14px rgba(240, 45, 79, 0.32);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .hero-btn--primary:hover {
     background: var(--color-accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(255, 59, 92, 0.38);
+    box-shadow: 0 8px 24px rgba(240, 45, 79, 0.44);
   }
 }
 
@@ -205,7 +220,7 @@
   }
 }
 
-/* ── 5. Visual Column: Portrait Anchor ── */
+/* ── 5. Visual Column: Cinematic Portrait Presentation ── */
 .hero-visual {
   position: relative;
   display: flex;
@@ -214,37 +229,126 @@
   perspective: 1200px;
 }
 
-/* Subtle Rim Glow */
+/* Atmospheric Spotlight behind portrait */
 .hero-ambient-glow {
   position: absolute;
-  width: 380px;
-  height: 440px;
+  width: 440px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 59, 92, 0.10) 0%, transparent 70%);
-  -webkit-filter: blur(60px);
-  filter: blur(60px);
+  background: radial-gradient(circle, rgba(240, 45, 79, 0.16) 0%, rgba(240, 45, 79, 0.03) 50%, transparent 70%);
+  -webkit-filter: blur(70px);
+  filter: blur(70px);
   z-index: 0;
   pointer-events: none;
 }
 
 [data-theme="dark"] .hero-ambient-glow {
-  background: radial-gradient(circle, rgba(255, 59, 92, 0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(240, 45, 79, 0.22) 0%, rgba(240, 45, 79, 0.04) 55%, transparent 70%);
 }
 
-/* Refined Portrait Frame */
-.hero-image-frame {
+[data-theme="light"] .hero-ambient-glow {
+  background: radial-gradient(circle, rgba(229, 45, 79, 0.10) 0%, rgba(229, 45, 79, 0.02) 55%, transparent 70%);
+}
+
+/* Subtle Playing Card desk backing behind portrait */
+.hero-card-frame {
+  position: absolute;
+  z-index: 0;
+  width: 356px;
+  height: 448px;
+  border-radius: 26px;
+  border: 1px solid rgba(240, 45, 79, 0.22);
+  background: rgba(12, 16, 21, 0.40);
+  transform: rotate(3.5deg) translate3d(8px, 6px, 0);
+  pointer-events: none;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
+  transition: transform var(--transition-normal);
+}
+
+[data-theme="light"] .hero-card-frame {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(229, 45, 79, 0.18);
+  box-shadow: 0 14px 32px -8px rgba(18, 21, 26, 0.10);
+}
+
+.hero-card-pip {
+  position: absolute;
+  font-size: 1rem;
+  font-family: serif;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.55;
+}
+
+.hero-card-pip--tl {
+  top: 10px;
+  left: 12px;
+}
+
+.hero-card-pip--br {
+  bottom: 10px;
+  right: 12px;
+  transform: rotate(180deg);
+}
+
+/* Floating Chess King environmental piece */
+.hero-chess-king {
+  position: absolute;
+  top: -24px;
+  right: -16px;
+  z-index: 2;
+  font-size: clamp(3.5rem, 5.5vw, 4.8rem);
+  font-family: "Cinzel", "Times New Roman", serif;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.26;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+  animation: slowFloatChess 8s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .hero-chess-king {
+  opacity: 0.32;
+}
+
+/* Environmental Chess Knight at bottom left of visual */
+.hero-chess-knight {
+  position: absolute;
+  bottom: -16px;
+  left: -14px;
+  z-index: 2;
+  font-size: clamp(2.4rem, 3.8vw, 3.2rem);
+  font-family: "Cinzel", "Times New Roman", serif;
+  line-height: 1;
+  color: var(--color-text-muted);
+  opacity: 0.22;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+  animation: slowFloatChess 9s ease-in-out infinite alternate-reverse;
+}
+
+/* Open Cinematic Portrait Stage (Borderless cutout effect) */
+.hero-image-stage {
   position: relative;
   z-index: 1;
-  width: 330px;
-  height: 410px;
+  width: 340px;
+  height: 430px;
   max-width: 100%;
-  border-radius: 28px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: var(--shadow-spatial);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: #000000;
+  box-shadow: 0 24px 52px -12px rgba(0, 0, 0, 0.80);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow var(--transition-fast);
   will-change: transform;
+}
+
+[data-theme="light"] .hero-image-stage {
+  background: #111318;
+  border-color: rgba(18, 21, 26, 0.12);
+  box-shadow: 0 20px 44px -10px rgba(18, 21, 26, 0.16);
 }
 
 .hero-image {
@@ -255,16 +359,19 @@
   display: block;
 }
 
+/* Cinematic Crimson Rim Light on right edge */
 .hero-image-rim {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: inset -4px 0 18px rgba(240, 45, 79, 0.36),
+              inset 0 -30px 40px rgba(0, 0, 0, 0.65);
   pointer-events: none;
 }
 
 [data-theme="dark"] .hero-image-rim {
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: inset -5px 0 22px rgba(240, 45, 79, 0.46),
+              inset 0 -40px 50px rgba(0, 0, 0, 0.85);
 }
 
 /* ── Mobile Screen Reflow: Center-Aligned Flow ── */
@@ -275,7 +382,6 @@
     text-align: center;
   }
 
-  /* Explicitly order: Content first, Profile visual next */
   .hero-content {
     order: 1;
     align-items: center;
@@ -289,7 +395,7 @@
 
   .hero-pmk-mark {
     padding-left: 0;
-    margin-left: 0.28em; /* maintain optical center with wide tracking */
+    margin-left: 0.28em;
   }
 
   .hero-name {
@@ -323,7 +429,6 @@
     margin: 0 auto;
   }
 
-  /* Centered Profile Visual on Mobile */
   .hero-visual {
     order: 2;
     justify-content: center;
@@ -332,20 +437,36 @@
     width: 100%;
   }
 
-  .hero-image-frame {
+  .hero-image-stage {
     margin: 0 auto;
-    width: 250px;
-    height: 310px;
+    width: 260px;
+    height: 325px;
     transform: none !important;
   }
 
+  .hero-card-frame {
+    width: 274px;
+    height: 340px;
+    transform: rotate(2deg) translate3d(4px, 4px, 0);
+  }
+
   .hero-ambient-glow {
-    width: 270px;
-    height: 310px;
+    width: 280px;
+    height: 320px;
     left: 50%;
     transform: translateX(-50%);
-    -webkit-filter: blur(40px);
-    filter: blur(40px);
+    -webkit-filter: blur(45px);
+    filter: blur(45px);
+  }
+
+  .hero-chess-king {
+    right: 15%;
+    font-size: 3.5rem;
+  }
+
+  .hero-chess-knight {
+    left: 15%;
+    font-size: 2.4rem;
   }
 }
 
@@ -370,8 +491,120 @@
     width: 100%;
   }
 
-  .hero-image-frame {
-    width: 220px;
-    height: 275px;
+  .hero-image-stage {
+    width: 230px;
+    height: 290px;
+  }
+
+  .hero-card-frame {
+    width: 242px;
+    height: 304px;
   }
 }
+
+/* ── Orchestrated Hero Reveal Cascade After Welcome Loader ── */
+.hero-section.is-concealed .hero-brand-mark,
+.hero-section.is-concealed .hero-pmk-mark,
+.hero-section.is-concealed .hero-name-line--primary,
+.hero-section.is-concealed .hero-name-line--secondary,
+.hero-section.is-concealed .hero-quote,
+.hero-section.is-concealed .hero-role-wrap,
+.hero-section.is-concealed .hero-actions,
+.hero-section.is-concealed .hero-image-stage,
+.hero-section.is-concealed .hero-card-frame,
+.hero-section.is-concealed .hero-ambient-glow,
+.hero-section.is-concealed .hero-chess-king,
+.hero-section.is-concealed .hero-chess-knight {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-section.is-revealed .hero-brand-mark {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 60ms forwards;
+}
+
+.hero-section.is-revealed .hero-pmk-mark {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 160ms forwards;
+}
+
+.hero-section.is-revealed .hero-name-line--primary {
+  animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 260ms forwards;
+}
+
+.hero-section.is-revealed .hero-name-line--secondary {
+  animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 380ms forwards;
+}
+
+.hero-section.is-revealed .hero-quote {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 500ms forwards;
+}
+
+.hero-section.is-revealed .hero-role-wrap {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 620ms forwards;
+}
+
+.hero-section.is-revealed .hero-actions {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 740ms forwards;
+}
+
+/* 8. Profile Image Reveal: Opacity + Subtle Upward Movement + Delicate Scale Settle */
+.hero-section.is-revealed .hero-image-stage {
+  animation: heroProfileSettle 0.85s cubic-bezier(0.16, 1, 0.3, 1) 340ms forwards;
+}
+
+/* Atmospheric Ambient & Chess Pieces */
+.hero-section.is-revealed .hero-ambient-glow,
+.hero-section.is-revealed .hero-card-frame,
+.hero-section.is-revealed .hero-chess-king,
+.hero-section.is-revealed .hero-chess-knight {
+  animation: heroAmbientReveal 0.85s ease 800ms forwards;
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+@keyframes heroProfileSettle {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.965);
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+  }
+}
+
+@keyframes heroAmbientReveal {
+  0% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section.is-concealed *,
+  .hero-section.is-revealed * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+}
+

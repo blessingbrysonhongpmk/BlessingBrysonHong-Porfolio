@@ -66,6 +66,7 @@ export function Navbar({ theme, toggleTheme }) {
         <div className="container navbar__inner">
           {/* Brand */}
           <a href="#home" className="navbar__brand" onClick={e => handleNav(e, '#home')} aria-label="BBH Home">
+            <span className="navbar__brand-glyph" aria-hidden="true">♔</span>
             <span className="navbar__brand-name">
               BBH<span className="navbar__brand-dot">.</span>
             </span>
@@ -87,6 +88,14 @@ export function Navbar({ theme, toggleTheme }) {
 
           {/* Actions */}
           <div className="navbar__actions">
+            <a
+              href="#contact"
+              className="navbar__cta-btn"
+              onClick={e => handleNav(e, '#contact')}
+            >
+              Get in touch
+            </a>
+
             <button
               className="navbar__theme-btn"
               onClick={toggleTheme}

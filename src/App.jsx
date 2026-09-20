@@ -17,6 +17,7 @@ import { AchievementsDetailModal } from './components/modals/AchievementsDetailM
 import { ContactDetailModal } from './components/modals/ContactDetailModal';
 
 import { AdminLayout } from './components/admin/AdminLayout';
+import { MacWelcomeLoader } from './components/welcome/MacWelcomeLoader';
 import { PortfolioProvider, usePortfolioContent } from './context/PortfolioContext';
 
 import './styles/global.css';
@@ -47,6 +48,30 @@ function PortfolioApp() {
     if (typeof window === 'undefined') return false;
     return window.location.hash.startsWith('#/admin') || window.location.pathname === '/admin';
   });
+
+  // Mac-Style Welcome Loader: runs on initial visit in this session
+  const [isWelcomeComplete, setIsWelcomeComplete] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    if (window.location.hash.startsWith('#/admin') || window.location.pathname === '/admin') return true;
+    const seen = sessionStorage.getItem('bbh_welcome_seen');
+    const force = window.location.search.includes('welcome=true');
+    return !!(seen && !force);
+  });
+
+  useEffect(() => {
+    if (!isWelcomeComplete) {
+      document.body.classList.add('is-welcome-active');
+    } else {
+      document.body.classList.remove('is-welcome-active');
+    }
+    return () => {
+      document.body.classList.remove('is-welcome-active');
+    };
+  }, [isWelcomeComplete]);
+
+  const handleWelcomeComplete = useCallback(() => {
+    setIsWelcomeComplete(true);
+  }, []);
 
   // Modal states
   const [activeProject, setActiveProject] = useState(null);
@@ -230,12 +255,15 @@ function PortfolioApp() {
 
   return (
     <>
+      {!isWelcomeComplete && (
+        <MacWelcomeLoader onComplete={handleWelcomeComplete} />
+      )}
       <LivingAtmosphere />
       <a href="#main-content" className="sr-only">Skip to main content</a>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <main id="main-content">
-        <Hero onOpenContact={handleOpenContact} />
+        <Hero onOpenContact={handleOpenContact} isRevealed={isWelcomeComplete} />
         <About onOpenAbout={handleOpenAbout} />
         <Projects onSelectProject={handleSelectProject} />
         <Skills onOpenSkills={handleOpenSkills} />

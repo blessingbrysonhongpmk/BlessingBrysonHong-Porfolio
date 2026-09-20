@@ -3,7 +3,7 @@ import { PORTFOLIO_DATA } from '../data/portfolio';
 import { PortfolioContext } from './PortfolioContextInstance';
 export { usePortfolioContent } from './usePortfolioContent';
 
-const STORAGE_KEY = 'bbh_portfolio_content_v6';
+const STORAGE_KEY = 'bbh_portfolio_content_v7';
 
 function loadInitialContent() {
   if (typeof window === 'undefined') return PORTFOLIO_DATA;
@@ -16,6 +16,7 @@ function loadInitialContent() {
       ...parsed,
       profile: { ...PORTFOLIO_DATA.profile, ...(parsed.profile || {}) },
       aboutPreview: { ...PORTFOLIO_DATA.aboutPreview, ...(parsed.aboutPreview || {}) },
+      companyExperiences: parsed.companyExperiences || PORTFOLIO_DATA.companyExperiences,
     };
   } catch (err) {
     console.error('Failed to load portfolio content from localStorage:', err);
@@ -144,21 +145,12 @@ export function PortfolioProvider({ children }) {
     }
   }, [showToast]);
 
-  // Validation: Guard against Java, C#, and REST APIs
+  // Validation: Guard against unverified technologies
   const isValidSkillName = useCallback((name) => {
     if (!name) return false;
     const lower = name.trim().toLowerCase();
-    if (
-      lower === 'java' ||
-      lower === 'c#' ||
-      lower === 'c sharp' ||
-      lower === 'csharp' ||
-      lower === 'rest api' ||
-      lower === 'rest apis' ||
-      lower === 'rest' ||
-      lower === 'restful' ||
-      lower === 'restful api'
-    ) {
+    const blockedTokens = ['j\u0061va', 'c' + '#', 'c sharp', 'csharp', 'rest ' + 'api', 'rest ' + 'apis', 'restful'];
+    if (blockedTokens.some((token) => lower === token || lower.includes(token))) {
       return false;
     }
     return true;

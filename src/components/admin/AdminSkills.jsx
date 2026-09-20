@@ -23,7 +23,7 @@ export function AdminSkills() {
   // Skill item changes
   const handleSkillChange = (categoryName, skillIndex, field, val) => {
     if (field === 'name' && !isValidSkillName(val)) {
-      setSkillError('Java, C#, and REST APIs are strictly prohibited in this portfolio.');
+      setSkillError('This technology is not permitted in this portfolio.');
       return;
     }
     setSkillError('');
@@ -56,7 +56,7 @@ export function AdminSkills() {
     if (!cleanName) return;
 
     if (!isValidSkillName(cleanName)) {
-      setSkillError('Java, C#, and REST APIs are strictly prohibited in this portfolio.');
+      setSkillError('This technology is not permitted in this portfolio.');
       return;
     }
 
@@ -94,7 +94,7 @@ export function AdminSkills() {
 
         <div className="admin-status-pill admin-status-pill--synced">
           <ShieldCheck size={14} />
-          <span>Java, C# &amp; REST APIs Excluded</span>
+          <span>Verified Skills Only</span>
         </div>
       </div>
 

@@ -16,7 +16,7 @@ import {
   Lightbulb,
   Award,
 } from 'lucide-react';
-import { GithubIcon } from '../ui/SocialIcons';
+import { GithubIcon, TechLogo } from '../ui/SocialIcons';
 import { SmartCanteenSimulator } from '../ui/SmartCanteenSimulator';
 import { IndustrialEstimator } from '../ui/IndustrialEstimator';
 import { AluminiumCustomizer } from '../ui/AluminiumCustomizer';
@@ -201,7 +201,8 @@ export function ProjectDetailModal({ project: initialProject, onClose }) {
                   <div className="tech-pills-wrap">
                     {project.technologies.map((tech) => (
                       <span key={tech} className="tech-badge-capsule">
-                        {tech}
+                        <TechLogo name={tech} size={14} className="tech-badge-logo" />
+                        <span>{tech}</span>
                       </span>
                     ))}
                   </div>

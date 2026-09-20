@@ -1,0 +1,159 @@
+/* ─────────────────────────────────────────────────────
+   Mac-Style Multilingual "Hello" Welcome & Loading Screen
+   Deep cinematic black background, calm typography, and
+   delicate blur-to-sharp optical cross-fades.
+   ───────────────────────────────────────────────────── */
+
+.mac-welcome-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.mac-welcome-overlay.is-fading-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Subtle Ambient Light Falloff Behind Greeting ── */
+.mac-welcome-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(650px, 88vw);
+  height: min(520px, 75vh);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.015) 40%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Very faint micro atmospheric texture */
+.mac-welcome-grain {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 85% 65% at 50% 50%,
+    transparent 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Central Typography Stage ── */
+.mac-welcome-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  min-height: 140px;
+}
+
+/* ── Refined Apple-Style Greeting Word ── */
+.mac-welcome-word {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
+  font-size: clamp(3.2rem, 8.5vw, 6.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #F5F5F7;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  animation: macWordIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+/* Final "Hello" word has a slightly deeper presence */
+.mac-welcome-word--final {
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+}
+
+/* Smooth dissolve when transition into hero triggers */
+.mac-welcome-overlay.is-fading-out .mac-welcome-word {
+  opacity: 0;
+  transform: scale(1.04);
+  filter: blur(12px);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.55s ease;
+}
+
+/* ── Fluid Entrance Keyframes ── */
+@keyframes macWordIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* ── Mobile Layout Optimization ── */
+@media (max-width: 600px) {
+  .mac-welcome-word {
+    font-size: clamp(2.6rem, 11.5vw, 4.2rem);
+    letter-spacing: -0.02em;
+  }
+
+  .mac-welcome-stage {
+    min-height: 100px;
+  }
+
+  .mac-welcome-glow {
+    width: 92vw;
+    height: 60vh;
+    filter: blur(30px);
+  }
+}
+
+/* ── Accessibility: Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .mac-welcome-word {
+    animation: none;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .mac-welcome-overlay {
+    transition: opacity 0.3s ease;
+  }
+}

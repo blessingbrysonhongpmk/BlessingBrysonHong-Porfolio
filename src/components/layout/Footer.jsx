@@ -26,8 +26,9 @@ export function Footer() {
         <div className="footer__header">
           <div className="footer__identity">
             <div className="footer__brand-wrapper">
-              <span className="footer__orbital-ring" aria-hidden="true">
-                <span className="footer__orbital-dot" />
+              <span className="footer__brand-glyph" aria-hidden="true">♔</span>
+              <span className="footer__brand-mark">
+                BBH<span className="footer__brand-dot">.</span>
               </span>
               <span className="footer__name">
                 P M K BLESSING BRYSON HONG
@@ -44,7 +45,7 @@ export function Footer() {
                 href={githubObj.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="footer__social-pill"
+                className="footer__social-pill footer__social-pill--github"
                 aria-label="GitHub Profile"
               >
                 <GithubIcon size={15} />
@@ -58,7 +59,7 @@ export function Footer() {
                 href={linkedinObj.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="footer__social-pill"
+                className="footer__social-pill footer__social-pill--linkedin"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedinIcon size={15} />
@@ -69,10 +70,10 @@ export function Footer() {
 
             <a
               href={`mailto:${profile.email}`}
-              className="footer__social-pill"
+              className="footer__social-pill footer__social-pill--email"
               aria-label="Send direct email"
             >
-              <Mail size={15} />
+              <Mail size={15} className="footer__email-icon" />
               <span>Email</span>
               <ArrowUpRight size={13} className="footer__pill-arrow" />
             </a>

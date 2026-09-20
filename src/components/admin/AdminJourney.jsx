@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, ArrowUp, ArrowDown, Eye, EyeOff, ExternalLink } from 'lucide-react';
 
 export function AdminJourney() {
   const { draftContent, updateDraft } = usePortfolioContent();
+  const companyExperiences = draftContent.companyExperiences || [];
   const journey = draftContent.journey || [];
   const experience = draftContent.experience || [];
   const education = draftContent.education || [];
@@ -11,7 +12,60 @@ export function AdminJourney() {
   const milestonesSummary = draftContent.journeyMilestonesSummary || [];
   const achievementsSummary = draftContent.achievementsSummary || [];
 
-  const [activeSubTab, setActiveSubTab] = useState('experience'); // 'experience' | 'milestones' | 'achievements' | 'education' | 'summaries'
+  const [activeSubTab, setActiveSubTab] = useState('companies'); // 'companies' | 'experience' | 'milestones' | 'achievements' | 'education' | 'summaries'
+
+  // Company Website Previews (3-Column Showcase)
+  const handleUpdateCompanyExp = (index, field, val) => {
+    const list = [...companyExperiences];
+    list[index] = { ...list[index], [field]: val };
+    updateDraft('companyExperiences', list);
+  };
+
+  const handleAddCompanyExp = () => {
+    const newComp = {
+      id: `company-${Date.now()}`,
+      company: 'New Company',
+      websiteUrl: 'https://example.com/',
+      displayUrl: 'example.com',
+      logo: '/companies/nexxspark-logo.svg',
+      previewImage: '/companies/nexxspark-preview.png',
+      mobilePreviewImage: '/companies/nexxspark-mobile.png',
+      role: 'Intern',
+      period: 'CURRENT',
+      status: 'Software Engineering',
+      description: 'Working on real-world projects.',
+      technologies: ['Python'],
+      accentColor: '#6366F1',
+      accentGlow: 'rgba(99, 102, 241, 0.28)',
+      themeClass: 'company-card--custom',
+      browserTitle: 'Company — Website Preview',
+      hidden: false,
+    };
+    updateDraft('companyExperiences', [...companyExperiences, newComp]);
+  };
+
+  const handleDeleteCompanyExp = (index) => {
+    if (window.confirm(`Delete "${companyExperiences[index]?.company || 'this company'}" preview?`)) {
+      const list = companyExperiences.filter((_, i) => i !== index);
+      updateDraft('companyExperiences', list);
+    }
+  };
+
+  const handleMoveCompanyExp = (index, direction) => {
+    const list = [...companyExperiences];
+    const targetIdx = direction === 'up' ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= list.length) return;
+    const temp = list[index];
+    list[index] = list[targetIdx];
+    list[targetIdx] = temp;
+    updateDraft('companyExperiences', list);
+  };
+
+  const handleToggleHideCompanyExp = (index) => {
+    const list = [...companyExperiences];
+    list[index] = { ...list[index], hidden: !list[index].hidden };
+    updateDraft('companyExperiences', list);
+  };
 
   // Internships / Experience
   const handleUpdateExp = (index, field, val) => {
@@ -47,13 +101,20 @@ export function AdminJourney() {
         <div>
           <h2 className="admin-page-header__title">Journey, Experience &amp; Honors</h2>
           <p className="admin-page-header__desc">
-            Edit your verified experience (Nexus Spark &amp; internships), university degree, chronological trajectory, and competitive achievements.
+            Edit your verified experience (Nex-X Spark &amp; internships), university degree, chronological trajectory, and competitive achievements.
           </p>
         </div>
       </div>
 
       {/* Sub-tab strip */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+        <button
+          type="button"
+          className={`admin-btn ${activeSubTab === 'companies' ? 'admin-btn--primary' : 'admin-btn--ghost'}`}
+          onClick={() => setActiveSubTab('companies')}
+        >
+          Company Website Previews ({companyExperiences.length})
+        </button>
         <button
           type="button"
           className={`admin-btn ${activeSubTab === 'experience' ? 'admin-btn--primary' : 'admin-btn--ghost'}`}
@@ -90,6 +151,247 @@ export function AdminJourney() {
           Homepage Summary Cards
         </button>
       </div>
+
+      {/* SUB-TAB 0: Company Website Previews */}
+      {activeSubTab === 'companies' && (
+        <div>
+          <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--color-text-secondary)' }}>
+              These 3 interactive browser cards appear in the <strong>INTERNSHIPS &amp; EXPERIENCE</strong> showcase on the home page.
+            </p>
+            <button
+              type="button"
+              className="admin-btn admin-btn--primary"
+              onClick={handleAddCompanyExp}
+              style={{ fontSize: '0.8rem' }}
+            >
+              <Plus size={14} /> Add Company Card
+            </button>
+          </div>
+
+          {companyExperiences.map((comp, idx) => (
+            <div
+              key={comp.id || idx}
+              className="admin-card"
+              style={{
+                opacity: comp.hidden ? 0.6 : 1,
+                borderLeft: `4px solid ${comp.accentColor || 'var(--color-primary)'}`,
+                marginBottom: '20px',
+              }}
+            >
+              <div className="admin-card__header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  {comp.logo && (
+                    <div style={{ width: '28px', height: '28px', background: '#FFF', borderRadius: '4px', padding: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img src={comp.logo} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    </div>
+                  )}
+                  <h3 className="admin-card__title" style={{ margin: 0 }}>
+                    #{idx + 1} {comp.company} — <span style={{ color: comp.accentColor }}>{comp.role}</span> ({comp.period})
+                    {comp.hidden && <span style={{ marginLeft: '8px', fontSize: '0.72rem', color: '#f59e0b' }}>[HIDDEN]</span>}
+                  </h3>
+                </div>
+
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--ghost"
+                    onClick={() => handleMoveCompanyExp(idx, 'up')}
+                    disabled={idx === 0}
+                    title="Move Up"
+                    style={{ padding: '6px 8px' }}
+                  >
+                    <ArrowUp size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--ghost"
+                    onClick={() => handleMoveCompanyExp(idx, 'down')}
+                    disabled={idx === companyExperiences.length - 1}
+                    title="Move Down"
+                    style={{ padding: '6px 8px' }}
+                  >
+                    <ArrowDown size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--ghost"
+                    onClick={() => handleToggleHideCompanyExp(idx)}
+                    title={comp.hidden ? 'Show on Public Site' : 'Hide from Public Site'}
+                    style={{ padding: '6px 8px' }}
+                  >
+                    {comp.hidden ? <EyeOff size={14} /> : <Eye size={14} />}
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--danger"
+                    onClick={() => handleDeleteCompanyExp(idx)}
+                    title="Delete Company"
+                    style={{ padding: '6px 8px' }}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Form Grid */}
+              <div className="admin-grid-3">
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Company Name</label>
+                  <input
+                    type="text"
+                    value={comp.company}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'company', e.target.value)}
+                    className="admin-input"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Role</label>
+                  <input
+                    type="text"
+                    value={comp.role}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'role', e.target.value)}
+                    className="admin-input"
+                    placeholder="Intern or Internship"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Period / Status</label>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      value={comp.period}
+                      onChange={(e) => handleUpdateCompanyExp(idx, 'period', e.target.value)}
+                      className="admin-input"
+                      placeholder="CURRENT or 2026"
+                    />
+                    <input
+                      type="text"
+                      value={comp.status}
+                      onChange={(e) => handleUpdateCompanyExp(idx, 'status', e.target.value)}
+                      className="admin-input"
+                      placeholder="Focus Area"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-3">
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Official Website URL</label>
+                  <input
+                    type="text"
+                    value={comp.websiteUrl}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'websiteUrl', e.target.value)}
+                    className="admin-input"
+                    placeholder="https://example.com/"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Display Domain</label>
+                  <input
+                    type="text"
+                    value={comp.displayUrl}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'displayUrl', e.target.value)}
+                    className="admin-input"
+                    placeholder="example.com"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Official Logo URL</label>
+                  <input
+                    type="text"
+                    value={comp.logo}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'logo', e.target.value)}
+                    className="admin-input"
+                    placeholder="/companies/logo.png"
+                  />
+                </div>
+              </div>
+
+              <div className="admin-grid-3">
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Desktop Preview Image</label>
+                  <input
+                    type="text"
+                    value={comp.previewImage}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'previewImage', e.target.value)}
+                    className="admin-input"
+                    placeholder="/companies/preview.png"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Mobile Preview Image</label>
+                  <input
+                    type="text"
+                    value={comp.mobilePreviewImage}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'mobilePreviewImage', e.target.value)}
+                    className="admin-input"
+                    placeholder="/companies/mobile.png"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Accent Color &amp; Glow</label>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="color"
+                      value={comp.accentColor?.startsWith('#') ? comp.accentColor : '#6366F1'}
+                      onChange={(e) => {
+                        const col = e.target.value;
+                        handleUpdateCompanyExp(idx, 'accentColor', col);
+                      }}
+                      style={{ width: '40px', height: '36px', padding: '2px', border: '1px solid var(--color-border)', borderRadius: '6px', background: 'transparent', cursor: 'pointer' }}
+                    />
+                    <input
+                      type="text"
+                      value={comp.accentColor}
+                      onChange={(e) => handleUpdateCompanyExp(idx, 'accentColor', e.target.value)}
+                      className="admin-input"
+                      placeholder="#6366F1"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-form-label">Verified Experience Description</label>
+                <textarea
+                  rows={2}
+                  value={comp.description}
+                  onChange={(e) => handleUpdateCompanyExp(idx, 'description', e.target.value)}
+                  className="admin-textarea"
+                />
+              </div>
+
+              <div className="admin-grid-2">
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Technologies (comma separated)</label>
+                  <input
+                    type="text"
+                    value={(comp.technologies || []).join(', ')}
+                    onChange={(e) => {
+                      const tags = e.target.value.split(',').map((s) => s.trim()).filter(Boolean);
+                      handleUpdateCompanyExp(idx, 'technologies', tags);
+                    }}
+                    className="admin-input"
+                    placeholder="Python, Django"
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label className="admin-form-label">Browser Mockup Window Title</label>
+                  <input
+                    type="text"
+                    value={comp.browserTitle || ''}
+                    onChange={(e) => handleUpdateCompanyExp(idx, 'browserTitle', e.target.value)}
+                    className="admin-input"
+                    placeholder="Company — Website Preview"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* SUB-TAB 1: Verified Internships */}
       {activeSubTab === 'experience' && (

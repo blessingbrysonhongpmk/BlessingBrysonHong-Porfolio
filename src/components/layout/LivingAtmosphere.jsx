@@ -2,17 +2,20 @@ import { useEffect, useRef, memo } from 'react';
 import './LivingAtmosphere.css';
 
 /**
- * Massive Living Atmosphere — Digital Universe Engine
+ * Digital Chess Table & Card Desk Atmosphere Engine
  *
- * Immersive cosmic depth with:
- * - Fluid multi-zone radiant light sheets (crimson + deep celestial glow)
- * - Dynamic canvas with 220 depth-sorted stars + glowing core halos
- * - Orbital rings with revolving satellites
- * - Luminous cosmic dust particles drifting with gentle physics
- * - Subtle floating creative glyphs (chess, AI, code)
- * - 4-layer mouse parallax response
+ * Visual Layers:
+ * - Layer 1: Base dark obsidian (#050608) / warm ivory table with subtle perspective board grid
+ * - Layer 2: Overhead crimson studio spotlight (#F02D4F) with gentle breathing
+ * - Layer 3: Large blurred playing card silhouettes drifting with scroll parallax
+ * - Layer 4: Metallic coin/chip circular outlines with specular reflection
+ * - Layer 5: Floating environmental chess pieces (♔, ♕, ♗, ♘, ♖, ♙) in safe peripheral zones
+ * - Layer 6: Atmospheric micro-dust particles
+ *
+ * Strictly safe: Never covers hero text, project cards, or interactive forms.
+ * Parallax: Subtle scroll-depth and pointer tilt for a physical camera feel.
  */
-function DigitalUniverseComponent() {
+function CinematicAtmosphereComponent() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -29,306 +32,429 @@ function DigitalUniverseComponent() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth <= 768;
 
-    // Mouse parallax
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
+    // Smooth parallax state
+    let targetMouseX = 0, targetMouseY = 0;
+    let currentMouseX = 0, currentMouseY = 0;
+    let targetScrollY = window.scrollY || 0;
+    let currentScrollY = targetScrollY;
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
       buildScene();
+      if (prefersReducedMotion) renderOnce();
     };
 
     const handleMouseMove = (e) => {
       if (isMobile || prefersReducedMotion) return;
-      targetX = (e.clientX / width - 0.5) * 60;
-      targetY = (e.clientY / height - 0.5) * 60;
+      targetMouseX = (e.clientX / width - 0.5) * 40;
+      targetMouseY = (e.clientY / height - 0.5) * 40;
+    };
+
+    const handleScroll = () => {
+      targetScrollY = window.scrollY || 0;
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // Scene elements
-    let stars = [];
-    let nebulae = [];
-    let objects = [];
-    let orbitals = [];
+    let dustParticles = [];
+    let chessObjects = [];
+    let cardSilhouettes = [];
+    let coinRings = [];
 
     function buildScene() {
-      // 1. Stars: refined, minimal atmospheric depth
-      const starCount = isMobile ? 50 : 110;
-      stars = Array.from({ length: starCount }, () => {
-        const depth = Math.random(); // 0 = far, 1 = near
+      // 1. Atmospheric micro-dust particles (like studio dust in spotlight)
+      const count = isMobile ? 22 : 48;
+      dustParticles = Array.from({ length: count }, () => {
+        const depth = Math.random();
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          size: depth * 1.5 + 0.3,
-          alpha: depth * 0.4 + 0.1,
-          parallax: depth * 0.35,
+          size: depth * 1.3 + 0.35,
+          alpha: depth * 0.28 + 0.06,
+          parallax: depth * 0.2,
+          scrollParallax: depth * 0.12,
           twinkleSpeed: Math.random() * 0.015 + 0.005,
           twinklePhase: Math.random() * Math.PI * 2,
-          drift: (Math.random() - 0.5) * 0.015,
-          isGlow: depth > 0.85, // Only the very brightest stars get faint halos
+          driftX: (Math.random() - 0.5) * 0.015,
+          driftY: (Math.random() - 0.5) * 0.01,
         };
       });
 
-      // 2. Cosmic Nebula Dust Orbs (Very Soft Ambient Light)
-      const nebulaCount = isMobile ? 2 : 5;
-      nebulae = Array.from({ length: nebulaCount }, (_, i) => ({
-        x: (0.2 + (i / nebulaCount) * 0.65) * width,
-        y: (0.15 + Math.random() * 0.7) * height,
-        radius: (0.2 + Math.random() * 0.2) * Math.min(width, height),
-        color: i % 2 === 0 ? 'rgba(255, 59, 92, ' : 'rgba(13, 16, 21, ',
-        baseAlpha: 0.04 + Math.random() * 0.03,
-        pulseSpeed: 0.001 + Math.random() * 0.0015,
-        driftX: (Math.random() - 0.5) * 0.02,
-        driftY: (Math.random() - 0.5) * 0.015,
-        parallax: 0.15,
-      }));
-
-      // 3. Floating creative objects (Peripheral and subtle, never over the name)
       if (!isMobile) {
-        const GLYPHS = [
-          { glyph: '♟', size: 24, depth: 0.06 },
-          { glyph: '♞', size: 30, depth: 0.07 },
-          { glyph: '{ }', size: 20, depth: 0.05 },
-          { glyph: '⬡', size: 18, depth: 0.05 },
-          { glyph: '∑', size: 22, depth: 0.06 },
-          { glyph: '</>', size: 16, depth: 0.05 },
-          { glyph: '♛', size: 28, depth: 0.07 },
+        // 2. Large blurred playing card silhouettes (resting at desk depth)
+        cardSilhouettes = [
+          {
+            xRatio: 0.88,
+            yRatio: 0.32,
+            width: 140,
+            height: 200,
+            angle: 0.14, // ~8 deg
+            parallax: 0.16,
+            scrollParallax: 0.08,
+            alpha: 0.045,
+            cornerPip: '♠',
+          },
+          {
+            xRatio: 0.08,
+            yRatio: 0.72,
+            width: 120,
+            height: 175,
+            angle: -0.18, // ~-10 deg
+            parallax: 0.14,
+            scrollParallax: 0.07,
+            alpha: 0.038,
+            cornerPip: '♦',
+          },
+          {
+            xRatio: 0.92,
+            yRatio: 0.85,
+            width: 110,
+            height: 160,
+            angle: 0.22,
+            parallax: 0.18,
+            scrollParallax: 0.09,
+            alpha: 0.035,
+            cornerPip: '♔',
+          }
         ];
 
-        // Safe placement: right side or lower viewport, never over the hero name area
-        objects = GLYPHS.map((g, i) => {
-          const isRight = i % 2 === 0;
-          const x = isRight
-            ? (0.62 + Math.random() * 0.32) * width
-            : (0.05 + Math.random() * 0.35) * width;
-          const y = isRight
-            ? (0.12 + Math.random() * 0.75) * height
-            : (0.68 + Math.random() * 0.26) * height; // if left, only in lower viewport
+        // 3. Environmental Chess Pieces (Safe Zones: outer right flank & bottom corners)
+        const CHESS_PIECES = [
+          { glyph: '♔', size: 78, depth: 0.065, isAccent: true, xRatio: 0.90, yRatio: 0.16 },
+          { glyph: '♕', size: 66, depth: 0.055, isAccent: false, xRatio: 0.76, yRatio: 0.38 },
+          { glyph: '♗', size: 54, depth: 0.05, isAccent: false, xRatio: 0.92, yRatio: 0.62 },
+          { glyph: '♘', size: 58, depth: 0.055, isAccent: false, xRatio: 0.06, yRatio: 0.86 },
+          { glyph: '♙', size: 46, depth: 0.045, isAccent: true, xRatio: 0.18, yRatio: 0.92 },
+          { glyph: '♖', size: 50, depth: 0.048, isAccent: false, xRatio: 0.82, yRatio: 0.88 },
+        ];
 
-          return {
-            ...g,
-            x,
-            y,
-            driftX: (Math.random() - 0.5) * 0.02,
-            driftY: (Math.random() - 0.5) * 0.015,
-            rotation: Math.random() * Math.PI * 2,
-            rotSpeed: (Math.random() - 0.5) * 0.0004,
-            parallax: g.depth * 2.8,
-            phase: (i / GLYPHS.length) * Math.PI * 2,
-          };
-        });
+        chessObjects = CHESS_PIECES.map((piece, i) => ({
+          ...piece,
+          x: piece.xRatio * width,
+          y: piece.yRatio * height,
+          driftX: (Math.random() - 0.5) * 0.015,
+          driftY: (Math.random() - 0.5) * 0.012,
+          rotation: (Math.random() - 0.5) * 0.2,
+          rotSpeed: (Math.random() - 0.5) * 0.0002,
+          parallax: piece.depth * 2.8,
+          scrollParallax: piece.depth * 1.6,
+          phase: (i / CHESS_PIECES.length) * Math.PI * 2,
+        }));
+
+        // 4. Metallic coin/chip circular outlines
+        coinRings = [
+          {
+            cxRatio: 0.84,
+            cyRatio: 0.24,
+            r: Math.min(width, height) * 0.10,
+            tilt: -0.25,
+            alpha: 0.05,
+            parallax: 0.14,
+            scrollParallax: 0.06,
+            speed: 0.00025,
+            angle: 0,
+          },
+          {
+            cxRatio: 0.22,
+            cyRatio: 0.82,
+            r: Math.min(width, height) * 0.08,
+            tilt: 0.32,
+            alpha: 0.04,
+            parallax: 0.10,
+            scrollParallax: 0.05,
+            speed: 0.0002,
+            angle: Math.PI * 0.4,
+          },
+        ];
+      } else {
+        cardSilhouettes = [];
+        chessObjects = [];
+        coinRings = [];
       }
-
-      // 4. Orbital rings with satellites
-      orbitals = isMobile ? [] : [
-        {
-          cx: width * 0.72,
-          cy: height * 0.28,
-          rx: width * 0.24,
-          ry: height * 0.16,
-          rotation: -0.15,
-          speed: 0.0004,
-          satAngle: 0,
-          alpha: 0.05,
-          parallax: 0.18,
-        },
-        {
-          cx: width * 0.35,
-          cy: height * 0.75,
-          rx: width * 0.20,
-          ry: height * 0.13,
-          rotation: 0.2,
-          speed: 0.0003,
-          satAngle: Math.PI,
-          alpha: 0.04,
-          parallax: 0.12,
-        },
-      ];
     }
 
     buildScene();
 
     let time = 0;
 
+    // Helper to draw a playing card silhouette with rounded corners & faint border
+    function drawCardSilhouette(ctx, x, y, w, h, angle, alpha, pip, isDark) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+
+      const r = 10;
+      ctx.beginPath();
+      ctx.moveTo(-w / 2 + r, -h / 2);
+      ctx.lineTo(w / 2 - r, -h / 2);
+      ctx.arcTo(w / 2, -h / 2, w / 2, -h / 2 + r, r);
+      ctx.lineTo(w / 2, h / 2 - r);
+      ctx.arcTo(w / 2, h / 2, w / 2 - r, h / 2, r);
+      ctx.lineTo(-w / 2 + r, h / 2);
+      ctx.arcTo(-w / 2, h / 2, -w / 2, h / 2 - r, r);
+      ctx.lineTo(-w / 2, -h / 2 + r);
+      ctx.arcTo(-w / 2, -h / 2, -w / 2 + r, -h / 2, r);
+      ctx.closePath();
+
+      // Card face fill
+      ctx.fillStyle = isDark
+        ? `rgba(255, 255, 255, ${alpha * 0.28})`
+        : `rgba(18, 21, 26, ${alpha * 0.18})`;
+      ctx.fill();
+
+      // Card border
+      ctx.strokeStyle = isDark
+        ? `rgba(244, 243, 239, ${alpha * 0.9})`
+        : `rgba(18, 21, 26, ${alpha * 0.7})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Inner card frame inset
+      const inset = 8;
+      ctx.beginPath();
+      ctx.rect(-w / 2 + inset, -h / 2 + inset, w - inset * 2, h - inset * 2);
+      ctx.strokeStyle = isDark
+        ? `rgba(240, 45, 79, ${alpha * 0.65})`
+        : `rgba(229, 45, 79, ${alpha * 0.55})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
+      // Corner pip
+      if (pip) {
+        ctx.font = '14px serif';
+        ctx.fillStyle = isDark
+          ? `rgba(244, 243, 239, ${alpha * 1.4})`
+          : `rgba(18, 21, 26, ${alpha * 1.1})`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(pip, -w / 2 + 16, -h / 2 + 16);
+      }
+
+      ctx.restore();
+    }
+
+    // Helper to draw subtle chess board grid geometry in background
+    function drawChessBoardGrid(ctx, isDark, scrollOffset) {
+      if (isMobile) return;
+      ctx.save();
+      const gridY = height * 0.65 - (scrollOffset * 0.04) % 80;
+      const gridSize = 80;
+      const cols = Math.ceil(width / gridSize) + 1;
+      const rows = 6;
+
+      ctx.lineWidth = 0.6;
+      ctx.strokeStyle = isDark
+        ? 'rgba(244, 243, 239, 0.022)'
+        : 'rgba(18, 21, 26, 0.022)';
+
+      for (let r = 0; r < rows; r++) {
+        const y = gridY + r * gridSize;
+        if (y > height + gridSize || y < -gridSize) continue;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      for (let c = 0; c < cols; c++) {
+        const x = c * gridSize;
+        ctx.beginPath();
+        ctx.moveTo(x, Math.max(0, gridY));
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    const renderOnce = () => {
+      ctx.clearRect(0, 0, width, height);
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+      // Upper-right crimson spotlight
+      const spotX = width * 0.82;
+      const spotY = height * 0.18;
+      const spotR = Math.min(width, height) * 0.72;
+      const spotGrad = ctx.createRadialGradient(spotX, spotY, 0, spotX, spotY, spotR);
+      const spotAlpha = isDark ? 0.16 : 0.06;
+      spotGrad.addColorStop(0, `rgba(240, 45, 79, ${spotAlpha})`);
+      spotGrad.addColorStop(0.35, `rgba(240, 45, 79, ${spotAlpha * 0.4})`);
+      spotGrad.addColorStop(0.75, `rgba(240, 45, 79, ${spotAlpha * 0.07})`);
+      spotGrad.addColorStop(1, 'rgba(240, 45, 79, 0)');
+      ctx.fillStyle = spotGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      drawChessBoardGrid(ctx, isDark, 0);
+
+      dustParticles.forEach((s) => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = isDark
+          ? `rgba(244, 243, 239, ${s.alpha})`
+          : `rgba(133, 140, 152, ${s.alpha * 0.7})`;
+        ctx.fill();
+      });
+    };
+
     const render = () => {
-      currentX += (targetX - currentX) * 0.04;
-      currentY += (targetY - currentY) * 0.04;
+      currentMouseX += (targetMouseX - currentMouseX) * 0.04;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.04;
+      currentScrollY += (targetScrollY - currentScrollY) * 0.05;
       time += 0.003;
 
       ctx.clearRect(0, 0, width, height);
-
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-      // ── Atmospheric Deep Base ──
+      // ── 1. Overhead Crimson Studio Spotlight with Subtle Ambient Pulse ──
       {
-        const bx = width * 0.5 + currentX * 0.2;
-        const by = height * 0.35 + currentY * 0.2;
-        const br = Math.max(width, height) * 0.85;
-        const bg = ctx.createRadialGradient(bx, by, 0, bx, by, br);
-        if (isDark) {
-          bg.addColorStop(0, 'rgba(13, 16, 21, 0.70)');
-          bg.addColorStop(0.5, 'rgba(9, 11, 15, 0.40)');
-          bg.addColorStop(1, 'rgba(7, 9, 12, 0)');
-        } else {
-          bg.addColorStop(0, 'rgba(240, 237, 230, 0.45)');
-          bg.addColorStop(0.6, 'rgba(245, 243, 238, 0.20)');
-          bg.addColorStop(1, 'rgba(245, 243, 238, 0)');
-        }
-        ctx.fillStyle = bg;
+        const spotPulse = Math.sin(time * 0.6) * 0.02;
+        const spotX = width * 0.82 + currentMouseX * 0.35;
+        const spotY = height * 0.18 + currentMouseY * 0.35 - (currentScrollY * 0.03);
+        const spotR = Math.min(width, height) * 0.74;
+        const spotGrad = ctx.createRadialGradient(spotX, spotY, 0, spotX, spotY, spotR);
+        const baseAlpha = isDark ? 0.16 : 0.06;
+        const currentAlpha = Math.max(0, baseAlpha + spotPulse);
+
+        spotGrad.addColorStop(0, `rgba(240, 45, 79, ${currentAlpha})`);
+        spotGrad.addColorStop(0.35, `rgba(240, 45, 79, ${currentAlpha * 0.38})`);
+        spotGrad.addColorStop(0.72, `rgba(240, 45, 79, ${currentAlpha * 0.06})`);
+        spotGrad.addColorStop(1, 'rgba(240, 45, 79, 0)');
+        ctx.fillStyle = spotGrad;
         ctx.fillRect(0, 0, width, height);
       }
 
-      // ── Massive Cosmic Crimson Pulse ──
-      {
-        const px = width * 0.78 + Math.sin(time * 0.35) * 50 + currentX * 0.5;
-        const py = height * 0.24 + Math.cos(time * 0.28) * 40 + currentY * 0.5;
-        const pr = Math.min(width, height) * 0.75;
-        const pg = ctx.createRadialGradient(px, py, 0, px, py, pr);
-        const intensity = isDark ? (0.13 + Math.sin(time * 0.5) * 0.02) : 0.06;
-        pg.addColorStop(0, `rgba(255, 59, 92, ${intensity})`);
-        pg.addColorStop(0.4, `rgba(255, 59, 92, ${intensity * 0.35})`);
-        pg.addColorStop(0.75, `rgba(215, 60, 45, ${intensity * 0.06})`);
-        pg.addColorStop(1, 'rgba(255, 59, 92, 0)');
-        ctx.fillStyle = pg;
-        ctx.fillRect(0, 0, width, height);
+      // ── 2. Perspective Chess Board Grid Lines ──
+      drawChessBoardGrid(ctx, isDark, currentScrollY);
+
+      // ── 3. Blurred Playing Card Silhouettes ──
+      if (!isMobile) {
+        cardSilhouettes.forEach((card) => {
+          const cx = card.xRatio * width + currentMouseX * card.parallax;
+          const cy = card.yRatio * height + currentMouseY * card.parallax - (currentScrollY * card.scrollParallax);
+          // Only draw if within vertical view
+          if (cy > -card.height && cy < height + card.height) {
+            drawCardSilhouette(ctx, cx, cy, card.width, card.height, card.angle, card.alpha, card.cornerPip, isDark);
+          }
+        });
       }
 
-      // ── Nebula Dust Clouds ──
-      nebulae.forEach((n) => {
-        n.x += n.driftX;
-        n.y += n.driftY;
-        if (n.x < -100) n.x = width + 100;
-        if (n.x > width + 100) n.x = -100;
-        if (n.y < -100) n.y = height + 100;
-        if (n.y > height + 100) n.y = -100;
-
-        const nx = n.x + currentX * n.parallax;
-        const ny = n.y + currentY * n.parallax;
-        const a = n.baseAlpha * (0.8 + 0.2 * Math.sin(time * 20 * n.pulseSpeed));
-
-        const g = ctx.createRadialGradient(nx, ny, 0, nx, ny, n.radius);
-        g.addColorStop(0, `${n.color}${a})`);
-        g.addColorStop(1, `${n.color}0)`);
-        ctx.fillStyle = g;
-        ctx.fillRect(nx - n.radius, ny - n.radius, n.radius * 2, n.radius * 2);
-      });
-
-      // ── Orbital Paths & Satellites ──
-      orbitals.forEach((o) => {
-        o.satAngle += o.speed;
-        const ox = o.cx + currentX * o.parallax;
-        const oy = o.cy + currentY * o.parallax;
+      // ── 4. Metallic Coin / Chip Circular Outlines ──
+      coinRings.forEach((c) => {
+        c.angle += c.speed;
+        const cx = c.cxRatio * width + currentMouseX * c.parallax;
+        const cy = c.cyRatio * height + currentMouseY * c.parallax - (currentScrollY * c.scrollParallax);
 
         ctx.save();
-        ctx.translate(ox, oy);
-        ctx.rotate(o.rotation);
+        ctx.translate(cx, cy);
+        ctx.rotate(c.tilt);
 
-        // Path
+        // Outer rim
         ctx.beginPath();
-        ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, c.r, c.r * 0.55, 0, 0, Math.PI * 2);
         ctx.strokeStyle = isDark
-          ? `rgba(255, 255, 255, ${o.alpha})`
-          : `rgba(60, 70, 90, ${o.alpha * 0.6})`;
-        ctx.lineWidth = 1;
+          ? `rgba(244, 243, 239, ${c.alpha})`
+          : `rgba(133, 140, 152, ${c.alpha * 0.8})`;
+        ctx.lineWidth = 1.1;
         ctx.stroke();
 
-        // Revolving Satellite
-        const sx = Math.cos(o.satAngle) * o.rx;
-        const sy = Math.sin(o.satAngle) * o.ry;
+        // Inner coin medallion ring
         ctx.beginPath();
-        ctx.arc(sx, sy, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 59, 92, 0.75)';
-        ctx.shadowColor = 'rgba(255, 59, 92, 0.9)';
-        ctx.shadowBlur = 6;
-        ctx.fill();
+        ctx.ellipse(0, 0, c.r * 0.74, c.r * 0.40, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(240, 45, 79, ${c.alpha * 0.75})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
 
         ctx.restore();
       });
 
-      // ── Stars ──
-      stars.forEach((s) => {
-        s.x += s.drift;
+      // ── 5. Atmospheric Micro-Dust Particles ──
+      dustParticles.forEach((s) => {
+        s.x += s.driftX;
+        s.y += s.driftY;
         if (s.x < 0) s.x = width;
         if (s.x > width) s.x = 0;
+        if (s.y < 0) s.y = height;
+        if (s.y > height) s.y = 0;
 
-        const twinkle = Math.sin(time * 60 * s.twinkleSpeed + s.twinklePhase);
-        const a = s.alpha * (0.65 + 0.35 * twinkle);
-        const sx = s.x + currentX * s.parallax;
-        const sy = s.y + currentY * s.parallax;
-
-        if (s.isGlow) {
-          ctx.beginPath();
-          ctx.arc(sx, sy, s.size * 2.2, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? `rgba(255, 59, 92, ${a * 0.22})` : `rgba(255, 59, 92, 0.10)`;
-          ctx.fill();
-        }
+        const twinkle = Math.sin(time * 40 * s.twinkleSpeed + s.twinklePhase);
+        const a = s.alpha * (0.75 + 0.25 * twinkle);
+        const sx = s.x + currentMouseX * s.parallax;
+        const sy = s.y + currentMouseY * s.parallax - (currentScrollY * s.scrollParallax);
 
         ctx.beginPath();
         ctx.arc(sx, sy, s.size, 0, Math.PI * 2);
         ctx.fillStyle = isDark
-          ? `rgba(243, 241, 236, ${a})`
-          : `rgba(104, 112, 124, ${a * 0.55})`;
+          ? `rgba(244, 243, 239, ${a})`
+          : `rgba(133, 140, 152, ${a * 0.65})`;
         ctx.fill();
       });
 
-      // ── Floating Creative Objects ──
-      if (!isMobile && !prefersReducedMotion) {
-        objects.forEach((o) => {
+      // ── 6. Floating Environmental Chess Pieces ──
+      if (!isMobile) {
+        chessObjects.forEach((o) => {
           o.x += o.driftX;
           o.y += o.driftY;
           o.rotation += o.rotSpeed;
 
-          if (o.x < -80) o.x = width + 80;
-          if (o.x > width + 80) o.x = -80;
-          if (o.y < -80) o.y = height + 80;
-          if (o.y > height + 80) o.y = -80;
+          const ox = o.x + currentMouseX * o.parallax;
+          const oy = o.y + currentMouseY * o.parallax - (currentScrollY * o.scrollParallax);
+          const breathe = 0.82 + 0.18 * Math.sin(time * 0.8 + o.phase);
 
-          const ox = o.x + currentX * o.parallax;
-          const oy = o.y + currentY * o.parallax;
-          const breathe = 0.75 + 0.25 * Math.sin(time * 12 * o.rotSpeed * 80 + o.phase);
+          // Wrap around safely
+          if (ox < -120) o.x = width + 100;
+          if (ox > width + 120) o.x = -100;
 
           ctx.save();
           ctx.translate(ox, oy);
           ctx.rotate(o.rotation);
-          ctx.font = `${o.size}px serif`;
+          ctx.font = `${o.size}px "Cinzel", "Times New Roman", serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillStyle = isDark
-            ? `rgba(243, 241, 236, ${o.depth * 0.75 * breathe})`
-            : `rgba(104, 112, 124, ${o.depth * 0.45 * breathe})`;
+
+          if (o.isAccent) {
+            ctx.fillStyle = `rgba(240, 45, 79, ${o.depth * 1.5 * breathe})`;
+          } else {
+            ctx.fillStyle = isDark
+              ? `rgba(244, 243, 239, ${o.depth * 1.2 * breathe})`
+              : `rgba(18, 21, 26, ${o.depth * 0.85 * breathe})`;
+          }
+
           ctx.fillText(o.glyph, 0, 0);
           ctx.restore();
         });
       }
 
-      if (!prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
-      }
+      animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    if (prefersReducedMotion) {
+      renderOnce();
+    } else {
+      render();
+    }
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
     <aside className="universe" aria-hidden="true">
-      {/* Radiant Fluid Atmospheric Sheets */}
+      {/* Upper Right Crimson Cinematic Spotlight */}
       <div className="universe__glow universe__glow--crimson" />
       <div className="universe__glow universe__glow--graphite" />
-      <div className="universe__glow universe__glow--warm" />
 
-      {/* Canvas Layer: Depth gradients, 220 stars, nebulae, orbitals, glyphs */}
+      {/* Canvas Engine Layer: Chess grid, cards, coins, pieces, dust */}
       <canvas ref={canvasRef} className="universe__canvas" />
 
-      {/* Tactile Micro-Texture Grain */}
+      {/* Tactile Micro-Texture Grain Overlay */}
       <div className="universe__grain" />
 
       {/* Spatial Vignette */}
@@ -337,4 +463,5 @@ function DigitalUniverseComponent() {
   );
 }
 
-export const LivingAtmosphere = memo(DigitalUniverseComponent);
+export const LivingAtmosphere = memo(CinematicAtmosphereComponent);
+
