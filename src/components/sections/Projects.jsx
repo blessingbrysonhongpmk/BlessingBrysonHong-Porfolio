@@ -13,12 +13,12 @@ export function Projects({ onSelectProject }) {
 
       <div className="container work-container">
         {/* Simple Confident Heading — Straight to the work */}
-        <div className="work-header">
+        <div className="work-header mb-4 mb-md-5">
           <h2 className="work-title">PROJECTS</h2>
         </div>
 
-        {/* Compact Editorial Project Showcase */}
-        <div className="work-list" role="list">
+        {/* Compact Editorial Project Showcase with Bootstrap Layout */}
+        <div className="work-list d-flex flex-column gap-3" role="list">
           {projects.map((project, index) => {
             const num = String(index + 1).padStart(2, '0');
             const description = project.oneLiner || project.tagline || project.description;
@@ -40,39 +40,48 @@ export function Projects({ onSelectProject }) {
                 role="button"
                 aria-label={`View case study for ${project.name}`}
               >
-                {/* 1. Numbering (Desktop) */}
-                <span className="project-row__num" aria-hidden="true">
-                  {num}
-                </span>
-
-                {/* 2. Small Immediate Thumbnail */}
-                <div className="project-row__thumb-wrap">
-                  <img
-                    src={project.image || '/profile.jpeg'}
-                    alt={project.name}
-                    className="project-row__thumb"
-                    loading="lazy"
-                  />
-                </div>
-
-                {/* 3. Content Column */}
-                <div className="project-row__content">
-                  <h3 className="project-row__name">{project.name}</h3>
-                  <p className="project-row__desc">{description}</p>
-                  <div className="project-row__bottom">
-                    <div className="project-row__meta">
-                      <span className="project-row__num-mobile" aria-hidden="true">{num} · </span>
-                      <span className="project-row__cat">{category}</span>
-                      <span className="project-row__sep" aria-hidden="true">•</span>
-                      <span className="project-row__year">{year}</span>
-                    </div>
-                    <ArrowUpRight size={15} className="project-row__arrow-mobile" aria-hidden="true" />
+                <div className="row g-2 g-sm-3 g-md-4 align-items-center flex-nowrap w-100 m-0">
+                  {/* 1. Numbering — visible on tablet/desktop */}
+                  <div className="col-auto d-none d-md-block p-0">
+                    <span className="project-row__num" aria-hidden="true">
+                      {num}
+                    </span>
                   </div>
-                </div>
 
-                {/* 4. Desktop Arrow */}
-                <div className="project-row__arrow-wrap" aria-hidden="true">
-                  <ArrowUpRight size={18} className="project-row__arrow" />
+                  {/* 2. Compact Thumbnail */}
+                  <div className="col-auto p-0">
+                    <div className="project-row__thumb-wrap">
+                      <img
+                        src={project.image || '/profile.jpeg'}
+                        alt={project.name}
+                        className="project-row__thumb"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                  {/* 3. Content Column — takes remaining space without clipping */}
+                  <div className="col min-w-0 p-0 ps-2 ps-sm-3 ps-md-3">
+                    <div className="project-row__content">
+                      <h3 className="project-row__name">{project.name}</h3>
+                      <p className="project-row__desc">{description}</p>
+                      <div className="project-row__meta d-flex align-items-center gap-1 gap-sm-2">
+                        <span className="project-row__num-mobile d-md-none" aria-hidden="true">
+                          {num} ·{' '}
+                        </span>
+                        <span className="project-row__cat">{category}</span>
+                        <span className="project-row__sep" aria-hidden="true">•</span>
+                        <span className="project-row__year">{year}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4. Action Arrow */}
+                  <div className="col-auto p-0 ms-auto">
+                    <div className="project-row__arrow-wrap" aria-hidden="true">
+                      <ArrowUpRight size={18} className="project-row__arrow" />
+                    </div>
+                  </div>
                 </div>
               </article>
             );
@@ -82,4 +91,3 @@ export function Projects({ onSelectProject }) {
     </section>
   );
 }
-

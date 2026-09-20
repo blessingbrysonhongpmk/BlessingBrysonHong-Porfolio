@@ -1,13 +1,13 @@
 /* ─────────────────────────────────────────────────────
-   Projects Section — Compact Editorial Showcase
+   Projects Section — Compact Editorial Showcase (Bootstrap Grid)
    Clean, premium, compact portfolio showcase.
-   No extra top copy, no filter pills, real projects only.
+   Powered by Bootstrap 5 responsive grid & flex utilities.
    ───────────────────────────────────────────────────── */
 
 .work-section {
   position: relative;
   z-index: var(--z-content);
-  padding: clamp(64px, 8vw, 112px) 0;
+  padding: clamp(60px, 8vw, 108px) 0;
   background: var(--bg-projects-zone);
 }
 
@@ -15,14 +15,14 @@
   width: 100%;
 }
 
-/* ── 1. Heading — Straight to the work ── */
+/* ── 1. Heading — Direct & Confident ── */
 .work-header {
-  margin-bottom: clamp(28px, 4vw, 44px);
+  margin-bottom: clamp(24px, 3.5vw, 40px);
 }
 
 .work-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(1.85rem, 3.8vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--color-text);
@@ -40,11 +40,9 @@
 
 /* ── 3. Individual Project Row ── */
 .project-row {
-  display: grid;
-  grid-template-columns: 32px 116px 1fr auto;
-  align-items: center;
-  gap: var(--space-5);
-  padding: 14px 22px;
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
   background: var(--glass-bg-subtle);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
@@ -93,7 +91,7 @@
   }
 }
 
-/* 3.1 Numbering (Desktop) */
+/* 3.1 Numbering */
 .project-row__num {
   font-family: var(--font-mono);
   font-size: 0.76rem;
@@ -101,9 +99,11 @@
   letter-spacing: 0.05em;
   color: var(--color-text-muted);
   transition: color var(--transition-fast);
+  display: inline-block;
+  min-width: 24px;
 }
 
-/* 3.2 Small Immediate Thumbnail */
+/* 3.2 Thumbnail */
 .project-row__thumb-wrap {
   width: 116px;
   height: 74px;
@@ -134,7 +134,7 @@
 
 .project-row__name {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--color-text);
@@ -151,30 +151,24 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 95%;
-}
-
-.project-row__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 2px;
+  max-width: 96%;
 }
 
 .project-row__meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   font-family: var(--font-mono);
   font-size: 0.70rem;
   font-weight: 600;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-row__num-mobile {
-  display: none;
+  color: var(--color-accent);
 }
 
 .project-row__cat {
@@ -189,18 +183,13 @@
   color: var(--color-text-muted);
 }
 
-.project-row__arrow-mobile {
-  display: none;
-}
-
-
-/* 3.4 Desktop Arrow */
+/* 3.4 Action Arrow */
 .project-row__arrow-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
 }
@@ -210,66 +199,19 @@
   transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-/* ── 4. Responsive Reflow (Mobile & Tablet) ──
-   Strategy: Keep the horizontal grid layout at ALL breakpoints.
-   Reduce thumbnail size progressively. Never stack full-width.
-   This preserves the compact editorial feel on mobile.
-──────────────────────────────────────────────────────────── */
-
-/* Tablet: slightly tighter */
-@media (max-width: 860px) {
+/* ── 4. Responsive Refinements ── */
+@media (max-width: 768px) {
   .project-row {
-    grid-template-columns: 28px 100px 1fr auto;
-    gap: var(--space-4);
-    padding: 13px 18px;
-  }
-
-  .project-row__thumb-wrap {
-    width: 100px;
-    height: 66px;
-  }
-}
-
-/* Mobile (all): compact horizontal row — NO full-width stacking */
-@media (max-width: 600px) {
-  .work-header {
-    margin-bottom: var(--space-5);
-  }
-
-  .work-list {
-    gap: 10px;
-  }
-
-  .project-row {
-    grid-template-columns: 80px 1fr 22px;
-    gap: 10px;
     padding: 12px 14px;
-    align-items: start;
-  }
-
-  /* Thumbnail: fixed compact square-ish size, never full-width */
-  .project-row__num {
-    display: none;
   }
 
   .project-row__thumb-wrap {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-sm);
-    flex-shrink: 0;
-    grid-row: 1 / 3;
-  }
-
-  /* Content area */
-  .project-row__content {
-    gap: 4px;
-    min-width: 0;
+    width: 92px;
+    height: 64px;
   }
 
   .project-row__name {
-    font-size: 0.92rem;
-    line-height: 1.25;
-    white-space: normal;
+    font-size: 0.94rem;
   }
 
   .project-row__desc {
@@ -281,75 +223,57 @@
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    max-width: 100%;
-  }
-
-  .project-row__bottom {
-    margin-top: 3px;
-    align-items: center;
   }
 
   .project-row__meta {
     font-size: 0.65rem;
-    gap: 4px;
-    flex-wrap: nowrap;
-    overflow: hidden;
-  }
-
-  .project-row__cat {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 110px;
-  }
-
-  /* Arrow: placed in grid column 3, spans both rows */
-  .project-row__arrow-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 22px;
-    align-self: center;
-    grid-row: 1 / 3;
-  }
-
-  .project-row__arrow {
-    width: 14px;
-    height: 14px;
-  }
-
-  .project-row__arrow-mobile {
-    display: none;
-  }
-
-  .project-row__num-mobile {
-    display: none;
   }
 }
 
-/* Very small phones (360px and below) */
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .project-row {
-    grid-template-columns: 70px 1fr 20px;
-    gap: 8px;
     padding: 10px 12px;
   }
 
   .project-row__thumb-wrap {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 58px;
+    border-radius: 6px;
   }
 
   .project-row__name {
-    font-size: 0.86rem;
+    font-size: 0.88rem;
   }
 
   .project-row__desc {
     font-size: 0.74rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
-  .project-row__cat {
-    max-width: 90px;
+  .project-row__meta {
+    font-size: 0.62rem;
+    gap: 4px;
+  }
+
+  .project-row__arrow-wrap {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .project-row__thumb-wrap {
+    width: 70px;
+    height: 52px;
+  }
+
+  .project-row__name {
+    font-size: 0.82rem;
+  }
+
+  .project-row__desc {
+    font-size: 0.70rem;
   }
 }
 
