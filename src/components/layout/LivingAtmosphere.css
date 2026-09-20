@@ -31,19 +31,19 @@
   height: 65vw;
   max-width: 900px;
   max-height: 900px;
-  background: radial-gradient(circle, rgba(225, 29, 72, 0.18) 0%, rgba(225, 29, 72, 0.05) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.12) 0%, rgba(255, 59, 92, 0.03) 50%, transparent 75%);
   animation: floatCrimsonGlow 24s ease-in-out infinite alternate;
 }
 
-.universe__glow--indigo {
+.universe__glow--graphite {
   top: 45%;
   left: -12%;
   width: 60vw;
   height: 60vw;
   max-width: 850px;
   max-height: 850px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, rgba(59, 130, 246, 0.03) 50%, transparent 75%);
-  animation: floatIndigoGlow 28s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(13, 16, 21, 0.35) 0%, rgba(13, 16, 21, 0.08) 50%, transparent 75%);
+  animation: floatGraphiteGlow 28s ease-in-out infinite alternate;
 }
 
 .universe__glow--warm {
@@ -53,20 +53,20 @@
   height: 55vw;
   max-width: 800px;
   max-height: 800px;
-  background: radial-gradient(circle, rgba(225, 29, 72, 0.12) 0%, rgba(244, 63, 94, 0.03) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(215, 65, 45, 0.07) 0%, rgba(255, 59, 92, 0.015) 50%, transparent 75%);
   animation: floatWarmGlow 26s ease-in-out infinite alternate;
 }
 
 [data-theme="dark"] .universe__glow--crimson {
-  background: radial-gradient(circle, rgba(225, 29, 72, 0.22) 0%, rgba(180, 18, 55, 0.08) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.14) 0%, rgba(215, 60, 45, 0.04) 50%, transparent 75%);
 }
 
-[data-theme="dark"] .universe__glow--indigo {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(30, 41, 59, 0.06) 50%, transparent 75%);
+[data-theme="dark"] .universe__glow--graphite {
+  background: radial-gradient(circle, rgba(18, 22, 30, 0.50) 0%, rgba(13, 16, 21, 0.12) 50%, transparent 75%);
 }
 
 [data-theme="dark"] .universe__glow--warm {
-  background: radial-gradient(circle, rgba(225, 29, 72, 0.15) 0%, rgba(180, 18, 55, 0.04) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.10) 0%, rgba(215, 60, 45, 0.03) 50%, transparent 75%);
 }
 
 @keyframes floatCrimsonGlow {
@@ -75,7 +75,7 @@
   100% { transform: translate3d(30px, -30px, 0) scale(0.96); }
 }
 
-@keyframes floatIndigoGlow {
+@keyframes floatGraphiteGlow {
   0% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(60px, -50px, 0) scale(1.10); }
   100% { transform: translate3d(-40px, 30px, 0) scale(0.95); }

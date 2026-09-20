@@ -153,17 +153,17 @@ export function IndustrialEstimator() {
               <text x="50" y="53" textAnchor="middle" fill="#94A3B8" fontSize="8" fontFamily="sans-serif">Copra Prep</text>
 
               {/* Arrow 1 */}
-              <line x1="87" y1="42" x2="105" y2="42" stroke="#E11D48" strokeWidth="1.5" />
-              <polygon points="105,39 110,42 105,45" fill="#E11D48" />
+              <line x1="87" y1="42" x2="105" y2="42" stroke="#FF3B5C" strokeWidth="1.5" />
+              <polygon points="105,39 110,42 105,45" fill="#FF3B5C" />
 
               {/* Step 2: Cold Press Exeller */}
-              <rect x="112" y="24" width="74" height="36" rx="4" fill="rgba(225,29,72,0.12)" stroke="#E11D48" strokeWidth="1.2" />
+              <rect x="112" y="24" width="74" height="36" rx="4" fill="rgba(255,59,92,0.12)" stroke="#FF3B5C" strokeWidth="1.2" />
               <text x="149" y="42" textAnchor="middle" fill="#FDA4AF" fontSize="9" fontWeight="600" fontFamily="sans-serif">Cold Press</text>
               <text x="149" y="53" textAnchor="middle" fill="#E2E8F0" fontSize="8" fontFamily="sans-serif">Exeller Mill</text>
 
               {/* Arrow 2 */}
-              <line x1="188" y1="42" x2="206" y2="42" stroke="#E11D48" strokeWidth="1.5" />
-              <polygon points="206,39 211,42 206,45" fill="#E11D48" />
+              <line x1="188" y1="42" x2="206" y2="42" stroke="#FF3B5C" strokeWidth="1.5" />
+              <polygon points="206,39 211,42 206,45" fill="#FF3B5C" />
 
               {/* Step 3: Multi-Stage Filtration */}
               <rect x="213" y="24" width="74" height="36" rx="4" fill="rgba(255,255,255,0.06)" stroke="#94A3B8" strokeWidth="1" />

@@ -31,46 +31,46 @@
   filter: blur(100px);
 }
 
-/* Blob 1: Soft Rose/Crimson (Anchored near top-right / Hero) */
+/* Blob 1: Soft Coral Crimson (Hero atmospheric glow) */
 .ambient-blob--accent {
   top: -8%;
   right: -5%;
   width: 580px;
   height: 580px;
-  background: radial-gradient(circle, rgba(225, 29, 72, 0.16) 0%, rgba(225, 29, 72, 0.04) 70%, transparent 100%);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.10) 0%, rgba(255, 59, 92, 0.02) 70%, transparent 100%);
   animation: auroraFloat1 28s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
 [data-theme="dark"] .ambient-blob--accent {
-  background: radial-gradient(circle, rgba(251, 113, 133, 0.20) 0%, rgba(251, 113, 133, 0.05) 70%, transparent 100%);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.12) 0%, rgba(255, 59, 92, 0.03) 70%, transparent 100%);
 }
 
-/* Blob 2: Soft Slate Indigo/Blue (Mid-left / Work & Skills) */
-.ambient-blob--indigo {
+/* Blob 2: Neutral Graphite Depth (Calm, neutral atmosphere) */
+.ambient-blob--graphite {
   top: 38%;
   left: -10%;
   width: 640px;
   height: 640px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.03) 70%, transparent 100%);
+  background: radial-gradient(circle, rgba(13, 16, 21, 0.35) 0%, rgba(13, 16, 21, 0.08) 70%, transparent 100%);
   animation: auroraFloat2 34s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
-[data-theme="dark"] .ambient-blob--indigo {
-  background: radial-gradient(circle, rgba(129, 140, 248, 0.16) 0%, rgba(129, 140, 248, 0.04) 70%, transparent 100%);
+[data-theme="dark"] .ambient-blob--graphite {
+  background: radial-gradient(circle, rgba(20, 24, 32, 0.45) 0%, rgba(13, 16, 21, 0.10) 70%, transparent 100%);
 }
 
-/* Blob 3: Warm Ambient Amber (Lower-right / Journey & Contact) */
+/* Blob 3: Subtle Dark Warm Red / Amber (Closing warmth) */
 .ambient-blob--amber {
   bottom: -5%;
   right: 5%;
   width: 540px;
   height: 540px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.10) 0%, rgba(245, 158, 11, 0.025) 70%, transparent 100%);
+  background: radial-gradient(circle, rgba(215, 65, 45, 0.06) 0%, rgba(215, 65, 45, 0.015) 70%, transparent 100%);
   animation: auroraFloat3 32s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
 [data-theme="dark"] .ambient-blob--amber {
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, rgba(251, 191, 36, 0.03) 70%, transparent 100%);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.08) 0%, rgba(215, 65, 45, 0.02) 70%, transparent 100%);
 }
 
 /* ── GPU-Accelerated Organic Floating Keyframes ── */

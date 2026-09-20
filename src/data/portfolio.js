@@ -218,7 +218,7 @@ export const PORTFOLIO_DATA = {
       liveUrl: 'https://devidevanindustries.com',
       githubUrl: '',
       isFlagship: true,
-      color: '#E11D48',
+      color: '#FF3B5C',
       image: '/projects/devi-devan-industries-v2.jpg',
     },
     {

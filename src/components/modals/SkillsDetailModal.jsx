@@ -48,13 +48,13 @@ export function SkillsDetailModal({ onClose }) {
 
   const getCategoryIcon = (cat) => {
     switch (cat) {
-      case 'LANGUAGES': return <Code2 size={16} className="text-primary" />;
+      case 'LANGUAGES': return <Code2 size={16} className="text-accent" />;
       case 'WEB DEVELOPMENT': return <Cpu size={16} className="text-secondary" />;
       case 'DATA & AI': return <Database size={16} className="text-accent" />;
-      case 'UI & DESIGN': return <Palette size={16} style={{ color: '#ec4899' }} />;
-      case 'TOOLS & CLOUD': return <Wrench size={16} className="text-primary" />;
-      case 'OTHERS': return <Sparkles size={16} style={{ color: '#a855f7' }} />;
-      default: return <Code2 size={16} className="text-primary" />;
+      case 'UI & DESIGN': return <Palette size={16} className="text-secondary" />;
+      case 'TOOLS & CLOUD': return <Wrench size={16} className="text-muted" />;
+      case 'OTHERS': return <Sparkles size={16} className="text-accent" />;
+      default: return <Code2 size={16} className="text-secondary" />;
     }
   };
 

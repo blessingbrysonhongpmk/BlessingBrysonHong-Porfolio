@@ -7,6 +7,7 @@
   position: relative;
   z-index: var(--z-content);
   padding: var(--space-section) 0;
+  background: var(--bg-contact-zone);
 }
 
 .contact-container {
@@ -288,7 +289,7 @@
   border: 1px solid var(--color-accent);
   border-radius: var(--radius-md);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.28);
+  box-shadow: 0 4px 16px rgba(255, 59, 92, 0.28);
   transition: transform var(--spring-bounce), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -297,7 +298,7 @@
     background: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(225, 29, 72, 0.38);
+    box-shadow: 0 8px 24px rgba(255, 59, 92, 0.38);
   }
 }
 

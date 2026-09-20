@@ -78,7 +78,7 @@ function DigitalUniverseComponent() {
         x: (0.2 + (i / nebulaCount) * 0.65) * width,
         y: (0.15 + Math.random() * 0.7) * height,
         radius: (0.2 + Math.random() * 0.2) * Math.min(width, height),
-        color: i % 2 === 0 ? 'rgba(225, 29, 72, ' : 'rgba(30, 41, 59, ',
+        color: i % 2 === 0 ? 'rgba(255, 59, 92, ' : 'rgba(13, 16, 21, ',
         baseAlpha: 0.04 + Math.random() * 0.03,
         pulseSpeed: 0.001 + Math.random() * 0.0015,
         driftX: (Math.random() - 0.5) * 0.02,
@@ -169,13 +169,13 @@ function DigitalUniverseComponent() {
         const br = Math.max(width, height) * 0.85;
         const bg = ctx.createRadialGradient(bx, by, 0, bx, by, br);
         if (isDark) {
-          bg.addColorStop(0, 'rgba(18, 22, 34, 0.75)');
-          bg.addColorStop(0.5, 'rgba(9, 11, 16, 0.45)');
-          bg.addColorStop(1, 'rgba(6, 6, 8, 0)');
+          bg.addColorStop(0, 'rgba(13, 16, 21, 0.70)');
+          bg.addColorStop(0.5, 'rgba(9, 11, 15, 0.40)');
+          bg.addColorStop(1, 'rgba(7, 9, 12, 0)');
         } else {
-          bg.addColorStop(0, 'rgba(235, 238, 245, 0.40)');
-          bg.addColorStop(0.6, 'rgba(250, 250, 248, 0.15)');
-          bg.addColorStop(1, 'rgba(251, 251, 250, 0)');
+          bg.addColorStop(0, 'rgba(240, 237, 230, 0.45)');
+          bg.addColorStop(0.6, 'rgba(245, 243, 238, 0.20)');
+          bg.addColorStop(1, 'rgba(245, 243, 238, 0)');
         }
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, width, height);
@@ -187,11 +187,11 @@ function DigitalUniverseComponent() {
         const py = height * 0.24 + Math.cos(time * 0.28) * 40 + currentY * 0.5;
         const pr = Math.min(width, height) * 0.75;
         const pg = ctx.createRadialGradient(px, py, 0, px, py, pr);
-        const intensity = isDark ? (0.16 + Math.sin(time * 0.5) * 0.03) : 0.07;
-        pg.addColorStop(0, `rgba(225, 29, 72, ${intensity})`);
-        pg.addColorStop(0.4, `rgba(225, 29, 72, ${intensity * 0.4})`);
-        pg.addColorStop(0.75, `rgba(180, 18, 55, ${intensity * 0.08})`);
-        pg.addColorStop(1, 'rgba(225, 29, 72, 0)');
+        const intensity = isDark ? (0.13 + Math.sin(time * 0.5) * 0.02) : 0.06;
+        pg.addColorStop(0, `rgba(255, 59, 92, ${intensity})`);
+        pg.addColorStop(0.4, `rgba(255, 59, 92, ${intensity * 0.35})`);
+        pg.addColorStop(0.75, `rgba(215, 60, 45, ${intensity * 0.06})`);
+        pg.addColorStop(1, 'rgba(255, 59, 92, 0)');
         ctx.fillStyle = pg;
         ctx.fillRect(0, 0, width, height);
       }
@@ -240,8 +240,8 @@ function DigitalUniverseComponent() {
         const sy = Math.sin(o.satAngle) * o.ry;
         ctx.beginPath();
         ctx.arc(sx, sy, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(225, 29, 72, 0.7)';
-        ctx.shadowColor = 'rgba(225, 29, 72, 0.9)';
+        ctx.fillStyle = 'rgba(255, 59, 92, 0.75)';
+        ctx.shadowColor = 'rgba(255, 59, 92, 0.9)';
         ctx.shadowBlur = 6;
         ctx.fill();
 
@@ -262,15 +262,15 @@ function DigitalUniverseComponent() {
         if (s.isGlow) {
           ctx.beginPath();
           ctx.arc(sx, sy, s.size * 2.2, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? `rgba(225, 29, 72, ${a * 0.25})` : `rgba(225, 29, 72, 0.12)`;
+          ctx.fillStyle = isDark ? `rgba(255, 59, 92, ${a * 0.22})` : `rgba(255, 59, 92, 0.10)`;
           ctx.fill();
         }
 
         ctx.beginPath();
         ctx.arc(sx, sy, s.size, 0, Math.PI * 2);
         ctx.fillStyle = isDark
-          ? `rgba(230, 235, 245, ${a})`
-          : `rgba(50, 60, 80, ${a * 0.55})`;
+          ? `rgba(243, 241, 236, ${a})`
+          : `rgba(104, 112, 124, ${a * 0.55})`;
         ctx.fill();
       });
 
@@ -297,8 +297,8 @@ function DigitalUniverseComponent() {
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillStyle = isDark
-            ? `rgba(215, 225, 245, ${o.depth * 0.85 * breathe})`
-            : `rgba(60, 70, 90, ${o.depth * 0.45 * breathe})`;
+            ? `rgba(243, 241, 236, ${o.depth * 0.75 * breathe})`
+            : `rgba(104, 112, 124, ${o.depth * 0.45 * breathe})`;
           ctx.fillText(o.glyph, 0, 0);
           ctx.restore();
         });
@@ -320,9 +320,9 @@ function DigitalUniverseComponent() {
 
   return (
     <aside className="universe" aria-hidden="true">
-      {/* Massive Radiant Fluid Glow Sheets (CSS Layer) */}
+      {/* Radiant Fluid Atmospheric Sheets */}
       <div className="universe__glow universe__glow--crimson" />
-      <div className="universe__glow universe__glow--indigo" />
+      <div className="universe__glow universe__glow--graphite" />
       <div className="universe__glow universe__glow--warm" />
 
       {/* Canvas Layer: Depth gradients, 220 stars, nebulae, orbitals, glyphs */}

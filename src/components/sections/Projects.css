@@ -7,6 +7,7 @@
   position: relative;
   z-index: var(--z-content);
   padding: var(--space-section) 0;
+  background: var(--bg-projects-zone);
 }
 
 .work-container {

@@ -103,10 +103,10 @@ export function AdminProjects() {
             <div key={project.id} className="admin-project-item">
               <div className="admin-project-item__info">
                 <div className="admin-project-item__title">
-                  <span style={{ color: project.color || '#e11d48', fontSize: '0.9rem' }}>0{index + 1}.</span>
+                  <span style={{ color: project.color || '#FF3B5C', fontSize: '0.9rem' }}>0{index + 1}.</span>
                   <span>{project.name}</span>
                   {project.isFlagship && (
-                    <span className="admin-pill" style={{ background: 'rgba(225,29,72,0.15)', color: '#f87171', border: '1px solid rgba(225,29,72,0.3)' }}>
+                    <span className="admin-pill" style={{ background: 'rgba(255,59,92,0.15)', color: '#FF5472', border: '1px solid rgba(255,59,92,0.3)' }}>
                       ★ Flagship
                     </span>
                   )}

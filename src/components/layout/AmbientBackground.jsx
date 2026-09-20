@@ -11,7 +11,7 @@ function AmbientBackgroundComponent() {
     <div className="ambient-background" aria-hidden="true">
       {/* Aurora Floating Blobs */}
       <div className="ambient-blob ambient-blob--accent" />
-      <div className="ambient-blob ambient-blob--indigo" />
+      <div className="ambient-blob ambient-blob--graphite" />
       <div className="ambient-blob ambient-blob--amber" />
 
       {/* Tactile Texture / Faint Micro-Grid Overlay */}
