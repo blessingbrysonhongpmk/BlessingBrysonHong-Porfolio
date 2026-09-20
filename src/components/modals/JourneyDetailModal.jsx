@@ -53,7 +53,7 @@ export function JourneyDetailModal({ onClose }) {
               Experience &amp; Milestones
             </h2>
             <p className="case-study-tagline">
-              Chronology covering academic foundations at St. Xavier&apos;s Catholic College of Engineering (SXCCE), software development at Nesus Park, industry internships, and technical milestones.
+              Chronology covering academic foundations at St. Xavier&apos;s Catholic College of Engineering (SXCCE), internship at Nexus Spark, industry internships, and technical milestones.
             </p>
           </div>
 

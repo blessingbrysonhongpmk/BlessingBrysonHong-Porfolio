@@ -30,13 +30,17 @@ export function Hero({ onOpenContact }) {
         <div className="hero-layout">
           {/* Content Column (First on Desktop & First on Mobile) */}
           <div className="hero-content">
-            {/* 1. Name: BLESSING BRYSON UP and HONG P M K DOWN */}
-            <h1 className="hero-name">
-              <span className="hero-name-line">BLESSING BRYSON</span>
-              <span className="hero-name-line hero-name-line--secondary">
-                HONG <span className="hero-name-suffix">P M K</span>
-              </span>
-            </h1>
+            {/* 1. Editorial Typography Lockup: PMK Mark + BLESSING / BRYSON HONG */}
+            <div className="hero-identity">
+              <span className="hero-pmk-mark" aria-hidden="true">P M K</span>
+              <h1 className="hero-name" aria-label="Blessing Bryson Hong P M K">
+                <span className="hero-name-line hero-name-line--primary">BLESSING</span>
+                <span className="hero-name-line hero-name-line--secondary">
+                  <span className="hero-name-word">BRYSON</span>{' '}
+                  <span className="hero-name-accent">HONG</span>
+                </span>
+              </h1>
+            </div>
 
             {/* 2. Small, Tasteful Bible Quote Directly Below Name */}
             <figure className="hero-quote">

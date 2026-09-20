@@ -37,22 +37,33 @@
   text-decoration: none;
   flex-shrink: 0;
   padding: var(--space-2) 0;
-  transition: color var(--transition-fast), opacity var(--transition-fast);
+  transition: opacity var(--transition-fast), transform var(--transition-spring);
 }
 
 .navbar__brand-name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: 0.04em;
+  font-weight: 800;
+  font-size: 1.18rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--color-text);
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
   transition: color var(--transition-fast);
+}
+
+.navbar__brand-dot {
+  color: var(--color-accent);
+  transition: transform var(--transition-fast);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .navbar__brand:hover .navbar__brand-name {
     color: var(--color-accent);
+  }
+  .navbar__brand:hover .navbar__brand-dot {
+    transform: scale(1.3);
   }
 }
 

@@ -65,8 +65,10 @@ export function Navbar({ theme, toggleTheme }) {
       <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} role="banner">
         <div className="container navbar__inner">
           {/* Brand */}
-          <a href="#home" className="navbar__brand" onClick={e => handleNav(e, '#home')} aria-label="Blessing Bryson Hong">
-            <span className="navbar__brand-name">BLESSING BRYSON HONG</span>
+          <a href="#home" className="navbar__brand" onClick={e => handleNav(e, '#home')} aria-label="BBH Home">
+            <span className="navbar__brand-name">
+              BBH<span className="navbar__brand-dot">.</span>
+            </span>
           </a>
 
           {/* Desktop Nav */}

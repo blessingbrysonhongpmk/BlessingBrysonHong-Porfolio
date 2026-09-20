@@ -47,7 +47,7 @@ export function AdminJourney() {
         <div>
           <h2 className="admin-page-header__title">Journey, Experience &amp; Honors</h2>
           <p className="admin-page-header__desc">
-            Edit your verified experience (Nesus Park &amp; internships), university degree, chronological trajectory, and competitive achievements.
+            Edit your verified experience (Nexus Spark &amp; internships), university degree, chronological trajectory, and competitive achievements.
           </p>
         </div>
       </div>

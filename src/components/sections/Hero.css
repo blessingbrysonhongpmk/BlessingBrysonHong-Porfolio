@@ -31,42 +31,75 @@
   flex-direction: column;
 }
 
-/* ── 1. Name — Large, Editorial, Dominant ── */
-.hero-name {
-  font-family: var(--font-display);
-  font-size: clamp(2.25rem, 4.4vw + 0.4rem, 4.25rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-  color: var(--color-text);
-  margin: 0 0 clamp(0.75rem, 1.4vw, 1.1rem) 0;
+/* ── 1. Editorial Typography Lockup: PMK Mark + Two-Line Name ── */
+.hero-identity {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  margin: 0 0 clamp(1rem, 1.8vw, 1.45rem) 0;
 }
 
-.hero-name-line {
-  display: block;
-  text-transform: uppercase;
-  color: var(--color-text);
-}
-
-.hero-name-line--secondary {
-  color: var(--color-text);
-  letter-spacing: -0.03em;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.28em;
-}
-
-/* P M K as a subtle ending element */
-.hero-name-suffix {
-  font-size: 0.42em;
+/* PMK Mark: Small, quiet, secondary signature mark directly above BLESSING */
+.hero-pmk-mark {
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 0.85vw, 0.84rem);
   font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-text-secondary);
-  opacity: 0.75;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0.85;
+  display: inline-block;
+  margin-bottom: clamp(0.35rem, 0.55vw, 0.55rem);
+  padding-left: 0.2rem; /* Sophisticated editorial offset */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Main Name Heading: Two lines only, cohesive typographic block */
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.02;
+}
+
+/* Line 1: BLESSING (large, strong, visual width balance) */
+.hero-name-line--primary {
+  display: block;
+  font-size: clamp(2.75rem, 5.35vw, 4.75rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* Line 2: BRYSON HONG (proportional visual width match with BLESSING) */
+.hero-name-line--secondary {
+  display: block;
+  font-size: clamp(2.05rem, 4.02vw, 3.55rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.04;
+  text-transform: uppercase;
+  color: var(--color-text);
+  white-space: nowrap;
+  margin-top: clamp(0.15rem, 0.35vw, 0.35rem);
+}
+
+.hero-name-word {
+  color: var(--color-text);
+}
+
+/* HONG: subtle, restrained crimson accent */
+.hero-name-accent {
+  color: var(--color-accent);
 }
 
 /* ── 2. Small, Elegant Bible Quote Directly Under the Name ── */
@@ -248,13 +281,27 @@
     text-align: center;
   }
 
+  .hero-identity {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-pmk-mark {
+    padding-left: 0;
+    margin-left: 0.28em; /* maintain optical center with wide tracking */
+  }
+
   .hero-name {
     align-items: center;
     text-align: center;
   }
 
+  .hero-name-line--primary {
+    font-size: clamp(2.25rem, 9.4vw, 2.95rem);
+  }
+
   .hero-name-line--secondary {
-    justify-content: center;
+    font-size: clamp(1.68rem, 7.1vw, 2.2rem);
   }
 
   .hero-quote {
@@ -302,8 +349,14 @@
 }
 
 @media (max-width: 480px) {
-  .hero-name {
-    font-size: clamp(1.85rem, 7.2vw, 2.35rem);
+  .hero-name-line--primary {
+    font-size: clamp(1.95rem, 8.8vw, 2.45rem);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-name-line--secondary {
+    font-size: clamp(1.46rem, 6.6vw, 1.84rem);
+    letter-spacing: 0.005em;
   }
 
   .hero-actions {

@@ -3,7 +3,7 @@ import { PORTFOLIO_DATA } from '../data/portfolio';
 import { PortfolioContext } from './PortfolioContextInstance';
 export { usePortfolioContent } from './usePortfolioContent';
 
-const STORAGE_KEY = 'bbh_portfolio_content_v5';
+const STORAGE_KEY = 'bbh_portfolio_content_v6';
 
 function loadInitialContent() {
   if (typeof window === 'undefined') return PORTFOLIO_DATA;

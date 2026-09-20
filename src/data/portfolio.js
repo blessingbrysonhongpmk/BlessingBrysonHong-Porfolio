@@ -20,11 +20,11 @@ export const PORTFOLIO_DATA = {
     heroStatement:
       'Building practical software with AI, data, and full-stack development.',
     shortBio:
-      "Software Developer at Nesus Park and III-year B.Tech AI & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE).",
+      "Intern at Nexus Spark and III-year B.Tech AI & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE).",
     fullBio:
-      "Third-year Artificial Intelligence & Data Science engineering undergraduate at St. Xavier's Catholic College of Engineering (SXCCE). Currently working as a Software Developer at Nesus Park on company projects. Experienced in Python, full-stack web development with Django and React, and data science workflows.",
+      "Third-year B.Tech Artificial Intelligence & Data Science student at St. Xavier's Catholic College of Engineering (SXCCE). Currently working as an intern at Nexus Spark, where I get to work on real-world software projects and strengthen my development skills. Interested in building useful software and exploring AI, data, and full-stack development.",
     currentDirection:
-      'Working on company projects at Nesus Park while advancing skills in Python, machine learning models, and full-stack software development.',
+      'Working as an intern on company projects at Nexus Spark while strengthening software and development skills.',
     email: 'blessingbrysonhongpmk@gmail.com',
     availability: 'Open to Opportunities',
   },
@@ -60,7 +60,7 @@ export const PORTFOLIO_DATA = {
     tags: [
       'B.Tech AI & Data Science (III Year)',
       "St. Xavier's Catholic College of Engineering (SXCCE)",
-      'Software Developer at Nesus Park',
+      'Intern at Nexus Spark',
       'Python & Full-Stack Development',
     ],
     developmentFocus: [
@@ -273,9 +273,9 @@ export const PORTFOLIO_DATA = {
   journeyMilestonesSummary: [
     {
       year: 'CURRENT',
-      title: 'Nesus Park',
-      role: 'Software Developer',
-      desc: 'Working on company projects.',
+      title: 'Nexus Spark',
+      role: 'Intern',
+      desc: 'Working on real-world company projects.',
     },
     {
       year: '2026',
@@ -308,12 +308,12 @@ export const PORTFOLIO_DATA = {
   journey: [
     {
       year: 'CURRENT',
-      milestone: 'Nesus Park — Software Developer',
+      milestone: 'Nexus Spark — Intern',
       tag: 'Professional Experience',
-      summary: 'Software Developer at Nesus Park, working on company projects.',
+      summary: 'Intern at Nexus Spark, working on real-world company projects.',
       details:
-        'Currently working as a Software Developer at Nesus Park, collaborating on company projects and contributing to production development.',
-      keyHighlights: ['Working on company projects', 'Software development and feature implementation'],
+        'Currently working as an intern at Nexus Spark, collaborating on real-world company projects and strengthening development skills.',
+      keyHighlights: ['Working on real-world company projects', 'Strengthening software development skills'],
       isCurrent: true,
     },
     {
@@ -348,15 +348,15 @@ export const PORTFOLIO_DATA = {
   // ── Formal Experience (Strictly Verified Facts Only) ──
   experience: [
     {
-      id: 'nesus-park-current',
-      company: 'Nesus Park',
-      role: 'Software Developer',
+      id: 'nexus-spark-current',
+      company: 'Nexus Spark',
+      role: 'Intern',
       period: 'CURRENT',
       location: 'India',
-      description: 'Working on company projects.',
+      description: 'Working on real-world company projects.',
       highlights: [
-        'Software Developer working on company projects',
-        'Collaborating on software development and delivery',
+        'Intern working on real-world company projects',
+        'Strengthening software development skills and practical experience',
       ],
     },
     {

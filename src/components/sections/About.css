@@ -1,13 +1,14 @@
 /* ─────────────────────────────────────────────────────
-   About Section — Minimal, Open, Calm Human Introduction
-   Strictly answers: What do I do? What is my focus?
-   No repeated name, no cards, generous whitespace.
+   About Section — Short, Real, Human Introduction
+   Calm editorial presentation. Strong typography.
+   Generous whitespace. Takes ~10 seconds to read.
    ───────────────────────────────────────────────────── */
 
 .about-section {
   position: relative;
   z-index: var(--z-content);
-  padding: clamp(5rem, 9vw, 8rem) 0;
+  padding: clamp(5.5rem, 8.5vw, 8.5rem) 0;
+  background: transparent;
 }
 
 .about-container {
@@ -15,12 +16,26 @@
 }
 
 .about-wrapper {
-  max-width: 820px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
 }
 
-/* ── Large Heading: What I Build & Focus ── */
+/* ── Section Label ── */
+.about-wrapper .section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Large Short Statement (Editorial Headline) ── */
 .about-statement {
   font-family: var(--font-display);
   font-size: clamp(1.85rem, 3.2vw, 2.75rem);
@@ -28,28 +43,113 @@
   line-height: 1.25;
   letter-spacing: -0.025em;
   color: var(--color-text);
-  margin: var(--space-4) 0 clamp(1.25rem, 2vw, 1.75rem) 0;
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2.25rem) 0;
 }
 
-/* ── Clean Body Lead with Subtle Accent ── */
-.about-lead {
+/* ── Content Wrapper ── */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+/* ── Short Supporting Paragraph ── */
+.about-paragraph {
   font-family: var(--font-body);
-  font-size: clamp(1.05rem, 1.3vw, 1.22rem);
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
   line-height: 1.75;
   color: var(--color-text-secondary);
-  max-width: 58ch;
   margin: 0;
-  padding-left: var(--space-4);
-  border-left: 2px solid var(--color-accent);
+  max-width: 65ch;
 }
 
+/* ── Currently Status Pill — Minimal, Calm, Honest ── */
+.about-status {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-3);
+  padding: 0.55rem 1.15rem;
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+[data-theme="dark"] .about-status {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.about-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.about-status__dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  animation: status-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.about-status__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.about-status__sep {
+  color: var(--color-border-strong);
+  font-size: 0.8rem;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.about-status__role {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+/* ── Responsive adjustments ── */
 @media (max-width: 640px) {
   .about-statement {
-    font-size: 1.65rem;
+    font-size: 1.55rem;
+    line-height: 1.3;
   }
 
-  .about-lead {
+  .about-paragraph {
     font-size: 1rem;
-    padding-left: var(--space-3);
+    line-height: 1.65;
+  }
+
+  .about-status {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.8rem;
+    gap: var(--space-2);
   }
 }

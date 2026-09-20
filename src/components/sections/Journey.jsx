@@ -20,7 +20,7 @@ export function Journey({ onOpenJourney, onOpenAchievements }) {
           </div>
 
           <div className="experience-timeline" role="list">
-            {/* CURRENT: Nesus Park */}
+            {/* CURRENT: Nexus Spark */}
             <div
               className="timeline-entry timeline-entry--current"
               onClick={onOpenJourney}
@@ -32,7 +32,7 @@ export function Journey({ onOpenJourney, onOpenAchievements }) {
               }}
               tabIndex={0}
               role="button"
-              aria-label="Current: Nesus Park — Software Developer"
+              aria-label="Current: Nexus Spark — Intern"
             >
               <div className="timeline-entry__year-badge">
                 <span className="timeline-dot" aria-hidden="true" />
@@ -40,10 +40,10 @@ export function Journey({ onOpenJourney, onOpenAchievements }) {
               </div>
               <div className="timeline-entry__content">
                 <div className="timeline-entry__header">
-                  <h3 className="timeline-entry__company">Nesus Park</h3>
-                  <span className="timeline-entry__role">Software Developer</span>
+                  <h3 className="timeline-entry__company">Nexus Spark</h3>
+                  <span className="timeline-entry__role">Intern</span>
                 </div>
-                <p className="timeline-entry__desc">Working on company projects.</p>
+                <p className="timeline-entry__desc">Working on real-world company projects.</p>
               </div>
             </div>
 
