@@ -31,7 +31,7 @@ export function About() {
             <div className="about-education-card">
               <div className="about-education-top">
                 <span className="about-education-badge">EDUCATION</span>
-                <span className="about-education-period">2023 — 2027 · III Year (Current)</span>
+                <span className="about-education-period">2024 — 2028 · III Year (Current)</span>
               </div>
               <div className="about-education-degree-wrap">
                 <h3 className="about-education-degree">

@@ -463,7 +463,7 @@ export const PORTFOLIO_DATA = {
       degree: 'B.Tech — Artificial Intelligence & Data Science',
       minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
       institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
-      period: '2023 — 2027',
+      period: '2024 — 2028',
       status: 'Currently in III Year',
       focus: 'Artificial Intelligence, Data Science, Machine Learning, Data Structures, Algorithms, Full Stack Web Development.',
     },
