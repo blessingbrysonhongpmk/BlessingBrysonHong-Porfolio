@@ -14,6 +14,7 @@ export const PORTFOLIO_DATA = {
     role: 'Software Developer',
     heroRole: 'AI & DATA SCIENCE + FULL STACK DEVELOPER',
     education: 'III YEAR — B.TECH ARTIFICIAL INTELLIGENCE & DATA SCIENCE',
+    minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
     institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
     location: 'Kanyakumari, Tamil Nadu, India',
     avatar: '/profile.jpeg',
@@ -52,6 +53,7 @@ export const PORTFOLIO_DATA = {
   aboutPreview: {
     heading: 'P M K BLESSING BRYSON HONG',
     degree: 'III Year B.Tech Artificial Intelligence & Data Science',
+    minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
     institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
     statement: 'Focused on building practical software and intelligent systems.',
     paragraphs: [
@@ -172,7 +174,7 @@ export const PORTFOLIO_DATA = {
       liveUrl: '',
       githubUrl: 'https://github.com/blessingbrysonhongpmk',
       isFlagship: true,
-      color: '#10B981',
+      color: '#3B82F6',
       image: '/projects/smart-canteen-ai-v2.jpg',
     },
     {
@@ -218,7 +220,7 @@ export const PORTFOLIO_DATA = {
       liveUrl: 'https://devidevanindustries.com',
       githubUrl: '',
       isFlagship: true,
-      color: '#FF3B5C',
+      color: '#10B981',
       image: '/projects/devi-devan-industries-v2.jpg',
     },
     {
@@ -264,7 +266,7 @@ export const PORTFOLIO_DATA = {
       liveUrl: 'https://alumunium-fabrication-company.vercel.app/',
       githubUrl: '',
       isFlagship: false,
-      color: '#0284C7',
+      color: '#94A3B8',
       image: '/projects/aluminium-fabrication-v2.jpg',
     },
   ],
@@ -402,10 +404,10 @@ export const PORTFOLIO_DATA = {
       year: '2024',
       milestone: "St. Xavier's Catholic College of Engineering (SXCCE)",
       tag: 'Academic Foundation',
-      summary: 'B.Tech in Artificial Intelligence & Data Science.',
+      summary: 'B.Tech in Artificial Intelligence & Data Science · Minor in ECE & IoT',
       details:
-        'Commenced undergraduate studies in Artificial Intelligence and Data Science, establishing foundations in Python programming, mathematics, algorithms, and data structures.',
-      keyHighlights: ['Core computer science fundamentals', 'Python programming foundations'],
+        'Commenced undergraduate studies in Artificial Intelligence and Data Science with a Minor specialization in ECE & IoT (Electronics & Communication Engineering with Internet of Things), establishing foundations in Python programming, mathematics, algorithms, and computing systems.',
+      keyHighlights: ['Core computer science fundamentals', 'Minor specialization in ECE & IoT'],
     },
   ],
 
@@ -459,6 +461,7 @@ export const PORTFOLIO_DATA = {
   education: [
     {
       degree: 'B.Tech — Artificial Intelligence & Data Science',
+      minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
       institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
       period: '2023 — 2027',
       status: 'Currently in III Year',

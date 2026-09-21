@@ -175,6 +175,7 @@ export function JourneyDetailModal({ onClose }) {
                   <span className="about-edu-period">{edu.period}</span>
                 </div>
                 <p className="about-edu-inst">{edu.institution} · <strong>{edu.status}</strong></p>
+                {edu.minor && <p className="about-edu-minor-row"><strong>Specialization:</strong> {edu.minor}</p>}
                 {edu.focus && <p className="about-edu-focus"><strong>Core Subjects:</strong> {edu.focus}</p>}
               </div>
             ))}

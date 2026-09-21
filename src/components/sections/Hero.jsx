@@ -55,9 +55,13 @@ export function Hero({ onOpenContact, isRevealed = true }) {
               <figcaption className="hero-quote__cite">— Proverbs 16:3</figcaption>
             </figure>
 
-            {/* 3. Small Role */}
+            {/* 3. Role & Education */}
             <div className="hero-role-wrap">
               <span className="hero-role">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
+              <div className="hero-edu-line">
+                <span className="hero-edu-primary">B.Tech AI &amp; Data Science · III Year</span>
+                <span className="hero-edu-minor">Minor — ECE &amp; IoT</span>
+              </div>
             </div>
 
             {/* 4. Primary CTA Actions */}

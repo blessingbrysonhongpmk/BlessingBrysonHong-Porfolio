@@ -26,6 +26,31 @@ export function About() {
               <span className="about-status__sep" aria-hidden="true">—</span>
               <span className="about-status__role">Nex-X Spark — Intern</span>
             </div>
+
+            {/* Complete Verified Education Information */}
+            <div className="about-education-card">
+              <div className="about-education-top">
+                <span className="about-education-badge">EDUCATION</span>
+                <span className="about-education-period">2023 — 2027 · III Year (Current)</span>
+              </div>
+              <div className="about-education-degree-wrap">
+                <h3 className="about-education-degree">
+                  B.Tech — Artificial Intelligence &amp; Data Science
+                </h3>
+                <p className="about-education-college">
+                  St. Xavier&apos;s Catholic College of Engineering (SXCCE)
+                </p>
+              </div>
+              <div className="about-education-minor">
+                <span className="about-education-minor-tag">MINOR / SPECIALIZATION</span>
+                <div className="about-education-minor-detail">
+                  <strong className="about-education-minor-code">ECE &amp; IoT</strong>
+                  <span className="about-education-minor-full">
+                    (Electronics &amp; Communication Engineering with Internet of Things)
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -106,8 +106,8 @@
 .project-card__pip {
   font-size: 0.82rem;
   line-height: 1;
-  color: var(--color-accent);
-  opacity: 0.8;
+  opacity: 0.9;
+  transition: color 220ms ease;
 }
 
 .project-card__num {
@@ -259,169 +259,411 @@
 
 /* ────────────────────────────────────────────────────────────
    THEME 01: SMART CANTEEN AI
-   Identity: RED + DEEP PURPLE (Intelligent / AI / Modern)
+   Theme: BLUE + SUBTLE PURPLE (AI / Technology / Intelligence / Modern)
+   Dark: Deep navy-black surface, soft electric blue ambient glow, subtle purple atmosphere, white typography
+   Light: Cool-white surface, soft blue tint, subtle lavender atmosphere, deep navy typography
    ──────────────────────────────────────────────────────────── */
 .project-card--canteen {
-  background: linear-gradient(165deg, rgba(16, 13, 22, 0.92) 0%, rgba(10, 8, 14, 0.98) 100%);
-}
-
-[data-theme="light"] .project-card--canteen {
-  background: linear-gradient(165deg, #FFFFFF 0%, #FAF5FB 100%);
+  background: linear-gradient(165deg, rgba(10, 18, 36, 0.95) 0%, rgba(6, 10, 20, 0.98) 100%);
+  border-color: rgba(59, 130, 246, 0.24);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.65), 0 0 16px -4px rgba(37, 99, 235, 0.16);
 }
 
 .project-card--canteen .project-card__ambient {
-  background: radial-gradient(circle at 85% 15%, rgba(240, 45, 79, 0.16) 0%, rgba(126, 34, 206, 0.13) 42%, transparent 70%);
-}
-
-[data-theme="light"] .project-card--canteen .project-card__ambient {
-  background: radial-gradient(circle at 85% 15%, rgba(229, 45, 79, 0.07) 0%, rgba(126, 34, 206, 0.05) 50%, transparent 70%);
+  background: radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.24) 0%, rgba(139, 92, 246, 0.15) 42%, transparent 72%);
 }
 
 .project-card--canteen .project-card__thumb-glow {
-  background: radial-gradient(ellipse at center, rgba(240, 45, 79, 0.22) 0%, rgba(126, 34, 206, 0.18) 50%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.28) 0%, rgba(139, 92, 246, 0.18) 52%, transparent 75%);
+}
+
+.project-card--canteen .project-card__thumb-wrap {
+  border-color: rgba(59, 130, 246, 0.26);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.50), 0 0 12px -3px rgba(59, 130, 246, 0.22);
+}
+
+.project-card--canteen .project-card__pip {
+  color: #60A5FA;
 }
 
 .project-card--canteen .project-card__num {
-  color: rgba(240, 45, 79, 0.85);
+  color: rgba(147, 197, 253, 0.90);
+}
+
+.project-card--canteen .project-card__name {
+  color: #FFFFFF;
+}
+
+.project-card--canteen .project-card__desc {
+  color: #94A3B8;
 }
 
 .project-card--canteen .project-card__cat {
-  color: var(--color-accent);
+  color: #60A5FA;
+}
+
+.project-card--canteen .project-card__year {
+  color: #64748B;
+}
+
+.project-card--canteen .project-card__cta {
+  color: #93C5FD;
+  border-top-color: rgba(59, 130, 246, 0.22);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project-card--canteen:hover {
-    border-color: rgba(240, 45, 79, 0.40);
-    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.70),
-                0 0 16px -4px rgba(126, 34, 206, 0.18),
-                0 0 12px -4px rgba(240, 45, 79, 0.18);
+    border-color: rgba(96, 165, 250, 0.48);
+    box-shadow: 0 14px 36px -6px rgba(0, 0, 0, 0.75),
+                0 0 26px -4px rgba(59, 130, 246, 0.30),
+                0 0 18px -4px rgba(139, 92, 246, 0.22);
   }
 
   .project-card--canteen:hover .project-card__name {
     color: #FFFFFF;
   }
 
-  [data-theme="light"] .project-card--canteen:hover .project-card__name {
-    color: #12151A;
+  .project-card--canteen:hover .project-card__cta {
+    color: #60A5FA;
+    border-top-color: rgba(96, 165, 250, 0.45);
+  }
+}
+
+/* Smart Canteen AI — Light Mode */
+[data-theme="light"] .project-card--canteen {
+  background: linear-gradient(165deg, #F8FAFF 0%, #EEF4FE 100%);
+  border: 1.5px solid rgba(37, 99, 235, 0.24);
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .project-card--canteen .project-card__ambient {
+  background: radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.09) 45%, transparent 70%);
+}
+
+[data-theme="light"] .project-card--canteen .project-card__thumb-glow {
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.20) 0%, rgba(147, 51, 234, 0.12) 50%, transparent 75%);
+}
+
+[data-theme="light"] .project-card--canteen .project-card__thumb-wrap {
+  border-color: rgba(37, 99, 235, 0.22);
+  box-shadow: 0 4px 14px -2px rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="light"] .project-card--canteen .project-card__pip {
+  color: #2563EB;
+}
+
+[data-theme="light"] .project-card--canteen .project-card__num {
+  color: #2563EB;
+}
+
+[data-theme="light"] .project-card--canteen .project-card__name {
+  color: #0F172A;
+}
+
+[data-theme="light"] .project-card--canteen .project-card__desc {
+  color: #334155;
+}
+
+[data-theme="light"] .project-card--canteen .project-card__cat {
+  color: #2563EB;
+}
+
+[data-theme="light"] .project-card--canteen .project-card__year {
+  color: #64748B;
+}
+
+[data-theme="light"] .project-card--canteen .project-card__cta {
+  color: #1D4ED8;
+  border-top-color: rgba(37, 99, 235, 0.18);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-theme="light"] .project-card--canteen:hover {
+    border-color: rgba(37, 99, 235, 0.50);
+    box-shadow: 0 16px 36px -4px rgba(37, 99, 235, 0.22), 0 0 20px -4px rgba(147, 51, 234, 0.14);
   }
 
-  .project-card--canteen:hover .project-card__cta {
-    color: var(--color-accent);
-    border-color: rgba(240, 45, 79, 0.35);
+  [data-theme="light"] .project-card--canteen:hover .project-card__name {
+    color: #0B1329;
+  }
+
+  [data-theme="light"] .project-card--canteen:hover .project-card__cta {
+    color: #1E40AF;
+    border-top-color: rgba(37, 99, 235, 0.42);
   }
 }
 
 /* ────────────────────────────────────────────────────────────
    THEME 02: DEVI DEVAN INDUSTRIES
-   Identity: DEEP GREEN + BLACK (Manufacturing / Natural / Mature)
+   Theme: DEEP GREEN + COCONUT / NATURAL PRODUCT VISUAL LANGUAGE
+   Dark: Deep forest green / near-black, muted olive/green highlights, soft warm off-white typography
+   Light: Warm ivory / creamy off-white, deep natural green, subtle warm coconut/beige tones
    ──────────────────────────────────────────────────────────── */
 .project-card--devidevan {
-  background: linear-gradient(165deg, rgba(9, 18, 13, 0.92) 0%, rgba(7, 12, 9, 0.98) 100%);
-}
-
-[data-theme="light"] .project-card--devidevan {
-  background: linear-gradient(165deg, #FFFFFF 0%, #F3FAF5 100%);
+  background: linear-gradient(165deg, rgba(8, 22, 14, 0.95) 0%, rgba(5, 13, 8, 0.98) 100%);
+  border-color: rgba(16, 185, 129, 0.24);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.65), 0 0 16px -4px rgba(16, 185, 129, 0.15);
 }
 
 .project-card--devidevan .project-card__ambient {
-  background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.15) 0%, rgba(4, 120, 87, 0.12) 42%, transparent 70%);
-}
-
-[data-theme="light"] .project-card--devidevan .project-card__ambient {
-  background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.07) 0%, rgba(4, 120, 87, 0.05) 50%, transparent 70%);
+  background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.15) 38%, rgba(180, 140, 90, 0.09) 60%, transparent 72%);
 }
 
 .project-card--devidevan .project-card__thumb-glow {
-  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.22) 0%, rgba(4, 120, 87, 0.16) 50%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.25) 0%, rgba(5, 150, 105, 0.16) 50%, transparent 75%);
+}
+
+.project-card--devidevan .project-card__thumb-wrap {
+  border-color: rgba(16, 185, 129, 0.24);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.50), 0 0 12px -3px rgba(16, 185, 129, 0.20);
+}
+
+.project-card--devidevan .project-card__pip {
+  color: #34D399;
 }
 
 .project-card--devidevan .project-card__num {
-  color: rgba(16, 185, 129, 0.85);
+  color: rgba(52, 211, 153, 0.90);
+}
+
+.project-card--devidevan .project-card__name {
+  color: #F4FBF7;
+}
+
+.project-card--devidevan .project-card__desc {
+  color: #9CA3AF;
 }
 
 .project-card--devidevan .project-card__cat {
-  color: #10B981;
+  color: #34D399;
+}
+
+.project-card--devidevan .project-card__year {
+  color: #6B7280;
+}
+
+.project-card--devidevan .project-card__cta {
+  color: #6EE7B7;
+  border-top-color: rgba(16, 185, 129, 0.22);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project-card--devidevan:hover {
-    border-color: rgba(16, 185, 129, 0.40);
-    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.70),
-                0 0 16px -4px rgba(16, 185, 129, 0.18);
+    border-color: rgba(52, 211, 153, 0.48);
+    box-shadow: 0 14px 36px -6px rgba(0, 0, 0, 0.75),
+                0 0 26px -4px rgba(16, 185, 129, 0.28);
   }
 
   .project-card--devidevan:hover .project-card__name {
     color: #FFFFFF;
   }
 
-  [data-theme="light"] .project-card--devidevan:hover .project-card__name {
-    color: #111318;
+  .project-card--devidevan:hover .project-card__cta {
+    color: #34D399;
+    border-top-color: rgba(52, 211, 153, 0.45);
+  }
+}
+
+/* Devi Devan Industries — Light Mode */
+[data-theme="light"] .project-card--devidevan {
+  background: linear-gradient(165deg, #FAF8F5 0%, #F1F6F1 100%);
+  border: 1.5px solid rgba(16, 185, 129, 0.26);
+  box-shadow: 0 8px 24px -4px rgba(16, 185, 129, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__ambient {
+  background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.15) 0%, rgba(202, 175, 135, 0.15) 42%, transparent 70%);
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__thumb-glow {
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.18) 0%, rgba(202, 175, 135, 0.14) 50%, transparent 75%);
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__thumb-wrap {
+  border-color: rgba(16, 185, 129, 0.22);
+  box-shadow: 0 4px 14px -2px rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__pip {
+  color: #059669;
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__num {
+  color: #059669;
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__name {
+  color: #0A2416;
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__desc {
+  color: #264033;
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__cat {
+  color: #047857;
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__year {
+  color: #475569;
+}
+
+[data-theme="light"] .project-card--devidevan .project-card__cta {
+  color: #047857;
+  border-top-color: rgba(16, 185, 129, 0.20);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-theme="light"] .project-card--devidevan:hover {
+    border-color: rgba(5, 150, 105, 0.52);
+    box-shadow: 0 16px 36px -4px rgba(16, 185, 129, 0.20), 0 0 20px -4px rgba(202, 175, 135, 0.18);
   }
 
-  .project-card--devidevan:hover .project-card__cta {
-    color: #10B981;
-    border-color: rgba(16, 185, 129, 0.35);
+  [data-theme="light"] .project-card--devidevan:hover .project-card__name {
+    color: #061B10;
+  }
+
+  [data-theme="light"] .project-card--devidevan:hover .project-card__cta {
+    color: #065F46;
+    border-top-color: rgba(5, 150, 105, 0.44);
   }
 }
 
 /* ────────────────────────────────────────────────────────────
    THEME 03: ALUMINIUM FABRICATION PORTAL
-   Identity: GREY + WHITE + METALLIC (Industrial / Precise / Clean)
+   Theme: BLACK + WHITE + METALLIC GREY (Industrial / Precision / Engineering)
+   Dark: Graphite / deep black / silver / cool white, metallic top reflection highlight
+   Light: Crisp white + soft grey + graphite + silver, polished metal feel
    ──────────────────────────────────────────────────────────── */
 .project-card--aluminium {
-  background: linear-gradient(165deg, rgba(20, 24, 30, 0.94) 0%, rgba(11, 13, 17, 0.98) 100%);
-}
-
-[data-theme="light"] .project-card--aluminium {
-  background: linear-gradient(165deg, #FFFFFF 0%, #F5F7FA 100%);
+  background: linear-gradient(165deg, rgba(24, 28, 36, 0.95) 0%, rgba(12, 15, 20, 0.98) 100%);
+  border-color: rgba(203, 213, 225, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 24px -4px rgba(0, 0, 0, 0.70);
 }
 
 .project-card--aluminium .project-card__ambient {
-  background: radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.12) 0%, rgba(148, 163, 184, 0.10) 45%, transparent 70%);
-}
-
-[data-theme="light"] .project-card--aluminium .project-card__ambient {
-  background: radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.8) 0%, rgba(148, 163, 184, 0.08) 50%, transparent 70%);
+  background: radial-gradient(circle at 85% 15%, rgba(241, 245, 249, 0.14) 0%, rgba(148, 163, 184, 0.10) 45%, transparent 70%);
 }
 
 .project-card--aluminium .project-card__thumb-glow {
-  background: radial-gradient(ellipse at center, rgba(226, 232, 240, 0.18) 0%, rgba(148, 163, 184, 0.14) 50%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(226, 232, 240, 0.18) 0%, rgba(148, 163, 184, 0.12) 50%, transparent 75%);
+}
+
+.project-card--aluminium .project-card__thumb-wrap {
+  border-color: rgba(203, 213, 225, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 16px -2px rgba(0, 0, 0, 0.55);
+}
+
+.project-card--aluminium .project-card__pip {
+  color: #CBD5E1;
 }
 
 .project-card--aluminium .project-card__num {
-  color: rgba(203, 213, 225, 0.85);
+  color: rgba(203, 213, 225, 0.90);
+}
+
+.project-card--aluminium .project-card__name {
+  color: #FFFFFF;
+}
+
+.project-card--aluminium .project-card__desc {
+  color: #94A3B8;
 }
 
 .project-card--aluminium .project-card__cat {
   color: #CBD5E1;
 }
 
-[data-theme="light"] .project-card--aluminium .project-card__cat {
-  color: #475569;
+.project-card--aluminium .project-card__year {
+  color: #64748B;
+}
+
+.project-card--aluminium .project-card__cta {
+  color: #E2E8F0;
+  border-top-color: rgba(203, 213, 225, 0.20);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project-card--aluminium:hover {
-    border-color: rgba(226, 232, 240, 0.40);
-    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.70),
-                0 0 16px -4px rgba(226, 232, 240, 0.15);
+    border-color: rgba(241, 245, 249, 0.48);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                0 14px 36px -6px rgba(0, 0, 0, 0.80),
+                0 0 22px -4px rgba(226, 232, 240, 0.22);
   }
 
   .project-card--aluminium:hover .project-card__name {
     color: #FFFFFF;
   }
 
-  [data-theme="light"] .project-card--aluminium:hover .project-card__name {
-    color: #111318;
-  }
-
   .project-card--aluminium:hover .project-card__cta {
     color: #FFFFFF;
-    border-color: rgba(226, 232, 240, 0.35);
+    border-top-color: rgba(241, 245, 249, 0.45);
+  }
+}
+
+/* Aluminium Fabrication Portal — Light Mode */
+[data-theme="light"] .project-card--aluminium {
+  background: linear-gradient(165deg, #FFFFFF 0%, #F1F5F9 100%);
+  border: 1.5px solid rgba(100, 116, 139, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px -4px rgba(100, 116, 139, 0.14), 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__ambient {
+  background: radial-gradient(circle at 85% 15%, rgba(148, 163, 184, 0.16) 0%, rgba(203, 213, 225, 0.10) 50%, transparent 70%);
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__thumb-glow {
+  background: radial-gradient(ellipse at center, rgba(148, 163, 184, 0.18) 0%, rgba(203, 213, 225, 0.10) 50%, transparent 75%);
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__thumb-wrap {
+  border-color: rgba(100, 116, 139, 0.24);
+  box-shadow: 0 4px 14px -2px rgba(100, 116, 139, 0.15);
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__pip {
+  color: #475569;
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__num {
+  color: #475569;
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__name {
+  color: #0F172A;
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__desc {
+  color: #334155;
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__cat {
+  color: #475569;
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__year {
+  color: #64748B;
+}
+
+[data-theme="light"] .project-card--aluminium .project-card__cta {
+  color: #1E293B;
+  border-top-color: rgba(100, 116, 139, 0.22);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-theme="light"] .project-card--aluminium:hover {
+    border-color: rgba(71, 85, 105, 0.55);
+    box-shadow: inset 0 1px 0 #FFFFFF, 0 16px 36px -4px rgba(100, 116, 139, 0.24), 0 0 18px -4px rgba(148, 163, 184, 0.18);
+  }
+
+  [data-theme="light"] .project-card--aluminium:hover .project-card__name {
+    color: #0A0E17;
   }
 
   [data-theme="light"] .project-card--aluminium:hover .project-card__cta {
-    color: #1E293B;
+    color: #0F172A;
+    border-top-color: rgba(71, 85, 105, 0.48);
   }
 }
 
@@ -513,35 +755,4 @@
   }
 }
 
-/* ── Light Mode Explicit Contrast Refinements ── */
-[data-theme="light"] .project-card {
-  border: 1.5px solid rgba(18, 21, 26, 0.15);
-  box-shadow: 0 4px 18px -2px rgba(18, 21, 26, 0.08), 0 1px 4px rgba(18, 21, 26, 0.04);
-}
 
-[data-theme="light"] .project-card:hover {
-  box-shadow: 0 14px 34px -4px rgba(18, 21, 26, 0.13), 0 4px 10px -2px rgba(18, 21, 26, 0.06);
-}
-
-[data-theme="light"] .project-card__name {
-  color: #0E1116;
-}
-
-[data-theme="light"] .project-card__desc {
-  color: #2D3442;
-}
-
-[data-theme="light"] .project-card__meta {
-  color: #475569;
-  font-weight: 700;
-}
-
-[data-theme="light"] .project-card__cta {
-  color: #0E1116;
-  border-top-color: rgba(18, 21, 26, 0.14);
-}
-
-[data-theme="light"] .project-card__thumb-wrap {
-  border-color: rgba(18, 21, 26, 0.14);
-  box-shadow: 0 3px 10px -2px rgba(18, 21, 26, 0.15);
-}

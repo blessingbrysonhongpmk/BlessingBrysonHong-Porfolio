@@ -148,9 +148,12 @@
   opacity: 0.75;
 }
 
-/* ── 3. Role ── */
+/* ── 3. Role & Academic Lockup ── */
 .hero-role-wrap {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   margin-bottom: clamp(1.75rem, 3vw, 2.4rem);
 }
 
@@ -161,6 +164,42 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent);
+}
+
+.hero-edu-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: clamp(0.74rem, 0.86vw, 0.82rem);
+  letter-spacing: 0.03em;
+}
+
+.hero-edu-primary {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.hero-edu-minor {
+  color: var(--color-text-muted);
+  background: var(--glass-bg-subtle);
+  border: 1px solid var(--color-border);
+  padding: 2px 9px;
+  border-radius: var(--radius-xs);
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="light"] .hero-edu-primary {
+  color: #0E1116;
+}
+
+[data-theme="light"] .hero-edu-minor {
+  color: #475569;
+  background: #F1F5F9;
+  border-color: rgba(18, 21, 26, 0.16);
 }
 
 /* ── 4. Primary Actions (CTA) ── */
