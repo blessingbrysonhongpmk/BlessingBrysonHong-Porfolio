@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Lock } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { TechLogo } from '../ui/SocialIcons';
 import './Journey.css';
@@ -30,43 +30,7 @@ export function Journey({ onOpenJourney, onOpenAchievements }) {
                 tabIndex={0}
                 aria-label={`${comp.company} — ${comp.role} (${comp.period})`}
               >
-                {/* 1. Miniature Browser Mockup Window */}
-                <div className="company-browser-frame">
-                  <div className="company-browser-topbar">
-                    <div className="company-browser-dots" aria-hidden="true">
-                      <span className="browser-dot browser-dot--red" />
-                      <span className="browser-dot browser-dot--yellow" />
-                      <span className="browser-dot browser-dot--green" />
-                    </div>
-                    <div className="company-browser-url-pill">
-                      <Lock size={9} className="company-browser-lock" aria-hidden="true" />
-                      <span className="company-browser-domain">{comp.displayUrl}</span>
-                    </div>
-                    <div className="company-browser-actions" aria-hidden="true" />
-                  </div>
-
-                  {/* Dual Responsive Device Stage: Desktop canvas + Overlapping mobile phone */}
-                  <div className="company-browser-stage">
-                    <img
-                      src={comp.previewImage}
-                      alt={`${comp.company} desktop website preview`}
-                      className="company-browser-screen company-browser-screen--desktop"
-                      loading="lazy"
-                    />
-                    <div className="company-phone-mockup" aria-hidden="true">
-                      <div className="company-phone-notch" />
-                      <img
-                        src={comp.mobilePreviewImage}
-                        alt=""
-                        className="company-browser-screen company-browser-screen--mobile"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="company-browser-ambient" aria-hidden="true" />
-                  </div>
-                </div>
-
-                {/* 2. Company Identity & Details */}
+                {/* Company Identity & Details */}
                 <div className="company-card-body">
                   <div className="company-meta-strip">
                     <div className="company-brand-group">

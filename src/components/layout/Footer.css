@@ -295,3 +295,28 @@
     gap: var(--space-4);
   }
 }
+
+/* ── Light Mode Explicit Contrast Refinements ── */
+[data-theme="light"] .footer {
+  background: rgba(255, 255, 255, 0.88);
+  border-top: 1.5px solid rgba(18, 21, 26, 0.14);
+}
+
+[data-theme="light"] .footer__social-pill {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  color: #0E1116;
+  box-shadow: 0 2px 6px rgba(18, 21, 26, 0.05);
+}
+
+[data-theme="light"] .footer__social-pill:hover {
+  border-color: rgba(18, 21, 26, 0.32);
+  background: #FAFAFA;
+}
+
+[data-theme="light"] .footer__top-btn {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  color: #0E1116;
+  box-shadow: 0 1px 4px rgba(18, 21, 26, 0.05);
+}

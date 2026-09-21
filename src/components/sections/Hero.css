@@ -608,3 +608,41 @@
   }
 }
 
+/* ── Light Mode Explicit Contrast Refinements ── */
+[data-theme="light"] .hero-pmk-mark {
+  color: #374151;
+  opacity: 1;
+  font-weight: 700;
+}
+
+[data-theme="light"] .hero-quote__text {
+  color: #1F2937;
+  opacity: 1;
+  font-weight: 500;
+}
+
+[data-theme="light"] .hero-quote__cite {
+  color: #4B5563;
+  opacity: 1;
+  font-weight: 600;
+}
+
+[data-theme="light"] .hero-btn--secondary {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.18);
+  color: #0E1116;
+  box-shadow: 0 2px 8px rgba(18, 21, 26, 0.06);
+}
+
+[data-theme="light"] .hero-btn--secondary:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+[data-theme="light"] .hero-card-frame {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  box-shadow: 0 16px 36px -6px rgba(18, 21, 26, 0.14);
+}
+

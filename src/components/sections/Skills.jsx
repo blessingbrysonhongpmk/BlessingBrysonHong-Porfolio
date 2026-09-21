@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Code2,
   Globe,
@@ -7,7 +8,6 @@ import {
   Languages,
   ArrowRight,
   X,
-  ExternalLink,
 } from 'lucide-react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { TechLogo } from '../ui/SocialIcons';
@@ -53,7 +53,53 @@ function getRelatedProjects(skillName, skillProjectMap) {
   return [...matched.values()];
 }
 
-// ── Detail Panel for a selected category ──────────────
+// ── Reusable Skills List for both Desktop Panel & Mobile Sheet ──
+function SkillsList({ category, skillProjectMap }) {
+  const isLanguages = category.category === 'LANGUAGES';
+
+  return (
+    <ul className="skills-panel__list" role="list">
+      {(category.skills || []).map((skill) => {
+        const relatedProjects = getRelatedProjects(skill.name, skillProjectMap);
+        const isGerman = skill.name.toLowerCase().includes('german');
+
+        return (
+          <li key={skill.name} className="skills-panel__skill">
+            <div className="skills-panel__skill-header">
+              <div className="skills-panel__skill-name-wrap">
+                <TechLogo name={skill.name} size={16} className="skill-item-logo" />
+                <span className="skills-panel__skill-name">{skill.name}</span>
+              </div>
+              {isGerman ? (
+                <span className="skills-panel__badge skills-panel__badge--accent">Basic</span>
+              ) : skill.status && !isLanguages ? (
+                <span className="skills-panel__badge">{skill.status}</span>
+              ) : null}
+            </div>
+            {skill.description && (
+              <p className="skills-panel__skill-desc">{skill.description}</p>
+            )}
+            {relatedProjects.length > 0 && (
+              <div className="skills-panel__projects">
+                <span className="skills-panel__projects-label">Used in:</span>
+                <div className="skills-panel__project-links">
+                  {relatedProjects.map((proj) => (
+                    <span key={proj.id} className="skills-panel__project-chip">
+                      <span className="skills-panel__chip-dot" aria-hidden="true" />
+                      <span>{proj.name}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+// ── Desktop Detail Panel (Lives on side of categories) ──
 function CategoryDetailPanel({ category, skillProjectMap, onClose }) {
   const CategoryIcon = CATEGORY_ICONS[category.category] || Code2;
   const isLanguages = category.category === 'LANGUAGES';
@@ -79,45 +125,109 @@ function CategoryDetailPanel({ category, skillProjectMap, onClose }) {
         </button>
       </div>
 
-      <ul className="skills-panel__list" role="list">
-        {(category.skills || []).map((skill) => {
-          const relatedProjects = getRelatedProjects(skill.name, skillProjectMap);
-          const isGerman = skill.name.toLowerCase().includes('german');
-
-          return (
-            <li key={skill.name} className="skills-panel__skill">
-              <div className="skills-panel__skill-header">
-                <div className="skills-panel__skill-name-wrap">
-                  <TechLogo name={skill.name} size={16} className="skill-item-logo" />
-                  <span className="skills-panel__skill-name">{skill.name}</span>
-                </div>
-                {isGerman ? (
-                  <span className="skills-panel__badge skills-panel__badge--accent">Basic</span>
-                ) : skill.status && !isLanguages ? (
-                  <span className="skills-panel__badge">{skill.status}</span>
-                ) : null}
-              </div>
-              {skill.description && (
-                <p className="skills-panel__skill-desc">{skill.description}</p>
-              )}
-              {relatedProjects.length > 0 && (
-                <div className="skills-panel__projects">
-                  <span className="skills-panel__projects-label">Used in:</span>
-                  <div className="skills-panel__project-links">
-                    {relatedProjects.map((proj) => (
-                      <span key={proj.id} className="skills-panel__project-chip">
-                        <span className="skills-panel__chip-dot" aria-hidden="true" />
-                        <span>{proj.name}</span>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      <SkillsList category={category} skillProjectMap={skillProjectMap} />
     </div>
+  );
+}
+
+// ── Mobile Mac-Style Floating Detail Sheet ──
+function SkillsMobileModal({ category, skillProjectMap, onClose, triggerElement }) {
+  const modalSheetRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const CategoryIcon = CATEGORY_ICONS[category.category] || Code2;
+  const isLanguages = category.category === 'LANGUAGES';
+
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // Auto-focus the close button for accessibility & immediate keyboard navigation
+    const focusTimer = setTimeout(() => {
+      if (closeBtnRef.current) {
+        closeBtnRef.current.focus();
+      }
+    }, 40);
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+      } else if (e.key === 'Tab' && modalSheetRef.current) {
+        const focusables = modalSheetRef.current.querySelectorAll(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length > 0) {
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearTimeout(focusTimer);
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      if (triggerElement && typeof triggerElement.focus === 'function') {
+        triggerElement.focus();
+      }
+    };
+  }, [onClose, triggerElement]);
+
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <div
+      className="skills-modal-backdrop"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="skills-modal-sheet desk-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="skills-mobile-modal-title"
+        onClick={(e) => e.stopPropagation()}
+        ref={modalSheetRef}
+        tabIndex={-1}
+      >
+        <div className="skills-modal-header">
+          <div className="skills-panel__header-inner">
+            <span className="skills-panel__icon" aria-hidden="true">
+              <CategoryIcon size={18} />
+            </span>
+            <h3 id="skills-mobile-modal-title" className="skills-panel__title">
+              {isLanguages ? 'HUMAN LANGUAGES' : category.category}
+            </h3>
+          </div>
+          <button
+            type="button"
+            className="skills-modal-close-btn"
+            onClick={onClose}
+            aria-label={`Close ${category.category} details`}
+            ref={closeBtnRef}
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="skills-modal-scroll-area">
+          <SkillsList category={category} skillProjectMap={skillProjectMap} />
+        </div>
+      </div>
+    </div>,
+    document.body
   );
 }
 
@@ -127,27 +237,49 @@ export function Skills({ onOpenSkills }) {
   const skillCategories = content.skillCategories || [];
   const projects = content.projects || [];
 
-  const [activeCategoryIdx, setActiveCategoryIdx] = useState(0); // Open first by default
+  const [activeCategoryIdx, setActiveCategoryIdx] = useState(0); // Active category for desktop side panel
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false); // Mobile floating sheet state
+  const lastTriggerRef = useRef(null);
   const panelRef = useRef(null);
 
   const skillProjectMap = useMemo(() => buildSkillProjectMap(projects), [projects]);
 
-  const handleSelectCategory = useCallback((idx) => {
-    setActiveCategoryIdx((prev) => (prev === idx ? null : idx));
+  const handleSelectCategory = useCallback((idx, e) => {
+    setActiveCategoryIdx(idx);
+    // On tablet and mobile (<= 880px), open the floating Mac-style sheet
+    if (typeof window !== 'undefined' && window.innerWidth <= 880) {
+      lastTriggerRef.current = e?.currentTarget || null;
+      setIsMobileModalOpen(true);
+    }
   }, []);
 
   const handleClosePanel = useCallback(() => {
     setActiveCategoryIdx(null);
   }, []);
 
-  // Close panel on Escape
+  const handleCloseMobileModal = useCallback(() => {
+    setIsMobileModalOpen(false);
+  }, []);
+
+  // Close mobile modal if resizing up to desktop
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 880 && isMobileModalOpen) {
+        setIsMobileModalOpen(false);
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [isMobileModalOpen]);
+
+  // Desktop escape listener
   useEffect(() => {
     const handler = (e) => {
-      if (e.key === 'Escape') handleClosePanel();
+      if (e.key === 'Escape' && !isMobileModalOpen) handleClosePanel();
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [handleClosePanel]);
+  }, [handleClosePanel, isMobileModalOpen]);
 
   const activeCategory =
     activeCategoryIdx !== null ? skillCategories[activeCategoryIdx] : null;
@@ -181,11 +313,11 @@ export function Skills({ onOpenSkills }) {
                   aria-selected={isActive}
                   tabIndex={0}
                   className={`skills-cat-row desk-card ${isActive ? 'skills-cat-row--active' : ''}`}
-                  onClick={() => handleSelectCategory(idx)}
+                  onClick={(e) => handleSelectCategory(idx, e)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      handleSelectCategory(idx);
+                      handleSelectCategory(idx, e);
                     }
                   }}
                 >
@@ -207,7 +339,7 @@ export function Skills({ onOpenSkills }) {
             })}
           </div>
 
-          {/* Right: Interactive Detail Panel */}
+          {/* Right: Desktop Side Inspection Panel (Hidden on <=880px) */}
           <div className="skills-detail-col" ref={panelRef}>
             {activeCategory ? (
               <CategoryDetailPanel
@@ -236,6 +368,17 @@ export function Skills({ onOpenSkills }) {
           </button>
         </div>
       </div>
+
+      {/* Mobile & Tablet Mac-Style Floating Detail Sheet (Rendered via Portal to document.body) */}
+      {isMobileModalOpen && activeCategory && (
+        <SkillsMobileModal
+          category={activeCategory}
+          skillProjectMap={skillProjectMap}
+          onClose={handleCloseMobileModal}
+          triggerElement={lastTriggerRef.current}
+        />
+      )}
     </section>
   );
 }
+

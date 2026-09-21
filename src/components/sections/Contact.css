@@ -647,3 +647,92 @@
     padding: 12px 16px;
   }
 }
+
+/* ── Light Mode Explicit Contrast Refinements ── */
+[data-theme="light"] .contact-heading {
+  color: #0E1116;
+}
+
+[data-theme="light"] .contact-description {
+  color: #2D3442;
+}
+
+[data-theme="light"] .contact-channel-item,
+[data-theme="light"] .contact-channel-link-card {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.15);
+  box-shadow: 0 2px 8px rgba(18, 21, 26, 0.05);
+}
+
+[data-theme="light"] .contact-channel-item:hover,
+[data-theme="light"] .contact-channel-link-card:hover {
+  background: #FAFAFA;
+  border-color: rgba(18, 21, 26, 0.28);
+  box-shadow: 0 6px 16px rgba(18, 21, 26, 0.08);
+}
+
+[data-theme="light"] .contact-channel-label {
+  color: #535C6D;
+  font-weight: 700;
+}
+
+[data-theme="light"] .contact-channel-value {
+  color: #0E1116;
+  font-weight: 600;
+}
+
+[data-theme="light"] .contact-channel-icon {
+  background: #F4F6F9;
+  border: 1px solid rgba(18, 21, 26, 0.14);
+}
+
+[data-theme="light"] .contact-copy-pill {
+  background: #F4F6F9;
+  border: 1.5px solid rgba(18, 21, 26, 0.18);
+  color: #0E1116;
+  font-weight: 700;
+}
+
+[data-theme="light"] .contact-copy-pill:hover {
+  background: #0E1116;
+  border-color: #0E1116;
+  color: #FFFFFF;
+}
+
+[data-theme="light"] .contact-form-panel {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  box-shadow: 0 12px 36px -4px rgba(18, 21, 26, 0.10), 0 2px 8px rgba(18, 21, 26, 0.04);
+}
+
+[data-theme="light"] .contact-form-header {
+  border-bottom-color: rgba(18, 21, 26, 0.12);
+}
+
+[data-theme="light"] .contact-form-hint {
+  color: #535C6D;
+}
+
+[data-theme="light"] .form-label {
+  color: #1E2530;
+  font-weight: 700;
+}
+
+/* Fixes white input inside white panel */
+[data-theme="light"] .form-input {
+  background: #F4F6F9;
+  border: 1.5px solid rgba(18, 21, 26, 0.18);
+  color: #0E1116;
+  font-weight: 500;
+}
+
+[data-theme="light"] .form-input::placeholder {
+  color: #535C6D;
+  opacity: 1;
+}
+
+[data-theme="light"] .form-input:focus {
+  background: #FFFFFF;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(216, 30, 67, 0.15);
+}

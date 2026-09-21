@@ -17,6 +17,7 @@ import { AchievementsDetailModal } from './components/modals/AchievementsDetailM
 import { ContactDetailModal } from './components/modals/ContactDetailModal';
 
 import { AdminLayout } from './components/admin/AdminLayout';
+import { AdminLogin } from './components/admin/AdminLogin';
 import { MacWelcomeLoader } from './components/welcome/MacWelcomeLoader';
 import { PortfolioProvider, usePortfolioContent } from './context/PortfolioContext';
 
@@ -48,6 +49,24 @@ function PortfolioApp() {
     if (typeof window === 'undefined') return false;
     return window.location.hash.startsWith('#/admin') || window.location.pathname === '/admin';
   });
+
+  // Admin authentication state
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return sessionStorage.getItem('bbh_admin_auth') === 'true';
+  });
+
+  const handleAdminLoginSuccess = useCallback(() => {
+    sessionStorage.setItem('bbh_admin_auth', 'true');
+    setIsAdminAuthenticated(true);
+  }, []);
+
+  const handleAdminLogout = useCallback(() => {
+    sessionStorage.removeItem('bbh_admin_auth');
+    setIsAdminAuthenticated(false);
+    window.location.hash = '#/';
+    setIsAdminView(false);
+  }, []);
 
   // Mac-Style Welcome Loader: runs on initial visit in this session
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(() => {
@@ -241,10 +260,25 @@ function PortfolioApp() {
 
   // Admin view
   if (isAdminView) {
+    if (!isAdminAuthenticated) {
+      return (
+        <AdminLogin
+          theme={theme}
+          toggleTheme={toggleTheme}
+          onSuccess={handleAdminLoginSuccess}
+          onCancel={() => {
+            window.location.hash = '#/';
+            setIsAdminView(false);
+          }}
+        />
+      );
+    }
+
     return (
       <AdminLayout
         theme={theme}
         toggleTheme={toggleTheme}
+        onLogout={handleAdminLogout}
         onExit={() => {
           window.location.hash = '#/';
           setIsAdminView(false);

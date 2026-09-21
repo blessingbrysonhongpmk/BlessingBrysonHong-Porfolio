@@ -512,3 +512,36 @@
     transform: none !important;
   }
 }
+
+/* ── Light Mode Explicit Contrast Refinements ── */
+[data-theme="light"] .project-card {
+  border: 1.5px solid rgba(18, 21, 26, 0.15);
+  box-shadow: 0 4px 18px -2px rgba(18, 21, 26, 0.08), 0 1px 4px rgba(18, 21, 26, 0.04);
+}
+
+[data-theme="light"] .project-card:hover {
+  box-shadow: 0 14px 34px -4px rgba(18, 21, 26, 0.13), 0 4px 10px -2px rgba(18, 21, 26, 0.06);
+}
+
+[data-theme="light"] .project-card__name {
+  color: #0E1116;
+}
+
+[data-theme="light"] .project-card__desc {
+  color: #2D3442;
+}
+
+[data-theme="light"] .project-card__meta {
+  color: #475569;
+  font-weight: 700;
+}
+
+[data-theme="light"] .project-card__cta {
+  color: #0E1116;
+  border-top-color: rgba(18, 21, 26, 0.14);
+}
+
+[data-theme="light"] .project-card__thumb-wrap {
+  border-color: rgba(18, 21, 26, 0.14);
+  box-shadow: 0 3px 10px -2px rgba(18, 21, 26, 0.15);
+}

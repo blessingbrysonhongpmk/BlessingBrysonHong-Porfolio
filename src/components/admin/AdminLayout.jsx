@@ -18,10 +18,11 @@ import {
   RotateCcw,
   Sun,
   Moon,
+  LogOut,
 } from 'lucide-react';
 import './AdminLayout.css';
 
-export function AdminLayout({ onExit, theme, toggleTheme }) {
+export function AdminLayout({ onExit, onLogout, theme, toggleTheme }) {
   const { isDirty, draftContent, publishContent, discardDraft, toastMessage } = usePortfolioContent();
   const [activeTab, setActiveTab] = useState('projects'); // 'projects' | 'about' | 'skills' | 'journey' | 'achievements' | 'settings'
 
@@ -101,6 +102,18 @@ export function AdminLayout({ onExit, theme, toggleTheme }) {
             <span>Live Site</span>
             <ArrowUpRight size={14} />
           </button>
+
+          {onLogout && (
+            <button
+              type="button"
+              className="admin-btn admin-btn--ghost admin-btn--logout"
+              onClick={onLogout}
+              title="Log out of Admin"
+            >
+              <LogOut size={14} />
+              <span>Log Out</span>
+            </button>
+          )}
         </div>
       </header>
 

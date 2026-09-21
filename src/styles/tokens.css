@@ -4,29 +4,29 @@
    ───────────────────────────────────────────────────── */
 
 :root {
-  /* ── Light Mode (Warm Ivory Card Table) ── */
-  --color-bg: #F5F3ED;
-  --color-bg-alt: #ECE9E1;
+  /* ── Light Mode (Warm Editorial Card Desk) ── */
+  --color-bg: #EAE6DC;
+  --color-bg-alt: #DFD9CD;
   --color-surface: #FFFFFF;
-  --color-surface-raised: #FAF9F6;
-  --color-surface-hover: #F0EDE5;
-  --color-surface-glass: rgba(245, 243, 237, 0.90);
+  --color-surface-raised: #FFFFFF;
+  --color-surface-hover: #F8F7F2;
+  --color-surface-glass: rgba(255, 255, 255, 0.96);
 
   /* Signature Crimson Accent (Light Mode) */
-  --color-accent: #E52D4F;
-  --color-accent-hover: #C91E3E;
-  --color-accent-soft: rgba(229, 45, 79, 0.08);
-  --color-accent-muted: rgba(229, 45, 79, 0.16);
-  --color-accent-glow: rgba(229, 45, 79, 0.25);
+  --color-accent: #D81E43;
+  --color-accent-hover: #B81435;
+  --color-accent-soft: rgba(216, 30, 67, 0.09);
+  --color-accent-muted: rgba(216, 30, 67, 0.18);
+  --color-accent-glow: rgba(216, 30, 67, 0.28);
   --color-primary: var(--color-accent);
   --color-primary-hover: var(--color-accent-hover);
 
   /* Studio Desk Tonal Lighting */
-  --color-glow-crimson: rgba(229, 45, 79, 0.08);
-  --color-glow-amber: rgba(217, 119, 6, 0.04);
-  --color-table-grid: rgba(18, 21, 26, 0.045);
-  --color-card-border: rgba(18, 21, 26, 0.09);
-  --color-card-edge-highlight: rgba(255, 255, 255, 0.92);
+  --color-glow-crimson: rgba(216, 30, 67, 0.08);
+  --color-glow-amber: rgba(217, 119, 6, 0.05);
+  --color-table-grid: rgba(18, 21, 26, 0.06);
+  --color-card-border: rgba(18, 21, 26, 0.15);
+  --color-card-edge-highlight: rgba(255, 255, 255, 0.98);
 
   /* Design System Aliases */
   --color-text-main: var(--color-text);
@@ -34,28 +34,28 @@
   --font-sans: var(--font-body);
 
   /* Section Zones (Light Mode) */
-  --bg-hero-zone: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(229, 45, 79, 0.04) 0%, transparent 70%);
+  --bg-hero-zone: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(216, 30, 67, 0.05) 0%, transparent 70%);
   --bg-about-zone: transparent;
-  --bg-projects-zone: radial-gradient(circle at 50% 10%, rgba(18, 21, 26, 0.02) 0%, transparent 60%);
+  --bg-projects-zone: radial-gradient(circle at 50% 10%, rgba(18, 21, 26, 0.03) 0%, transparent 60%);
   --bg-skills-zone: transparent;
-  --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(18, 21, 26, 0.018) 50%, transparent 100%);
-  --bg-contact-zone: radial-gradient(ellipse 80% 70% at 50% 90%, rgba(229, 45, 79, 0.05) 0%, transparent 70%);
+  --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(18, 21, 26, 0.025) 50%, transparent 100%);
+  --bg-contact-zone: radial-gradient(ellipse 80% 70% at 50% 90%, rgba(216, 30, 67, 0.06) 0%, transparent 70%);
 
   /* Status */
   --color-success: #15803D;
-  --color-success-soft: rgba(21, 128, 61, 0.08);
+  --color-success-soft: rgba(21, 128, 61, 0.10);
 
   /* Typography */
-  --color-text: #12151A;
-  --color-text-secondary: #585E6A;
-  --color-text-muted: #858C98;
-  --color-text-inverse: #F5F3ED;
+  --color-text: #0E1116;
+  --color-text-secondary: #2D3442;
+  --color-text-muted: #535C6D;
+  --color-text-inverse: #FFFFFF;
 
   /* Borders */
-  --color-border: rgba(18, 21, 26, 0.08);
-  --color-border-hover: rgba(18, 21, 26, 0.16);
-  --color-border-strong: rgba(18, 21, 26, 0.24);
-  --color-border-subtle: rgba(18, 21, 26, 0.05);
+  --color-border: rgba(18, 21, 26, 0.14);
+  --color-border-hover: rgba(18, 21, 26, 0.28);
+  --color-border-strong: rgba(18, 21, 26, 0.38);
+  --color-border-subtle: rgba(18, 21, 26, 0.10);
 
   /* ── Typography Scale ── */
   --font-display: 'Outfit', 'DM Sans', system-ui, -apple-system, sans-serif;
@@ -97,11 +97,13 @@
   --radius-full: 9999px;
 
   /* ── Card Shadows (Light Physical Cards) ── */
-  --shadow-xs: 0 1px 2px rgba(18, 21, 26, 0.04);
-  --shadow-sm: 0 2px 6px rgba(18, 21, 26, 0.04), 0 1px 2px rgba(18, 21, 26, 0.02);
-  --shadow-md: 0 6px 18px -3px rgba(18, 21, 26, 0.06), 0 2px 6px -1px rgba(18, 21, 26, 0.03);
-  --shadow-lg: 0 14px 34px -4px rgba(18, 21, 26, 0.08), 0 4px 12px -2px rgba(18, 21, 26, 0.04);
-  --shadow-spatial: 0 24px 50px -10px rgba(18, 21, 26, 0.10), 0 8px 20px -4px rgba(18, 21, 26, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(18, 21, 26, 0.09), 0 1px 4px rgba(18, 21, 26, 0.04);
+  --shadow-card-elevated: 0 14px 34px -4px rgba(18, 21, 26, 0.14), 0 4px 10px -2px rgba(18, 21, 26, 0.06);
+  --shadow-xs: 0 1px 3px rgba(18, 21, 26, 0.07);
+  --shadow-sm: 0 3px 10px -1px rgba(18, 21, 26, 0.08), 0 1px 3px rgba(18, 21, 26, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(18, 21, 26, 0.10), 0 2px 8px -1px rgba(18, 21, 26, 0.05);
+  --shadow-lg: 0 16px 38px -6px rgba(18, 21, 26, 0.12), 0 4px 12px -2px rgba(18, 21, 26, 0.06);
+  --shadow-spatial: 0 20px 48px -8px rgba(18, 21, 26, 0.12), 0 6px 18px -2px rgba(18, 21, 26, 0.06);
 
   /* ── Transitions ── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -115,14 +117,14 @@
   --transition-spring: 360ms var(--spring-bounce);
 
   /* ── Glass (Light Desk) ── */
-  --glass-bg: rgba(255, 255, 255, 0.88);
-  --glass-bg-subtle: rgba(255, 255, 255, 0.72);
-  --glass-bg-elevated: rgba(255, 255, 255, 0.96);
-  --glass-border: rgba(18, 21, 26, 0.08);
-  --glass-border-subtle: rgba(18, 21, 26, 0.05);
+  --glass-bg: #FFFFFF;
+  --glass-bg-subtle: rgba(255, 255, 255, 0.94);
+  --glass-bg-elevated: #FFFFFF;
+  --glass-border: rgba(18, 21, 26, 0.14);
+  --glass-border-subtle: rgba(18, 21, 26, 0.10);
   --glass-border-highlight: rgba(255, 255, 255, 0.98);
-  --glass-shadow-base: 0 10px 32px -4px rgba(18, 21, 26, 0.05), 0 2px 8px rgba(18, 21, 26, 0.02);
-  --glass-shadow-hover: 0 20px 44px -6px rgba(18, 21, 26, 0.09), 0 6px 16px -2px rgba(18, 21, 26, 0.04);
+  --glass-shadow-base: 0 4px 20px -2px rgba(18, 21, 26, 0.08), 0 1px 4px rgba(18, 21, 26, 0.03);
+  --glass-shadow-hover: 0 14px 34px -4px rgba(18, 21, 26, 0.14), 0 4px 10px -2px rgba(18, 21, 26, 0.05);
   --glass-blur: blur(16px) saturate(180%);
   --glass-blur-mobile: blur(8px) saturate(140%);
 
@@ -196,6 +198,8 @@
   --color-border-subtle: rgba(244, 243, 239, 0.04);
 
   /* Shadows — tactile physical card drop shadows */
+  --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.85), 0 2px 8px rgba(0, 0, 0, 0.65);
+  --shadow-card-elevated: 0 16px 40px -6px rgba(0, 0, 0, 0.90), 0 4px 14px rgba(0, 0, 0, 0.70);
   --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.65);
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.75), 0 1px 2px rgba(0, 0, 0, 0.55);
   --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.85), 0 2px 8px rgba(0, 0, 0, 0.65);

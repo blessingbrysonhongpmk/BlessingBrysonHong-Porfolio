@@ -188,3 +188,43 @@
     gap: var(--space-2);
   }
 }
+
+/* ── Light Mode Explicit Contrast Refinements ── */
+[data-theme="light"] .about-card {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  box-shadow: 0 8px 30px -4px rgba(18, 21, 26, 0.09), 0 2px 8px rgba(18, 21, 26, 0.04);
+}
+
+[data-theme="light"] .about-card:hover {
+  border-color: rgba(216, 30, 67, 0.40);
+  box-shadow: 0 16px 38px -6px rgba(18, 21, 26, 0.14), 0 4px 12px rgba(18, 21, 26, 0.06);
+}
+
+[data-theme="light"] .about-statement {
+  color: #0E1116;
+}
+
+[data-theme="light"] .about-paragraph {
+  color: #2D3442;
+}
+
+[data-theme="light"] .about-status {
+  background: #F1F4F8;
+  border: 1.5px solid rgba(18, 21, 26, 0.18);
+  box-shadow: 0 2px 6px rgba(18, 21, 26, 0.05);
+}
+
+[data-theme="light"] .about-status__label {
+  color: #535C6D;
+  font-weight: 800;
+}
+
+[data-theme="light"] .about-status__sep {
+  color: rgba(18, 21, 26, 0.35);
+}
+
+[data-theme="light"] .about-status__role {
+  color: #0E1116;
+  font-weight: 600;
+}

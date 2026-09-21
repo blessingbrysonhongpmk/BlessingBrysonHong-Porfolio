@@ -16,7 +16,7 @@ export function About() {
           {/* Natural Human Introduction */}
           <div className="about-content">
             <p className="about-paragraph">
-              I’m currently working as an intern at Nexus Spark, where I get to work on real-world software projects and strengthen my development skills. I’m interested in building useful software and exploring AI, data, and full-stack development.
+              I’m currently working as an intern at Nex-X Spark, where I get to work on real-world software projects and strengthen my development skills. I’m interested in building useful software and exploring AI, data, and full-stack development.
             </p>
 
             {/* Current Status Pill */}
@@ -24,7 +24,7 @@ export function About() {
               <span className="about-status__dot" aria-hidden="true" />
               <span className="about-status__label">CURRENTLY</span>
               <span className="about-status__sep" aria-hidden="true">—</span>
-              <span className="about-status__role">Nexus Spark — Intern</span>
+              <span className="about-status__role">Nex-X Spark — Intern</span>
             </div>
           </div>
         </div>

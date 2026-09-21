@@ -61,7 +61,7 @@
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: 12px;
+  padding: 18px 20px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform 0.32s var(--spring-bounce), box-shadow 0.32s ease, border-color 0.25s ease;
@@ -234,8 +234,15 @@
 .company-card-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 12px 2px 2px 2px;
+  gap: 14px;
+  padding: 0;
+  height: 100%;
+  flex: 1;
+}
+
+.company-card-actions {
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .company-meta-strip {
@@ -587,4 +594,91 @@
     gap: var(--space-2);
     padding: 14px 16px;
   }
+}
+
+/* ── Light Mode Explicit Contrast Refinements ── */
+[data-theme="light"] .company-card {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.15);
+  box-shadow: 0 6px 22px -2px rgba(18, 21, 26, 0.08), 0 2px 6px rgba(18, 21, 26, 0.03);
+}
+
+[data-theme="light"] .company-card:hover {
+  border-color: var(--company-accent);
+  box-shadow: 0 16px 36px -6px rgba(18, 21, 26, 0.14), 0 0 18px -4px var(--company-glow);
+}
+
+[data-theme="light"] .company-name {
+  color: #0E1116;
+}
+
+[data-theme="light"] .company-desc {
+  color: #2D3442;
+}
+
+[data-theme="light"] .company-focus-text {
+  color: #0E1116;
+}
+
+[data-theme="light"] .company-tech-pill {
+  background: #F1F4F8;
+  border: 1.5px solid rgba(18, 21, 26, 0.14);
+  color: #0E1116;
+  font-weight: 600;
+}
+
+[data-theme="light"] .company-period-badge {
+  background: #F1F4F8;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  color: #0E1116;
+  font-weight: 700;
+}
+
+[data-theme="light"] .company-period-badge--current {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #047857;
+}
+
+[data-theme="light"] .company-visit-btn {
+  background: #F1F4F8;
+  border: 1.5px solid rgba(18, 21, 26, 0.18);
+  color: #0E1116;
+  font-weight: 700;
+}
+
+[data-theme="light"] .company-visit-btn:hover {
+  background: #0E1116;
+  border-color: #0E1116;
+  color: #FFFFFF;
+}
+
+[data-theme="light"] .company-visit-btn:hover .company-visit-arrow {
+  color: #FFFFFF;
+}
+
+[data-theme="light"] .achievement-item {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.16);
+  box-shadow: 3px 3px 0 rgba(18, 21, 26, 0.12), 0 4px 14px rgba(18, 21, 26, 0.05);
+}
+
+[data-theme="light"] .achievement-item:hover {
+  border-color: rgba(216, 30, 67, 0.45);
+  box-shadow: 5px 5px 0 rgba(216, 30, 67, 0.25), 0 14px 34px -4px rgba(18, 21, 26, 0.13);
+}
+
+[data-theme="light"] .achievement-item__title {
+  color: #0E1116;
+}
+
+[data-theme="light"] .achievement-item__detail {
+  color: #2D3442;
+}
+
+[data-theme="light"] .journey-btn {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(18, 21, 26, 0.18);
+  color: #0E1116;
+  box-shadow: 0 2px 8px rgba(18, 21, 26, 0.06);
 }
