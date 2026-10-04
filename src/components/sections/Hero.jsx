@@ -1,9 +1,28 @@
 import { useState } from 'react';
+import { usePortfolioContent } from '../../context/PortfolioContext';
 import { scrollToElement } from '../../utils/scrollOrchestrator';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import './Hero.css';
 
 export function Hero({ onOpenContact, isRevealed = true }) {
+  const { content } = usePortfolioContent();
+  const profile = content?.profile || {};
+
+  // Parse display name into lines for editorial typography
+  const rawName = profile.name || profile.fullName || 'BLESSING BRYSON HONG';
+  const nameParts = rawName.trim().split(/\s+/);
+  const firstName = nameParts[0] || 'BLESSING';
+  const middleName = nameParts.length > 2 ? nameParts[1] : '';
+  const lastName = nameParts.length > 2 ? nameParts.slice(2).join(' ') : (nameParts[1] || 'HONG');
+
+  const brandMark = profile.brand ? `${profile.brand}.` : 'BBH.';
+  const monogram = profile.monogram || 'P M K';
+  const quoteText = profile.quoteText || 'Commit your work to the Lord.';
+  const quoteCite = profile.quoteCite || '— Proverbs 16:3';
+  const roleText = profile.heroRole || profile.role || 'AI & DATA SCIENCE + FULL STACK DEVELOPER';
+  const eduText = profile.education || 'B.Tech AI & Data Science · III Year';
+  const avatarSrc = profile.avatar || '/profile.jpeg';
+
   // Gentle spatial depth response on portrait (desktop only)
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
 
@@ -36,31 +55,35 @@ export function Hero({ onOpenContact, isRevealed = true }) {
           <div className="hero-content">
             {/* 1. Editorial Typography Lockup: BBH Mark + PMK Mark + BLESSING / BRYSON HONG */}
             <div className="hero-identity">
-              <span className="hero-brand-mark" aria-hidden="true">BBH.</span>
-              <span className="hero-pmk-mark" aria-hidden="true">P M K</span>
-              <h1 className="hero-name" aria-label="Blessing Bryson Hong P M K">
-                <span className="hero-name-line hero-name-line--primary">BLESSING</span>
+              <span className="hero-brand-mark" aria-hidden="true">{brandMark}</span>
+              <span className="hero-pmk-mark" aria-hidden="true">{monogram}</span>
+              <h1 className="hero-name" aria-label={rawName}>
+                <span className="hero-name-line hero-name-line--primary">{firstName}</span>
                 <span className="hero-name-line hero-name-line--secondary">
-                  <span className="hero-name-word">BRYSON</span>{' '}
-                  <span className="hero-name-accent">HONG</span>
+                  {middleName ? <span className="hero-name-word">{middleName}{' '}</span> : null}
+                  <span className="hero-name-accent">{lastName}</span>
                 </span>
               </h1>
             </div>
 
-            {/* 2. Small, Tasteful Bible Quote Directly Below Name */}
-            <figure className="hero-quote">
-              <blockquote className="hero-quote__text">
-                &ldquo;Commit your work to the Lord.&rdquo;
-              </blockquote>
-              <figcaption className="hero-quote__cite">— Proverbs 16:3</figcaption>
-            </figure>
+            {/* 2. Small, Tasteful Quote Directly Below Name */}
+            {quoteText && (
+              <figure className="hero-quote">
+                <blockquote className="hero-quote__text">
+                  &ldquo;{quoteText}&rdquo;
+                </blockquote>
+                {quoteCite && <figcaption className="hero-quote__cite">{quoteCite}</figcaption>}
+              </figure>
+            )}
 
             {/* 3. Role & Education */}
             <div className="hero-role-wrap">
-              <span className="hero-role">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
-              <div className="hero-edu-line">
-                <span className="hero-edu-primary">B.Tech AI &amp; Data Science · III Year</span>
-              </div>
+              <span className="hero-role">{roleText}</span>
+              {eduText && (
+                <div className="hero-edu-line">
+                  <span className="hero-edu-primary">{eduText}</span>
+                </div>
+              )}
             </div>
 
             {/* 4. Primary CTA Actions */}
@@ -114,8 +137,8 @@ export function Hero({ onOpenContact, isRevealed = true }) {
                 }}
               >
                 <img
-                  src="/profile.jpeg"
-                  alt="Blessing Bryson Hong"
+                  src={avatarSrc}
+                  alt={rawName}
                   className="hero-image"
                   loading="eager"
                 />

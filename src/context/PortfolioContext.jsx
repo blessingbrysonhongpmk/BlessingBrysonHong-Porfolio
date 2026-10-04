@@ -40,10 +40,15 @@ function stripMinor(data) {
 
 function mergeWithDefaults(parsed) {
   if (!parsed) return PORTFOLIO_DATA;
+  const mergedProfile = { ...PORTFOLIO_DATA.profile, ...(parsed.profile || {}) };
+  if (!mergedProfile.quoteText || mergedProfile.quoteText === mergedProfile.heroStatement) {
+    mergedProfile.quoteText = 'Commit your work to the Lord.';
+    mergedProfile.quoteCite = '— Proverbs 16:3';
+  }
   return stripMinor({
     ...PORTFOLIO_DATA,
     ...parsed,
-    profile:            { ...PORTFOLIO_DATA.profile,      ...(parsed.profile      || {}) },
+    profile:            mergedProfile,
     aboutPreview:       { ...PORTFOLIO_DATA.aboutPreview,  ...(parsed.aboutPreview  || {}) },
     companyExperiences: parsed.companyExperiences || PORTFOLIO_DATA.companyExperiences,
   });

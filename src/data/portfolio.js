@@ -17,6 +17,8 @@ export const PORTFOLIO_DATA = {
     institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
     location: 'Kanyakumari, Tamil Nadu, India',
     avatar: '/profile.jpeg',
+    quoteText: 'Commit your work to the Lord.',
+    quoteCite: '— Proverbs 16:3',
     heroStatement:
       'Building practical software with AI, data, and full-stack development.',
     shortBio:

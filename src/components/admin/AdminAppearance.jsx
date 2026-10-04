@@ -1,95 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
-import { Palette, RotateCcw, Eye, Sun, Moon, CheckCircle2 } from 'lucide-react';
-
-// ── Default token values for both modes ──────────────────────────────────────
-const LIGHT_DEFAULTS = {
-  accent:          '#8B0000',
-  accentHover:     '#6B0000',
-  bg:              '#EAE6DC',
-  bgAlt:           '#DFD9CD',
-  surface:         '#FFFFFF',
-  text:            '#0E1116',
-  textSecondary:   '#2D3442',
-  textMuted:       '#535C6D',
-};
-
-const DARK_DEFAULTS = {
-  accent:          '#8B0000',
-  accentHover:     '#A80D0D',
-  bg:              '#050608',
-  bgAlt:           '#0A0C10',
-  surface:         '#0C1015',
-  text:            '#F4F3EF',
-  textSecondary:   '#9AA1AF',
-  textMuted:       '#858C98',
-};
-
-const STORAGE_KEY = 'bbh_appearance_v1';
-
-function loadSaved() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch { return null; }
-}
-
-function hexToRgb(hex) {
-  if (!hex) return null;
-  const m = hex.replace('#','').match(/../g);
-  if (!m || m.length < 3) return null;
-  return m.slice(0,3).map(h => parseInt(h, 16)).join(', ');
-}
-
-function applyTokens(light, dark) {
-  const root = document.documentElement;
-  root.style.setProperty('--color-accent',          light.accent);
-  root.style.setProperty('--color-accent-hover',    light.accentHover);
-  root.style.setProperty('--color-primary',         light.accent);
-  root.style.setProperty('--color-primary-hover',   light.accentHover);
-  root.style.setProperty('--color-bg',              light.bg);
-  root.style.setProperty('--color-bg-alt',          light.bgAlt);
-  root.style.setProperty('--color-surface',         light.surface);
-  root.style.setProperty('--color-text',            light.text);
-  root.style.setProperty('--color-text-secondary',  light.textSecondary);
-  root.style.setProperty('--color-text-muted',      light.textMuted);
-
-  const la = hexToRgb(light.accent);
-  if (la) {
-    root.style.setProperty('--color-accent-soft',  `rgba(${la},0.08)`);
-    root.style.setProperty('--color-accent-muted', `rgba(${la},0.16)`);
-    root.style.setProperty('--color-accent-glow',  `rgba(${la},0.24)`);
-    root.style.setProperty('--color-glow-crimson', `rgba(${la},0.08)`);
-  }
-
-  let styleEl = document.getElementById('bbh-appearance-dark');
-  if (!styleEl) {
-    styleEl = document.createElement('style');
-    styleEl.id = 'bbh-appearance-dark';
-    document.head.appendChild(styleEl);
-  }
-  const da = hexToRgb(dark.accent);
-  styleEl.textContent = `
-    [data-theme="dark"] {
-      --color-accent:         ${dark.accent};
-      --color-accent-hover:   ${dark.accentHover};
-      --color-primary:        ${dark.accent};
-      --color-primary-hover:  ${dark.accentHover};
-      --color-bg:             ${dark.bg};
-      --color-bg-alt:         ${dark.bgAlt};
-      --color-surface:        ${dark.surface};
-      --color-text:           ${dark.text};
-      --color-text-secondary: ${dark.textSecondary};
-      --color-text-muted:     ${dark.textMuted};
-      ${da ? `
-      --color-accent-soft:    rgba(${da},0.16);
-      --color-accent-muted:   rgba(${da},0.28);
-      --color-accent-glow:    rgba(${da},0.42);
-      --color-glow-crimson:   rgba(${da},0.22);
-      ` : ''}
-    }
-  `;
-}
+import {
+  LIGHT_DEFAULTS,
+  DARK_DEFAULTS,
+  APPEARANCE_STORAGE_KEY,
+  applyAppearanceTokens,
+  loadSavedAppearance,
+} from '../../utils/appearanceTokens';
+import { RotateCcw, Sun, Moon, CheckCircle2, Save } from 'lucide-react';
 
 function ColorRow({ label, desc, value, onChange, onReset, defaultVal }) {
   return (
@@ -121,44 +39,76 @@ function ColorRow({ label, desc, value, onChange, onReset, defaultVal }) {
 }
 
 export function AdminAppearance() {
-  const { showToast, updateDraft } = usePortfolioContent();
+  const { showToast, updateDraft, publishContent, isDirty } = usePortfolioContent();
 
-  const saved = loadSaved();
+  const saved = loadSavedAppearance();
   const [light, setLight] = useState(saved?.light || { ...LIGHT_DEFAULTS });
   const [dark,  setDark]  = useState(saved?.dark  || { ...DARK_DEFAULTS  });
   const [preview, setPreview] = useState('light');
   const [applied, setApplied] = useState(false);
 
   useEffect(() => {
-    if (saved) applyTokens(saved.light, saved.dark);
+    if (saved) {
+      applyAppearanceTokens(saved);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const updateLight = (key, val) => setLight(prev => ({ ...prev, [key]: val }));
-  const updateDarkColor = (key, val) => setDark(prev => ({ ...prev, [key]: val }));
+  const updateLight = (key, val) => {
+    setLight(prev => {
+      const next = { ...prev, [key]: val };
+      applyAppearanceTokens({ light: next, dark });
+      localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify({ light: next, dark }));
+      updateDraft('appearance', { light: next, dark });
+      return next;
+    });
+  };
 
-  const handleApply = useCallback(() => {
-    applyTokens(light, dark);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ light, dark }));
-    updateDraft('siteSettings', prev => ({ ...(prev || {}), appearance: { light, dark } }));
+  const updateDarkColor = (key, val) => {
+    setDark(prev => {
+      const next = { ...prev, [key]: val };
+      applyAppearanceTokens({ light, dark: next });
+      localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify({ light, dark: next }));
+      updateDraft('appearance', { light, dark: next });
+      return next;
+    });
+  };
+
+  const handleApply = useCallback(async () => {
+    applyAppearanceTokens({ light, dark });
+    localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify({ light, dark }));
+    updateDraft('appearance', { light, dark });
+    await publishContent();
     setApplied(true);
-    showToast('Appearance applied! Click Publish Live to save permanently.', 'success');
+    showToast('Appearance saved and published live!', 'success');
     setTimeout(() => setApplied(false), 2500);
-  }, [light, dark, showToast, updateDraft]);
+  }, [light, dark, publishContent, showToast, updateDraft]);
 
   const handleReset = useCallback((mode) => {
-    if (mode === 'light') setLight({ ...LIGHT_DEFAULTS });
-    else setDark({ ...DARK_DEFAULTS });
+    if (mode === 'light') {
+      const nextLight = { ...LIGHT_DEFAULTS };
+      setLight(nextLight);
+      applyAppearanceTokens({ light: nextLight, dark });
+      localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify({ light: nextLight, dark }));
+      updateDraft('appearance', { light: nextLight, dark });
+    } else {
+      const nextDark = { ...DARK_DEFAULTS };
+      setDark(nextDark);
+      applyAppearanceTokens({ light, dark: nextDark });
+      localStorage.setItem(APPEARANCE_STORAGE_KEY, JSON.stringify({ light, dark: nextDark }));
+      updateDraft('appearance', { light, dark: nextDark });
+    }
     showToast(`${mode === 'light' ? 'Light' : 'Dark'} mode colors reset to defaults`, 'info');
-  }, [showToast]);
+  }, [dark, light, showToast, updateDraft]);
 
   const handleResetAll = useCallback(() => {
     setLight({ ...LIGHT_DEFAULTS });
     setDark({ ...DARK_DEFAULTS });
-    applyTokens(LIGHT_DEFAULTS, DARK_DEFAULTS);
-    localStorage.removeItem(STORAGE_KEY);
+    applyAppearanceTokens({ light: LIGHT_DEFAULTS, dark: DARK_DEFAULTS });
+    localStorage.removeItem(APPEARANCE_STORAGE_KEY);
+    updateDraft('appearance', { light: LIGHT_DEFAULTS, dark: DARK_DEFAULTS });
     showToast('All appearance settings reset to original defaults.', 'info');
-  }, [showToast]);
+  }, [showToast, updateDraft]);
 
   const tokens = preview === 'light' ? light : dark;
   const updateToken = preview === 'light' ? updateLight : updateDarkColor;
@@ -181,12 +131,17 @@ export function AdminAppearance() {
         <div>
           <h2 className="admin-page-header__title">Appearance &amp; Theme Colors</h2>
           <p className="admin-page-header__desc">
-            Customize colors for Light and Dark modes. Changes are live — click Apply to confirm.
+            Customize colors for Light and Dark modes. Changes take effect instantly in real-time.
           </p>
         </div>
-        <button type="button" className={`admin-btn ${applied ? 'admin-btn--success' : 'admin-btn--primary'}`} onClick={handleApply} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-          {applied ? <CheckCircle2 size={15} /> : <Palette size={15} />}
-          <span>{applied ? 'Applied!' : 'Apply Colors'}</span>
+        <button
+          type="button"
+          className={`admin-btn ${applied ? 'admin-btn--success' : (isDirty ? 'admin-btn--success' : 'admin-btn--primary')}`}
+          onClick={handleApply}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+        >
+          {applied ? <CheckCircle2 size={15} /> : <Save size={15} />}
+          <span>{applied ? 'Saved Live!' : (isDirty ? 'Save & Publish Live' : 'Publish Colors')}</span>
         </button>
       </div>
 
@@ -194,84 +149,78 @@ export function AdminAppearance() {
         <div className="admin-card__header">
           <h3 className="admin-card__title">Editing Mode</h3>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button type="button" className={`admin-btn ${preview === 'light' ? 'admin-btn--primary' : 'admin-btn--ghost'}`} onClick={() => setPreview('light')} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <button
+              type="button"
+              className={`admin-btn ${preview === 'light' ? 'admin-btn--primary' : 'admin-btn--ghost'}`}
+              onClick={() => setPreview('light')}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
               <Sun size={13} /> Light Mode
             </button>
-            <button type="button" className={`admin-btn ${preview === 'dark' ? 'admin-btn--primary' : 'admin-btn--ghost'}`} onClick={() => setPreview('dark')} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <button
+              type="button"
+              className={`admin-btn ${preview === 'dark' ? 'admin-btn--primary' : 'admin-btn--ghost'}`}
+              onClick={() => setPreview('dark')}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
               <Moon size={13} /> Dark Mode
+            </button>
+            <button
+              type="button"
+              className="admin-btn admin-btn--ghost"
+              onClick={() => handleReset(preview)}
+              style={{ fontSize: '0.78rem' }}
+              title={`Reset ${preview} mode to defaults`}
+            >
+              <RotateCcw size={13} /> Reset Mode
             </button>
           </div>
         </div>
 
-        <p style={{ fontSize: '0.8rem', color: '#64748b', margin: '0 0 12px' }}>
-          Editing <strong style={{ color: preview === 'light' ? '#f59e0b' : '#818cf8' }}>{preview === 'light' ? '☀️ Light Mode' : '🌙 Dark Mode'}</strong> colors.
-        </p>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', marginBottom: '16px' }}>
+          <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: tokens.accent, boxShadow: `0 0 12px ${tokens.accent}` }} />
+          <div style={{ flex: 1 }}>
+            <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Active Accent: </span>
+            <span style={{ fontSize: '0.82rem', fontFamily: 'monospace', color: '#f8fafc', fontWeight: 600 }}>{tokens.accent}</span>
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: tokens.bg, border: '1px solid rgba(255,255,255,0.1)' }} title="Background" />
+            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: tokens.surface, border: '1px solid rgba(255,255,255,0.1)' }} title="Surface" />
+            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: tokens.text, border: '1px solid rgba(255,255,255,0.1)' }} title="Text" />
+          </div>
+        </div>
 
-        {colorFields.map(f => (
+        {colorFields.map(field => (
           <ColorRow
-            key={`${preview}-${f.key}`}
-            label={f.label}
-            desc={f.desc}
-            value={tokens[f.key] || defaults[f.key]}
-            defaultVal={defaults[f.key]}
-            onChange={val => updateToken(f.key, val)}
-            onReset={() => updateToken(f.key, defaults[f.key])}
+            key={field.key}
+            label={field.label}
+            desc={field.desc}
+            value={tokens[field.key] || defaults[field.key]}
+            onChange={val => updateToken(field.key, val)}
+            onReset={() => updateToken(field.key, defaults[field.key])}
+            defaultVal={defaults[field.key]}
           />
         ))}
-
-        <div style={{ display: 'flex', gap: '10px', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-          <button type="button" className="admin-btn admin-btn--ghost" onClick={() => handleReset(preview)} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <RotateCcw size={13} /> Reset {preview === 'light' ? 'Light' : 'Dark'} to Default
-          </button>
-          <button type="button" className="admin-btn admin-btn--ghost" onClick={handleResetAll} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#f87171' }}>
-            <RotateCcw size={13} /> Reset All Colors
-          </button>
-        </div>
       </div>
 
-      {/* Live Preview */}
-      <div className="admin-card">
-        <div className="admin-card__header">
-          <h3 className="admin-card__title">Live Color Preview</h3>
-          <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{preview} mode</span>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '10px', padding: '4px 0 16px' }}>
-          {colorFields.map(f => (
-            <div key={f.key} style={{ textAlign: 'center' }}>
-              <div style={{ width: '100%', height: '40px', borderRadius: '8px', background: tokens[f.key], border: '1px solid rgba(255,255,255,0.1)', marginBottom: '5px' }} />
-              <div style={{ fontSize: '0.62rem', color: '#94a3b8', lineHeight: 1.3 }}>{f.label}</div>
-              <div style={{ fontSize: '0.58rem', color: '#64748b', fontFamily: 'monospace' }}>{tokens[f.key]}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ padding: '16px', borderRadius: '10px', background: tokens.bg, border: `2px solid ${tokens.accent}` }}>
-          <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: '1.1rem', color: tokens.text, marginBottom: '4px' }}>
-            Preview — {preview === 'light' ? 'Light' : 'Dark'} Mode
-          </div>
-          <div style={{ fontSize: '0.8rem', color: tokens.textSecondary, marginBottom: '6px' }}>Secondary text in your chosen palette</div>
-          <div style={{ fontSize: '0.72rem', color: tokens.textMuted, marginBottom: '12px' }}>Muted metadata text</div>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <span style={{ background: tokens.accent, color: '#fff', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 600 }}>Primary Button</span>
-            <span style={{ background: tokens.surface, color: tokens.text, border: `1px solid ${tokens.accent}`, padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem' }}>Outlined</span>
-          </div>
-        </div>
-      </div>
-
-      {/* How it works */}
-      <div className="admin-card" style={{ borderLeft: '3px solid #f59e0b' }}>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-          <Eye size={18} style={{ color: '#f59e0b', flexShrink: 0, marginTop: '2px' }} />
-          <div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', marginBottom: '6px' }}>How color changes work</div>
-            <ul style={{ fontSize: '0.77rem', color: '#94a3b8', lineHeight: 1.8, paddingLeft: '16px' }}>
-              <li>Click <strong>Apply Colors</strong> — changes appear live on the site instantly.</li>
-              <li>Saved in browser storage so they persist on refresh.</li>
-              <li>Click <strong>Publish Live</strong> (top bar) to save permanently to Firebase.</li>
-              <li>Accent color auto-generates soft/muted/glow variants used across the UI.</li>
-              <li>Edit Light and Dark modes independently using the mode switcher.</li>
-            </ul>
-          </div>
-        </div>
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <button
+          type="button"
+          className="admin-btn admin-btn--ghost"
+          onClick={handleResetAll}
+          style={{ color: '#ef4444', borderColor: 'rgba(239,68,68,0.2)' }}
+        >
+          <RotateCcw size={14} /> Reset All to Defaults
+        </button>
+        <button
+          type="button"
+          onClick={handleApply}
+          className="admin-btn admin-btn--success"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 24px', fontSize: '0.95rem' }}
+        >
+          <Save size={16} />
+          <span>Save &amp; Publish Appearance</span>
+        </button>
       </div>
     </div>
   );
