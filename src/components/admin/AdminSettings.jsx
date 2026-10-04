@@ -4,8 +4,8 @@ import { AdminSocials } from './AdminSocials';
 import { AdminBackup } from './AdminBackup';
 import { User, Share2, Database } from 'lucide-react';
 
-export function AdminSettings() {
-  const [subTab, setSubTab] = useState('profile'); // 'profile' | 'socials' | 'backup'
+export function AdminSettings({ subTab: initialSubTab }) {
+  const [subTab, setSubTab] = useState(initialSubTab || 'profile');
 
   return (
     <div className="admin-settings-wrap">
@@ -44,7 +44,7 @@ export function AdminSettings() {
       <div className="admin-subtab-content">
         {subTab === 'profile' && <AdminProfile />}
         {subTab === 'socials' && <AdminSocials />}
-        {subTab === 'backup' && <AdminBackup />}
+        {subTab === 'backup'  && <AdminBackup />}
       </div>
     </div>
   );
