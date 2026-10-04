@@ -30,6 +30,13 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
     };
   }, []);
 
+  // handleNav must be declared before handleBrandClick (which depends on it)
+  const handleNav = useCallback((e, href) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    scrollToElement(href);
+  }, []);
+
   const handleBrandClick = useCallback((e) => {
     tapCountRef.current += 1;
 
@@ -89,12 +96,6 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
-
-  const handleNav = useCallback((e, href) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    scrollToElement(href);
-  }, []);
 
   return (
     <>
