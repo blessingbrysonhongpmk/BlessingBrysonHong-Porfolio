@@ -47,7 +47,7 @@
 @media (hover: hover) and (pointer: fine) {
   .skills-cat-row:hover {
     transform: translateY(-2px);
-    border-color: rgba(240, 45, 79, 0.40);
+    border-color: rgba(139, 0, 0, 0.45);
     background: var(--color-surface-hover);
     box-shadow: var(--shadow-sm);
   }
@@ -252,7 +252,7 @@
 .skills-panel__badge--accent {
   color: var(--color-accent);
   background: var(--color-accent-soft);
-  border-color: rgba(240, 45, 79, 0.25);
+  border-color: rgba(139, 0, 0, 0.30);
   font-weight: 700;
 }
 
@@ -286,7 +286,7 @@
   font-weight: 600;
   color: var(--color-accent);
   background: var(--color-accent-soft);
-  border: 1px solid rgba(240, 45, 79, 0.20);
+  border: 1px solid rgba(139, 0, 0, 0.28);
   padding: 2px 8px;
   border-radius: var(--radius-full);
 }
@@ -445,7 +445,7 @@
 .skills-modal-close-btn:hover {
   color: var(--color-accent);
   background: var(--color-accent-soft);
-  border-color: rgba(240, 45, 79, 0.30);
+  border-color: rgba(139, 0, 0, 0.40);
   transform: scale(1.05);
 }
 
@@ -498,15 +498,15 @@
 
 [data-theme="light"] .skills-cat-row:hover {
   background: #FAFAFA;
-  border-color: rgba(216, 30, 67, 0.45);
+  border-color: rgba(139, 0, 0, 0.45);
   box-shadow: 0 6px 16px rgba(18, 21, 26, 0.08);
 }
 
 [data-theme="light"] .skills-cat-row--active {
-  background: #FFF5F7;
+  background: #FDF4F4;
   border-color: var(--color-accent);
   border-left: 4px solid var(--color-accent);
-  box-shadow: 0 4px 14px rgba(216, 30, 67, 0.10);
+  box-shadow: 0 4px 14px rgba(139, 0, 0, 0.15);
 }
 
 [data-theme="light"] .skills-cat-row__title {
@@ -559,8 +559,8 @@
 }
 
 [data-theme="light"] .skills-panel__badge--accent {
-  background: rgba(216, 30, 67, 0.10);
-  border-color: rgba(216, 30, 67, 0.35);
+  background: rgba(139, 0, 0, 0.08);
+  border-color: rgba(139, 0, 0, 0.30);
   color: var(--color-accent);
 }
 
@@ -571,7 +571,7 @@
 
 [data-theme="light"] .skills-panel__project-chip {
   background: #FFFFFF;
-  border: 1px solid rgba(216, 30, 67, 0.28);
+  border: 1px solid rgba(139, 0, 0, 0.28);
   color: var(--color-accent);
 }
 

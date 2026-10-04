@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './MacWelcomeLoader.css';
 
 const GREETINGS = [
@@ -17,7 +17,6 @@ const GREETINGS = [
 export function MacWelcomeLoader({ onComplete }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [status, setStatus] = useState('active'); // 'active' | 'fading-out' | 'dismissed'
-  const isInitialMount = useRef(true);
 
   useEffect(() => {
     // Check if user already saw welcome animation in this session

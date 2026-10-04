@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, isFirebaseConfigured, firebaseMissingKeys } from '../../firebase/firebase';
 import { Lock, Mail, Eye, EyeOff, ShieldCheck, ArrowLeft, Sun, Moon, AlertCircle } from 'lucide-react';
 import './AdminLogin.css';
 
-const ADMIN_ID = 'blessing28022006@gmail.com';
-const ADMIN_PASS = 'bless1324';
+// Must match the UID locked in App.jsx and firestore.rules
+const ADMIN_UID = 'l3eJDFMWJmfpmmCKwXNmMMujk9g2';
 
 export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
   const [email, setEmail] = useState('');
@@ -13,24 +15,49 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       setError('');
       setIsSubmitting(true);
 
-      const trimmedEmail = email.trim().toLowerCase();
-      const trimmedPass = password.trim();
+      // Guard: Firebase must be configured before login works
+      if (!isFirebaseConfigured || !auth) {
+        const missing = firebaseMissingKeys.length > 0 ? firebaseMissingKeys.join(', ') : 'all VITE_FIREBASE_* variables';
+        console.error('Firebase configuration error: Missing environment variables:', missing);
+        setError(`Firebase is not configured. Missing environment variables in .env: ${missing}`);
+        setIsSubmitting(false);
+        return;
+      }
 
-      // Quick simulated verify
-      setTimeout(() => {
-        if (trimmedEmail === ADMIN_ID.toLowerCase() && trimmedPass === ADMIN_PASS) {
-          setError('');
-          onSuccess();
-        } else {
-          setError('Invalid Admin ID or Password. Please check your credentials.');
+      try {
+        const credential = await signInWithEmailAndPassword(auth, email.trim(), password.trim());
+        console.log('Auth connected');
+        console.log('Current UID:', credential.user.uid);
+
+        // UID guard — reject accounts that are not the designated admin
+        if (credential.user.uid !== ADMIN_UID) {
+          console.error('Firestore permission denied / Unauthorized UID:', credential.user.uid);
+          await signOut(auth);
+          setError(`Access denied. Account UID (${credential.user.uid}) is not authorized as administrator.`);
           setIsSubmitting(false);
+          return;
         }
-      }, 250);
+
+        // onAuthStateChanged in App.jsx will verify UID and grant access
+        onSuccess();
+      } catch (err) {
+        console.error('Admin sign-in error:', err.code, err.message);
+        const friendlyErrors = {
+          'auth/invalid-email':           'Invalid email address format.',
+          'auth/user-not-found':          'Invalid Admin ID or Password.',
+          'auth/wrong-password':          'Invalid Admin ID or Password.',
+          'auth/invalid-credential':      'Invalid Admin ID or Password.',
+          'auth/too-many-requests':       'Too many failed attempts. Please try again later.',
+          'auth/network-request-failed':  'Network error. Check your connection.',
+        };
+        setError(friendlyErrors[err.code] || 'Authentication failed. Please try again.');
+        setIsSubmitting(false);
+      }
     },
     [email, password, onSuccess]
   );
@@ -98,7 +125,7 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
                     setEmail(e.target.value);
                     if (error) setError('');
                   }}
-                  placeholder="blessing28022006@gmail.com"
+                  placeholder="admin@example.com"
                   autoComplete="username"
                   required
                   className={`admin-login-input ${error ? 'admin-login-input--error' : ''}`}

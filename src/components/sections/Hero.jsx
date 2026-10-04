@@ -60,7 +60,6 @@ export function Hero({ onOpenContact, isRevealed = true }) {
               <span className="hero-role">AI &amp; DATA SCIENCE + FULL STACK DEVELOPER</span>
               <div className="hero-edu-line">
                 <span className="hero-edu-primary">B.Tech AI &amp; Data Science · III Year</span>
-                <span className="hero-edu-minor">Minor — ECE &amp; IoT</span>
               </div>
             </div>
 
@@ -96,29 +95,32 @@ export function Hero({ onOpenContact, isRevealed = true }) {
           >
             <div className="hero-ambient-glow" aria-hidden="true" />
 
-            {/* Subtle Playing Card desk backing */}
-            <div className="hero-card-frame" aria-hidden="true">
-              <span className="hero-card-pip hero-card-pip--tl">♠</span>
-              <span className="hero-card-pip hero-card-pip--br">♠</span>
-            </div>
+            {/* Profile Card Container: Anchors all card decorations */}
+            <div className="hero-card-container">
+              {/* Subtle Playing Card desk backing */}
+              <div className="hero-card-frame" aria-hidden="true">
+                <span className="hero-card-pip hero-card-pip--tl">♠</span>
+                <span className="hero-card-pip hero-card-pip--br">♠</span>
+              </div>
 
-            {/* Environmental Chess Pieces */}
-            <span className="hero-chess-king" aria-hidden="true">♔</span>
-            <span className="hero-chess-knight" aria-hidden="true">♘</span>
+              {/* Environmental Chess Pieces */}
+              <span className="hero-chess-king" aria-hidden="true">♔</span>
+              <span className="hero-chess-knight" aria-hidden="true">♘</span>
 
-            <div
-              className="hero-image-stage"
-              style={{
-                transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
-              }}
-            >
-              <img
-                src="/profile.jpeg"
-                alt="Blessing Bryson Hong"
-                className="hero-image"
-                loading="eager"
-              />
-              <div className="hero-image-rim" aria-hidden="true" />
+              <div
+                className="hero-image-stage"
+                style={{
+                  transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+                }}
+              >
+                <img
+                  src="/profile.jpeg"
+                  alt="Blessing Bryson Hong"
+                  className="hero-image"
+                  loading="eager"
+                />
+                <div className="hero-image-rim" aria-hidden="true" />
+              </div>
             </div>
           </div>
         </div>

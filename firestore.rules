@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Admin UID whitelist ─────────────────────────────────────
+    // Only this exact Firebase Auth UID may write portfolio data.
+    // Change this value if the admin account changes.
+    function isAdminUid() {
+      return request.auth != null
+          && request.auth.uid == 'l3eJDFMWJmfpmmCKwXNmMMujk9g2';
+    }
+
+    // ── Portfolio content document ──────────────────────────────
+    // Public reads: anyone (including unauthenticated visitors) can read,
+    // which is required for the public-facing portfolio to load.
+    // Writes: restricted to the admin UID only.
+    match /portfolio/content {
+      allow read:  if true;
+      allow write: if isAdminUid();
+    }
+
+    // ── Default: deny everything else ──────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

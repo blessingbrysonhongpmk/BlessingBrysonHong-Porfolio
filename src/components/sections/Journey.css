@@ -526,9 +526,9 @@
 @media (hover: hover) and (pointer: fine) {
   .achievement-item:hover {
     transform: translateY(-3px) translate3d(-1px, -1px, 0);
-    border-color: rgba(240, 45, 79, 0.45);
+    border-color: rgba(139, 0, 0, 0.50);
     background: var(--color-surface-hover);
-    box-shadow: 5px 5px 0 rgba(240, 45, 79, 0.25), var(--shadow-card-elevated);
+    box-shadow: 5px 5px 0 rgba(139, 0, 0, 0.35), var(--shadow-card-elevated);
   }
 
   .achievement-item:hover .achievement-item__arrow {
@@ -664,8 +664,8 @@
 }
 
 [data-theme="light"] .achievement-item:hover {
-  border-color: rgba(216, 30, 67, 0.45);
-  box-shadow: 5px 5px 0 rgba(216, 30, 67, 0.25), 0 14px 34px -4px rgba(18, 21, 26, 0.13);
+  border-color: rgba(139, 0, 0, 0.50);
+  box-shadow: 5px 5px 0 rgba(139, 0, 0, 0.30), 0 14px 34px -4px rgba(18, 21, 26, 0.13);
 }
 
 [data-theme="light"] .achievement-item__title {

@@ -14,7 +14,6 @@ export const PORTFOLIO_DATA = {
     role: 'Software Developer',
     heroRole: 'AI & DATA SCIENCE + FULL STACK DEVELOPER',
     education: 'III YEAR — B.TECH ARTIFICIAL INTELLIGENCE & DATA SCIENCE',
-    minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
     institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
     location: 'Kanyakumari, Tamil Nadu, India',
     avatar: '/profile.jpeg',
@@ -53,7 +52,6 @@ export const PORTFOLIO_DATA = {
   aboutPreview: {
     heading: 'P M K BLESSING BRYSON HONG',
     degree: 'III Year B.Tech Artificial Intelligence & Data Science',
-    minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
     institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
     statement: 'Focused on building practical software and intelligent systems.',
     paragraphs: [
@@ -404,10 +402,10 @@ export const PORTFOLIO_DATA = {
       year: '2024',
       milestone: "St. Xavier's Catholic College of Engineering (SXCCE)",
       tag: 'Academic Foundation',
-      summary: 'B.Tech in Artificial Intelligence & Data Science · Minor in ECE & IoT',
+      summary: 'B.Tech in Artificial Intelligence & Data Science',
       details:
-        'Commenced undergraduate studies in Artificial Intelligence and Data Science with a Minor specialization in ECE & IoT (Electronics & Communication Engineering with Internet of Things), establishing foundations in Python programming, mathematics, algorithms, and computing systems.',
-      keyHighlights: ['Core computer science fundamentals', 'Minor specialization in ECE & IoT'],
+        'Commenced undergraduate studies in Artificial Intelligence and Data Science, establishing foundations in Python programming, mathematics, algorithms, and computing systems.',
+      keyHighlights: ['Core computer science fundamentals', 'Artificial Intelligence & Data Science foundations'],
     },
   ],
 
@@ -461,7 +459,6 @@ export const PORTFOLIO_DATA = {
   education: [
     {
       degree: 'B.Tech — Artificial Intelligence & Data Science',
-      minor: 'Minor — ECE & IoT (Electronics & Communication Engineering with Internet of Things)',
       institution: "St. Xavier's Catholic College of Engineering (SXCCE)",
       period: '2024 — 2028',
       status: 'Currently in III Year',

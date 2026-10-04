@@ -52,7 +52,7 @@
 }
 
 .simulator-icon-badge--green { background: rgba(34, 197, 94, 0.12); color: #22C55E; border-color: rgba(34, 197, 94, 0.3); }
-.simulator-icon-badge--crimson { background: rgba(220, 20, 60, 0.12); color: #DC143C; border-color: rgba(220, 20, 60, 0.3); }
+.simulator-icon-badge--crimson { background: rgba(139, 0, 0, 0.16); color: #8B0000; border-color: rgba(139, 0, 0, 0.35); }
 .simulator-icon-badge--blue { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-color: rgba(59, 130, 246, 0.3); }
 .simulator-icon-badge--amber { background: rgba(234, 179, 8, 0.12); color: #EAB308; border-color: rgba(234, 179, 8, 0.3); }
 
@@ -86,7 +86,7 @@
   font-weight: 600;
 }
 
-.simulator-status-badge--crimson { background: rgba(220, 20, 60, 0.1); border-color: rgba(220, 20, 60, 0.3); color: #DC143C; }
+.simulator-status-badge--crimson { background: rgba(139, 0, 0, 0.15); border-color: rgba(139, 0, 0, 0.35); color: #8B0000; }
 .simulator-status-badge--blue { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #38BDF8; }
 .simulator-status-badge--amber { background: rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.3); color: #EAB308; }
 
@@ -99,7 +99,7 @@
   animation: pulseDot 1.8s infinite;
 }
 
-.live-pulse-dot--red { background: #DC143C; box-shadow: 0 0 8px #DC143C; }
+.live-pulse-dot--red { background: #8B0000; box-shadow: 0 0 8px #8B0000; }
 .live-pulse-dot--blue { background: #38BDF8; box-shadow: 0 0 8px #38BDF8; }
 .live-pulse-dot--yellow { background: #EAB308; box-shadow: 0 0 8px #EAB308; }
 
@@ -201,7 +201,7 @@
 }
 
 .simulator-slider--green::-webkit-slider-thumb { background: #22C55E; box-shadow: 0 0 10px rgba(34, 197, 94, 0.8); }
-.simulator-slider--crimson::-webkit-slider-thumb { background: #DC143C; box-shadow: 0 0 10px rgba(220, 20, 60, 0.8); }
+.simulator-slider--crimson::-webkit-slider-thumb { background: #8B0000; box-shadow: 0 0 10px rgba(139, 0, 0, 0.85); }
 .simulator-slider--blue::-webkit-slider-thumb { background: #38BDF8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.8); }
 
 .slider-ticks {
@@ -325,7 +325,7 @@
 }
 
 .text-green { color: #22C55E; }
-.text-crimson { color: #DC143C; }
+.text-crimson { color: #8B0000; }
 .text-blue { color: #38BDF8; }
 
 /* Chart & Graphics */

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { scrollToElement } from '../../utils/scrollOrchestrator';
 import { Sun, Moon, Menu, X } from 'lucide-react';
@@ -13,13 +13,49 @@ const NAV_ITEMS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export function Navbar({ theme, toggleTheme }) {
+export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
   const { content } = usePortfolioContent();
   const { profile } = content;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+
+  const tapCountRef = useRef(0);
+  const tapTimerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+    };
+  }, []);
+
+  const handleBrandClick = useCallback((e) => {
+    tapCountRef.current += 1;
+
+    if (tapTimerRef.current) {
+      clearTimeout(tapTimerRef.current);
+    }
+
+    // Reset tap counter if more than 2 seconds elapse between taps
+    tapTimerRef.current = setTimeout(() => {
+      tapCountRef.current = 0;
+    }, 2000);
+
+    // 5 taps within 2 seconds triggers admin login
+    if (tapCountRef.current >= 5) {
+      tapCountRef.current = 0;
+      if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+      e.preventDefault();
+      if (onTriggerAdmin) {
+        onTriggerAdmin();
+      }
+      return;
+    }
+
+    // Normal navigation on taps 1-4
+    handleNav(e, '#home');
+  }, [handleNav, onTriggerAdmin]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -65,7 +101,13 @@ export function Navbar({ theme, toggleTheme }) {
       <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} role="banner">
         <div className="container navbar__inner">
           {/* Brand */}
-          <a href="#home" className="navbar__brand" onClick={e => handleNav(e, '#home')} aria-label="BBH Home">
+          <a
+            href="#home"
+            className="navbar__brand"
+            onClick={handleBrandClick}
+            style={{ touchAction: 'manipulation' }}
+            aria-label="BBH Home"
+          >
             <span className="navbar__brand-glyph" aria-hidden="true">♔</span>
             <span className="navbar__brand-name">
               BBH<span className="navbar__brand-dot">.</span>

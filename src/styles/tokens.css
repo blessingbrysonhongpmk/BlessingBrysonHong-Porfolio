@@ -12,17 +12,17 @@
   --color-surface-hover: #F8F7F2;
   --color-surface-glass: rgba(255, 255, 255, 0.96);
 
-  /* Signature Crimson Accent (Light Mode) */
-  --color-accent: #D81E43;
-  --color-accent-hover: #B81435;
-  --color-accent-soft: rgba(216, 30, 67, 0.09);
-  --color-accent-muted: rgba(216, 30, 67, 0.18);
-  --color-accent-glow: rgba(216, 30, 67, 0.28);
+  /* Signature Dark Blood Red Accent (Light Mode) */
+  --color-accent: #8B0000;
+  --color-accent-hover: #6B0000;
+  --color-accent-soft: rgba(139, 0, 0, 0.08);
+  --color-accent-muted: rgba(139, 0, 0, 0.16);
+  --color-accent-glow: rgba(139, 0, 0, 0.24);
   --color-primary: var(--color-accent);
   --color-primary-hover: var(--color-accent-hover);
 
   /* Studio Desk Tonal Lighting */
-  --color-glow-crimson: rgba(216, 30, 67, 0.08);
+  --color-glow-crimson: rgba(139, 0, 0, 0.08);
   --color-glow-amber: rgba(217, 119, 6, 0.05);
   --color-table-grid: rgba(18, 21, 26, 0.06);
   --color-card-border: rgba(18, 21, 26, 0.15);
@@ -34,12 +34,12 @@
   --font-sans: var(--font-body);
 
   /* Section Zones (Light Mode) */
-  --bg-hero-zone: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(216, 30, 67, 0.05) 0%, transparent 70%);
+  --bg-hero-zone: radial-gradient(ellipse 90% 55% at 50% -10%, rgba(139, 0, 0, 0.05) 0%, transparent 70%);
   --bg-about-zone: transparent;
   --bg-projects-zone: radial-gradient(circle at 50% 10%, rgba(18, 21, 26, 0.03) 0%, transparent 60%);
   --bg-skills-zone: transparent;
   --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(18, 21, 26, 0.025) 50%, transparent 100%);
-  --bg-contact-zone: radial-gradient(ellipse 80% 70% at 50% 90%, rgba(216, 30, 67, 0.06) 0%, transparent 70%);
+  --bg-contact-zone: radial-gradient(ellipse 80% 70% at 50% 90%, rgba(139, 0, 0, 0.06) 0%, transparent 70%);
 
   /* Status */
   --color-success: #15803D;
@@ -153,29 +153,29 @@
   --color-surface-hover:  #181E27;
   --color-surface-glass:  rgba(12, 16, 21, 0.88);
 
-  /* Primary Accent: True Crimson */
-  --color-accent:       #F02D4F;
-  --color-accent-hover: #FF4767;
-  --color-accent-soft:  rgba(240, 45, 79, 0.12);
-  --color-accent-muted: rgba(240, 45, 79, 0.22);
-  --color-accent-glow:  rgba(240, 45, 79, 0.35);
+  /* Primary Accent: Dark Blood Red */
+  --color-accent:       #8B0000;
+  --color-accent-hover: #A80D0D;
+  --color-accent-soft:  rgba(139, 0, 0, 0.16);
+  --color-accent-muted: rgba(139, 0, 0, 0.28);
+  --color-accent-glow:  rgba(139, 0, 0, 0.42);
   --color-primary: var(--color-accent);
   --color-primary-hover: var(--color-accent-hover);
 
   /* Physical Card & Board Grid Tokens */
-  --color-glow-crimson: rgba(240, 45, 79, 0.16);
-  --color-glow-amber:   rgba(240, 45, 79, 0.06);
+  --color-glow-crimson: rgba(139, 0, 0, 0.22);
+  --color-glow-amber:   rgba(139, 0, 0, 0.08);
   --color-table-grid:   rgba(244, 243, 239, 0.035);
   --color-card-border:  rgba(244, 243, 239, 0.08);
   --color-card-edge-highlight: rgba(255, 255, 255, 0.14);
 
   /* Section Tonal Lighting (Dark Table) */
-  --bg-hero-zone: radial-gradient(ellipse 90% 65% at 65% -15%, rgba(240, 45, 79, 0.12) 0%, transparent 70%);
+  --bg-hero-zone: radial-gradient(ellipse 90% 65% at 65% -15%, rgba(139, 0, 0, 0.16) 0%, transparent 70%);
   --bg-about-zone: transparent;
   --bg-projects-zone: radial-gradient(circle at 50% 15%, rgba(12, 16, 21, 0.70) 0%, transparent 80%);
   --bg-skills-zone: radial-gradient(circle at 50% 50%, rgba(12, 16, 21, 0.50) 0%, transparent 80%);
   --bg-journey-zone: linear-gradient(180deg, transparent 0%, rgba(12, 16, 21, 0.60) 50%, transparent 100%);
-  --bg-contact-zone: radial-gradient(ellipse 75% 75% at 50% 85%, rgba(240, 45, 79, 0.14) 0%, transparent 70%);
+  --bg-contact-zone: radial-gradient(ellipse 75% 75% at 50% 85%, rgba(139, 0, 0, 0.18) 0%, transparent 70%);
 
   /* Status */
   --color-success:      #10B981;

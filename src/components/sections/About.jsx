@@ -41,15 +41,6 @@ export function About() {
                   St. Xavier&apos;s Catholic College of Engineering (SXCCE)
                 </p>
               </div>
-              <div className="about-education-minor">
-                <span className="about-education-minor-tag">MINOR / SPECIALIZATION</span>
-                <div className="about-education-minor-detail">
-                  <strong className="about-education-minor-code">ECE &amp; IoT</strong>
-                  <span className="about-education-minor-full">
-                    (Electronics &amp; Communication Engineering with Internet of Things)
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

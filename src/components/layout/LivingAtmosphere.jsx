@@ -6,7 +6,7 @@ import './LivingAtmosphere.css';
  *
  * Visual Layers:
  * - Layer 1: Base dark obsidian (#050608) / warm ivory table with subtle perspective board grid
- * - Layer 2: Overhead crimson studio spotlight (#F02D4F) with gentle breathing
+ * - Layer 2: Overhead dark blood red studio spotlight (#8B0000) with gentle breathing
  * - Layer 3: Large blurred playing card silhouettes drifting with scroll parallax
  * - Layer 4: Metallic coin/chip circular outlines with specular reflection
  * - Layer 5: Floating environmental chess pieces (♔, ♕, ♗, ♘, ♖, ♙) in safe peripheral zones
@@ -218,8 +218,8 @@ function CinematicAtmosphereComponent() {
       ctx.beginPath();
       ctx.rect(-w / 2 + inset, -h / 2 + inset, w - inset * 2, h - inset * 2);
       ctx.strokeStyle = isDark
-        ? `rgba(240, 45, 79, ${alpha * 0.65})`
-        : `rgba(229, 45, 79, ${alpha * 0.55})`;
+        ? `rgba(139, 0, 0, ${alpha * 0.75})`
+        : `rgba(139, 0, 0, ${alpha * 0.60})`;
       ctx.lineWidth = 0.5;
       ctx.stroke();
 
@@ -281,10 +281,10 @@ function CinematicAtmosphereComponent() {
       const spotR = Math.min(width, height) * 0.72;
       const spotGrad = ctx.createRadialGradient(spotX, spotY, 0, spotX, spotY, spotR);
       const spotAlpha = isDark ? 0.16 : 0.06;
-      spotGrad.addColorStop(0, `rgba(240, 45, 79, ${spotAlpha})`);
-      spotGrad.addColorStop(0.35, `rgba(240, 45, 79, ${spotAlpha * 0.4})`);
-      spotGrad.addColorStop(0.75, `rgba(240, 45, 79, ${spotAlpha * 0.07})`);
-      spotGrad.addColorStop(1, 'rgba(240, 45, 79, 0)');
+      spotGrad.addColorStop(0, `rgba(139, 0, 0, ${spotAlpha * 1.2})`);
+      spotGrad.addColorStop(0.35, `rgba(139, 0, 0, ${spotAlpha * 0.45})`);
+      spotGrad.addColorStop(0.75, `rgba(139, 0, 0, ${spotAlpha * 0.08})`);
+      spotGrad.addColorStop(1, 'rgba(139, 0, 0, 0)');
       ctx.fillStyle = spotGrad;
       ctx.fillRect(0, 0, width, height);
 
@@ -319,10 +319,10 @@ function CinematicAtmosphereComponent() {
         const baseAlpha = isDark ? 0.16 : 0.06;
         const currentAlpha = Math.max(0, baseAlpha + spotPulse);
 
-        spotGrad.addColorStop(0, `rgba(240, 45, 79, ${currentAlpha})`);
-        spotGrad.addColorStop(0.35, `rgba(240, 45, 79, ${currentAlpha * 0.38})`);
-        spotGrad.addColorStop(0.72, `rgba(240, 45, 79, ${currentAlpha * 0.06})`);
-        spotGrad.addColorStop(1, 'rgba(240, 45, 79, 0)');
+        spotGrad.addColorStop(0, `rgba(139, 0, 0, ${currentAlpha * 1.2})`);
+        spotGrad.addColorStop(0.35, `rgba(139, 0, 0, ${currentAlpha * 0.42})`);
+        spotGrad.addColorStop(0.72, `rgba(139, 0, 0, ${currentAlpha * 0.08})`);
+        spotGrad.addColorStop(1, 'rgba(139, 0, 0, 0)');
         ctx.fillStyle = spotGrad;
         ctx.fillRect(0, 0, width, height);
       }
@@ -364,7 +364,7 @@ function CinematicAtmosphereComponent() {
         // Inner coin medallion ring
         ctx.beginPath();
         ctx.ellipse(0, 0, c.r * 0.74, c.r * 0.40, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(240, 45, 79, ${c.alpha * 0.75})`;
+        ctx.strokeStyle = `rgba(139, 0, 0, ${c.alpha * 0.85})`;
         ctx.lineWidth = 0.8;
         ctx.stroke();
 
@@ -416,7 +416,7 @@ function CinematicAtmosphereComponent() {
           ctx.textBaseline = 'middle';
 
           if (o.isAccent) {
-            ctx.fillStyle = `rgba(240, 45, 79, ${o.depth * 1.5 * breathe})`;
+            ctx.fillStyle = `rgba(139, 0, 0, ${o.depth * 1.6 * breathe})`;
           } else {
             ctx.fillStyle = isDark
               ? `rgba(244, 243, 239, ${o.depth * 1.2 * breathe})`

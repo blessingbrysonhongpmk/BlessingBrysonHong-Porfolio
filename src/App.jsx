@@ -1,4 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, isFirebaseConfigured } from './firebase/firebase';
+
+// The only Firebase Auth UID permitted to access the Admin panel.
+// Must match the UID locked in firestore.rules.
+const ADMIN_UID = 'l3eJDFMWJmfpmmCKwXNmMMujk9g2';
 import { LivingAtmosphere } from './components/layout/LivingAtmosphere';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
@@ -24,6 +30,14 @@ import { PortfolioProvider, usePortfolioContent } from './context/PortfolioConte
 import './styles/global.css';
 import './App.css';
 
+// Internal non-obvious route for admin view (not exposed publicly)
+const INTERNAL_ADMIN_HASH = '#/internal-portal-auth';
+
+function checkIsAdminUrl() {
+  if (typeof window === 'undefined') return false;
+  return window.location.hash.toLowerCase() === INTERNAL_ADMIN_HASH;
+}
+
 function PortfolioApp() {
   const { content } = usePortfolioContent();
 
@@ -45,33 +59,64 @@ function PortfolioApp() {
   }, []);
 
   // Admin route
-  const [isAdminView, setIsAdminView] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.location.hash.startsWith('#/admin') || window.location.pathname === '/admin';
-  });
+  const [isAdminView, setIsAdminView] = useState(() => checkIsAdminUrl());
 
-  // Admin authentication state
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return sessionStorage.getItem('bbh_admin_auth') === 'true';
-  });
+  // Admin authentication state — driven by Firebase onAuthStateChanged
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
+  useEffect(() => {
+    // When Firebase is not configured, skip auth and mark as checked
+    if (!isFirebaseConfigured || !auth) {
+      console.error('Firebase configuration error: Firebase is not configured. Environment variables are missing.');
+      setAuthChecked(true);
+      return;
+    }
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log('Auth connected');
+        console.log('Current UID:', user.uid);
+        if (user.uid !== ADMIN_UID) {
+          console.error('Firestore permission denied / Unauthorized UID:', user.uid);
+          await signOut(auth);
+          setIsAdminAuthenticated(false);
+        } else {
+          setIsAdminAuthenticated(true);
+        }
+      } else {
+        setIsAdminAuthenticated(false);
+      }
+      setAuthChecked(true);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Called after a successful Firebase signIn — auth state updates automatically
   const handleAdminLoginSuccess = useCallback(() => {
-    sessionStorage.setItem('bbh_admin_auth', 'true');
-    setIsAdminAuthenticated(true);
+    // onAuthStateChanged will fire, verify the UID, and set isAdminAuthenticated = true
   }, []);
 
-  const handleAdminLogout = useCallback(() => {
-    sessionStorage.removeItem('bbh_admin_auth');
-    setIsAdminAuthenticated(false);
-    window.location.hash = '#/';
+  const handleExitAdmin = useCallback(() => {
     setIsAdminView(false);
+    if (window.location.hash.toLowerCase() === INTERNAL_ADMIN_HASH) {
+      window.history.pushState(null, '', window.location.pathname + window.location.search);
+    }
   }, []);
+
+  const handleAdminLogout = useCallback(async () => {
+    if (isFirebaseConfigured && auth) {
+      await signOut(auth);
+    } else {
+      setIsAdminAuthenticated(false);
+    }
+    handleExitAdmin();
+  }, [handleExitAdmin]);
 
   // Mac-Style Welcome Loader: runs on initial visit in this session
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(() => {
     if (typeof window === 'undefined') return true;
-    if (window.location.hash.startsWith('#/admin') || window.location.pathname === '/admin') return true;
+    if (checkIsAdminUrl()) return true;
     const seen = sessionStorage.getItem('bbh_welcome_seen');
     const force = window.location.search.includes('welcome=true');
     return !!(seen && !force);
@@ -101,20 +146,49 @@ function PortfolioApp() {
   const [selectedAchievementCategory, setSelectedAchievementCategory] = useState('ALL');
   const [isContactOpen, setIsContactOpen] = useState(false);
 
-  // Admin keyboard shortcut
+  // Discreet Admin keyboard shortcut: Ctrl + Shift + A
   useEffect(() => {
-    const handler = (e) => {
-      if ((e.altKey && e.key.toLowerCase() === 'a') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a')) {
+    const handleKeyDown = (e) => {
+      // Prevent the shortcut from triggering while the user is typing inside an input, textarea, or contenteditable element
+      const target = e.target;
+      const targetTag = target?.tagName?.toLowerCase();
+      const activeEl = document.activeElement;
+      const activeTag = activeEl?.tagName?.toLowerCase();
+
+      const isTyping =
+        targetTag === 'input' ||
+        targetTag === 'textarea' ||
+        targetTag === 'select' ||
+        target?.isContentEditable ||
+        activeTag === 'input' ||
+        activeTag === 'textarea' ||
+        activeTag === 'select' ||
+        activeEl?.isContentEditable;
+
+      if (isTyping) return;
+
+      // Exact shortcut: Ctrl + Shift + A
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.code === 'KeyA')) {
         e.preventDefault();
-        setIsAdminView(prev => {
+        setIsAdminView((prev) => {
           const next = !prev;
-          window.location.hash = next ? '#/admin' : '#/';
+          if (next) {
+            window.location.hash = INTERNAL_ADMIN_HASH;
+          } else {
+            handleExitAdmin();
+          }
           return next;
         });
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleExitAdmin]);
+
+  const handleTriggerAdmin = useCallback(() => {
+    setIsAdminView(true);
+    window.location.hash = INTERNAL_ADMIN_HASH;
   }, []);
 
   // Modal handlers
@@ -158,7 +232,7 @@ function PortfolioApp() {
     setIsJourneyOpen(false);
     setIsAchievementsOpen(false);
     setIsContactOpen(false);
-    if (window.location.hash.startsWith('#/') && !window.location.hash.startsWith('#/admin')) {
+    if (window.location.hash.startsWith('#/') && window.location.hash.toLowerCase() !== INTERNAL_ADMIN_HASH) {
       window.history.pushState(null, '', window.location.pathname + window.location.search);
     }
   }, []);
@@ -167,7 +241,7 @@ function PortfolioApp() {
   useEffect(() => {
     const sync = () => {
       const hash = window.location.hash;
-      if (hash.startsWith('#/admin') || window.location.pathname === '/admin') {
+      if (checkIsAdminUrl()) {
         setIsAdminView(true);
         handleCloseModal();
         return;
@@ -258,18 +332,19 @@ function PortfolioApp() {
     };
   }, [content]);
 
-  // Admin view
+  // Admin view — wait until Firebase has resolved auth state
   if (isAdminView) {
+    if (!authChecked) {
+      // Avoid flash of login screen while Firebase checks session
+      return null;
+    }
     if (!isAdminAuthenticated) {
       return (
         <AdminLogin
           theme={theme}
           toggleTheme={toggleTheme}
           onSuccess={handleAdminLoginSuccess}
-          onCancel={() => {
-            window.location.hash = '#/';
-            setIsAdminView(false);
-          }}
+          onCancel={handleExitAdmin}
         />
       );
     }
@@ -279,10 +354,7 @@ function PortfolioApp() {
         theme={theme}
         toggleTheme={toggleTheme}
         onLogout={handleAdminLogout}
-        onExit={() => {
-          window.location.hash = '#/';
-          setIsAdminView(false);
-        }}
+        onExit={handleExitAdmin}
       />
     );
   }
@@ -294,7 +366,7 @@ function PortfolioApp() {
       )}
       <LivingAtmosphere />
       <a href="#main-content" className="sr-only">Skip to main content</a>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} onTriggerAdmin={handleTriggerAdmin} />
 
       <main id="main-content">
         <Hero onOpenContact={handleOpenContact} isRevealed={isWelcomeComplete} />

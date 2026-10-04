@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
-import { Plus, Trash2, ArrowUp, ArrowDown, Eye, EyeOff, ExternalLink } from 'lucide-react';
+import { Plus, Trash2, ArrowUp, ArrowDown, Eye, EyeOff } from 'lucide-react';
 
 export function AdminJourney() {
   const { draftContent, updateDraft } = usePortfolioContent();

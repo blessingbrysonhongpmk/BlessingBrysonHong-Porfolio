@@ -23,7 +23,7 @@
   transform: translateX(-50%);
   width: 70vw;
   height: 240px;
-  background: radial-gradient(ellipse at center, rgba(240, 45, 79, 0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(139, 0, 0, 0.12) 0%, transparent 70%);
   -webkit-filter: blur(65px);
   filter: blur(65px);
   pointer-events: none;
@@ -31,7 +31,7 @@
 }
 
 [data-theme="dark"] .footer-glow {
-  background: radial-gradient(ellipse at center, rgba(240, 45, 79, 0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(139, 0, 0, 0.16) 0%, transparent 70%);
 }
 
 .footer__inner {
@@ -205,10 +205,10 @@
   user-select: none;
 }
 
-/* Thin red divider representing edge of board */
+/* Thin dark blood red divider representing edge of board */
 .footer__divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(240, 45, 79, 0.45) 50%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.55) 50%, transparent);
 }
 
 /* Bottom meta strip */

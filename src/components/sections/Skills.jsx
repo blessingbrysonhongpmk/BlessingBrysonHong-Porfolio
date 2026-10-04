@@ -235,14 +235,14 @@ function SkillsMobileModal({ category, skillProjectMap, onClose, triggerElement 
 export function Skills({ onOpenSkills }) {
   const { content } = usePortfolioContent();
   const skillCategories = content.skillCategories || [];
-  const projects = content.projects || [];
+  const projects = content.projects;
 
   const [activeCategoryIdx, setActiveCategoryIdx] = useState(0); // Active category for desktop side panel
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false); // Mobile floating sheet state
   const lastTriggerRef = useRef(null);
   const panelRef = useRef(null);
 
-  const skillProjectMap = useMemo(() => buildSkillProjectMap(projects), [projects]);
+  const skillProjectMap = useMemo(() => buildSkillProjectMap(projects || []), [projects]);
 
   const handleSelectCategory = useCallback((idx, e) => {
     setActiveCategoryIdx(idx);

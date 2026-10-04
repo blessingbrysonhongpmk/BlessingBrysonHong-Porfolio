@@ -197,7 +197,7 @@
 }
 
 [data-theme="light"] .about-card:hover {
-  border-color: rgba(216, 30, 67, 0.40);
+  border-color: rgba(139, 0, 0, 0.45);
   box-shadow: 0 16px 38px -6px rgba(18, 21, 26, 0.14), 0 4px 12px rgba(18, 21, 26, 0.06);
 }
 
@@ -290,47 +290,6 @@
   margin: 0;
 }
 
-.about-education-minor {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 14px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-accent);
-  border-radius: var(--radius-sm);
-  margin-top: 4px;
-}
-
-.about-education-minor-tag {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.about-education-minor-detail {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.about-education-minor-code {
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.about-education-minor-full {
-  font-family: var(--font-body);
-  font-size: 0.80rem;
-  color: var(--color-text-secondary);
-}
-
 /* Light Mode */
 [data-theme="light"] .about-education-card {
   background: #F8FAFC;
@@ -346,16 +305,3 @@
   color: #334155;
 }
 
-[data-theme="light"] .about-education-minor {
-  background: #FFFFFF;
-  border-color: rgba(18, 21, 26, 0.14);
-  border-left-color: var(--color-accent);
-}
-
-[data-theme="light"] .about-education-minor-code {
-  color: #0E1116;
-}
-
-[data-theme="light"] .about-education-minor-full {
-  color: #475569;
-}

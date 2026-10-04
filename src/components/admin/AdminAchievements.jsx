@@ -323,7 +323,7 @@ export function AdminAchievements() {
 
               <div style={{ minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: '#FF3B5C', padding: '2px 6px', background: 'rgba(255,59,92,0.1)', borderRadius: '4px' }}>
+                  <span style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: '#8B0000', padding: '2px 6px', background: 'rgba(139, 0, 0, 0.16)', borderRadius: '4px' }}>
                     {item.category}
                   </span>
                   <span style={{ fontSize: '0.78rem', color: '#64748b' }}>{item.year}</span>
