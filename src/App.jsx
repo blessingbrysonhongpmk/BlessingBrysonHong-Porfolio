@@ -332,29 +332,25 @@ function PortfolioApp() {
     };
   }, [content]);
 
-  // Admin view — wait until Firebase has resolved auth state
+  // Admin view
   if (isAdminView) {
-    if (!authChecked) {
-      // Avoid flash of login screen while Firebase checks session
-      return null;
-    }
-    if (!isAdminAuthenticated) {
+    if (isAdminAuthenticated) {
       return (
-        <AdminLogin
+        <AdminLayout
           theme={theme}
           toggleTheme={toggleTheme}
-          onSuccess={handleAdminLoginSuccess}
-          onCancel={handleExitAdmin}
+          onLogout={handleAdminLogout}
+          onExit={handleExitAdmin}
         />
       );
     }
 
     return (
-      <AdminLayout
+      <AdminLogin
         theme={theme}
         toggleTheme={toggleTheme}
-        onLogout={handleAdminLogout}
-        onExit={handleExitAdmin}
+        onSuccess={handleAdminLoginSuccess}
+        onCancel={handleExitAdmin}
       />
     );
   }

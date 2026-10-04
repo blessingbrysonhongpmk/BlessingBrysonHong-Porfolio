@@ -30,21 +30,25 @@ let _auth = null;
 let _db = null;
 
 if (isFirebaseConfigured) {
-  _app = getApps().length
-    ? getApps()[0]
-    : initializeApp({
-        apiKey,
-        authDomain,
-        projectId,
-        storageBucket,
-        messagingSenderId,
-        appId,
-      });
+  try {
+    _app = getApps().length
+      ? getApps()[0]
+      : initializeApp({
+          apiKey,
+          authDomain,
+          projectId,
+          storageBucket,
+          messagingSenderId,
+          appId,
+        });
 
-  _auth = getAuth(_app);
-  _db = getFirestore(_app);
+    _auth = getAuth(_app);
+    _db = getFirestore(_app);
 
-  console.log('Firebase initialized');
+    console.log('Firebase initialized');
+  } catch (err) {
+    console.error('Firebase initialization error:', err);
+  }
 } else {
   console.error(
     'Firebase configuration error: Missing environment variables: ' +

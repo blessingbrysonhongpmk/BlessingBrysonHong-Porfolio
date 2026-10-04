@@ -91,9 +91,17 @@ export function MacWelcomeLoader({ onComplete }) {
   const currentItem = GREETINGS[currentIndex];
   const isFinalWord = currentIndex === GREETINGS.length - 1;
 
+  const handleSkip = () => {
+    sessionStorage.setItem('bbh_welcome_seen', 'true');
+    document.body.style.overflow = '';
+    if (onComplete) onComplete();
+    setStatus('dismissed');
+  };
+
   return (
     <aside
       className={`mac-welcome-overlay ${status === 'fading-out' ? 'is-fading-out' : ''}`}
+      onClick={handleSkip}
       aria-label="Welcome screen"
       role="status"
       aria-live="polite"
