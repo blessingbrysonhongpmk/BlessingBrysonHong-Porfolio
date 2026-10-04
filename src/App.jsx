@@ -334,6 +334,16 @@ function PortfolioApp() {
 
   // Admin view
   if (isAdminView) {
+    if (!authChecked) {
+      return (
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-primary)' }}>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Checking authorization...</span>
+          </div>
+        </div>
+      );
+    }
+
     if (isAdminAuthenticated) {
       return (
         <AdminLayout
