@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import {
   X,
   Send,
@@ -39,16 +40,46 @@ export function ContactDetailModal({ onClose }) {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
 
     setSubmitStatus('sending');
-    setTimeout(() => {
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (serviceId && templateId && publicKey) {
+      try {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_name: profile.name || 'Blessing Bryson Hong',
+          },
+          publicKey
+        );
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitStatus(null), 4000);
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        setSubmitStatus('error');
+      }
+    } else {
+      const subject = encodeURIComponent(`Portfolio Message from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Hi Blessing,\n\n${formData.message}\n\nFrom: ${formData.name} (${formData.email})`
+      );
+      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setSubmitStatus(null), 4000);
-    }, 1000);
+    }
   };
 
   const getSocialIcon = (platform) => {
