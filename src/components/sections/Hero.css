@@ -11,6 +11,9 @@
   align-items: center;
   padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
   background: var(--bg-hero-zone);
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .hero-container {
@@ -437,16 +440,25 @@
   }
 
   .hero-name-line--primary {
-    font-size: clamp(2.25rem, 9.4vw, 2.95rem);
+    font-size: clamp(2rem, 9.4vw, 2.95rem);
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    text-align: center;
   }
 
   .hero-name-line--secondary {
-    font-size: clamp(1.68rem, 7.1vw, 2.2rem);
+    font-size: clamp(1.5rem, 7.1vw, 2.2rem);
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    text-align: center;
   }
 
   .hero-quote {
     justify-content: center;
     text-align: center;
+    max-width: 90%;
   }
 
   .hero-role-wrap {
@@ -468,95 +480,102 @@
     align-items: center;
     margin: var(--space-6) auto 0 auto;
     width: 100%;
+    max-width: 100%;
   }
 
   .hero-card-container {
     margin: 0 auto;
     width: 260px;
     height: 325px;
+    max-width: calc(100% - 24px);
   }
 
   .hero-image-stage {
     margin: 0 auto;
     width: 260px;
     height: 325px;
+    max-width: 100%;
     transform: none !important;
   }
 
   .hero-card-frame {
     width: 274px;
     height: 340px;
-    transform: rotate(2deg) translate3d(4px, 4px, 0);
+    max-width: calc(100% + 14px);
+    transform: rotate(2deg) translate3d(2px, 3px, 0);
   }
 
   .hero-ambient-glow {
-    width: 280px;
-    height: 320px;
+    width: 260px;
+    height: 300px;
+    max-width: 85vw;
     left: 50%;
     transform: translateX(-50%);
-    -webkit-filter: blur(45px);
-    filter: blur(45px);
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
   }
 
   .hero-chess-king {
-    top: -20px;
-    right: -14px;
-    font-size: 3.2rem;
+    top: -18px;
+    right: 0px;
+    font-size: 2.8rem;
   }
 
   .hero-chess-knight {
-    bottom: -10px;
-    left: -12px;
-    font-size: 2.2rem;
+    bottom: -8px;
+    left: 0px;
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-name-line--primary {
-    font-size: clamp(1.95rem, 8.8vw, 2.45rem);
+    font-size: clamp(1.85rem, 8.8vw, 2.35rem);
     letter-spacing: 0.02em;
   }
 
   .hero-name-line--secondary {
-    font-size: clamp(1.46rem, 6.6vw, 1.84rem);
+    font-size: clamp(1.40rem, 6.6vw, 1.78rem);
     letter-spacing: 0.005em;
   }
 
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
   }
 
   .hero-btn {
     justify-content: center;
     width: 100%;
+    min-height: 48px;
   }
 
   .hero-card-container {
-    width: 230px;
-    height: 290px;
+    width: 220px;
+    height: 280px;
   }
 
   .hero-image-stage {
-    width: 230px;
-    height: 290px;
+    width: 220px;
+    height: 280px;
   }
 
   .hero-card-frame {
-    width: 242px;
-    height: 304px;
+    width: 232px;
+    height: 292px;
   }
 
   .hero-chess-king {
-    top: -16px;
-    right: -10px;
-    font-size: 2.7rem;
+    top: -14px;
+    right: 2px;
+    font-size: 2.4rem;
   }
 
   .hero-chess-knight {
-    bottom: -8px;
-    left: -10px;
-    font-size: 1.95rem;
+    bottom: -6px;
+    left: 2px;
+    font-size: 1.75rem;
   }
 }
 

@@ -165,3 +165,32 @@
   padding: 2px 8px;
   border-radius: var(--radius-sm);
 }
+
+@media (max-width: 640px) {
+  .journey-deep-exp-item {
+    padding: var(--space-4);
+  }
+
+  .journey-exp-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .journey-exp-period {
+    align-self: flex-start;
+  }
+
+  .journey-timeline-deep-list {
+    padding-left: 16px;
+    margin-left: 4px;
+  }
+
+  .timeline-deep-node {
+    left: -23px;
+  }
+
+  .timeline-deep-content {
+    padding: 12px 14px;
+  }
+}

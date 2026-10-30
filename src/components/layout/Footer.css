@@ -283,16 +283,43 @@
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
+  .footer {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
   .footer__header {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-5);
   }
 
+  .footer__socials-strip {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .footer__social-pill {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 12px;
+  }
+
+  .footer__nav-strip {
+    font-size: 0.70rem;
+    gap: 8px;
+  }
+
   .footer__bottom {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: var(--space-4);
+  }
+
+  .footer__top-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
   }
 }
 

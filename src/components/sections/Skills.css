@@ -357,6 +357,30 @@
   }
 }
 
+@media (max-width: 640px) {
+  .skills-cat-row {
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .skills-cat-row__preview {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .skills-matrix-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+  }
+}
+
 /* ── Mac-Style Mobile & Tablet Floating Sheet Modal ── */
 .skills-modal-backdrop {
   position: fixed;

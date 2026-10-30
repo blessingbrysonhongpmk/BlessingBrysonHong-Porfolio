@@ -694,16 +694,32 @@
 
 /* Mobile Breakpoint (<= 640px, including 430px, 390px, 375px, 360px): Strictly 1 Card per Row */
 @media (max-width: 640px) {
+  .work-header {
+    gap: 10px;
+  }
+
+  .work-header::after {
+    max-width: 60px;
+  }
+
+  .work-title {
+    font-size: 1.5rem;
+  }
+
   .work-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
-    max-width: 440px;
-    margin: 0 auto;
+    gap: 16px;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   .project-card {
     padding: 14px;
     border-radius: var(--radius-md);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .project-card__thumb-stage {
@@ -726,6 +742,7 @@
   .project-card__cta {
     padding-top: 10px;
     font-size: 0.70rem;
+    min-height: 38px;
   }
 }
 

@@ -589,10 +589,70 @@
 
 /* ── Responsive Reflow ── */
 @media (max-width: 680px) {
-  .timeline-entry {
+  .journey-container {
+    gap: var(--space-10);
+  }
+
+  .company-card {
+    padding: 16px 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .company-meta-strip {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .company-brand-group {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .company-name {
+    font-size: 0.90rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .company-period-badge {
+    align-self: flex-start;
+    font-size: 0.64rem;
+    padding: 3px 8px;
+  }
+
+  .company-focus-line {
+    gap: 4px;
+  }
+
+  .company-focus-text {
+    font-size: 0.74rem;
+  }
+
+  .company-desc {
+    font-size: 0.76rem;
+  }
+
+  .company-visit-btn {
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 0.72rem;
+  }
+
+  .achievements-compact-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-2);
+    gap: 12px;
+  }
+
+  .achievement-item {
     padding: 14px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .journey-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
   }
 }
 
