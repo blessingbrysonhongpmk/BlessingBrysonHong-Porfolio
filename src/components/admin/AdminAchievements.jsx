@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { Plus, Trash2, Edit3, ArrowUp, ArrowDown, CheckCircle2 } from 'lucide-react';
+import { Plus, Trash2, Edit3, ArrowUp, ArrowDown, CheckCircle2, Save } from 'lucide-react';
 
 export function AdminAchievements() {
   const { draftContent, updateDraft, showToast } = usePortfolioContent();
+  const { draftContent, updateDraft, publishContent, isDirty, showToast } = usePortfolioContent();
   const achievements = draftContent.achievements || [];
+
+  const handleSaveAll = async () => {
+    await publishContent();
+  };
 
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -136,8 +142,25 @@ export function AdminAchievements() {
           <button type="button" className="admin-btn admin-btn--primary" onClick={handleStartAdd}>
             <Plus size={15} />
             <span>Add Achievement</span>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {!isAddingNew && !editingId && (
+            <button type="button" className="admin-btn admin-btn--primary" onClick={handleStartAdd}>
+              <Plus size={15} />
+              <span>Add Achievement</span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={handleSaveAll}
+            className={`admin-btn ${isDirty ? 'admin-btn--success' : 'admin-btn--ghost'}`}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          >
+            {isDirty ? <Save size={15} /> : <CheckCircle2 size={15} />}
+            <span>{isDirty ? 'Publish Live' : 'Saved Live'}</span>
           </button>
         )}
+        </div>
       </div>
 
       {/* ── Editor Form (When Adding or Editing) ── */}

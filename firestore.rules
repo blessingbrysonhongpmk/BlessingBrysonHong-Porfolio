@@ -6,17 +6,25 @@ service cloud.firestore {
     // Only this exact Firebase Auth UID may write portfolio data.
     // Change this value if the admin account changes.
     function isAdminUid() {
+    // ── Admin Authorization Whitelist ───────────────────────────
+    // Allows writes for the designated admin UID and authorized admin email accounts.
+    function isAdmin() {
       return request.auth != null
           && request.auth.uid == 'l3eJDFMWJmfpmmCKwXNmMMujk9g2';
+          && (request.auth.uid == 'l3eJDFMWJmfpmmCKwXNmMMujk9g2'
+              || request.auth.token.email == 'blessing28022006@gmail.com'
+              || request.auth.token.email == 'blessingbrysonhongpmk@gmail.com');
     }
 
     // ── Portfolio content document ──────────────────────────────
     // Public reads: anyone (including unauthenticated visitors) can read,
     // which is required for the public-facing portfolio to load.
     // Writes: restricted to the admin UID only.
+    // Writes: restricted to authorized administrator accounts.
     match /portfolio/content {
       allow read:  if true;
       allow write: if isAdminUid();
+      allow write: if isAdmin();
     }
 
     // ── Default: deny everything else ──────────────────────────

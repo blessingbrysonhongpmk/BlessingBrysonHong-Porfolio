@@ -107,11 +107,21 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
             className="navbar__brand"
             onClick={handleBrandClick}
             style={{ touchAction: 'manipulation' }}
-            aria-label="BBH Home"
+            aria-label={`${profile.name || profile.brand || 'BBH'} Home`}
           >
-            <span className="navbar__brand-glyph" aria-hidden="true">♔</span>
+            {profile.logoImage ? (
+              <img
+                src={profile.logoImage}
+                alt={profile.brand || 'Logo'}
+                className="navbar__brand-logo-img"
+              />
+            ) : (
+              <span className="navbar__brand-glyph" aria-hidden="true">
+                {profile.logoGlyph || '♔'}
+              </span>
+            )}
             <span className="navbar__brand-name">
-              BBH<span className="navbar__brand-dot">.</span>
+              {profile.brand || 'BBH'}<span className="navbar__brand-dot">.</span>
             </span>
           </a>
 

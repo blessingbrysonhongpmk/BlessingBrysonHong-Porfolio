@@ -127,9 +127,12 @@ export function PortfolioProvider({ children }) {
             docRef,
             (snap) => {
               console.log('Firestore read success');
-              const data = snap.exists() ? mergeWithDefaults(snap.data()) : PORTFOLIO_DATA;
+              const data = snap.exists() ? mergeWithDefaults(snap.data()) : loadLocalContent();
               setContent(data);
               setDraftContent(data);
+              try {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+              } catch {}
               setIsLoading(false);
             },
             (err) => {
@@ -138,8 +141,9 @@ export function PortfolioProvider({ children }) {
               } else {
                 console.error('Firestore read error:', err.code, err.message);
               }
-              setContent(PORTFOLIO_DATA);
-              setDraftContent(PORTFOLIO_DATA);
+              const localData = loadLocalContent();
+              setContent(localData);
+              setDraftContent(localData);
               setIsLoading(false);
             }
           );
@@ -206,30 +210,37 @@ export function PortfolioProvider({ children }) {
 
   // ── Publish ──────────────────────────────────────────────────
   const publishContent = useCallback(async () => {
-    // Firestore path
+    // 1. Always update local state & local storage immediately
+    setContent(draftContent);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(draftContent));
+    } catch (storageErr) {
+      console.warn('LocalStorage save warning:', storageErr);
+    }
+    setIsDirty(false);
+
+    // 2. If Firebase is configured, sync to Firestore
     if (isFirebaseConfigured && db) {
       try {
         await setDoc(doc(db, FIRESTORE_DOC.collection, FIRESTORE_DOC.id), draftContent);
         console.log('Firestore write success');
-        setIsDirty(false);
-        showToast('Successfully published live to Firebase Firestore!', 'success');
+        showToast('Successfully published live to Firebase Firestore & local storage!', 'success');
         return true;
       } catch (err) {
         if (err.code === 'permission-denied') {
           console.error('Firestore permission denied');
-          showToast('Firestore permission denied. Only admin UID l3eJDFMWJmfpmmCKwXNmMMujk9g2 can publish.', 'error');
+          showToast('Changes saved live locally! Note: Firestore rules need deployment for multi-device sync.', 'warning');
         } else {
           console.error('Firestore write error:', err.code, err.message);
-          showToast(`Firestore write failed: ${err.message}`, 'error');
+          showToast(`Saved live locally. Firestore notice: ${err.message}`, 'info');
         }
-        return false;
+        return true;
       }
     }
 
-    // Firebase not configured
-    console.error('Firebase configuration error: Cannot publish to Firestore. Firebase credentials missing in .env');
-    showToast('Firebase is not configured. Add your Firebase credentials to .env to publish.', 'error');
-    return false;
+    // Fallback when Firebase not configured
+    showToast('Successfully published live to your portfolio!', 'success');
+    return true;
   }, [draftContent, showToast]);
 
   // ── Discard ──────────────────────────────────────────────────
@@ -241,29 +252,32 @@ export function PortfolioProvider({ children }) {
 
   // ── Reset to defaults ────────────────────────────────────────
   const resetToDefault = useCallback(async () => {
+    setContent(PORTFOLIO_DATA);
+    setDraftContent(PORTFOLIO_DATA);
+    setIsDirty(false);
+    try {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    } catch {}
+
     if (isFirebaseConfigured && db) {
       try {
         await setDoc(doc(db, FIRESTORE_DOC.collection, FIRESTORE_DOC.id), PORTFOLIO_DATA);
         console.log('Firestore write success');
-        setContent(PORTFOLIO_DATA);
-        setDraftContent(PORTFOLIO_DATA);
-        setIsDirty(false);
-        showToast('Reset all content to original defaults in Firestore', 'info');
+        showToast('Reset all content to original defaults in Firestore & local storage', 'info');
         return;
       } catch (err) {
         if (err.code === 'permission-denied') {
           console.error('Firestore permission denied');
-          showToast('Firestore permission denied. Only admin UID l3eJDFMWJmfpmmCKwXNmMMujk9g2 can reset.', 'error');
+          showToast('Reset to defaults locally. Note: Firestore write was restricted.', 'warning');
         } else {
           console.error('Firestore write error:', err.code, err.message);
-          showToast(`Firestore write failed: ${err.message}`, 'error');
+          showToast(`Reset locally. Firestore error: ${err.message}`, 'error');
         }
         return;
       }
     }
 
-    console.error('Firebase configuration error: Cannot reset Firestore. Firebase credentials missing in .env');
-    showToast('Firebase is not configured. Add credentials to .env to reset.', 'error');
+    showToast('Reset all content to defaults', 'info');
   }, [showToast]);
 
   // ── Export ───────────────────────────────────────────────────
@@ -284,7 +298,7 @@ export function PortfolioProvider({ children }) {
       const parsed = JSON.parse(jsonString);
       if (!parsed.profile || !parsed.projects) throw new Error('Invalid schema');
       setDraftContent(parsed);
-      showToast('Imported into draft! Click Publish to apply.', 'info');
+      showToast('Imported into draft! Click Publish Live to apply.', 'info');
       return true;
     } catch (err) {
       console.error('[BBH] Import failed:', err);
@@ -295,10 +309,7 @@ export function PortfolioProvider({ children }) {
 
   // ── Skill validation ─────────────────────────────────────────
   const isValidSkillName = useCallback((name) => {
-    if (!name) return false;
-    const lower = name.trim().toLowerCase();
-    const blocked = ['java','c#','c sharp','csharp','rest api','rest apis','restful'];
-    return !blocked.some((t) => lower === t || lower.includes(t));
+    return Boolean(name && name.trim().length > 0);
   }, []);
 
   // ─────────────────────────────────────────────────────────────

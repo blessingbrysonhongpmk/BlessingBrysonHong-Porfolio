@@ -5,7 +5,10 @@ import { AdminAbout } from './AdminAbout';
 import { AdminSkills } from './AdminSkills';
 import { AdminJourney } from './AdminJourney';
 import { AdminAchievements } from './AdminAchievements';
-import { AdminSettings } from './AdminSettings';
+import { AdminBrandLogo } from './AdminBrandLogo';
+import { AdminProfile } from './AdminProfile';
+import { AdminSocials } from './AdminSocials';
+import { AdminBackup } from './AdminBackup';
 import { AdminAppearance } from './AdminAppearance';
 import { AdminHero } from './AdminHero';
 import { AdminContact } from './AdminContact';
@@ -27,6 +30,7 @@ import {
   Mail,
   User,
   Share2,
+  Crown,
 } from 'lucide-react';
 import './AdminLayout.css';
 
@@ -48,10 +52,11 @@ export function AdminLayout({ onExit, onLogout, theme, toggleTheme }) {
       ],
     },
     {
-      label: 'SITE',
+      label: 'SITE & BRAND',
       tabs: [
+        { id: 'brand',        label: 'Brand & Logo',   icon: Crown,     desc: 'Logo image, glyph, brand mark' },
         { id: 'appearance',   label: 'Appearance',     icon: Palette,   desc: 'Colors, theme tokens' },
-        { id: 'profile',      label: 'Profile & ID',   icon: User,      desc: 'Name, brand, full identity' },
+        { id: 'profile',      label: 'Profile & ID',   icon: User,      desc: 'Name, credentials, full identity' },
         { id: 'socials',      label: 'Social Links',   icon: Share2,    desc: 'Social media channels' },
         { id: 'settings',     label: 'Backup & Tools', icon: Settings,  desc: 'Export, import, reset' },
       ],
@@ -68,10 +73,11 @@ export function AdminLayout({ onExit, onLogout, theme, toggleTheme }) {
       case 'journey':      return <AdminJourney />;
       case 'achievements': return <AdminAchievements />;
       case 'contact':      return <AdminContact />;
+      case 'brand':        return <AdminBrandLogo />;
       case 'appearance':   return <AdminAppearance />;
-      case 'profile':      return <AdminSettings subTab="profile" />;
-      case 'socials':      return <AdminSettings subTab="socials" />;
-      case 'settings':     return <AdminSettings subTab="backup" />;
+      case 'profile':      return <AdminProfile />;
+      case 'socials':      return <AdminSocials />;
+      case 'settings':     return <AdminBackup />;
       default:             return <AdminHero />;
     }
   };

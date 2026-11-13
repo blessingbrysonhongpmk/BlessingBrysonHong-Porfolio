@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { Plus, Trash2, ArrowUp, ArrowDown, Eye, EyeOff } from 'lucide-react';
+import { Plus, Trash2, ArrowUp, ArrowDown, Eye, EyeOff, Save, CheckCircle2 } from 'lucide-react';
 
 export function AdminJourney() {
   const { draftContent, updateDraft } = usePortfolioContent();
+  const { draftContent, updateDraft, publishContent, isDirty } = usePortfolioContent();
   const companyExperiences = draftContent.companyExperiences || [];
   const journey = draftContent.journey || [];
   const experience = draftContent.experience || [];
@@ -11,6 +13,10 @@ export function AdminJourney() {
   const achievements = draftContent.achievements || [];
   const milestonesSummary = draftContent.journeyMilestonesSummary || [];
   const achievementsSummary = draftContent.achievementsSummary || [];
+
+  const handleSave = async () => {
+    await publishContent();
+  };
 
   const [activeSubTab, setActiveSubTab] = useState('companies'); // 'companies' | 'experience' | 'milestones' | 'achievements' | 'education' | 'summaries'
 
@@ -104,6 +110,16 @@ export function AdminJourney() {
             Edit your verified experience (Nex-X Spark &amp; internships), university degree, chronological trajectory, and competitive achievements.
           </p>
         </div>
+
+        <button
+          type="button"
+          onClick={handleSave}
+          className={`admin-btn ${isDirty ? 'admin-btn--success' : 'admin-btn--primary'}`}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+        >
+          {isDirty ? <Save size={15} /> : <CheckCircle2 size={15} />}
+          <span>{isDirty ? 'Save & Publish Live' : 'Saved Live'}</span>
+        </button>
       </div>
 
       {/* Sub-tab strip */}

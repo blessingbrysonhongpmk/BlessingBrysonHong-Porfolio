@@ -1,0 +1,157 @@
+/* ─────────────────────────────────────────────────────
+   Admin Brand & Logo Styles
+   ───────────────────────────────────────────────────── */
+
+.admin-brand-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-brand-preview-stage {
+  border-radius: var(--radius-md, 8px);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  border: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .admin-brand-preview-stage {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.admin-brand-preview--dark {
+  background: #0b0c10;
+  color: #f8fafc;
+}
+
+.admin-brand-preview--light {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.admin-brand-preview-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-brand-preview-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+.admin-brand-preview-navbar,
+.admin-brand-preview-footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm, 6px);
+  background: rgba(125, 125, 125, 0.08);
+  border: 1px solid rgba(125, 125, 125, 0.15);
+  width: fit-content;
+}
+
+.admin-brand-preview-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-brand-preview-glyph {
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--color-accent, #c92a2a);
+}
+
+.admin-brand-preview-name {
+  font-family: var(--font-display, inherit);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.admin-brand-preview-dot {
+  color: var(--color-accent, #c92a2a);
+}
+
+.admin-brand-preview-fullname {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-left: 6px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(125, 125, 125, 0.3);
+}
+
+.admin-brand-preview-img {
+  height: 32px;
+  max-width: 130px;
+  object-fit: contain;
+  display: block;
+}
+
+.admin-brand-preview-img-sm {
+  height: 26px;
+  max-width: 100px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Glyph Picker Grid */
+.admin-glyph-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-glyph-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  background: var(--color-surface, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-sm, 6px);
+  color: var(--color-text, #f8fafc);
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+}
+
+.admin-glyph-btn:hover {
+  background: var(--color-accent, #c92a2a);
+  color: #ffffff;
+  border-color: var(--color-accent, #c92a2a);
+  transform: translateY(-2px);
+}
+
+.admin-glyph-btn--active {
+  background: var(--color-accent, #c92a2a) !important;
+  color: #ffffff !important;
+  border-color: var(--color-accent, #c92a2a) !important;
+  box-shadow: 0 0 10px rgba(201, 42, 42, 0.4);
+}
+
+.admin-field-hint {
+  font-size: 0.74rem;
+  color: var(--color-text-muted, #94a3b8);
+  margin-top: 5px;
+  display: block;
+  line-height: 1.4;
+}
+

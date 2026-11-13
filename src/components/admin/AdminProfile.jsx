@@ -1,7 +1,8 @@
 import { usePortfolioContent } from '../../context/PortfolioContext';
+import { Save, CheckCircle2 } from 'lucide-react';
 
 export function AdminProfile() {
-  const { draftContent, updateDraft } = usePortfolioContent();
+  const { draftContent, updateDraft, publishContent, isDirty } = usePortfolioContent();
   const profile = draftContent.profile || {};
 
   const handleChange = (field, value) => {
@@ -9,6 +10,10 @@ export function AdminProfile() {
       ...prev,
       [field]: value,
     }));
+  };
+
+  const handleSave = async () => {
+    await publishContent();
   };
 
   return (
@@ -20,6 +25,16 @@ export function AdminProfile() {
             Edit your core personal branding, role, credentials, and hero statements across the site.
           </p>
         </div>
+
+        <button
+          type="button"
+          onClick={handleSave}
+          className={`admin-btn ${isDirty ? 'admin-btn--success' : 'admin-btn--primary'}`}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+        >
+          {isDirty ? <Save size={15} /> : <CheckCircle2 size={15} />}
+          <span>{isDirty ? 'Save & Publish Live' : 'Saved Live'}</span>
+        </button>
       </div>
 
       <div className="admin-card">
@@ -180,6 +195,18 @@ export function AdminProfile() {
             className="admin-textarea"
           />
         </div>
+      </div>
+
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          type="button"
+          onClick={handleSave}
+          className="admin-btn admin-btn--success"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 24px', fontSize: '0.95rem' }}
+        >
+          <Save size={16} />
+          <span>Save &amp; Publish Profile Changes</span>
+        </button>
       </div>
     </div>
   );

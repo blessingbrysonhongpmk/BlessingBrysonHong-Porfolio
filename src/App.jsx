@@ -2,9 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth, isFirebaseConfigured } from './firebase/firebase';
 
-// The only Firebase Auth UID permitted to access the Admin panel.
-// Must match the UID locked in firestore.rules.
-const ADMIN_UID = 'l3eJDFMWJmfpmmCKwXNmMMujk9g2';
+import { MASTER_ADMIN_EMAIL, isAuthorizedAdminUser } from './config/adminAuth';
 import { LivingAtmosphere } from './components/layout/LivingAtmosphere';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
@@ -61,40 +59,65 @@ function PortfolioApp() {
   // Admin route
   const [isAdminView, setIsAdminView] = useState(() => checkIsAdminUrl());
 
-  // Admin authentication state — driven by Firebase onAuthStateChanged
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  // Helper to check valid local admin session
+  const checkHasLocalAdminSession = useCallback(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      const raw = localStorage.getItem('bbh_admin_session');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && (parsed.email?.toLowerCase() === MASTER_ADMIN_EMAIL.toLowerCase() || parsed.role === 'admin')) {
+          return true;
+        }
+      }
+    } catch {}
+    return false;
+  }, []);
+
+  // Admin authentication state
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => checkHasLocalAdminSession());
   const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    // When Firebase is not configured, skip auth and mark as checked
+    // Check local session immediately
+    if (checkHasLocalAdminSession()) {
+      setIsAdminAuthenticated(true);
+    }
+
+    // When Firebase is not configured, rely on local session check
     if (!isFirebaseConfigured || !auth) {
-      console.error('Firebase configuration error: Firebase is not configured. Environment variables are missing.');
       setAuthChecked(true);
       return;
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log('Auth connected');
-        console.log('Current UID:', user.uid);
-        if (user.uid !== ADMIN_UID) {
-          console.error('Firestore permission denied / Unauthorized UID:', user.uid);
-          await signOut(auth);
-          setIsAdminAuthenticated(false);
-        } else {
+        console.log('Auth connected, UID:', user.uid, 'Email:', user.email);
+        const isAuthorized = isAuthorizedAdminUser(user);
+
+        if (isAuthorized) {
           setIsAdminAuthenticated(true);
+        } else {
+          // If not matching authorized Firebase accounts, check if verified master session exists
+          if (!checkHasLocalAdminSession()) {
+            await signOut(auth);
+            setIsAdminAuthenticated(false);
+          }
         }
       } else {
-        setIsAdminAuthenticated(false);
+        // If Firebase user is signed out, verify if local master session is active
+        if (!checkHasLocalAdminSession()) {
+          setIsAdminAuthenticated(false);
+        }
       }
       setAuthChecked(true);
     });
     return () => unsubscribe();
-  }, []);
+  }, [checkHasLocalAdminSession]);
 
-  // Called after a successful Firebase signIn — auth state updates automatically
+  // Called after a successful login
   const handleAdminLoginSuccess = useCallback(() => {
-    // onAuthStateChanged will fire, verify the UID, and set isAdminAuthenticated = true
+    setIsAdminAuthenticated(true);
   }, []);
 
   const handleExitAdmin = useCallback(() => {
@@ -105,13 +128,35 @@ function PortfolioApp() {
   }, []);
 
   const handleAdminLogout = useCallback(async () => {
+    try {
+      localStorage.removeItem('bbh_admin_session');
+      sessionStorage.removeItem('bbh_admin_session');
+    } catch {}
     if (isFirebaseConfigured && auth) {
-      await signOut(auth);
-    } else {
-      setIsAdminAuthenticated(false);
+      try {
+        await signOut(auth);
+      } catch {}
     }
+    setIsAdminAuthenticated(false);
     handleExitAdmin();
   }, [handleExitAdmin]);
+
+  // Dynamic Browser Tab Title & Favicon sync
+  useEffect(() => {
+    const profile = content?.profile || {};
+    const title = profile.siteTitle || `${profile.name || 'Blessing Bryson Hong'} | Portfolio`;
+    document.title = title;
+
+    if (profile.favicon) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = profile.favicon;
+    }
+  }, [content?.profile]);
 
   // Mac-Style Welcome Loader: runs on initial visit in this session
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(() => {

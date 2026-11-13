@@ -26,16 +26,26 @@ export function Footer() {
         <div className="footer__header">
           <div className="footer__identity">
             <div className="footer__brand-wrapper">
-              <span className="footer__brand-glyph" aria-hidden="true">♔</span>
+              {profile.logoImage ? (
+                <img
+                  src={profile.logoImage}
+                  alt={profile.brand || 'Logo'}
+                  className="footer__brand-logo-img"
+                />
+              ) : (
+                <span className="footer__brand-glyph" aria-hidden="true">
+                  {profile.logoGlyph || '♔'}
+                </span>
+              )}
               <span className="footer__brand-mark">
-                BBH<span className="footer__brand-dot">.</span>
+                {profile.brand || 'BBH'}<span className="footer__brand-dot">.</span>
               </span>
               <span className="footer__name">
-                P M K BLESSING BRYSON HONG
+                {profile.fullName || profile.name || 'P M K BLESSING BRYSON HONG'}
               </span>
             </div>
             <span className="footer__role">
-              {profile.role || 'AI & DATA SCIENCE + FULL STACK DEVELOPER'}
+              {profile.role || profile.heroRole || 'AI & DATA SCIENCE + FULL STACK DEVELOPER'}
             </span>
           </div>
 

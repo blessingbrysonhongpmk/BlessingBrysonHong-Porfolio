@@ -1,11 +1,17 @@
 import { usePortfolioContent } from '../../context/PortfolioContext';
+import { Save, CheckCircle2 } from 'lucide-react';
 
 export function AdminContact() {
   const { draftContent, updateDraft } = usePortfolioContent();
+  const { draftContent, updateDraft, publishContent, isDirty } = usePortfolioContent();
   const profile = draftContent.profile || {};
 
   const handleChange = (field, value) => {
     updateDraft('profile', prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSave = async () => {
+    await publishContent();
   };
 
   return (
@@ -17,6 +23,16 @@ export function AdminContact() {
             Edit email, availability status, and contact information displayed in the Contact section and footer.
           </p>
         </div>
+
+        <button
+          type="button"
+          onClick={handleSave}
+          className={`admin-btn ${isDirty ? 'admin-btn--success' : 'admin-btn--primary'}`}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+        >
+          {isDirty ? <Save size={15} /> : <CheckCircle2 size={15} />}
+          <span>{isDirty ? 'Save & Publish Live' : 'Saved Live'}</span>
+        </button>
       </div>
 
       <div className="admin-card">
@@ -92,6 +108,18 @@ export function AdminContact() {
             />
           </div>
         </div>
+      </div>
+
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          type="button"
+          onClick={handleSave}
+          className="admin-btn admin-btn--success"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 24px', fontSize: '0.95rem' }}
+        >
+          <Save size={16} />
+          <span>Save &amp; Publish Contact Changes</span>
+        </button>
       </div>
     </div>
   );

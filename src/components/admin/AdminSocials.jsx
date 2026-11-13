@@ -1,9 +1,13 @@
 import { usePortfolioContent } from '../../context/PortfolioContext';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Save, CheckCircle2 } from 'lucide-react';
 
 export function AdminSocials() {
-  const { draftContent, updateDraft, showToast } = usePortfolioContent();
+  const { draftContent, updateDraft, publishContent, isDirty, showToast } = usePortfolioContent();
   const socials = draftContent.socials || [];
+
+  const handleSave = async () => {
+    await publishContent();
+  };
 
   const handleUpdateSocial = (index, field, val) => {
     const list = [...socials];
@@ -36,10 +40,22 @@ export function AdminSocials() {
           </p>
         </div>
 
-        <button type="button" onClick={handleAddSocial} className="admin-btn admin-btn--primary">
-          <Plus size={16} />
-          <span>Add Channel</span>
-        </button>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button type="button" onClick={handleAddSocial} className="admin-btn admin-btn--primary">
+            <Plus size={16} />
+            <span>Add Channel</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleSave}
+            className={`admin-btn ${isDirty ? 'admin-btn--success' : 'admin-btn--ghost'}`}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          >
+            {isDirty ? <Save size={15} /> : <CheckCircle2 size={15} />}
+            <span>{isDirty ? 'Save & Publish Live' : 'Saved Live'}</span>
+          </button>
+        </div>
       </div>
 
       <div className="admin-card">

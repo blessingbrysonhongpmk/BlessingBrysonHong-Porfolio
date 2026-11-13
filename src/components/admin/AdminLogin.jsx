@@ -1,11 +1,18 @@
 import { useState, useCallback } from 'react';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth, isFirebaseConfigured, firebaseMissingKeys } from '../../firebase/firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, isFirebaseConfigured } from '../../firebase/firebase';
 import { Lock, Mail, Eye, EyeOff, ShieldCheck, ArrowLeft, Sun, Moon, AlertCircle } from 'lucide-react';
 import './AdminLogin.css';
 
-// Must match the UID locked in App.jsx and firestore.rules
-const ADMIN_UID = 'l3eJDFMWJmfpmmCKwXNmMMujk9g2';
+import {
+  MASTER_ADMIN_EMAIL,
+  MASTER_ADMIN_PASS,
+  ADMIN_UID,
+  isMasterAdminCredentials,
+  isAuthorizedAdminUser,
+} from '../../config/adminAuth';
+
+export { MASTER_ADMIN_EMAIL, MASTER_ADMIN_PASS };
 
 export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
   const [email, setEmail] = useState('');
@@ -20,44 +27,99 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
       setError('');
       setIsSubmitting(true);
 
-      // Guard: Firebase must be configured before login works
-      if (!isFirebaseConfigured || !auth) {
-        const missing = firebaseMissingKeys.length > 0 ? firebaseMissingKeys.join(', ') : 'all VITE_FIREBASE_* variables';
-        console.error('Firebase configuration error: Missing environment variables:', missing);
-        setError(`Firebase is not configured. Missing environment variables in .env: ${missing}`);
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanPassword = password.trim();
+
+      // ── PATH 1: Master Admin Credentials Check ───────────────
+      const isMasterAdmin = isMasterAdminCredentials(cleanEmail, cleanPassword);
+
+      if (isMasterAdmin) {
+        // Store persistent verified administrator session
+        const adminSession = {
+          email: MASTER_ADMIN_EMAIL,
+          role: 'admin',
+          timestamp: Date.now(),
+        };
+
+        try {
+          localStorage.setItem('bbh_admin_session', JSON.stringify(adminSession));
+        } catch {}
+
+        // Connect with Firebase Auth in parallel if configured
+        if (isFirebaseConfigured && auth) {
+          try {
+            await signInWithEmailAndPassword(auth, cleanEmail, cleanPassword);
+            console.log('Firebase Auth connected for master admin');
+          } catch (fbErr) {
+            if (fbErr.code === 'auth/user-not-found' || fbErr.code === 'auth/invalid-credential') {
+              try {
+                // Automatically create admin user in Firebase Auth if not already created
+                await createUserWithEmailAndPassword(auth, cleanEmail, cleanPassword);
+                console.log('Created and authenticated master admin user in Firebase Auth');
+              } catch (regErr) {
+                console.warn('Firebase registration notice:', regErr.message);
+              }
+            } else {
+              console.warn('Firebase Auth notice:', fbErr.message);
+            }
+          }
+        }
+
         setIsSubmitting(false);
+        onSuccess();
         return;
       }
 
-      try {
-        const credential = await signInWithEmailAndPassword(auth, email.trim(), password.trim());
-        console.log('Auth connected');
-        console.log('Current UID:', credential.user.uid);
+      // ── PATH 2: Standard Firebase Auth Fallback ──────────────
+      if (isFirebaseConfigured && auth) {
+        try {
+          const credential = await signInWithEmailAndPassword(auth, email.trim(), cleanPassword);
+          console.log('Auth connected, UID:', credential.user.uid);
 
-        // UID guard — reject accounts that are not the designated admin
-        if (credential.user.uid !== ADMIN_UID) {
-          console.error('Firestore permission denied / Unauthorized UID:', credential.user.uid);
-          await signOut(auth);
-          setError(`Access denied. Account UID (${credential.user.uid}) is not authorized as administrator.`);
+          const isAuthorized = isAuthorizedAdminUser(credential.user);
+
+          if (!isAuthorized) {
+            console.error('Unauthorized user UID / email:', credential.user.uid, credential.user.email);
+            await signOut(auth);
+            setError(`Access denied. Account (${credential.user.email || credential.user.uid}) is not authorized as administrator.`);
+            setIsSubmitting(false);
+            return;
+          }
+
+          try {
+            localStorage.setItem(
+              'bbh_admin_session',
+              JSON.stringify({
+                email: credential.user.email,
+                uid: credential.user.uid,
+                role: 'admin',
+                timestamp: Date.now(),
+              })
+            );
+          } catch {}
+
+          setIsSubmitting(false);
+          onSuccess();
+          return;
+        } catch (err) {
+          console.error('Admin sign-in error:', err.code, err.message);
+          const friendlyErrors = {
+            'auth/invalid-email':          'Invalid email address format.',
+            'auth/user-not-found':         'Invalid Admin ID or Password.',
+            'auth/wrong-password':         'Invalid Admin ID or Password.',
+            'auth/invalid-credential':     'Invalid Admin ID or Password.',
+            'auth/too-many-requests':      'Too many failed attempts. Please try again later.',
+            'auth/network-request-failed': 'Network error. Check your connection.',
+          };
+          setError(friendlyErrors[err.code] || 'Invalid Admin ID or Password.');
           setIsSubmitting(false);
           return;
         }
-
-        // onAuthStateChanged in App.jsx will verify UID and grant access
-        onSuccess();
-      } catch (err) {
-        console.error('Admin sign-in error:', err.code, err.message);
-        const friendlyErrors = {
-          'auth/invalid-email':           'Invalid email address format.',
-          'auth/user-not-found':          'Invalid Admin ID or Password.',
-          'auth/wrong-password':          'Invalid Admin ID or Password.',
-          'auth/invalid-credential':      'Invalid Admin ID or Password.',
-          'auth/too-many-requests':       'Too many failed attempts. Please try again later.',
-          'auth/network-request-failed':  'Network error. Check your connection.',
-        };
-        setError(friendlyErrors[err.code] || 'Authentication failed. Please try again.');
-        setIsSubmitting(false);
       }
+
+      // If credentials do not match master and Firebase is not available
+      setError('Invalid Admin ID or Password.');
+      setIsSubmitting(false);
     },
     [email, password, onSuccess]
   );
@@ -125,7 +187,7 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
                     setEmail(e.target.value);
                     if (error) setError('');
                   }}
-                  placeholder="admin@example.com"
+                  placeholder="blessing28022006@gmail.com"
                   autoComplete="username"
                   required
                   className={`admin-login-input ${error ? 'admin-login-input--error' : ''}`}

@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { usePortfolioContent } from '../../context/PortfolioContext';
-import { Plus, Trash2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Plus, Trash2, AlertTriangle, Save, CheckCircle2 } from 'lucide-react';
 
 export function AdminSkills() {
-  const { draftContent, updateDraft, isValidSkillName, showToast } = usePortfolioContent();
+  const { draftContent, updateDraft, isValidSkillName, publishContent, isDirty, showToast } = usePortfolioContent();
   const skillCategories = draftContent.skillCategories || [];
   const domainPreviews = draftContent.domainPreviews || [];
+
+  const handleSave = async () => {
+    await publishContent();
+  };
 
   const [newSkillName, setNewSkillName] = useState('');
   const [newSkillStatus, setNewSkillStatus] = useState('Working Knowledge');
@@ -92,10 +96,15 @@ export function AdminSkills() {
           </p>
         </div>
 
-        <div className="admin-status-pill admin-status-pill--synced">
-          <ShieldCheck size={14} />
-          <span>Verified Skills Only</span>
-        </div>
+        <button
+          type="button"
+          onClick={handleSave}
+          className={`admin-btn ${isDirty ? 'admin-btn--success' : 'admin-btn--primary'}`}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+        >
+          {isDirty ? <Save size={15} /> : <CheckCircle2 size={15} />}
+          <span>{isDirty ? 'Save & Publish Live' : 'Saved Live'}</span>
+        </button>
       </div>
 
       {skillError && (
@@ -277,6 +286,18 @@ export function AdminSkills() {
           </div>
         </div>
       ))}
+
+      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          type="button"
+          onClick={handleSave}
+          className="admin-btn admin-btn--success"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 24px', fontSize: '0.95rem' }}
+        >
+          <Save size={16} />
+          <span>Save &amp; Publish Skills Changes</span>
+        </button>
+      </div>
     </div>
   );
 }

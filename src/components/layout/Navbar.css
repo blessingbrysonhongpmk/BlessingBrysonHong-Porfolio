@@ -62,6 +62,14 @@ body:not(.is-welcome-active) .navbar {
   transition: transform var(--transition-spring), opacity var(--transition-fast);
 }
 
+.navbar__brand-logo-img {
+  height: 28px;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+  border-radius: 4px;
+}
+
 .navbar__brand-name {
   font-family: var(--font-display);
   font-weight: 800;
