@@ -2,7 +2,6 @@ import { usePortfolioContent } from '../../context/PortfolioContext';
 import { Save, CheckCircle2 } from 'lucide-react';
 
 export function AdminContact() {
-  const { draftContent, updateDraft } = usePortfolioContent();
   const { draftContent, updateDraft, publishContent, isDirty } = usePortfolioContent();
   const profile = draftContent.profile || {};
 

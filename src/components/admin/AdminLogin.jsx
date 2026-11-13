@@ -7,7 +7,6 @@ import './AdminLogin.css';
 import {
   MASTER_ADMIN_EMAIL,
   MASTER_ADMIN_PASS,
-  ADMIN_UID,
   isMasterAdminCredentials,
   isAuthorizedAdminUser,
 } from '../../config/adminAuth';

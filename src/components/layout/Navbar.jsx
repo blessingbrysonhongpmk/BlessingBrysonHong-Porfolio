@@ -16,6 +16,7 @@ const NAV_ITEMS = [
 export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
   const { content } = usePortfolioContent();
   const { profile } = content;
+  const navItems = content.navLinks && content.navLinks.length > 0 ? content.navLinks : NAV_ITEMS;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -76,7 +77,7 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
 
   // Intersection observer for active nav
   useEffect(() => {
-    const ids = NAV_ITEMS.map(l => l.href.replace('#', '')).filter(Boolean);
+    const ids = navItems.map(l => l.href.replace('#', '')).filter(Boolean);
     const observers = [];
     ids.forEach(id => {
       const el = document.getElementById(id);
@@ -89,7 +90,7 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
       observers.push(obs);
     });
     return () => observers.forEach(o => o.disconnect());
-  }, []);
+  }, [navItems]);
 
   // Lock scroll when mobile menu open
   useEffect(() => {
@@ -127,7 +128,7 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
 
           {/* Desktop Nav */}
           <nav className="navbar__links" role="navigation" aria-label="Main Navigation">
-            {NAV_ITEMS.map(link => (
+            {navItems.map(link => (
               <a
                 key={link.label}
                 href={link.href}
@@ -173,7 +174,7 @@ export function Navbar({ theme, toggleTheme, onTriggerAdmin }) {
       {mobileOpen && (
         <div className="mobile-menu" role="dialog" aria-label="Mobile Navigation">
           <nav className="mobile-menu__nav">
-            {NAV_ITEMS.map(link => (
+            {navItems.map(link => (
               <a
                 key={link.label}
                 href={link.href}

@@ -127,7 +127,7 @@ export function Hero({ onOpenContact, isRevealed = true }) {
               </div>
 
               {/* Environmental Chess Pieces */}
-              <span className="hero-chess-king" aria-hidden="true">♔</span>
+              <span className="hero-chess-king" aria-hidden="true">{profile.logoGlyph || '♔'}</span>
               <span className="hero-chess-knight" aria-hidden="true">♘</span>
 
               <div

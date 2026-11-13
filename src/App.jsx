@@ -133,6 +133,9 @@ function PortfolioApp() {
       sessionStorage.removeItem('bbh_admin_session');
     } catch {}
     if (isFirebaseConfigured && auth) {
+      await signOut(auth);
+    } else {
+      setIsAdminAuthenticated(false);
       try {
         await signOut(auth);
       } catch {}
