@@ -469,7 +469,7 @@ export function ProjectEditorModal({ project, onSave, onClose }) {
                     value={formData.liveUrl}
                     onChange={(e) => handleFieldChange('liveUrl', e.target.value)}
                     className="admin-input"
-                    placeholder="https://example.com"
+                    placeholder="https://your-project-link.com"
                   />
                 </div>
 

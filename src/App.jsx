@@ -70,7 +70,7 @@ function PortfolioApp() {
           return true;
         }
       }
-    } catch {}
+    } catch { }
     return false;
   }, []);
 
@@ -131,14 +131,14 @@ function PortfolioApp() {
     try {
       localStorage.removeItem('bbh_admin_session');
       sessionStorage.removeItem('bbh_admin_session');
-    } catch {}
+    } catch { }
     if (isFirebaseConfigured && auth) {
       await signOut(auth);
     } else {
       setIsAdminAuthenticated(false);
       try {
         await signOut(auth);
-      } catch {}
+      } catch { }
     }
     setIsAdminAuthenticated(false);
     handleExitAdmin();

@@ -1,5 +1,6 @@
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { Zap, CheckCircle2, Save } from 'lucide-react';
+import { ProfileImageUploader } from './ProfileImageUploader';
 
 export function AdminHero() {
   const { draftContent, updateDraft, publishContent, isDirty } = usePortfolioContent();
@@ -154,27 +155,19 @@ export function AdminHero() {
           />
         </div>
 
-        <div className="admin-grid-2">
-          <div className="admin-form-group">
-            <label className="admin-form-label">Profile Image Path / URL</label>
-            <input
-              type="text"
-              value={profile.avatar || ''}
-              onChange={e => handleChange('avatar', e.target.value)}
-              className="admin-input"
-              placeholder="/profile.jpeg"
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label">Availability Status</label>
-            <input
-              type="text"
-              value={profile.availability || ''}
-              onChange={e => handleChange('availability', e.target.value)}
-              className="admin-input"
-              placeholder="e.g. Open to Opportunities"
-            />
-          </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label">Availability Status</label>
+          <input
+            type="text"
+            value={profile.availability || ''}
+            onChange={e => handleChange('availability', e.target.value)}
+            className="admin-input"
+            placeholder="e.g. Open to Opportunities"
+          />
+        </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <ProfileImageUploader />
         </div>
       </div>
 

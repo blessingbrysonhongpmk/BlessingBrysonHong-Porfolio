@@ -42,7 +42,7 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
 
         try {
           localStorage.setItem('bbh_admin_session', JSON.stringify(adminSession));
-        } catch {}
+        } catch { }
 
         // Connect with Firebase Auth in parallel if configured
         if (isFirebaseConfigured && auth) {
@@ -95,7 +95,7 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
                 timestamp: Date.now(),
               })
             );
-          } catch {}
+          } catch { }
 
           setIsSubmitting(false);
           onSuccess();
@@ -103,11 +103,11 @@ export function AdminLogin({ onSuccess, onCancel, theme, toggleTheme }) {
         } catch (err) {
           console.error('Admin sign-in error:', err.code, err.message);
           const friendlyErrors = {
-            'auth/invalid-email':          'Invalid email address format.',
-            'auth/user-not-found':         'Invalid Admin ID or Password.',
-            'auth/wrong-password':         'Invalid Admin ID or Password.',
-            'auth/invalid-credential':     'Invalid Admin ID or Password.',
-            'auth/too-many-requests':      'Too many failed attempts. Please try again later.',
+            'auth/invalid-email': 'Invalid email address format.',
+            'auth/user-not-found': 'Invalid Admin ID or Password.',
+            'auth/wrong-password': 'Invalid Admin ID or Password.',
+            'auth/invalid-credential': 'Invalid Admin ID or Password.',
+            'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
             'auth/network-request-failed': 'Network error. Check your connection.',
           };
           setError(friendlyErrors[err.code] || 'Invalid Admin ID or Password.');

@@ -1,5 +1,6 @@
 import { usePortfolioContent } from '../../context/PortfolioContext';
 import { Save, CheckCircle2 } from 'lucide-react';
+import { ProfileImageUploader } from './ProfileImageUploader';
 
 export function AdminProfile() {
   const { draftContent, updateDraft, publishContent, isDirty } = usePortfolioContent();
@@ -140,14 +141,8 @@ export function AdminProfile() {
           </div>
         </div>
 
-        <div className="admin-form-group">
-          <label className="admin-form-label">Avatar / Profile Image Path</label>
-          <input
-            type="text"
-            value={profile.avatar || ''}
-            onChange={(e) => handleChange('avatar', e.target.value)}
-            className="admin-input"
-          />
+        <div style={{ marginTop: '16px' }}>
+          <ProfileImageUploader />
         </div>
       </div>
 

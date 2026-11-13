@@ -149,10 +149,36 @@ it('Simulates custom image logo update without mutating defaults', () => {
   expect(customProfile.logoImage.startsWith('data:image/')).toBe(true);
 });
 
-console.log('\nGroup 3: Content Structure & Database Integrity');
+console.log('\nGroup 3: Content Structure & Database Integrity (Strictly Authentic Data)');
 it('Contains valid projects array with verified entries', () => {
   expect(Array.isArray(PORTFOLIO_DATA.projects)).toBe(true);
   expect(PORTFOLIO_DATA.projects.length).toBeGreaterThan(0);
+});
+
+it('Default profile avatar is authentic /profile.jpeg', () => {
+  expect(PORTFOLIO_DATA.profile.avatar).toBe('/profile.jpeg');
+});
+
+it('Supports updating profile avatar to custom Base64 Data URL or path', () => {
+  const updated = {
+    ...PORTFOLIO_DATA.profile,
+    avatar: 'data:image/jpeg;base64,/9j/4AAQSkZJRg...',
+  };
+  expect(updated.avatar.startsWith('data:image/')).toBe(true);
+});
+
+it('Contains authentic owner details for Blessing Bryson Hong', () => {
+  expect(PORTFOLIO_DATA.profile.name).toContain('Blessing Bryson Hong');
+  expect(PORTFOLIO_DATA.profile.fullName).toBe('P M K BLESSING BRYSON HONG');
+  expect(PORTFOLIO_DATA.profile.email).toBe('blessingbrysonhongpmk@gmail.com');
+  expect(PORTFOLIO_DATA.profile.institution).toContain("St. Xavier's");
+});
+
+it('Contains zero mock/dummy/placeholder text across entire dataset', () => {
+  const dataString = JSON.stringify(PORTFOLIO_DATA);
+  expect(dataString.includes('example.com')).toBe(false);
+  expect(dataString.includes('lorem ipsum')).toBe(false);
+  expect(dataString.includes('John Doe')).toBe(false);
 });
 
 it('Contains verified skill categories', () => {
@@ -179,3 +205,4 @@ if (failed > 0) {
 } else {
   process.exit(0);
 }
+

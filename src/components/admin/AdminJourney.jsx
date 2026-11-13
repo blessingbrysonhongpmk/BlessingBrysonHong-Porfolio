@@ -28,21 +28,21 @@ export function AdminJourney() {
   const handleAddCompanyExp = () => {
     const newComp = {
       id: `company-${Date.now()}`,
-      company: 'New Company',
-      websiteUrl: 'https://example.com/',
-      displayUrl: 'example.com',
-      logo: '/companies/nexxspark-logo.svg',
-      previewImage: '/companies/nexxspark-preview.png',
-      mobilePreviewImage: '/companies/nexxspark-mobile.png',
-      role: 'Intern',
+      company: '',
+      websiteUrl: '',
+      displayUrl: '',
+      logo: '',
+      previewImage: '',
+      mobilePreviewImage: '',
+      role: '',
       period: 'CURRENT',
-      status: 'Software Engineering',
-      description: 'Working on real-world projects.',
-      technologies: ['Python'],
-      accentColor: '#6366F1',
-      accentGlow: 'rgba(99, 102, 241, 0.28)',
+      status: '',
+      description: '',
+      technologies: [],
+      accentColor: '#38bdf8',
+      accentGlow: 'rgba(56, 189, 248, 0.28)',
       themeClass: 'company-card--custom',
-      browserTitle: 'Company — Website Preview',
+      browserTitle: '',
       hidden: false,
     };
     updateDraft('companyExperiences', [...companyExperiences, newComp]);
@@ -298,7 +298,7 @@ export function AdminJourney() {
                     value={comp.websiteUrl}
                     onChange={(e) => handleUpdateCompanyExp(idx, 'websiteUrl', e.target.value)}
                     className="admin-input"
-                    placeholder="https://example.com/"
+                    placeholder="https://company-domain.com/"
                   />
                 </div>
                 <div className="admin-form-group">
@@ -308,7 +308,7 @@ export function AdminJourney() {
                     value={comp.displayUrl}
                     onChange={(e) => handleUpdateCompanyExp(idx, 'displayUrl', e.target.value)}
                     className="admin-input"
-                    placeholder="example.com"
+                    placeholder="company-domain.com"
                   />
                 </div>
                 <div className="admin-form-group">

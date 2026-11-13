@@ -18,7 +18,7 @@ export function AdminSocials() {
   const handleAddSocial = () => {
     const list = [
       ...socials,
-      { platform: 'Twitter / X', url: 'https://x.com', icon: 'message-circle', label: '@handle' },
+      { platform: '', url: 'https://', icon: 'globe', label: '' },
     ];
     updateDraft('socials', list);
     showToast('New social channel added', 'info');
